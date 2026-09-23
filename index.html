@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="R.A.W GROUP Shop - Buy Premium Products Online">
+<meta property="og:title" content="Shop - R.A.W. GROUP CHUKERA 79">
+<meta property="og:image" content="logo.png">
+<title>Shop - R.A.W. GROUP</title>
+<meta name="google-site-verification" content="_26VkCyMlTwTcghV6V7FwSTkZht3bTItlU6OgVBPJE0" />
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+body{background:#111;color:#fff;padding:10px}
+.hdr{text-align:center;padding:10px}
+.hdr img{width:80px;border-radius:50%}
+#search{width:90%;padding:10px;margin:10px;border-radius:20px;border:none}
+.brandBar{text-align:center;margin:10px}
+.brandBar button{margin:5px;padding:6px 12px;border-radius:15px;border:none;background:#333;color:#fff}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}
+.card{background:#222;padding:10px;border-radius:10px;text-align:center}
+.card img{width:100%;border-radius:8px}
+</style>
+</head>
+<body>
+<div class="hdr"><img src="logo.png"><h2>R.A.W. GROUP SHOP</h2></div>
+<input id="search" placeholder="Search product..." onkeyup="searchP()">
+<div class="brandBar" id="brandBar"></div>
+<div class="products" id="productList"></div>
 
+<script>
+let allProducts=JSON.parse(localStorage.getItem('products')||'[]');
+function makeBrandButtons(){let bar=document.getElementById('brandBar');let brands=[...new Set(allProducts.map(p=>p.brand))];bar.innerHTML='<button onclick="show(allProducts)">All</button>';brands.forEach(b=>{bar.innerHTML+=`<button onclick="filterBrand('${b}',this)">${b}</button>`})}
+function show(d){let l=document.getElementById('productList');l.innerHTML='';d.forEach(p=>{l.innerHTML+=`<div class="card"><img src="${p.img}"><h4>${p.name}</h4><p>${p.price} Rs</p></div>`})}
+function filterBrand(brand,btn){let f=allProducts.filter(p=>p.brand==brand);show(f)}
+function searchP(){let v=document.getElementById('search').value.toLowerCase();let f=allProducts.filter(p=>p.name.toLowerCase().includes(v));show(f)}
+makeBrandButtons();show(allProducts);
+</script>
+<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'ur'},'google_translate_element');}</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
