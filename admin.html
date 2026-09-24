@@ -1,1 +1,60 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin</title><style>body{font-family:sans-serif;padding:15px}input,textarea{width:100%;padding:12px;margin:6px 0;box-sizing:border-box;border:1px solid orange;border-radius:8px}button{padding:14px;background:black;color:white;width:100%;border:0;margin-top:10px;border-radius:8px}</style></head><body><h3>IJAZ ALI SHOP - Admin</h3><input id="name" placeholder="نام"><input id="price" type="number" placeholder="قیمت"><input id="cat" placeholder="کیٹیگری"><textarea id="detail" placeholder="تفصیل لکھیں"></textarea><input id="img" placeholder="تصویر کا لنک یا logo.png"><button onclick="save()">Save کریں</button><button id="dl" style="display:none;background:green" onclick="download()">⬇️ Download products.js - اسے GitHub پر لگانا لازمی ہے</button><div id="list"></div><script>let products=JSON.parse(localStorage.getItem('my_products')||'[]');function render(){list.innerHTML=products.map((p,i)=>`${i+1}. ${p.name} - ${p.price}<br><small>${p.detail||''}</small><br><br>`).join('');if(products.length)dl.style.display='block'}function save(){let p={id:Date.now(),name:name.value,price:parseInt(price.value),category:cat.value,detail:detail.value,image:img.value||'logo.png'};products.push(p);localStorage.setItem('my_products',JSON.stringify(products));render();alert('Save ہو گیا، اب سبز بٹن دبائیں');}function download(){let code='const products = '+JSON.stringify(products,null,2)+';';let blob=new Blob([code],{type:'text/javascript'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='products.js';a.click()}render();</script></body></html>
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin - IJAZ ALI SHOP</title>
+<style>
+body{margin:0;font-family:sans-serif;background:white;padding:12px}
+h3{text-align:center}
+.logo{text-align:center}
+.logo img{width:85px;height:85px;border-radius:50%;border:3px solid orange;object-fit:cover}
+input,textarea{width:100%;padding:13px;margin:7px 0;box-sizing:border-box;border:2px solid orange;border-radius:12px;background:white;outline:none}
+.btn{width:100%;padding:14px;background:orange;color:white;border:0;border-radius:12px;font-weight:bold;font-size:17px;margin-top:10px}
+#imgPrev{width:100%;max-height:220px;object-fit:contain;border:2px dashed orange;border-radius:12px;display:none;margin-top:10px}
+</style>
+</head><body>
+<h3>IJAZ ALI SHOP - Admin</h3>
+<div class="logo"><img src="logo.png" onerror="this.src='https://via.placeholder.com/85'"></div>
+
+<input id="name" placeholder="نام">
+<input id="price" type="number" placeholder="قیمت">
+<input id="cat" placeholder="کیٹیگری">
+<textarea id="detail" placeholder="تفصیل لکھیں - یہ دکان پر قیمت کے ساتھ نظر آئے گی"></textarea>
+
+<label style="font-weight:bold;display:block;margin-top:10px">تصویر منتخب کریں (کوئی بھی JPG, PNG):</label>
+<input type="file" id="imgFile" accept="image/*">
+<img id="imgPrev">
+
+<button class="btn" onclick="save()">Save کریں</button>
+<button id="dl" class="btn" style="display:none;background:#ff7a00" onclick="download()">⬇️ Download products.js</button>
+
+<div id="list" style="margin-top:20px"></div>
+
+<script>
+let products=JSON.parse(localStorage.getItem('my_products')||'[]');
+let base64Image='';
+document.getElementById('imgFile').addEventListener('change',function(e){
+ let reader=new FileReader();
+ reader.onload=function(ev){
+  base64Image=ev.target.result;
+  let p=document.getElementById('imgPrev');
+  p.src=base64Image; p.style.display='block';
+ };
+ reader.readAsDataURL(e.target.files[0]);
+});
+function render(){
+ document.getElementById('list').innerHTML=products.map((p,i)=>`${i+1}. <b>${p.name}</b> - ${p.price} Rs<br><small>${p.detail||''}</small><br><img src="${p.image}" style="width:70px;height:70px;object-fit:contain;border:2px solid orange;border-radius:10px"><hr>`).join('');
+ if(products.length)document.getElementById('dl').style.display='block';
+}
+function save(){
+ if(!name.value){alert('نام لکھیں');return}
+ if(!base64Image){alert('تصویر منتخب کریں');return}
+ let p={id:Date.now(),name:name.value,price:parseInt(price.value)||0,category:cat.value||'General',detail:detail.value,image:base64Image};
+ products.push(p); localStorage.setItem('my_products',JSON.stringify(products)); render();
+ alert('Save ہو گیا، اب نیچے Orange بٹن دبائیں');
+}
+function download(){
+ let code='const products = '+JSON.stringify(products,null,2)+';';
+ let blob=new Blob([code],{type:'text/javascript'});
+ let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='products.js';a.click();
+}
+render();
+</script>
+</body></html>
