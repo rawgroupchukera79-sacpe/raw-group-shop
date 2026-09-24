@@ -3,53 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IJAZ ALI SHOP</title>
+<meta name="google-site-verification" content="آپ کا گوگل والا کوڈ یہاں لگائیں">
+<title>IJAZ ALI SHOP - R.A.W GROUP CHUKERA 79</title>
 <style>
-body{margin:0;font-family:Arial;background:#f5f5f5}
-.header{display:flex;justify-content:space-between;align-items:flex-start;padding:10px;background:#fff;flex-wrap:wrap}
-
+body{margin:0;font-family:Arial;background:#f2f2f2}
+.header{background:#fff;padding:12px;border-bottom:2px solid orange}
+.top{display:flex;justify-content:space-between;align-items:flex-start}
 .logo{width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;margin:15px auto}
 .logo img{width:75px;height:75px;border-radius:50%;border:3px solid orange;object-fit:cover;display:block;margin:0 auto;background:orange}
-.logo h2{margin:8px 0 2px 0;font-size:20px;text-align:center}
-.logo p{margin:0;color:orange;font-weight:bold;font-size:13px;text-align:center}
-
-.profile{border:2px solid orange;border-radius:12px;padding:8px;text-align:center;background:#fff;width:168px;box-sizing:border-box;overflow:hidden}
+.logo h2{margin:8px 0 2px 0;font-size:20px}
+.logo p{margin:0;color:orange;font-weight:bold;font-size:13px}
+.profile{border:2px solid orange;border-radius:12px;padding:8px;text-align:center;background:#fff;width:168px;box-sizing:border-box}
 .profile img{width:50px;height:50px;border-radius:50%;border:2px solid orange;object-fit:cover}
 .profile b{font-size:12px;display:block;margin-top:4px}
-.profile small{font-size:8.2px;display:block;white-space:nowrap;letter-spacing:-0.2px;word-break:keep-all;line-height:12px;margin-top:2px;color:#333}
-
+.profile small{font-size:8.2px;display:block;white-space:nowrap;word-break:keep-all;letter-spacing:-0.2px;line-height:12px;color:#333;margin-top:2px}
+.search-box{margin:15px auto;text-align:center}
+.search-box input{width:90%;max-width:400px;padding:10px;border:2px solid orange;border-radius:20px;outline:none;text-align:center}
 .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;padding:12px}
 .card{background:#fff;border-radius:10px;padding:10px;text-align:center;box-shadow:0 2px 5px rgba(0,0,0,0.1)}
 .card img{width:100%;height:130px;object-fit:cover;border-radius:8px}
 </style>
 </head>
 <body>
-
 <div class="header">
-  <div class="logo">
-    <img src="logo.png">
-    <h2>IJAZ ALI SHOP</h2>
-    <p>R.A.W GROUP CHUKERA 79</p>
-  </div>
-
-  <div class="profile">
-    <img src="ejaz.jpg">
-    <b>IJAZ ALI</b>
-    <small>rawgroupchukera79@gmail.com</small>
-  </div>
+<div class="top">
+<div style="width:168px"></div>
+<div class="logo">
+<img src="logo.png">
+<h2>IJAZ ALI SHOP</h2>
+<p>R.A.W GROUP CHUKERA 79</p>
 </div>
-
+<div class="profile">
+<img src="ejaz.jpg">
+<b>IJAZ ALI</b>
+<small>rawgroupchukera79@gmail.com</small>
+</div>
+</div>
+<div class="search-box">
+<input type="text" id="search" placeholder="Search products...">
+</div>
+</div>
 <div class="products" id="products"></div>
-
 <script src="products.js"></script>
 <script>
 let container=document.getElementById('products');
-if(typeof products !== 'undefined'){
- products.forEach(p=>{
-  container.innerHTML+=`<div class="card"><img src="${p.image}"><h4>${p.name}</h4><p>Rs ${p.price}</p></div>`;
- });
+let allProducts=[];
+if(typeof products !== 'undefined'){allProducts=products;showProducts(allProducts);}
+function showProducts(list){
+container.innerHTML="";
+list.forEach(p=>{
+container.innerHTML+=`<div class="card"><img src="${p.image}"><h4>${p.name}</h4><p>Rs ${p.price}</p></div>`;
+});
 }
+document.getElementById('search').addEventListener('input',function(e){
+let val=e.target.value.toLowerCase();
+let filtered=allProducts.filter(p=>p.name.toLowerCase().includes(val));
+showProducts(filtered);
+});
 </script>
-
 </body>
 </html>
