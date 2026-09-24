@@ -1,13 +1,7 @@
-<!DOCTYPE html><html lang="ur"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin</title>
-<style>body{font-family:Arial;padding:15px;background:#f5f5f5}input{width:100%;padding:12px;margin:6px 0;border:1px solid #ccc;border-radius:8px}.btn{width:100%;padding:14px;background:#FF8C00;color:#fff;border:none;border-radius:10px;font-weight:bold;font-size:16px;margin-top:10px}</style></head><body>
-<div style="text-align:center"><img src="logo.png" style="width:80px;border-radius:15px;border:2px solid #FFD700"><h2 style="color:#FF8C00">R.A.W GROUP - Admin Panel</h2></div>
-<input id="name" placeholder="پروڈکٹ کا نام"><input id="brand" placeholder="برانڈ"><input id="price" placeholder="قیمت"><input id="desc" placeholder="تفصیل"><input type="file" id="img" accept="image/*">
-<button class="btn" onclick="save()">پروڈکٹ سیو کریں</button>
-<div id="list" style="margin-top:20px"></div>
-<script>
-let products=JSON.parse(localStorage.getItem('ejaz_products')||'[]');
-function save(){let f=document.getElementById('img').files[0];if(!f){alert('تصویر منتخب کریں');return;}let r=new FileReader();r.onload=function(e){let p={name:document.getElementById('name').value,brand:document.getElementById('brand').value,price:document.getElementById('price').value,desc:document.getElementById('desc').value,image:e.target.result};products.push(p);localStorage.setItem('ejaz_products',JSON.stringify(products));alert('سیو ہو گیا!');location.reload();};r.readAsDataURL(f);}
-function show(){let l=document.getElementById('list');l.innerHTML='';products.forEach((p,i)=>{l.innerHTML+=`<div style="background:#fff;padding:10px;margin:8px 0;border-radius:10px;display:flex;gap:10px;align-items:center"><img src="${p.image}" style="width:50px;height:50px;border-radius:8px"><div><b>${i+1}. ${p.name}</b><br><small>${p.brand} - Rs ${p.price}</small></div><button onclick="del(${i})" style="margin-left:auto;background:red;color:#fff;border:none;padding:5px 10px;border-radius:5px">Del</button></div>`;});}
-function del(i){products.splice(i,1);localStorage.setItem('ejaz_products',JSON.stringify(products));show();}
-show();
-</script></body></html>
+const products = [
+  { id: 1, name: "Shows - Bata", price: 3500, category: "Shoes", image: "logo.png" },
+  { id: 2, name: "Sout - Nishat", price: 5000, category: "Suits", image: "logo.png" },
+  { id: 3, name: "Bed sheet - R.A.W", price: 3500, category: "Bed Sheets", image: "logo.png" },
+  { id: 4, name: "Sout - ALI AND IJAZ", price: 5500, category: "Suits", image: "logo.png" },
+  { id: 5, name: "Shows - Bata", price: 4000, category: "Shoes", image: "logo.png" }
+];
