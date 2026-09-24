@@ -1,43 +1,73 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="R.A.W GROUP Shop - Buy Premium Products Online">
-<meta property="og:title" content="Shop - R.A.W. GROUP CHUKERA 79">
-<meta property="og:image" content="logo.png">
-<title>Shop - R.A.W. GROUP</title>
-<meta name="google-site-verification" content="_26VkCyMlTwTcghV6V7FwSTkZht3bTItlU6OgVBPJE0" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IJAZ ALI SHOP</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
-body{background:#ffffff;color:#000000;padding:10px}
-.hdr{text-align:center;padding:10px}
-.hdr img{width:80px;border-radius:50%}
-#search{width:90%;padding:10px;margin:10px;border-radius:20px;border:none}
-.brandBar{text-align:center;margin:10px}
-.brandBar button{margin:5px;padding:6px 12px;border-radius:15px;border:none;background:#333;color:#fff}
-.products{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}
-.card{background:#ffffff;padding:10px;border-radius:10px;text-align:center}
-.card img{width:100%;border-radius:8px}
+body{margin:0;font-family:sans-serif;background:#fff;padding:10px}
+.top-bar{display:flex;justify-content:space-between;align-items:center}
+#google_translate_element{border:1px solid orange;padding:5px;border-radius:8px;background:white}
+.header{text-align:center;margin-top:10px}
+.header img{width:80px;height:80px;border-radius:50%;border:2px solid orange;object-fit:cover}
+.header h2{margin:5px 0}
+.search-box{width:100%;padding:12px;margin:12px 0;box-sizing:border-box;border:2px solid orange;border-radius:10px;background:white;outline:none}
+.cat-btns{text-align:center;margin-bottom:10px}
+.cat-btns button{padding:7px 15px;margin:4px;border:2px solid orange;background:white;border-radius:20px;color:black}
+.cat-btns button.active{background:orange;color:white}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:white;border:2px solid orange;border-radius:12px;padding:10px;text-align:center}
+.card img{width:100%;height:110px;object-fit:contain}
+.price{font-weight:bold;color:green;margin:4px 0}
+.detail{font-size:13px;color:#555;margin:4px 0}
+.order-btn{display:block;background:orange;color:white;padding:9px;border-radius:8px;text-decoration:none;margin-top:8px;font-weight:bold}
 </style>
 </head>
 <body>
-<div class="hdr"><img src="logo.png"><h2>IJAZ ALI SHOP</h2></div>
-<input id="search" placeholder="Search product..." onkeyup="searchP()">
-<div class="brandBar" id="brandBar"></div>
+
+<div class="top-bar">
+<div id="google_translate_element"></div>
+<div></div>
+</div>
+
+<div class="header">
+<img src="logo.png" onerror="this.src='https://via.placeholder.com/80'">
+<h2>IJAZ ALI SHOP</h2>
+</div>
+
+<input type="text" id="search" class="search-box" placeholder="Search / تلاش کریں..." onkeyup="render()">
+
+<div class="cat-btns" id="catBtns"></div>
 <div class="products" id="productList"></div>
+
 <script src="products.js"></script>
- <script>
-let allProducts = [];
-try{ if(typeof products !== 'undefined') allProducts = products; }catch(e){}
-if(allProducts.length==0){ try{ allProducts = JSON.parse(localStorage.getItem('products')||'[]'); }catch(e){} }
-function makeBrandButtons(){let bar=document.getElementById('brandBar');let brands=[...new Set(allProducts.map(p=>p.brand))];bar.innerHTML='<button onclick="show(allProducts)">All</button>';brands.forEach(b=>{bar.innerHTML+=`<button onclick="filterBrand('${b}',this)">${b}</button>`})}
-function show(d){let l=document.getElementById('productList');l.innerHTML='';d.forEach(p=>{l.innerHTML+=`<div class="card"><img src="${p.img}"><h4>${p.name}</h4><p>${p.price} Rs</p></div>`})}
-function filterBrand(brand,btn){let f=allProducts.filter(p=>p.brand==brand);show(f)}
-function searchP(){let v=document.getElementById('search').value.toLowerCase();let f=allProducts.filter(p=>p.name.toLowerCase().includes(v));show(f)}
-makeBrandButtons();show(allProducts);
- </script>
-<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'ur'},'google_translate_element');}</script>
+<script>
+let currentCat='All';
+function renderCats(){
+ let cats=['All',...new Set(products.map(p=>p.category))];
+ document.getElementById('catBtns').innerHTML=cats.map(c=>`<button class="${currentCat===c?'active':''}" onclick="currentCat='${c}';render()">${c}</button>`).join('');
+}
+function render(){
+ let s=document.getElementById('search').value.toLowerCase();
+ let filtered=products.filter(p=>{
+  let matchSearch=p.name.toLowerCase().includes(s) || (p.detail||'').toLowerCase().includes(s);
+  let matchCat=(currentCat==='All' || p.category===currentCat);
+  return matchSearch && matchCat;
+ });
+ document.getElementById('productList').innerHTML=filtered.map(p=>`
+  <div class="card">
+   <img src="${p.image}" onerror="this.src='logo.png'">
+   <div><b>${p.name}</b></div>
+   <div class="price">${p.price} Rs</div>
+   <div class="detail">${p.detail||''}</div>
+   <a class="order-btn" target="_blank" href="https://wa.me/923334664227?text=السلام علیکم مجھے یہ چاہیے:%0A${encodeURIComponent(p.name)}%0Aقیمت:${p.price}%0Aتفصیل:${encodeURIComponent(p.detail||'')}" >WhatsApp پر آرڈر کریں</a>
+  </div>
+ `).join('');
+ renderCats();
+}
+function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:'en,ur,zh-CN,ar,ps',layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element');}
+render();
+</script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
-</html>
+                                                                                           </html>
