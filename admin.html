@@ -1,60 +1,57 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin - IJAZ ALI SHOP</title>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - IJAZ ALI SHOP</title>
 <style>
-body{margin:0;font-family:sans-serif;background:white;padding:12px}
-h3{text-align:center}
-.logo{text-align:center}
-.logo img{width:85px;height:85px;border-radius:50%;border:3px solid orange;object-fit:cover}
-input,textarea{width:100%;padding:13px;margin:7px 0;box-sizing:border-box;border:2px solid orange;border-radius:12px;background:white;outline:none}
-.btn{width:100%;padding:14px;background:orange;color:white;border:0;border-radius:12px;font-weight:bold;font-size:17px;margin-top:10px}
-#imgPrev{width:100%;max-height:220px;object-fit:contain;border:2px dashed orange;border-radius:12px;display:none;margin-top:10px}
+body{font-family:Arial; background:#f5f5f5; padding:15px; direction:rtl}
+.box{background:white; padding:15px; border-radius:10px; margin-bottom:15px}
+input,textarea,select{width:100%; padding:10px; margin:8px 0; border:1px solid #ccc; border-radius:5px}
+button{background:#ff6600; color:white; border:none; padding:12px; width:100%; border-radius:5px; font-size:16px}
+.item{background:white; padding:10px; margin:10px 0; border-radius:8px; display:flex; gap:10px; align-items:center}
+.item img{width:70px; height:70px; object-fit:cover; border-radius:5px}
 </style>
-</head><body>
-<h3>IJAZ ALI SHOP - Admin</h3>
-<div class="logo"><img src="logo.png" onerror="this.src='https://via.placeholder.com/85'"></div>
-
-<input id="name" placeholder="نام">
-<input id="price" type="number" placeholder="قیمت">
-<input id="cat" placeholder="کیٹیگری">
-<textarea id="detail" placeholder="تفصیل لکھیں - یہ دکان پر قیمت کے ساتھ نظر آئے گی"></textarea>
-
-<label style="font-weight:bold;display:block;margin-top:10px">تصویر منتخب کریں (کوئی بھی JPG, PNG):</label>
-<input type="file" id="imgFile" accept="image/*">
-<img id="imgPrev">
-
-<button class="btn" onclick="save()">Save کریں</button>
-<button id="dl" class="btn" style="display:none;background:#ff7a00" onclick="download()">⬇️ Download products.js</button>
-
-<div id="list" style="margin-top:20px"></div>
-
+</head>
+<body>
+<h2 style="text-align:center">IJAZ ALI SHOP - Admin</h2>
+<div class="box">
+<input id="name" placeholder="چیز کا نام لکھیں - مثلاً Bata Shoes">
+<input id="price" type="number" placeholder="قیمت لکھیں - مثلاً 3400">
+<select id="category"><option>جوتے</option><option>کپڑے</option><option>بیگ</option><option>دیگر</option></select>
+<textarea id="detail" placeholder="مکمل تفصیل لکھیں - Pure Leather, Size 9"></textarea>
+<input id="image" type="file" accept="image/*">
+<button onclick="saveItem()">Save کریں</button>
+</div>
+<div id="list"></div>
 <script>
-let products=JSON.parse(localStorage.getItem('my_products')||'[]');
-let base64Image='';
-document.getElementById('imgFile').addEventListener('change',function(e){
+let items = JSON.parse(localStorage.getItem('ijaz_shop')||'[]');
+function saveItem(){
+ let n=document.getElementById('name').value.trim();
+ let p=document.getElementById('price').value.trim();
+ if(!n){alert('نام لکھیں'); return}
+ if(!p){alert('قیمت لکھیں'); return}
+ let file=document.getElementById('image').files[0];
+ if(!file){alert('تصویر منتخب کریں'); return}
  let reader=new FileReader();
- reader.onload=function(ev){
-  base64Image=ev.target.result;
-  let p=document.getElementById('imgPrev');
-  p.src=base64Image; p.style.display='block';
+ reader.onload=function(e){
+  let obj={id:Date.now(), name:n, price:p, cat:document.getElementById('category').value, detail:document.getElementById('detail').value, img:e.target.result};
+  items.push(obj);
+  localStorage.setItem('ijaz_shop', JSON.stringify(items));
+  alert('Save ہو گیا!');
+  location.reload();
  };
- reader.readAsDataURL(e.target.files[0]);
-});
-function render(){
- document.getElementById('list').innerHTML=products.map((p,i)=>`${i+1}. <b>${p.name}</b> - ${p.price} Rs<br><small>${p.detail||''}</small><br><img src="${p.image}" style="width:70px;height:70px;object-fit:contain;border:2px solid orange;border-radius:10px"><hr>`).join('');
- if(products.length)document.getElementById('dl').style.display='block';
+ reader.readAsDataURL(file);
 }
-function save(){
- if(!name.value){alert('نام لکھیں');return}
- if(!base64Image){alert('تصویر منتخب کریں');return}
- let p={id:Date.now(),name:name.value,price:parseInt(price.value)||0,category:cat.value||'General',detail:detail.value,image:base64Image};
- products.push(p); localStorage.setItem('my_products',JSON.stringify(products)); render();
- alert('Save ہو گیا، اب نیچے Orange بٹن دبائیں');
+function show(){
+ let l=document.getElementById('list');
+ l.innerHTML='';
+ items.forEach(it=>{
+  l.innerHTML+=`<div class="item"><img src="${it.img}"><div style="flex:1"><b>${it.name}</b><br>Rs ${it.price}<br><small>${it.detail}</small></div><div><a href="${it.img}" download="${it.name}.jpg"><button style="background:green; padding:5px; font-size:12px">تصویر ڈاؤن لوڈ</button></a><button onclick="del(${it.id})" style="background:red; padding:5px; font-size:12px; margin-top:5px">ڈیلیٹ</button></div></div>`;
+ });
 }
-function download(){
- let code='const products = '+JSON.stringify(products,null,2)+';';
- let blob=new Blob([code],{type:'text/javascript'});
- let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='products.js';a.click();
-}
-render();
+function del(id){items=items.filter(x=>x.id!=id); localStorage.setItem('ijaz_shop', JSON.stringify(items)); location.reload();}
+show();
 </script>
-</body></html>
+</body>
+</html>
