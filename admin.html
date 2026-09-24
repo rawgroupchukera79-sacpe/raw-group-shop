@@ -1,86 +1,43 @@
-<!DOCTYPE html>
-<html lang="ur" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IJAZ ALI SHOP - Admin</title>
-<style>
-*{box-sizing:border-box}
-body{font-family:Arial; background:#ffffff; margin:0; padding:10px; direction:rtl}
-.header{background:#fff; border:3px solid #ff6600; padding:15px; border-radius:15px; text-align:center; margin-bottom:15px}
-.header img{width:100px; height:100px; border-radius:50%; border:3px solid #ff6600; object-fit:cover}
-.header h2{margin:10px 0 0; color:#ff6600}
-.card{background:#fff; border:2px solid #ff6600; padding:16px; border-radius:15px; margin-bottom:15px}
-label{font-weight:bold; display:block; margin-top:12px; color:#333}
-input,select,textarea{width:100%; padding:12px; margin:6px 0 10px; border:1.5px solid #ff6600; border-radius:8px; font-size:15px}
-.btn-save{background:#ff6600; color:#fff; width:100%; padding:14px; border:none; border-radius:8px; font-size:18px; font-weight:bold}
-.item{border:1.5px solid #ff6600; padding:12px; border-radius:10px; margin:10px 0; display:flex; gap:10px; align-items:center}
-.item img{width:80px; height:80px; border-radius:8px; object-fit:cover}
-.info{flex:1}
-.btn-del{background:#ff3b30; color:#fff; padding:8px 12px; border:none; border-radius:6px; margin-top:5px; width:100%}
-.btn-down{background:#25D366; color:#fff; padding:8px 12px; border:none; border-radius:6px; width:100%}
-</style>
-</head>
-<body>
-
-<div class="header">
-<img src="ijazahmad.jpg" onerror="this.src='https://via.placeholder.com/100'">
-<h2>IJAZ ALI SHOP</h2>
-<p>ہمارا لوگو - ایڈمن پینل</p>
-</div>
-
-<div class="card">
-<h3 style="color:#ff6600; border-bottom:2px solid #ff6600; padding-bottom:5px">نیا آئٹم شامل کریں</h3>
-
-<label>1- جس کمپنی کا آئٹم ہے اس کا نام</label>
-<input id="company" placeholder="مثلاً Bata, Nike, Nishat">
-
-<label>2- آئٹم کی کیٹیگری</label>
-<select id="category">
-<option value="">کیٹیگری منتخب کریں</option>
-<option value="جوتے">جوتے</option>
-<option value="کپڑے">کپڑے</option>
-<option value="بیگ">بیگ</option>
-<option value="دیگر">دیگر</option>
-</select>
-
-<label>3- آئٹم کا نام</label>
-<input id="name" placeholder="مثلاً Black Formal Shoes">
-
-<label>4- آئٹم کی مکمل تفصیل</label>
-<textarea id="detail" rows="3" placeholder="مثلاً Pure Leather, Size 9, Best Quality"></textarea>
-
-<label>5- آئٹم کی تصویر اپلوڈ کریں</label>
-<input id="image" type="file" accept="image/*">
-
-<br><br>
-<button class="btn-save" onclick="saveItem()">Save کریں</button>
-<p id="msg" style="text-align:center; color:green; font-weight:bold"></p>
-</div>
-
-<div class="card">
-<h3 style="color:#ff6600">موجودہ سامان - Delete کا آپشن</h3>
-<div id="list"></div>
-</div>
-
+<!DOCTYPE html><html lang="ur"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin</title>
+<style>body{font-family:Arial;padding:15px;background:#f5f5f5}input{width:100%;padding:12px;margin:6px 0;border:1px solid #ccc;border-radius:8px;box-sizing:border-box}.btn{width:100%;padding:14px;background:#FF8C00;color:#fff;border:none;border-radius:10px;font-weight:bold;font-size:16px;margin-top:10px}#preview{width:100%;max-height:200px;object-fit:contain;display:none;margin-top:10px;border-radius:10px;border:2px dashed #FF8C00}</style></head><body>
+<div style="text-align:center"><img src="logo.png" style="width:80px;border-radius:15px;border:2px solid #FFD700"><h2 style="color:#FF8C00">R.A.W GROUP - Admin Panel</h2></div>
+<input id="name" placeholder="پروڈکٹ کا نام"><input id="brand" placeholder="برانڈ"><input id="price" placeholder="قیمت"><input id="desc" placeholder="تفصیل"><input type="file" id="img" accept="image/*">
+<img id="preview">
+<button class="btn" onclick="save()">پروڈکٹ سیو کریں</button>
+<div id="list" style="margin-top:20px"></div>
 <script>
-let items = JSON.parse(localStorage.getItem('ijaz_products')||'[]');
-
-function saveItem(){
- let company = document.getElementById('company').value.trim();
- let category = document.getElementById('category').value;
- let name = document.getElementById('name').value.trim();
- let detail = document.getElementById('detail').value.trim();
- let file = document.getElementById('image').files[0];
-
- if(!company){alert('کمپنی کا نام لکھیں'); return;}
- if(!category){alert('کیٹیگری منتخب کریں'); return;}
- if(!name){alert('آئٹم کا نام لکھیں'); return;}
- if(!file){alert('تصویر منتخب کریں'); return;}
-
- let reader = new FileReader();
- reader.onload = function(e){
-  items.unshift({id:Date.now(), company:company, category:category, name:name, detail:detail, img:e.target.result});
-  localStorage.setItem('ijaz_products', JSON.stringify(items));
-  document.getElementById('msg').innerText = '✅ Save ہو گیا!';
-  document.getElementById('company').value=''; document.getElementById('category').value=''; document.getElementById('name').value=''; document.getElementById('detail').value=''; document.getElementById('image').value
+let products=JSON.parse(localStorage.getItem('ejaz_products')||'[]');
+let finalImage = "";
+document.getElementById('img').addEventListener('change',function(e){
+ let file=e.target.files[0]; if(!file) return;
+ let reader=new FileReader();
+ reader.onload=function(ev){
+  let im=new Image();
+  im.onload=function(){
+   let canvas=document.createElement('canvas');
+   let maxW=500; let scale=maxW/im.width; if(scale>1) scale=1;
+   canvas.width=im.width*scale; canvas.height=im.height*scale;
+   canvas.getContext('2d').drawImage(im,0,0,canvas.width,canvas.height);
+   finalImage=canvas.toDataURL('image/jpeg',0.6);
+   document.getElementById('preview').src=finalImage;
+   document.getElementById('preview').style.display='block';
+  }
+  im.src=ev.target.result;
+ }
+ reader.readAsDataURL(file);
+});
+function save(){
+ if(!finalImage){alert('تصویر منتخب کریں');return;}
+ if(!document.getElementById('name').value){alert('نام لکھیں');return;}
+ let p={name:document.getElementById('name').value,brand:document.getElementById('brand').value,price:document.getElementById('price').value,desc:document.getElementById('desc').value,image:finalImage};
+ products.push(p);
+ try{
+  localStorage.setItem('ejaz_products',JSON.stringify(products));
+  alert('ماشاءاللہ سیو ہو گیا! ✅');
+  location.reload();
+ }catch(err){ alert('جگہ بھر گئی ہے، ایک پرانا ڈیلیٹ کریں'); }
+}
+function show(){let l=document.getElementById('list');l.innerHTML='';products.forEach((p,i)=>{l.innerHTML+=`<div style="background:#fff;padding:10px;margin:8px 0;border-radius:10px;display:flex;gap:10px;align-items:center"><img src="${p.image}" style="width:50px;height:50px;border-radius:8px;object-fit:cover"><div><b>${i+1}. ${p.name}</b><br><small>${p.brand} - Rs ${p.price}</small></div><button onclick="del(${i})" style="margin-left:auto;background:red;color:#fff;border:none;padding:5px 10px;border-radius:5px">Del</button></div>`;});}
+function del(i){products.splice(i,1);localStorage.setItem('ejaz_products',JSON.stringify(products));show();}
+show();
+</script></body></html>
