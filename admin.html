@@ -1,7 +1,25 @@
-const products = [
-  { id: 1, name: "Shows - Bata", price: 3500, category: "Shoes", image: "logo.png" },
-  { id: 2, name: "Sout - Nishat", price: 5000, category: "Suits", image: "logo.png" },
-  { id: 3, name: "Bed sheet - R.A.W", price: 3500, category: "Bed Sheets", image: "logo.png" },
-  { id: 4, name: "Sout - ALI AND IJAZ", price: 5500, category: "Suits", image: "logo.png" },
-  { id: 5, name: "Shows - Bata", price: 4000, category: "Shoes", image: "logo.png" }
-];
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IJAZ Admin</title>
+<style>body{font-family:sans-serif;padding:20px}input{width:100%;padding:10px;margin:5px 0}button{padding:12px;background:black;color:white;width:100%;margin-top:10px}</style>
+</head><body>
+<h2>IJAZ ALI SHOP - Admin</h2>
+<input id="name" placeholder="نام لکھیں مثلا Sout - Nishat">
+<input id="price" placeholder="قیمت مثلا 5000" type="number">
+<input id="cat" placeholder="کیٹگری مثلا Suits">
+<button onclick="save()">Save کریں</button>
+<button id="dl" style="display:none;background:green" onclick="download()">⬇️ Download products.js</button>
+<p id="list"></p>
+<script>
+let products = JSON.parse(localStorage.getItem('my_products') || '[]');
+function render(){ list.innerHTML = products.map((p,i)=> `${i+1}. ${p.name} - ${p.price} <br>`).join(''); if(products.length) dl.style.display='block'; }
+function save(){
+ let p={id:Date.now(), name:document.getElementById('name').value, price:parseInt(document.getElementById('price').value), category:document.getElementById('cat').value, image:'logo.png'};
+ products.push(p); localStorage.setItem('my_products', JSON.stringify(products)); render(); alert('Save ہو گیا');
+}
+function download(){
+ let code = 'const products = ' + JSON.stringify(products, null, 2) + ';';
+ let blob = new Blob([code], {type:'text/javascript'}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='products.js'; a.click();
+}
+render();
+</script></body></html>
