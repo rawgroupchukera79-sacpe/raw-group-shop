@@ -1,43 +1,62 @@
-<!DOCTYPE html><html lang="ur"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin</title>
-<style>body{font-family:Arial;padding:15px;background:#f5f5f5}input{width:100%;padding:12px;margin:6px 0;border:1px solid #ccc;border-radius:8px;box-sizing:border-box}.btn{width:100%;padding:14px;background:#FF8C00;color:#fff;border:none;border-radius:10px;font-weight:bold;font-size:16px;margin-top:10px}#preview{width:100%;max-height:200px;object-fit:contain;display:none;margin-top:10px;border-radius:10px;border:2px dashed #FF8C00}</style></head><body>
-<div style="text-align:center"><img src="logo.png" style="width:80px;border-radius:15px;border:2px solid #FFD700"><h2 style="color:#FF8C00">R.A.W GROUP - Admin Panel</h2></div>
-<input id="name" placeholder="پروڈکٹ کا نام"><input id="brand" placeholder="برانڈ"><input id="price" placeholder="قیمت"><input id="desc" placeholder="تفصیل"><input type="file" id="img" accept="image/*">
-<img id="preview">
-<button class="btn" onclick="save()">پروڈکٹ سیو کریں</button>
-<div id="list" style="margin-top:20px"></div>
-<script>
-let products=JSON.parse(localStorage.getItem('ejaz_products')||'[]');
-let finalImage = "";
-document.getElementById('img').addEventListener('change',function(e){
- let file=e.target.files[0]; if(!file) return;
- let reader=new FileReader();
- reader.onload=function(ev){
-  let im=new Image();
-  im.onload=function(){
-   let canvas=document.createElement('canvas');
-   let maxW=500; let scale=maxW/im.width; if(scale>1) scale=1;
-   canvas.width=im.width*scale; canvas.height=im.height*scale;
-   canvas.getContext('2d').drawImage(im,0,0,canvas.width,canvas.height);
-   finalImage=canvas.toDataURL('image/jpeg',0.6);
-   document.getElementById('preview').src=finalImage;
-   document.getElementById('preview').style.display='block';
-  }
-  im.src=ev.target.result;
- }
- reader.readAsDataURL(file);
-});
-function save(){
- if(!finalImage){alert('تصویر منتخب کریں');return;}
- if(!document.getElementById('name').value){alert('نام لکھیں');return;}
- let p={name:document.getElementById('name').value,brand:document.getElementById('brand').value,price:document.getElementById('price').value,desc:document.getElementById('desc').value,image:finalImage};
- products.push(p);
- try{
-  localStorage.setItem('ejaz_products',JSON.stringify(products));
-  alert('ماشاءاللہ سیو ہو گیا! ✅');
-  location.reload();
- }catch(err){ alert('جگہ بھر گئی ہے، ایک پرانا ڈیلیٹ کریں'); }
+<!DOCTYPE html><html lang="ur"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin - R.A.W GROUP</title>
+<style>body{font-family:Arial;background:#fff7eb;margin:0;padding:15px}input,textarea{width:100%;padding:12px;margin:6px 0;border:2px solid #FF8C00;border-radius:10px;box-sizing:border-box}button{width:100%;padding:12px;background:#FF8C00;color:#fff;border:none;border-radius:10px;font-weight:bold;font-size:16px;margin-top:10px}.card{background:#fff;padding:10px;margin:8px 0;border-radius:10px;display:flex;gap:10px;align-items:center;box-shadow:0 2px 5px #0002} .card img{width:60px;height:60px;object-fit:cover;border-radius:8px}</style>
+<script type="importmap">{"imports":{"firebase/app":"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js","firebase/firestore":"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"}}</script>
+</head><body>
+<h2 style="color:#FF8C00;text-align:center">R.A.W GROUP - Admin Panel</h2>
+<input id="name" placeholder="پروڈکٹ کا نام - جیسے Bed Sheet">
+<input id="brand" placeholder="برانڈ - جیسے Royal">
+<input id="price" type="number" placeholder="قیمت - جیسے 6800">
+<input id="image" placeholder="تصویر کا لنک (Image URL)">
+<textarea id="desc" placeholder="تفصیل"></textarea>
+<button id="addBtn">Add Product to Shop</button>
+<p id="msg" style="text-align:center;color:green"></p>
+<hr>
+<h3>موجودہ پروڈکٹس</h3>
+<div id="list"></div>
+
+<script type="module">
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
+const firebaseConfig = {
+  apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE",
+  authDomain: "raw-group-shop.firebaseapp.com",
+  projectId: "raw-group-shop",
+  storageBucket: "raw-group-shop.firebasestorage.app",
+  messagingSenderId: "488689802066",
+  appId: "1:488689802066:web:1437531e15df63e958388b",
+  measurementId: "G-HNCH9V8MFF"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+async function load(){
+ const snap = await getDocs(collection(db, "products"));
+ const listDiv = document.getElementById('list'); listDiv.innerHTML='';
+ snap.forEach(d=>{
+  const p = d.data();
+  listDiv.innerHTML+=`<div class="card"><img src="${p.image}" onerror="this.src='logo.png'"><div style="flex:1"><b>${p.name}</b><br>Rs ${p.price}</div><button onclick="delProduct('${d.id}')" style="width:auto;background:red;padding:6px 12px">Delete</button></div>`;
+ });
 }
-function show(){let l=document.getElementById('list');l.innerHTML='';products.forEach((p,i)=>{l.innerHTML+=`<div style="background:#fff;padding:10px;margin:8px 0;border-radius:10px;display:flex;gap:10px;align-items:center"><img src="${p.image}" style="width:50px;height:50px;border-radius:8px;object-fit:cover"><div><b>${i+1}. ${p.name}</b><br><small>${p.brand} - Rs ${p.price}</small></div><button onclick="del(${i})" style="margin-left:auto;background:red;color:#fff;border:none;padding:5px 10px;border-radius:5px">Del</button></div>`;});}
-function del(i){products.splice(i,1);localStorage.setItem('ejaz_products',JSON.stringify(products));show();}
-show();
-</script></body></html>
+window.delProduct = async (id)=>{
+ if(!confirm("ڈیلیٹ کرنا ہے؟")) return;
+ await deleteDoc(doc(db, "products", id));
+ load();
+}
+
+document.getElementById('addBtn').onclick = async ()=>{
+ const name = document.getElementById('name').value.trim();
+ const brand = document.getElementById('brand').value.trim();
+ const price = document.getElementById('price').value.trim();
+ const image = document.getElementById('image').value.trim();
+ const desc = document.getElementById('desc').value.trim();
+ if(!name||!price||!image){ alert("نام، قیمت، اور تصویر کا لنک ضروری ہے"); return; }
+ document.getElementById('msg').innerText="اپلوڈ ہو رہا ہے...";
+ await addDoc(collection(db, "products"), {name, brand, price, image, desc, createdAt: Date.now()});
+ document.getElementById('msg').innerText="ہو گیا! دکان پر آ گیا";
+ document.getElementById('name').value=''; document.getElementById('price').value=''; document.getElementById('image').value=''; document.getElementById('desc').value='';
+ load();
+}
+load();
+</script>
+</body></html>
