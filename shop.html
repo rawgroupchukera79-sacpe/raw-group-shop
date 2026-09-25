@@ -50,7 +50,7 @@ function filterShop(){
  let q=document.getElementById('search').value.toLowerCase();
  render(all.filter(p=>(p.name+p.brand+p.desc).toLowerCase().includes(q)));
 }
-render(products);
+render(all);
 </script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body></html>
