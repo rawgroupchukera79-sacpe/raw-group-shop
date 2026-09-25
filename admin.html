@@ -1,62 +1,98 @@
-<!DOCTYPE html><html lang="ur"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin - R.A.W GROUP</title>
-<style>body{font-family:Arial;background:#fff7eb;margin:0;padding:15px}input,textarea{width:100%;padding:12px;margin:6px 0;border:2px solid #FF8C00;border-radius:10px;box-sizing:border-box}button{width:100%;padding:12px;background:#FF8C00;color:#fff;border:none;border-radius:10px;font-weight:bold;font-size:16px;margin-top:10px}.card{background:#fff;padding:10px;margin:8px 0;border-radius:10px;display:flex;gap:10px;align-items:center;box-shadow:0 2px 5px #0002} .card img{width:60px;height:60px;object-fit:cover;border-radius:8px}</style>
-<script type="importmap">{"imports":{"firebase/app":"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js","firebase/firestore":"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"}}</script>
-</head><body>
-<h2 style="color:#FF8C00;text-align:center">R.A.W GROUP - Admin Panel</h2>
-<input id="name" placeholder="پروڈکٹ کا نام - جیسے Bed Sheet">
-<input id="brand" placeholder="برانڈ - جیسے Royal">
-<input id="price" type="number" placeholder="قیمت - جیسے 6800">
-<input id="image" placeholder="تصویر کا لنک (Image URL)">
-<textarea id="desc" placeholder="تفصیل"></textarea>
-<button id="addBtn">Add Product to Shop</button>
-<p id="msg" style="text-align:center;color:green"></p>
-<hr>
-<h3>موجودہ پروڈکٹس</h3>
-<div id="list"></div>
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - IJAZ ALI</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-4">
+<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
+<h2 class="text-xl font-bold mb-4 text-center">IJAZ ALI - نیا جوتا ڈالیں</h2>
+
+<input id="name" type="text" placeholder="جوتے کا نام مثلاً Shah Peshawari" class="w-full border p-2 rounded mb-3">
+<input id="price" type="number" placeholder="قیمت مثلاً 4500" class="w-full border p-2 rounded mb-3">
+
+<!-- یہ رہا تصویر اپلوڈ والا بٹن -->
+<label class="block bg-gray-200 p-3 rounded text-center mb-3 cursor-pointer">
+  📸 تصویر منتخب کریں (گیلری سے)
+  <input id="file" type="file" accept="image/*" class="hidden">
+</label>
+<img id="preview" class="w-full h-40 object-cover rounded mb-3 hidden">
+
+<p id="status" class="text-center text-sm text-gray-500 mb-3"></p>
+
+<button id="btn" onclick="addProduct()" class="w-full bg-orange-400 text-white py-3 rounded font-bold">Add Product - دکان پر لگائیں</button>
+</div>
 
 <script type="module">
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE",
+  apiKey: "AIzaSy...apni wali",
   authDomain: "raw-group-shop.firebaseapp.com",
   projectId: "raw-group-shop",
-  storageBucket: "raw-group-shop.firebasestorage.app",
-  messagingSenderId: "488689802066",
-  appId: "1:488689802066:web:1437531e15df63e958388b",
-  measurementId: "G-HNCH9V8MFF"
+  storageBucket: "raw-group-shop.appspot.com",
+  messagingSenderId: "...",
+  appId: "..."
 };
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
-async function load(){
- const snap = await getDocs(collection(db, "products"));
- const listDiv = document.getElementById('list'); listDiv.innerHTML='';
- snap.forEach(d=>{
-  const p = d.data();
-  listDiv.innerHTML+=`<div class="card"><img src="${p.image}" onerror="this.src='logo.png'"><div style="flex:1"><b>${p.name}</b><br>Rs ${p.price}</div><button onclick="delProduct('${d.id}')" style="width:auto;background:red;padding:6px 12px">Delete</button></div>`;
- });
-}
-window.delProduct = async (id)=>{
- if(!confirm("ڈیلیٹ کرنا ہے؟")) return;
- await deleteDoc(doc(db, "products", id));
- load();
-}
+let selectedFile = null;
+document.getElementById("file").addEventListener("change", (e)=>{
+  selectedFile = e.target.files[0];
+  const preview = document.getElementById("preview");
+  preview.src = URL.createObjectURL(selectedFile);
+  preview.classList.remove("hidden");
+  document.getElementById("status").innerText = "تصویر منتخب ہو گئی: " + selectedFile.name;
+});
 
-document.getElementById('addBtn').onclick = async ()=>{
- const name = document.getElementById('name').value.trim();
- const brand = document.getElementById('brand').value.trim();
- const price = document.getElementById('price').value.trim();
- const image = document.getElementById('image').value.trim();
- const desc = document.getElementById('desc').value.trim();
- if(!name||!price||!image){ alert("نام، قیمت، اور تصویر کا لنک ضروری ہے"); return; }
- document.getElementById('msg').innerText="اپلوڈ ہو رہا ہے...";
- await addDoc(collection(db, "products"), {name, brand, price, image, desc, createdAt: Date.now()});
- document.getElementById('msg').innerText="ہو گیا! دکان پر آ گیا";
- document.getElementById('name').value=''; document.getElementById('price').value=''; document.getElementById('image').value=''; document.getElementById('desc').value='';
- load();
+window.addProduct = async function(){
+  const name = document.getElementById("name").value;
+  const price = document.getElementById("price").value;
+  const status = document.getElementById("status");
+  const btn = document.getElementById("btn");
+
+  if(!name ||!price ||!selectedFile){
+    alert("نام، قیمت اور تصویر تینوں ضروری ہیں");
+    return;
+  }
+
+  btn.innerText = "اپلوڈ ہو رہا ہے...";
+  btn.disabled = true;
+  status.innerText = "تصویر اپلوڈ ہو رہی ہے...";
+
+  try {
+    // 1. تصویر Storage پر اپلوڈ
+    const storageRef = ref(storage, 'products/' + Date.now() + '_' + selectedFile.name);
+    await uploadBytes(storageRef, selectedFile);
+    const imageUrl = await getDownloadURL(storageRef);
+
+    // 2. Firestore میں Save
+    status.innerText = "دکان پر لگایا جا رہا ہے...";
+    await addDoc(collection(db, "products"), {
+      name: name,
+      price: price,
+      image: imageUrl,
+      createdAt: Date.now()
+    });
+
+    status.innerText = "✅ ہو گیا! دکان پر آ گیا";
+    btn.innerText = "Add Product - دکان پر لگائیں";
+    btn.disabled = false;
+    alert("ماشاءاللہ پروڈکٹ دکان پر لگ گیا!");
+  } catch (e) {
+    console.error(e);
+    alert("Error: " + e.message);
+    status.innerText = "Error: " + e.message;
+    btn.disabled = false;
+  }
 }
-load();
 </script>
-</body></html>
+</body>
+</html>
