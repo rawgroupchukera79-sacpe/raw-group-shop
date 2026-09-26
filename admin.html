@@ -4,60 +4,75 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>R.A.W GROUP - Admin Panel</title>
 <style>
-body{background:#f5f5f5; font-family:sans-serif; margin:0; padding:15px;}
-.main-box{
-  max-width:450px; margin:20px auto; background:white;
-  border:3px solid #FF8C00; /* سارے بارڈر میں اورنج لائن */
-  border-radius:18px; padding:20px;
-  box-shadow: 0 0 0 3px white, 0 0 0 6px #FF8C00; /* کانوں کے آگے پیچھے ڈبل اورنج بارڈر */
+:root{ --orange:#FF8C00; }
+body{background:#f2f2f2; font-family:sans-serif; margin:0; padding:12px;}
+.box{
+  max-width:500px; margin:15px auto; background:white;
+  border:3px solid var(--orange);
+  border-radius:18px; padding:18px;
+  box-shadow: 0 0 0 4px white, 0 0 0 7px var(--orange);
 }
 .logo-box{
-  width:90px; height:90px; margin:0 auto 10px auto;
-  border:3px solid #FF8C00; border-radius:50%;
-  display:flex; align-items:center; justify-content:center; overflow:hidden; background:white;
+  width:85px; height:85px; margin:0 auto 10px auto;
+  border:3px solid var(--orange); border-radius:50%; overflow:hidden;
+  display:flex; align-items:center; justify-content:center; background:white;
 }
 .logo-box img{width:100%; height:100%; object-fit:cover;}
-h1{color:#FF8C00; font-size:26px; text-align:center; margin:10px 0 20px 0;}
+h1{color:var(--orange); text-align:center; font-size:24px; margin:8px 0 15px 0;}
 input,select,textarea{
-  width:100%; padding:13px; margin:7px 0;
-  border:2px solid #FF8C00; border-radius:10px; /* ہر خانے کا بارڈر اورنج */
-  font-size:16px; box-sizing:border-box; background:white; outline:none;
+  width:100%; padding:12px; margin:6px 0; box-sizing:border-box;
+  border:2px solid var(--orange); border-radius:10px; font-size:16px; outline:none; background:white;
 }
-button{width:100%; padding:14px; background:#FF8C00; color:white; border:2px solid #FF8C00; border-radius:10px; font-size:18px; font-weight:bold; cursor:pointer; margin-top:10px;}
-#status{text-align:center; color:green; font-weight:bold; margin-top:10px; padding:8px; border:1px dashed #FF8C00; border-radius:8px;}
-#preview{width:100%; border-radius:10px; margin-top:10px; display:none; border:2px solid #FF8C00;}
+button{cursor:pointer;}
+.btn-add{
+  width:100%; padding:14px; background:var(--orange); color:white;
+  border:2px solid var(--orange); border-radius:10px; font-weight:bold; font-size:18px; margin-top:8px;
+}
+.btn-add:disabled{opacity:0.6}
+#status{text-align:center; margin-top:8px; font-weight:bold; color:green; border:1px dashed var(--orange); padding:7px; border-radius:8px;}
+#preview{width:100%; border-radius:10px; border:2px solid var(--orange); display:none; margin-top:8px;}
+hr{border:none; border-top:2px dashed var(--orange); margin:20px 0;}
+h2{color:#111; text-align:center; font-size:20px; margin:0 0 10px 0;}
+.product-item{
+  display:flex; gap:10px; align-items:center;
+  border:2px solid var(--orange); border-radius:12px; padding:8px; margin-bottom:10px; background:#fffaf3;
+}
+.product-item img{width:65px; height:65px; object-fit:cover; border-radius:8px; border:1px solid var(--orange);}
+.p-info{flex:1; text-align:right; font-size:14px;}
+.p-info b{font-size:15px; display:block;}
+.btn-del{background:#ff1a1a; color:white; border:none; padding:8px 12px; border-radius:8px; font-weight:bold;}
 </style>
 </head>
 <body>
-<div class="main-box">
-  <!-- یہ لوگو آٹومیٹک لگ جائے گا -->
-  <div class="logo-box">
-    <img id="autoLogo" src="logo.png" alt="RAW">
-  </div>
+<div class="box">
+  <div class="logo-box"><img src="logo.png" onerror="this.parentElement.innerHTML='<b style=color:var(--orange)>R.A.W</b>'"></div>
   <h1>R.A.W GROUP - Admin Panel</h1>
 
   <select id="category">
-    <option value="Shoes">👟 جوتے</option>
-    <option value="Clothes">👕 کپڑے</option>
-    <option value="Watches">⌚ گھڑیاں</option>
-    <option value="Perfume">🧴 پرفیوم</option>
-    <option value="Other">📦 دیگر</option>
+    <option value="Shoes">👟 جوتے - Shoes</option>
+    <option value="Clothes">👕 کپڑے - Clothes</option>
+    <option value="Watches">⌚ گھڑیاں - Watches</option>
+    <option value="Perfume">🧴 پرفیوم - Perfume</option>
+    <option value="Other">📦 دیگر - Other</option>
   </select>
-
   <input id="name" placeholder="پروڈکٹ کا نام *">
-  <input id="brand" placeholder="برانڈ">
+  <input id="brand" placeholder="برانڈ (مثال: Nike)">
   <input id="price" type="number" placeholder="قیمت *">
-  <textarea id="desc" placeholder="تفصیل"></textarea>
+  <textarea id="desc" rows="2" placeholder="تفصیل"></textarea>
   <input id="imageFile" type="file" accept="image/*">
   <img id="preview">
   <div id="status">تصویر منتخب کریں</div>
-  <button id="addBtn">پروڈکٹ سیو کریں</button>
-  <a href="shop.html" style="display:block; text-align:center; margin-top:12px; color:#FF8C00; font-weight:bold; text-decoration:none; border:2px solid #FF8C00; padding:8px; border-radius:8px;">← دکان دیکھیں</a>
+  <button class="btn-add" id="addBtn">پروڈکٹ سیو کریں</button>
+  <a href="shop.html" style="display:block; text-align:center; margin-top:10px; text-decoration:none; color:var(--orange); font-weight:bold; border:2px solid var(--orange); padding:8px; border-radius:8px;">← دکان دیکھیں</a>
+
+  <hr>
+  <h2>موجودہ پروڈکٹس (ڈیلیٹ کریں)</h2>
+  <div id="productList">لوڈ ہو رہا ہے...</div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, serverTimestamp, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE",
@@ -67,21 +82,73 @@ const firebaseConfig = {
   messagingSenderId: "488689802066",
   appId: "1:488689802066:web:1437531e15df63e958388b"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// لوگو آٹومیٹک لگانے کا کوڈ
-const logo = document.getElementById('autoLogo');
-logo.onerror = () => {
-  // اگر logo.png نہ ملے تو RAW لکھا ہوا دکھا دے
-  logo.parentElement.innerHTML = '<b style="color:#FF8C00; font-size:22px;">R.A.W</b>';
-};
-
 let file=null;
 function compress(f){return new Promise(r=>{const rd=new FileReader();rd.onload=e=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');const w=500;c.width=w;c.height=(im.height*w)/im.width;c.getContext('2d').drawImage(im,0,0,c.width,c.height);r(c.toDataURL('image/jpeg',0.6));};im.src=e.target.result;};rd.readAsDataURL(f);});}
-document.getElementById('imageFile').addEventListener('change',e=>{file=e.target.files[0];if(!file)return;const p=document.getElementById('preview');p.src=URL.createObjectURL(file);p.style.display='block';document.getElementById('status').innerText='تصویر تیار ✅';});
-document.getElementById('addBtn').addEventListener('click',async()=>{const name=document.getElementById('name').value.trim();const price=document.getElementById('price').value.trim();if(!name||!price||!file){alert('نام، قیمت، تصویر ضروری ہے');return;}const s=document.getElementById('status');const b=document.getElementById('addBtn');b.disabled=true;s.innerText='اپلوڈ ہو رہا ہے...';try{const imgUrl=await compress(file);await addDoc(collection(db,'products'),{category:document.getElementById('category').value,name,price:Number(price),brand:document.getElementById('brand').value,desc:document.getElementById('desc').value,image:imgUrl,createdAt:serverTimestamp()});s.innerText='ماشاءاللہ لگ گیا ✅';setTimeout(()=>location.href='shop.html',1000);}catch(err){s.innerText='ایرر: '+err.message;b.disabled=false;}});
+
+const preview=document.getElementById('preview');
+const status=document.getElementById('status');
+const listDiv=document.getElementById('productList');
+
+document.getElementById('imageFile').addEventListener('change',e=>{
+ file=e.target.files[0];
+ if(!file) return;
+ preview.src=URL.createObjectURL(file);
+ preview.style.display='block';
+ status.innerText='تصویر تیار ✅';
+});
+
+document.getElementById('addBtn').addEventListener('click',async()=>{
+ const name=document.getElementById('name').value.trim();
+ const price=document.getElementById('price').value.trim();
+ if(!name||!price||!file){alert('نام، قیمت، تصویر لازمی ہے');return;}
+ const btn=document.getElementById('addBtn');
+ btn.disabled=true; status.innerText='سیو ہو رہا ہے...';
+ try{
+  const imgUrl=await compress(file);
+  await addDoc(collection(db,'products'),{
+    category:document.getElementById('category').value,
+    name, brand:document.getElementById('brand').value,
+    price:Number(price), desc:document.getElementById('desc').value,
+    image:imgUrl, createdAt:serverTimestamp()
+  });
+  status.innerText='ماشاءاللہ سیو ہو گیا ✅';
+  file=null; document.getElementById('imageFile').value='';
+  document.getElementById('name').value=''; document.getElementById('price').value='';
+  preview.style.display='none';
+  loadProducts();
+ }catch(err){status.innerText='ایرر: '+err.message; alert(err.message);}
+ btn.disabled=false; btn.innerText='پروڈکٹ سیو کریں';
+});
+
+async function loadProducts(){
+ listDiv.innerHTML='لوڈ ہو رہا ہے...';
+ try{
+  const q = query(collection(db,'products'), orderBy('createdAt','desc'));
+  const snap = await getDocs(q);
+  if(snap.empty){listDiv.innerHTML='<p style=text-align:center>کوئی پروڈکٹ نہیں</p>'; return;}
+  listDiv.innerHTML='';
+  snap.forEach(d=>{
+    const p=d.data();
+    const div=document.createElement('div');
+    div.className='product-item';
+    div.innerHTML=`
+      <img src="${p.image}">
+      <div class="p-info"><b>${p.name}</b><span>${p.category} - Rs.${p.price}</span></div>
+      <button class="btn-del">ڈیلیٹ</button>
+    `;
+    div.querySelector('.btn-del').addEventListener('click', async()=>{
+      if(!confirm('کیا آپ واقعی '+p.name+' کو ڈیلیٹ کرنا چاہتے ہیں؟')) return;
+      await deleteDoc(doc(db,'products',d.id));
+      div.remove();
+    });
+    listDiv.appendChild(div);
+  });
+ }catch(e){ listDiv.innerHTML='ایرر: '+e.message; }
+}
+loadProducts();
 </script>
 </body>
 </html>
