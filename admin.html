@@ -10,7 +10,7 @@ let savedPass = localStorage.getItem("admin_pass_raw");
 if(savedPass!== "ijaz79"){
   let p = prompt("ایڈمن پاس ورڈ لکھیں:");
   if(p!== "ijaz79"){
-    document.body.innerHTML = "<h1 style='text-align:center;margin-top:100px;color:red;font-family:Arial'>غلط پاس ورڈ</h1>";
+    document.body.innerHTML = "<h1 style='text-align:center;margin-top:100px;color:red'>غلط پاس ورڈ</h1>";
     throw new Error("Wrong password");
   }else{
     localStorage.setItem("admin_pass_raw", "ijaz79");
@@ -23,22 +23,29 @@ if(savedPass!== "ijaz79"){
 <div class="bg-[#FF8C00] p-3 shadow-lg">
   <div class="flex items-center justify-between max-w-lg mx-auto">
     <div class="flex items-center gap-2">
-      <img src="logo.png" class="w-11 h-11 bg-white rounded-full p-1 border-2 border-white" onerror="this.src='https://via.placeholder.com/44'">
+      <img src="logo.png" class="w-11 h-11 bg-white rounded-full p-1 border-2 border-white">
       <div class="text-white leading-none"><h1 class="font-extrabold text-[18px]">IJAZ ALI</h1><p class="text-[11px] mt-1">R.A.W GROUP CHAKERA</p></div>
     </div>
-    <img src="ejaz.jpg" class="w-11 h-11 rounded-full border-2 border-white object-cover" onerror="this.src='logo.png'">
+    <img src="ejaz.jpg" class="w-11 h-11 rounded-full border-2 border-white object-cover">
   </div>
 </div>
+
 <div class="max-w-lg mx-auto p-4">
   <div class="bg-white rounded-[18px] p-5 shadow-md mt-3 border-t-4 border-[#FF8C00]">
     <h2 class="text-center font-bold text-[22px] mb-5">نیا پروڈکٹ ڈالیں</h2>
+
     <input id="name" class="w-full border-2 border-gray-200 rounded-xl p-3 mb-3 text-center outline-none" placeholder="نام - مثلاً Peshawari Chappal">
     <input id="price" type="number" class="w-full border-2 border-gray-200 rounded-xl p-3 mb-3 text-center outline-none" placeholder="قیمت - مثلاً 4500">
-    <input id="brand" class="w-full border-2 border-gray-200 rounded-xl p-3 mb-3 text-center outline-none" placeholder="تھان / برانڈ">
+    <input id="brand" class="w-full border-2 border-gray-200 rounded-xl p-3 mb-3 text-center outline-none" placeholder="تھان / برانڈ - مثلاً چارسدہ وال">
+
+    <!-- یہ رہا آپ کا تفصیل والا خانہ جو غائب ہو گیا تھا -->
+    <textarea id="desc" rows="3" class="w-full border-2 border-gray-200 rounded-xl p-3 mb-3 text-center outline-none" placeholder="تصویر کی تفصیل - مثلاً خالص چمڑا، نرم تلا، وغیرہ"></textarea>
+
     <label class="w-full bg-gray-200 rounded-xl p-3 mb-3 flex justify-center items-center gap-2 cursor-pointer font-bold">
-      <span>📸 کوئی بھی تصویر منتخب کریں</span>
+      <span>📁 Choose File - فائل منتخب کریں</span>
       <input type="file" id="imageFile" accept="image/*" hidden>
     </label>
+
     <img id="preview" class="w-full h-56 object-cover rounded-xl hidden mb-3 border">
     <button id="addBtn" class="w-full bg-[#FF8C00] text-white font-bold p-3.5 rounded-xl text-[17px] shadow">Add Product - دکان پر لگائیں</button>
     <p id="status" class="text-center mt-3 font-bold"></p>
@@ -60,8 +67,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 let base64Image = "";
-
-// تصویر چھوٹی کرنے والا فنکشن
 function compressImage(file, callback){
   const reader = new FileReader();
   reader.readAsDataURL(file);
@@ -70,58 +75,29 @@ function compressImage(file, callback){
     img.src = e.target.result;
     img.onload = () => {
       const canvas = document.createElement('canvas');
-      let width = img.width;
-      let height = img.height;
-      // سائز 800px تک چھوٹا کر دیں
+      let width = img.width; let height = img.height;
       if(width > 800){ height = height * (800/width); width = 800; }
-      canvas.width = width;
-      canvas.height = height;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, width, height);
-      // کوالٹی 60% کر دی تاکہ فائل چھوٹی ہو جائے
-      const compressed = canvas.toDataURL('image/jpeg', 0.6);
-      callback(compressed);
+      canvas.width = width; canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      callback(canvas.toDataURL('image/jpeg', 0.6));
     }
   }
 }
-
 document.getElementById('imageFile').addEventListener('change', (e)=>{
-  const file = e.target.files[0];
-  if(!file) return;
-  document.getElementById('status').innerText = "تصویر چھوٹی کی جا رہی ہے...";
+  const file = e.target.files[0]; if(!file) return;
+  document.getElementById('status').innerText = "تصویر تیار ہو رہی ہے...";
   compressImage(file, (compressedData) => {
     base64Image = compressedData;
     const prev = document.getElementById('preview');
-    prev.src = base64Image;
-    prev.classList.remove('hidden');
-    document.getElementById('status').innerText = "تصویر تیار ہے ✅ اب Add دبائیں";
+    prev.src = base64Image; prev.classList.remove('hidden');
+    document.getElementById('status').innerText = "تصویر تیار ہے ✅";
     document.getElementById('status').style.color = "green";
   });
 });
-
 document.getElementById('addBtn').addEventListener('click', async ()=>{
   const name = document.getElementById('name').value;
   const price = document.getElementById('price').value;
   if(!name ||!price ||!base64Image){ alert("نام، قیمت اور تصویر ضروری ہے"); return; }
   const statusEl = document.getElementById('status');
   statusEl.style.color = "black";
-  statusEl.innerText = "اپلوڈ ہو رہا ہے، تھوڑا انتظار کریں...";
-  try{
-    await addDoc(collection(db, "products"), {
-      name: name,
-      price: price,
-      brand: document.getElementById('brand').value,
-      image: base64Image,
-      createdAt: serverTimestamp()
-    });
-    statusEl.style.color = "green";
-    statusEl.innerText = "ماشاءاللہ! دکان پر لگ گیا ✅";
-    setTimeout(()=>{ window.location.href="shop.html"; }, 1000);
-  }catch(err){
-    statusEl.style.color = "red";
-    statusEl.innerText = "ایرر: " + err.message;
-  }
-});
-</script>
-</body>
-</html>
+  statusEl.innerText = "اپلوڈ ہو رہا ہے...";
