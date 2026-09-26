@@ -1,28 +1,59 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAW GROUP Admin</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R.A.W GROUP - Admin Panel</title>
 <style>
-body{font-family:sans-serif; padding:20px; background:#f5f5f5; max-width:500px; margin:auto}
-input,textarea,button{width:100%; padding:12px; margin:8px 0; border-radius:8px; border:1px solid #ccc; font-size:16px; box-sizing:border-box}
-button{background:black; color:white; font-weight:bold; cursor:pointer}
-img{max-width:100%; margin-top:10px; border-radius:10px; border:1px solid #ddd}
-#status{padding:10px; font-weight:bold; text-align:center; color:green}
-.hidden{display:none}
+body{background:#f5f5f5; font-family:sans-serif; margin:0; padding:15px;}
+.main-box{
+  max-width:450px; margin:20px auto; background:white;
+  border:3px solid #FF8C00; /* سارے بارڈر میں اورنج لائن */
+  border-radius:18px; padding:20px;
+  box-shadow: 0 0 0 3px white, 0 0 0 6px #FF8C00; /* کانوں کے آگے پیچھے ڈبل اورنج بارڈر */
+}
+.logo-box{
+  width:90px; height:90px; margin:0 auto 10px auto;
+  border:3px solid #FF8C00; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; overflow:hidden; background:white;
+}
+.logo-box img{width:100%; height:100%; object-fit:cover;}
+h1{color:#FF8C00; font-size:26px; text-align:center; margin:10px 0 20px 0;}
+input,select,textarea{
+  width:100%; padding:13px; margin:7px 0;
+  border:2px solid #FF8C00; border-radius:10px; /* ہر خانے کا بارڈر اورنج */
+  font-size:16px; box-sizing:border-box; background:white; outline:none;
+}
+button{width:100%; padding:14px; background:#FF8C00; color:white; border:2px solid #FF8C00; border-radius:10px; font-size:18px; font-weight:bold; cursor:pointer; margin-top:10px;}
+#status{text-align:center; color:green; font-weight:bold; margin-top:10px; padding:8px; border:1px dashed #FF8C00; border-radius:8px;}
+#preview{width:100%; border-radius:10px; margin-top:10px; display:none; border:2px solid #FF8C00;}
 </style>
 </head>
 <body>
-<h2 style="text-align:center">نیا جوتا ایڈ کریں - RAW GROUP</h2>
-<input id="name" placeholder="جوتے کا نام *">
-<input id="price" type="number" placeholder="قیمت *">
-<input id="brand" placeholder="برانڈ">
-<textarea id="desc" placeholder="تفصیل"></textarea>
-<input id="imageFile" type="file" accept="image/*">
-<img id="preview" class="hidden">
-<div id="status">تصویر کا انتخاب کریں</div>
-<button id="addBtn">دکان پر لگائیں</button>
+<div class="main-box">
+  <!-- یہ لوگو آٹومیٹک لگ جائے گا -->
+  <div class="logo-box">
+    <img id="autoLogo" src="logo.png" alt="RAW">
+  </div>
+  <h1>R.A.W GROUP - Admin Panel</h1>
+
+  <select id="category">
+    <option value="Shoes">👟 جوتے</option>
+    <option value="Clothes">👕 کپڑے</option>
+    <option value="Watches">⌚ گھڑیاں</option>
+    <option value="Perfume">🧴 پرفیوم</option>
+    <option value="Other">📦 دیگر</option>
+  </select>
+
+  <input id="name" placeholder="پروڈکٹ کا نام *">
+  <input id="brand" placeholder="برانڈ">
+  <input id="price" type="number" placeholder="قیمت *">
+  <textarea id="desc" placeholder="تفصیل"></textarea>
+  <input id="imageFile" type="file" accept="image/*">
+  <img id="preview">
+  <div id="status">تصویر منتخب کریں</div>
+  <button id="addBtn">پروڈکٹ سیو کریں</button>
+  <a href="shop.html" style="display:block; text-align:center; margin-top:12px; color:#FF8C00; font-weight:bold; text-decoration:none; border:2px solid #FF8C00; padding:8px; border-radius:8px;">← دکان دیکھیں</a>
+</div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -34,66 +65,23 @@ const firebaseConfig = {
   projectId: "raw-group-shop",
   storageBucket: "raw-group-shop.firebasestorage.app",
   messagingSenderId: "488689802066",
-  appId: "1:488689802066:web:1437531e15df63e958388b",
-  measurementId: "G-HNCH9V8MFF"
+  appId: "1:488689802066:web:1437531e15df63e958388b"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-let finalFileToUpload = null;
 
-function compressImage(file){
-  return new Promise((resolve)=>{
-    const reader = new FileReader();
-    reader.onload = (e)=>{
-      const img = new Image();
-      img.onload = ()=>{
-        const canvas = document.createElement('canvas');
-        const MAX_WIDTH = 600;
-        canvas.width = MAX_WIDTH;
-        canvas.height = (img.height * MAX_WIDTH) / img.width;
-        canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
-        resolve(canvas.toDataURL('image/jpeg',0.60));
-      }
-      img.src = e.target.result;
-    }
-    reader.readAsDataURL(file);
-  });
-}
+// لوگو آٹومیٹک لگانے کا کوڈ
+const logo = document.getElementById('autoLogo');
+logo.onerror = () => {
+  // اگر logo.png نہ ملے تو RAW لکھا ہوا دکھا دے
+  logo.parentElement.innerHTML = '<b style="color:#FF8C00; font-size:22px;">R.A.W</b>';
+};
 
-document.getElementById('imageFile').addEventListener('change', (e)=>{
-  finalFileToUpload = e.target.files[0];
-  if(!finalFileToUpload) return;
-  const pr = document.getElementById('preview');
-  pr.src = URL.createObjectURL(finalFileToUpload);
-  pr.classList.remove('hidden');
-  document.getElementById('status').innerText = "تصویر تیار ہے ✅";
-});
-
-document.getElementById('addBtn').addEventListener('click', async ()=>{
-  const name = document.getElementById('name').value.trim();
-  const price = document.getElementById('price').value.trim();
-  if(!name ||!price ||!finalFileToUpload){ alert("نام، قیمت، تصویر لازمی ہے"); return; }
-  const s = document.getElementById('status');
-  const btn = document.getElementById('addBtn');
-  btn.disabled = true;
-  s.innerText = "اپلوڈ ہو رہا ہے...";
-  try{
-    const imageUrl = await compressImage(finalFileToUpload);
-    await addDoc(collection(db,"products"),{
-      name, price: Number(price),
-      brand: document.getElementById('brand').value,
-      desc: document.getElementById('desc').value,
-      image: imageUrl,
-      createdAt: serverTimestamp()
-    });
-    s.innerText = "ماشاءاللہ دکان پر لگ گیا ✅";
-    setTimeout(()=> location.href="shop.html", 1200);
-  }catch(err){
-    s.innerText = "ایرر: "+err.message;
-    btn.disabled = false;
-  }
-});
+let file=null;
+function compress(f){return new Promise(r=>{const rd=new FileReader();rd.onload=e=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');const w=500;c.width=w;c.height=(im.height*w)/im.width;c.getContext('2d').drawImage(im,0,0,c.width,c.height);r(c.toDataURL('image/jpeg',0.6));};im.src=e.target.result;};rd.readAsDataURL(f);});}
+document.getElementById('imageFile').addEventListener('change',e=>{file=e.target.files[0];if(!file)return;const p=document.getElementById('preview');p.src=URL.createObjectURL(file);p.style.display='block';document.getElementById('status').innerText='تصویر تیار ✅';});
+document.getElementById('addBtn').addEventListener('click',async()=>{const name=document.getElementById('name').value.trim();const price=document.getElementById('price').value.trim();if(!name||!price||!file){alert('نام، قیمت، تصویر ضروری ہے');return;}const s=document.getElementById('status');const b=document.getElementById('addBtn');b.disabled=true;s.innerText='اپلوڈ ہو رہا ہے...';try{const imgUrl=await compress(file);await addDoc(collection(db,'products'),{category:document.getElementById('category').value,name,price:Number(price),brand:document.getElementById('brand').value,desc:document.getElementById('desc').value,image:imgUrl,createdAt:serverTimestamp()});s.innerText='ماشاءاللہ لگ گیا ✅';setTimeout(()=>location.href='shop.html',1000);}catch(err){s.innerText='ایرر: '+err.message;b.disabled=false;}});
 </script>
 </body>
 </html>
