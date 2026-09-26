@@ -5,35 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RAW GROUP Admin</title>
 <style>
-body{font-family:sans-serif; padding:20px; background:#f5f5f5}
-input,textarea,button{width:100%; padding:12px; margin:8px 0; border-radius:8px; border:1px solid #ccc; font-size:16px}
-button{background:black; color:white; font-weight:bold}
-img{max-width:200px; margin-top:10px; border-radius:10px}
+body{font-family:sans-serif; padding:20px; background:#f5f5f5; max-width:500px; margin:auto}
+input,textarea,button{width:100%; padding:12px; margin:8px 0; border-radius:8px; border:1px solid #ccc; font-size:16px; box-sizing:border-box}
+button{background:black; color:white; font-weight:bold; cursor:pointer}
+img{max-width:100%; margin-top:10px; border-radius:10px; border:1px solid #ddd}
+#status{padding:10px; font-weight:bold; text-align:center}
 .hidden{display:none}
 </style>
 </head>
 <body>
-<h2>نیا جوتا ایڈ کریں</h2>
-<input id="name" placeholder="جوتے کا نام">
-<input id="price" type="number" placeholder="قیمت">
+<h2 style="text-align:center">نیا جوتا ایڈ کریں</h2>
+<input id="name" placeholder="جوتے کا نام *">
+<input id="price" type="number" placeholder="قیمت *">
 <input id="brand" placeholder="برانڈ">
 <textarea id="desc" placeholder="تفصیل"></textarea>
 <input id="imageFile" type="file" accept="image/*">
 <img id="preview" class="hidden">
-<div id="status"></div>
+<div id="status">تصویر کا انتخاب کریں</div>
 <button id="addBtn">دکان پر لگائیں</button>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+// --- یہاں اپنی اصلی چابیاں لگائیں Firebase Console سے ---
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
+  apiKey: "AIzaSy... آپ کی اصلی ApiKey",
   authDomain: "raw-group-shop.firebaseapp.com",
   projectId: "raw-group-shop",
   storageBucket: "raw-group-shop.appspot.com",
-  messagingSenderId: "YOUR_ID",
-  appId: "YOUR_APP_ID"
+  messagingSenderId: "123456789",
+  appId: "1:123... آپ کا اصلی AppId"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -47,10 +49,11 @@ function compressImage(file){
       const img = new Image();
       img.onload = ()=>{
         const canvas = document.createElement('canvas');
-        canvas.width = 600;
-        canvas.height = (img.height * 600) / img.width;
+        const MAX_WIDTH = 600;
+        canvas.width = MAX_WIDTH;
+        canvas.height = (img.height * MAX_WIDTH) / img.width;
         canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
-        resolve(canvas.toDataURL('image/jpeg',0.65));
+        resolve(canvas.toDataURL('image/jpeg',0.60));
       }
       img.src = e.target.result;
     }
@@ -68,23 +71,29 @@ document.getElementById('imageFile').addEventListener('change', (e)=>{
 });
 
 document.getElementById('addBtn').addEventListener('click', async ()=>{
-  const name = document.getElementById('name').value;
-  const price = document.getElementById('price').value;
+  const name = document.getElementById('name').value.trim();
+  const price = document.getElementById('price').value.trim();
   if(!name ||!price ||!finalFileToUpload){ alert("نام، قیمت، تصویر لازمی ہے"); return; }
   const s = document.getElementById('status');
-  s.innerText = "اپلوڈ ہو رہا ہے...";
+  const btn = document.getElementById('addBtn');
+  btn.disabled = true;
+  s.innerText = "اپلوڈ ہو رہا ہے... براہ مہربانی انتظار کریں";
   try{
     const imageUrl = await compressImage(finalFileToUpload);
     await addDoc(collection(db,"products"),{
-      name, price,
+      name, price: Number(price),
       brand: document.getElementById('brand').value,
       desc: document.getElementById('desc').value,
       image: imageUrl,
       createdAt: serverTimestamp()
     });
     s.innerText = "ماشاءاللہ دکان پر لگ گیا ✅";
-    setTimeout(()=> location.href="shop.html", 1000);
-  }catch(err){ s.innerText = "ایرر: "+err.message; }
+    setTimeout(()=> location.href="shop.html", 1200);
+  }catch(err){
+    s.innerText = "ایرر: "+err.message;
+    btn.disabled = false;
+    console.log(err);
+  }
 });
 </script>
 </body>
