@@ -1,25 +1,38 @@
 <!DOCTYPE html>
-<html lang="ur" dir="ltr">
+<html lang="ur">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IJAZ ALI - Best Quality Collection</title>
+<title>IJAZ ALI</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
-<header class="bg-orange-400 p-4 text-center">
-<h1 class="text-2xl font-bold text-white">IJAZ ALI</h1>
-<p class="text-white">Chakera Bazar - Best Quality Collection</p>
-</header>
+<body class="bg-white">
 
-<div id="products" class="grid grid-cols-2 gap-4 p-4"></div>
+<!-- ASAL DESIGN HEADER -->
+<div class="bg-[#FF8C00] text-white text-center py-6 shadow-md">
+  <h1 class="text-3xl font-extrabold tracking-wider">IJAZ ALI</h1>
+  <p class="text-sm mt-1 font-medium">Best Quality Collection</p>
+</div>
+
+<!-- PRODUCTS JAHAN AYEN GI -->
+<div id="products" class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 min-h-[400px]">
+</div>
+
+<div id="status" class="text-center text-gray-400 mt-10">
+  یہاں آپ کی پروڈکٹس آئیں گی جب آپ Admin سے Add کریں گے
+</div>
+
+<!-- FOOTER -->
+<div class="bg-gray-900 text-white text-center py-4 mt-10">
+  <p class="text-sm">© 2027 R.A.W GROUP - IJAZ ALI</p>
+</div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB...apni yahan wali key",
+  apiKey: "APNA_API_KEY",
   authDomain: "raw-group-shop.firebaseapp.com",
   projectId: "raw-group-shop",
   storageBucket: "raw-group-shop.appspot.com",
@@ -31,24 +44,26 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 async function loadProducts(){
-  const querySnapshot = await getDocs(collection(db, "products"));
-  let html = "";
-  querySnapshot.forEach((doc) => {
-    const p = doc.data();
-    // yahan fix hai - chahe naam kuch bhi ho undefined nahi ayega
-    const name = p.name || p.title || "No Name";
-    const price = p.price || p.qeemat || "0";
-    const image = p.image || p.img || p.imageUrl || "logo.png";
-    
-    html += `
-    <div class="bg-white rounded-lg shadow p-2">
-      <img src="${image}" class="w-full h-40 object-cover rounded">
-      <h3 class="font-bold mt-2">${name}</h3>
-      <p class="text-green-600 font-bold">Rs ${price}</p>
-      <a href="https://wa.me/923...?text=${name}" class="block bg-orange-400 text-white text-center py-2 rounded mt-2">Order on WhatsApp</a>
-    </div>`;
-  });
-  document.getElementById("products").innerHTML = html;
+  const productsDiv = document.getElementById("products");
+  const status = document.getElementById("status");
+  try{
+    const q = query(collection(db, "products"), orderBy("createdAt","desc"));
+    const snap = await getDocs(q);
+    if(!snap.empty){
+      status.style.display = "none";
+      snap.forEach(d=>{
+        const p = d.data();
+        productsDiv.innerHTML += `
+          <div class="border rounded-lg p-2 shadow">
+            <img src="${p.image}" class="w-full h-36 object-cover rounded">
+            <h3 class="font-bold mt-2">${p.name || ''}</h3>
+            <p class="text-orange-500 font-bold">Rs ${p.price || ''}</p>
+          </div>`;
+      });
+    }
+  }catch(e){
+    console.log(e);
+  }
 }
 loadProducts();
 </script>
