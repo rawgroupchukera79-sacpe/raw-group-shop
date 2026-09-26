@@ -1,98 +1,106 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html lang="ur">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin - IJAZ ALI</title>
+<title>IJAZ ALI - Admin</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+// --- پاس ورڈ پروٹیکشن ---
+let savedPass = localStorage.getItem("admin_pass_raw");
+if(savedPass!== "ijaz79"){
+  let p = prompt("ایڈمن پاس ورڈ لکھیں:");
+  if(p!== "ijaz79"){
+    document.body.innerHTML = "<h1 style='text-align:center;margin-top:100px;color:red;font-family:Arial'>غلط پاس ورڈ - اجازت نہیں ہے</h1>";
+    throw new Error("Wrong password");
+  }else{
+    localStorage.setItem("admin_pass_raw", "ijaz79");
+  }
+}
+</script>
+<style>body{direction:rtl}</style>
 </head>
-<body class="bg-gray-100 p-4">
-<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow">
-<h2 class="text-xl font-bold mb-4 text-center">IJAZ ALI - نیا جوتا ڈالیں</h2>
+<body class="bg-gray-100">
 
-<input id="name" type="text" placeholder="جوتے کا نام مثلاً Shah Peshawari" class="w-full border p-2 rounded mb-3">
-<input id="price" type="number" placeholder="قیمت مثلاً 4500" class="w-full border p-2 rounded mb-3">
+<!-- اوپر نارنجی ہیڈر آپ کے لوگو اور تصویر کے ساتھ -->
+<div class="bg-[#FF8C00] p-3 shadow-lg">
+  <div class="flex items-center justify-between max-w-lg mx-auto">
+    <div class="flex items-center gap-2">
+      <img src="logo.png" class="w-11 h-11 bg-white rounded-full p-1 border-2 border-white" onerror="this.src='https://via.placeholder.com/44'">
+      <div class="text-white leading-none">
+        <h1 class="font-extrabold text-[18px]">IJAZ ALI</h1>
+        <p class="text-[11px] mt-1">R.A.W GROUP CHAKERA</p>
+      </div>
+    </div>
+    <img src="ejaz.jpg" class="w-11 h-11 rounded-full border-2 border-white object-cover" onerror="this.src='logo.png'">
+  </div>
+</div>
 
-<!-- یہ رہا تصویر اپلوڈ والا بٹن -->
-<label class="block bg-gray-200 p-3 rounded text-center mb-3 cursor-pointer">
-  📸 تصویر منتخب کریں (گیلری سے)
-  <input id="file" type="file" accept="image/*" class="hidden">
-</label>
-<img id="preview" class="w-full h-40 object-cover rounded mb-3 hidden">
+<div class="max-w-lg mx-auto p-4">
+  <div class="bg-white rounded-[18px] p-5 shadow-md mt-3 border-t-4 border-[#FF8C00]">
+    <h2 class="text-center font-bold text-[22px] mb-5">نیا پروڈکٹ ڈالیں</h2>
 
-<p id="status" class="text-center text-sm text-gray-500 mb-3"></p>
+    <input id="name" class="w-full border-2 border-gray-200 rounded-xl p-3 mb-3 text-center focus:border-[#FF8C00] outline-none" placeholder="نام - مثلاً Peshawari Chappal">
+    <input id="price" type="number" class="w-full border-2 border-gray-200 rounded-xl p-3 mb-3 text-center focus:border-[#FF8C00] outline-none" placeholder="قیمت - مثلاً 4500">
+    <input id="brand" class="w-full border-2 border-gray-200 rounded-xl p-3 mb-3 text-center focus:border-[#FF8C00] outline-none" placeholder="تھان / برانڈ / کوالٹی">
+    <textarea id="desc" class="w-full border-2 border-gray-200 rounded-xl p-3 mb-3 text-center focus:border-[#FF8C00] outline-none" placeholder="تفصیل (اگر کوئی ہو)"></textarea>
 
-<button id="btn" onclick="addProduct()" class="w-full bg-orange-400 text-white py-3 rounded font-bold">Add Product - دکان پر لگائیں</button>
+    <!-- تصویر اپلوڈ - کوئی بھی تصویر -->
+    <label class="w-full bg-gray-200 rounded-xl p-3 mb-3 flex justify-center items-center gap-2 cursor-pointer font-bold">
+      <span>📸 کوئی بھی تصویر منتخب کریں (گیلری سے)</span>
+      <input type="file" id="imageFile" accept="image/*" hidden>
+    </label>
+
+    <img id="preview" class="w-full h-56 object-cover rounded-xl hidden mb-3 border">
+
+    <button id="addBtn" class="w-full bg-[#FF8C00] text-white font-bold p-3.5 rounded-xl text-[17px] shadow">Add Product - دکان پر لگائیں</button>
+    <p id="status" class="text-center mt-3 font-bold text-green-600"></p>
+    <a href="shop.html" class="block text-center mt-4 text-[#FF8C00] font-bold">← دکان دیکھیں</a>
+  </div>
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const firebaseConfig = {
-  apiKey: "AIzaSy...apni wali",
+  apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE",
   authDomain: "raw-group-shop.firebaseapp.com",
   projectId: "raw-group-shop",
-  storageBucket: "raw-group-shop.appspot.com",
-  messagingSenderId: "...",
-  appId: "..."
+  storageBucket: "raw-group-shop.firebasestorage.app",
+  messagingSenderId: "488689802066",
+  appId: "1:488689802066:web:1437531e15df63e958388b"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const storage = getStorage(app);
-
-let selectedFile = null;
-document.getElementById("file").addEventListener("change", (e)=>{
-  selectedFile = e.target.files[0];
-  const preview = document.getElementById("preview");
-  preview.src = URL.createObjectURL(selectedFile);
-  preview.classList.remove("hidden");
-  document.getElementById("status").innerText = "تصویر منتخب ہو گئی: " + selectedFile.name;
+let base64Image = "";
+document.getElementById('imageFile').addEventListener('change', (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    base64Image = reader.result;
+    const prev = document.getElementById('preview');
+    prev.src = base64Image;
+    prev.classList.remove('hidden');
+  };
+  reader.readAsDataURL(file);
 });
-
-window.addProduct = async function(){
-  const name = document.getElementById("name").value;
-  const price = document.getElementById("price").value;
-  const status = document.getElementById("status");
-  const btn = document.getElementById("btn");
-
-  if(!name ||!price ||!selectedFile){
-    alert("نام، قیمت اور تصویر تینوں ضروری ہیں");
-    return;
-  }
-
-  btn.innerText = "اپلوڈ ہو رہا ہے...";
-  btn.disabled = true;
-  status.innerText = "تصویر اپلوڈ ہو رہی ہے...";
-
-  try {
-    // 1. تصویر Storage پر اپلوڈ
-    const storageRef = ref(storage, 'products/' + Date.now() + '_' + selectedFile.name);
-    await uploadBytes(storageRef, selectedFile);
-    const imageUrl = await getDownloadURL(storageRef);
-
-    // 2. Firestore میں Save
-    status.innerText = "دکان پر لگایا جا رہا ہے...";
-    await addDoc(collection(db, "products"), {
-      name: name,
-      price: price,
-      image: imageUrl,
-      createdAt: Date.now()
-    });
-
-    status.innerText = "✅ ہو گیا! دکان پر آ گیا";
-    btn.innerText = "Add Product - دکان پر لگائیں";
-    btn.disabled = false;
-    alert("ماشاءاللہ پروڈکٹ دکان پر لگ گیا!");
-  } catch (e) {
-    console.error(e);
-    alert("Error: " + e.message);
-    status.innerText = "Error: " + e.message;
-    btn.disabled = false;
-  }
-}
+document.getElementById('addBtn').addEventListener('click', async ()=>{
+  const name = document.getElementById('name').value;
+  const price = document.getElementById('price').value;
+  if(!name ||!price ||!base64Image){ alert("نام، قیمت اور تصویر ضروری ہے"); return; }
+  document.getElementById('status').innerText = "اپلوڈ ہو رہا ہے...";
+  await addDoc(collection(db, "products"), {
+    name: name,
+    price: price,
+    brand: document.getElementById('brand').value,
+    desc: document.getElementById('desc').value,
+    image: base64Image,
+    createdAt: serverTimestamp()
+  });
+  document.getElementById('status').innerText = "ماشاءاللہ! دکان پر لگ گیا ✅";
+  setTimeout(()=>{ location.reload(); }, 1500);
+});
 </script>
 </body>
 </html>
