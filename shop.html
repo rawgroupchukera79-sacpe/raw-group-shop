@@ -59,7 +59,7 @@ function render(list){
  let shop=document.getElementById('shopList'); shop.innerHTML='';
  if(list.length==0){shop.innerHTML='<p style="grid-column:1/3;text-align:center;padding:30px">ابھی دکان خالی ہے - Admin سے Add کریں</p>';return;}
  list.forEach(p=>{
-  shop.innerHTML+=`<div class="card"><img src="${p.image}" onerror="this.src='logo.png'"><div class="card-body"><b>${p.name}</b><br><small>${p.brand||''}</small><div class="price">Rs ${p.price}</div><small>${p.desc||''}</small><br><button onclick="window.open('https://wa.me/923334664227?text='+encodeURIComponent('مجھے یہ چاہیے: '+p.name+' - Rs '+p.price))" style="width:100%;background:#FF8C00;color:#fff;border:none;padding:8px;border-radius:8px;margin-top:6px;font-weight:bold">Order on WhatsApp</button></div></div>`;
+  shop.innerHTML+=`<div class="card"><img src="${p.image}" onerror="this.src='logo.png'"><div class="card-body"><b>${p.name}</b><br><small>${p.brand||''}</small><div class="price">Rs ${p.price}</div><small>${p.desc||''}</small><br><button onclick="window.open('https://wa.me/923334664227?text='+encodeURIComponent('مجھے یہ چاہیے: ${p.name} - Rs ${p.price}'))" style="width:100%;background:#FF8C00;color:#fff;border:none;padding:8px;border-radius:8px;margin-top:6px;font-weight:bold">Order on WhatsApp</button></div></div>`;
  });
 }
 window.filterShop = function(){
