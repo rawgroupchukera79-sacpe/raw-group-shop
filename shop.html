@@ -11,7 +11,7 @@ body{font-family:Arial, sans-serif;margin:0;background:#f4f6f8;box-sizing:border
 .header{text-align:center;background:#fff7eb;padding:15px;border-bottom:4px solid #FF8C00}
 .header img.logo{width:90px;height:90px;border-radius:20px;border:3px solid #FFD700;object-fit:cover;box-shadow:0 4px 10px rgba(0,0,0,0.15)}
 
-/* Grid layout for distinct separate cards */
+/* Grid layout ensuring every product has its own isolated box/ghar */
 .products {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -38,7 +38,7 @@ body{font-family:Arial, sans-serif;margin:0;background:#f4f6f8;box-sizing:border
   border: 1px solid #eaeaea;
 }
 
-/* Image Slider Styling */
+/* Independent Image Slider for each product house */
 .image-slider {
   display: flex;
   overflow-x: auto;
@@ -149,14 +149,16 @@ function render(list){
  let shop = document.getElementById('shopList');
  shop.innerHTML = '';
  if(list.length == 0){
-   shop.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:30px;color:#666;">ابھی دکان خالی ہے - Admin से Add کریں</p>';
+   shop.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:30px;color:#666;">ابھی دکان خالی ہے - Admin سے Add کریں</p>';
    return;
  }
  
  list.forEach(p => {
+  // Har product ke liye aik alag mukammal "ghar" (card) ban raha hai
   const card = document.createElement('div');
   card.className = 'card';
   
+  // Usi ghar ka apna alag image slider
   const slider = document.createElement('div');
   slider.className = 'image-slider';
   
@@ -179,6 +181,7 @@ function render(list){
   });
   card.appendChild(slider);
 
+  // Ghar ka body hissa jahan tafseel aur button hain
   const body = document.createElement('div');
   body.className = 'card-body';
   
@@ -210,6 +213,7 @@ function render(list){
   
   body.appendChild(contentDiv);
 
+  // Har ghar ka apna alag WhatsApp order button
   const btn = document.createElement('button');
   btn.className = 'whatsapp-btn';
   btn.textContent = 'Order on WhatsApp';
