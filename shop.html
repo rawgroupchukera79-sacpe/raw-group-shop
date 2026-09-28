@@ -405,7 +405,7 @@ window.openDetailPage = function(p) {
   btn.style.marginTop = '10px';
   btn.textContent = 'WhatsApp Par Order Karein';
   btn.onclick = () => {
-    let orderText = `मुझे यह चाहिए: ${p.name || ''} - Rs ${p.price || ''}`;
+    let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - Rs ${p.price || ''}`;
     window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
   };
   body.appendChild(btn);
