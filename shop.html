@@ -8,13 +8,17 @@ body{font-family:Arial;margin:0;background:#f9f9f9}
 .header{text-align:center;background:#fff7eb;padding:12px;border-bottom:4px solid #FF8C00}
 .header img.logo{width:95px;border-radius:20px;border:3px solid #FFD700;box-shadow:0 4px 10px #0003}
 
-/* Flexbox Layout to strictly separate cards side-by-side */
+/* Grid layout for 2 columns */
 .products {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
   padding: 12px;
-  justify-content: flex-start;
+}
+@media (max-width: 400px) {
+  .products {
+    grid-template-columns: 1fr;
+  }
 }
 
 .card {
@@ -25,14 +29,6 @@ body{font-family:Arial;margin:0;background:#f9f9f9}
   display: flex;
   flex-direction: column;
   border: 1px solid #e0e0e0;
-  width: calc(50% - 6px); /* Exactly 2 cards per row with gap */
-  box-sizing: border-box;
-}
-
-@media (max-width: 480px) {
-  .card {
-    width: 100%; /* 1 card per row on very small mobile screens if needed, or keep 50% */
-  }
 }
 
 /* Image Slider Styling */
@@ -84,7 +80,7 @@ body{font-family:Arial;margin:0;background:#f9f9f9}
 </div>
 
 <div class="search-box"><input id="search" onkeyup="filterShop()" placeholder="تلاش کریں... جوتا، کپڑا، برانڈ"></div>
-<div id="shopList" class="products"><p style="width:100%;text-align:center;padding:30px">لوڈ ہو رہا ہے...</p></div>
+<div id="shopList" class="products"><p style="grid-column:1/-1;text-align:center;padding:30px">لوڈ ہو رہا ہے...</p></div>
 
 <div style="background:#111;color:#fff;text-align:center;padding:12px;margin-top:30px">© 2027 R.A.W GROUP - CHUKERA 79</div>
 
@@ -107,54 +103,92 @@ let allProducts = [];
 async function loadProducts(){
   try {
     const snap = await getDocs(collection(db, "products"));
-    allProgress = [];
     allProducts = [];
     snap.forEach(doc=>{ allProducts.push({id:doc.id, ...doc.data()}); });
     render(allProducts);
   } catch (err) {
     console.error(err);
-    document.getElementById('shopList').innerHTML = '<p style="width:100%;text-align:center;padding:30px;color:red;">ڈیٹا لوڈ کرنے میں خرابی پیش آئی</p>';
+    document.getElementById('shopList').innerHTML = `<p style="grid-column:1/-1;text-align:center;padding:20px;color:red;background:#fff;border-radius:10px;margin:10px;">ایرر تفصیل: ${err.message}</p>`;
   }
 }
 
 function render(list){
- let shop=document.getElementById('shopList'); shop.innerHTML='';
- if(list.length==0){shop.innerHTML='<p style="width:100%;text-align:center;padding:30px">ابھی دکان خالی ہے - Admin سے Add کریں</p>';return;}
+ let shop = document.getElementById('shopList');
+ shop.innerHTML = '';
+ if(list.length == 0){
+   shop.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:30px">ابھی دکان خالی ہے - Admin سے Add کریں</p>';
+   return;
+ }
  
- list.forEach(p=>{
-  let imagesHTML = '';
+ list.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'card';
   
+  const slider = document.createElement('div');
+  slider.className = 'image-slider';
+  
+  let imgList = [];
   if (Array.isArray(p.images) && p.images.length > 0) {
-    p.images.forEach(imgSrc => {
-      imagesHTML += `<img src="${imgSrc}" onerror="this.src='logo.png'">`;
-    });
+    imgList = p.images;
   } else if (p.image) {
-    imagesHTML = `<img src="${p.image}" onerror="this.src='logo.png'">`;
+    imgList = [p.image];
   } else {
-    imagesHTML = `<img src="logo.png" onerror="this.src='https://via.placeholder.com/180'">`;
+    imgList = ['logo.png'];
   }
 
-  shop.innerHTML += `
-    <div class="card">
-      <div class="image-slider">
-        ${imagesHTML}
-      </div>
-      <div class="card-body">
-        <div>
-          <b>${p.name || ''}</b><br>
-          <small style="color:#775500;">${p.brand || ''}</small>
-          <div class="price">Rs ${p.price || '0'}</div>
-          <div class="product-desc">${p.desc || ''}</div>
-        </div>
-        <button onclick="window.open('https://wa.me/923334664227?text='+encodeURIComponent('मुझे यह चाहिए: ${p.name || ''} - Rs ${p.price || ''}'))" style="width:100%;background:#FF8C00;color:#fff;border:none;padding:8px;border-radius:8px;margin-top:8px;font-weight:bold;cursor:pointer;">Order on WhatsApp</button>
-      </div>
-    </div>`;
+  imgList.forEach(imgSrc => {
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.onerror = function() { this.src = 'logo.png'; };
+    slider.appendChild(img);
+  });
+  card.appendChild(slider);
+
+  const body = document.createElement('div');
+  body.className = 'card-body';
+  
+  const contentDiv = document.createElement('div');
+  
+  const title = document.createElement('b');
+  title.textContent = p.name || '';
+  contentDiv.appendChild(title);
+  
+  contentDiv.appendChild(document.createElement('br'));
+  
+  const brand = document.createElement('small');
+  brand.style.color = '#775500';
+  brand.textContent = p.brand || '';
+  contentDiv.appendChild(brand);
+  
+  const price = document.createElement('div');
+  price.className = 'price';
+  price.textContent = 'Rs ' + (p.price || '0');
+  contentDiv.appendChild(price);
+  
+  const desc = document.createElement('div');
+  desc.className = 'product-desc';
+  desc.textContent = p.desc || '';
+  contentDiv.appendChild(desc);
+  
+  body.appendChild(contentDiv);
+
+  const btn = document.createElement('button');
+  btn.textContent = 'Order on WhatsApp';
+  btn.style.cssText = 'width:100%;background:#FF8C00;color:#fff;border:none;padding:8px;border-radius:8px;margin-top:8px;font-weight:bold;cursor:pointer;';
+  btn.onclick = function() {
+    let orderText = `मुझे यह चाहिए: ${p.name || ''} - Rs ${p.price || ''}`;
+    window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
+  };
+  body.appendChild(btn);
+
+  card.appendChild(body);
+  shop.appendChild(card);
  });
 }
 
 window.filterShop = function(){
- let q=document.getElementById('search').value.toLowerCase();
- render(allProducts.filter(p=>( (p.name||'') + (p.brand||'') + (p.desc||'') ).toLowerCase().includes(q)));
+ let q = document.getElementById('search').value.toLowerCase();
+ render(allProducts.filter(p => ( (p.name||'') + (p.brand||'') + (p.desc||'') ).toLowerCase().includes(q)));
 }
 loadProducts();
 </script>
@@ -169,3 +203,4 @@ function googleTranslateElementInit(){
 </script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body></html>
+  
