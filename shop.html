@@ -11,11 +11,12 @@ body{font-family:Arial, sans-serif;margin:0;background:#eaeef2;box-sizing:border
 .header{text-align:center;background:#fff7eb;padding:15px;border-bottom:4px solid #FF8C00}
 .header img.logo{width:90px;height:90px;border-radius:20px;border:3px solid #FFD700;object-fit:cover;box-shadow:0 4px 10px rgba(0,0,0,0.15)}
 
+/* Category Bar - Poori line ko bharne aur evenly spread karne ke liye */
 .category-bar {
   display: flex;
   overflow-x: auto;
   gap: 8px;
-  padding: 12px;
+  padding: 12px 10px;
   background: #fff;
   white-space: nowrap;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
@@ -28,12 +29,13 @@ body{font-family:Arial, sans-serif;margin:0;background:#eaeef2;box-sizing:border
   background: #fff0d4;
   border: 2px solid #FF8C00;
   color: #b35900;
-  padding: 8px 16px;
+  padding: 8px 14px;
   border-radius: 20px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   transition: all 0.2s;
+  flex-shrink: 0;
 }
 .cat-btn.active, .cat-btn:hover {
   background: #FF8C00;
@@ -43,31 +45,39 @@ body{font-family:Arial, sans-serif;margin:0;background:#eaeef2;box-sizing:border
 .search-box { padding: 10px 15px; background: #fff; }
 .search-box input { width: 100%; padding: 10px 15px; border: 2px solid #FF8C00; border-radius: 25px; box-sizing: border-box; text-align: center; font-size: 14px; outline: none; }
 
+/* Products Grid Layout - Side mein jagah khali na rahe aur barabar aayein */
 .products {
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (max-width: 480px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 8px;
+  }
 }
 
 .card {
   background: #ffffff;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
   border: 2px solid #FF8C00;
   display: flex;
   flex-direction: column;
   cursor: pointer;
   transition: transform 0.2s;
 }
-.card:hover { transform: scale(1.01); }
+.card:hover { transform: scale(1.02); }
 
 .product-img-container {
   width: 100%;
-  height: 220px;
+  height: 160px;
   background: #ffffff;
   display: flex;
   align-items: center;
@@ -82,36 +92,38 @@ body{font-family:Arial, sans-serif;margin:0;background:#eaeef2;box-sizing:border
 }
 
 .card-body {
-  padding: 15px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+  flex-grow: 1;
+  justify-content: space-between;
 }
 
-.product-title { font-size: 18px; font-weight: bold; color: #111; margin: 0; }
-.brand-name { font-size: 14px; color: #b36b00; font-weight: bold; }
-.price { color: #0a9e00; font-weight: bold; font-size: 19px; }
-.product-desc { font-size: 14px; color: #444; white-space: pre-line; line-height: 1.5; background: #fffaf3; padding: 10px; border-radius: 8px; border: 1px dashed #FF8C00; }
+.product-title { font-size: 15px; font-weight: bold; color: #111; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brand-name { font-size: 12px; color: #b36b00; font-weight: bold; }
+.price { color: #0a9e00; font-weight: bold; font-size: 16px; }
+.product-desc { font-size: 13px; color: #444; white-space: pre-line; line-height: 1.4; background: #fffaf3; padding: 8px; border-radius: 6px; border: 1px dashed #FF8C00; }
 
 .whatsapp-btn {
   width: 100%;
   background: #25D366;
   color: #fff;
   border: none;
-  padding: 12px;
-  border-radius: 10px;
+  padding: 8px;
+  border-radius: 8px;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 13px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-top: 5px;
+  gap: 6px;
+  margin-top: 4px;
 }
 .whatsapp-btn:hover { background: #20ba5a; }
 
-/* Daraz Style Separate Product Detail Page (White Background, No Black Modal) */
+/* Daraz Style Separate Product Detail Page (White Background) */
 #product-detail-page {
   display: none;
   position: fixed;
@@ -168,12 +180,16 @@ body{font-family:Arial, sans-serif;margin:0;background:#eaeef2;box-sizing:border
     <p style="margin:2px 0;font-size:13px;color:#555">Best Quality Collection</p>
   </div>
 
+  <!-- Bhari hui Category Bar taake line mukammal ho -->
   <div class="category-bar" id="categoryBar">
     <button class="cat-btn active" onclick="filterCategory('All', this)">تمام (All)</button>
     <button class="cat-btn" onclick="filterCategory('Shoes', this)">👟 جوتے</button>
     <button class="cat-btn" onclick="filterCategory('Clothes', this)">👕 کپڑے</button>
     <button class="cat-btn" onclick="filterCategory('Watches', this)">⌚ گھڑیاں</button>
     <button class="cat-btn" onclick="filterCategory('Perfume', this)">🧴 پرفیوم</button>
+    <button class="cat-btn" onclick="filterCategory('Mobiles', this)">📱 موبائل</button>
+    <button class="cat-btn" onclick="filterCategory('Electronics', this)">⚡ الیکٹرانکس</button>
+    <button class="cat-btn" onclick="filterCategory('Toys', this)">🧸 کھلونے</button>
     <button class="cat-btn" onclick="filterCategory('Other', this)">📦 دیگر</button>
   </div>
 
@@ -182,7 +198,7 @@ body{font-family:Arial, sans-serif;margin:0;background:#eaeef2;box-sizing:border
   </div>
 
   <div id="shopList" class="products">
-    <p style="text-align:center;padding:30px;color:#666;">لوڈ ہو رہا ہے...</p>
+    <p style="text-align:center;padding:30px;color:#666;grid-column: span 2;">لوڈ ہو رہا ہے...</p>
   </div>
 
   <div style="background:#111;color:#fff;text-align:center;padding:15px;margin-top:30px;font-size:13px;">© 2027 R.A.W GROUP - CHUKERA 79</div>
@@ -222,7 +238,7 @@ async function loadProducts(){
     render(allProducts);
   } catch (err) {
     console.error(err);
-    document.getElementById('shopList').innerHTML = `<p style="text-align:center;padding:20px;color:red;background:#fff;border-radius:10px;">ایرر تفصیل: ${err.message}</p>`;
+    document.getElementById('shopList').innerHTML = `<p style="text-align:center;padding:20px;color:red;background:#fff;border-radius:10px;grid-column: span 2;">ایرر تفصیل: ${err.message}</p>`;
   }
 }
 
@@ -230,7 +246,7 @@ function render(list){
  let shop = document.getElementById('shopList');
  shop.innerHTML = '';
  if(list.length == 0){
-   shop.innerHTML = '<p style="text-align:center;padding:30px;color:#666;">اس کیٹیگری میں کوئی پروڈکٹ موجود نہیں ہے</p>';
+   shop.innerHTML = '<p style="text-align:center;padding:30px;color:#666;grid-column: span 2;">اس کیٹیگری میں کوئی پروڈکٹ موجود نہیں ہے</p>';
    return;
  }
  
@@ -274,12 +290,12 @@ function render(list){
   
   const price = document.createElement('div');
   price.className = 'price';
-  price.textContent = 'قیمت: Rs ' + (p.price || '0');
+  price.textContent = 'Rs ' + (p.price || '0');
   body.appendChild(price);
 
   const btn = document.createElement('button');
   btn.className = 'whatsapp-btn';
-  btn.textContent = 'WhatsApp Par Order Karein';
+  btn.textContent = 'Order on WhatsApp';
   btn.onclick = (e) => {
     e.stopPropagation();
     let orderText = `मुझे यह चाहिए: ${p.name || ''} - Rs ${p.price || ''}`;
@@ -310,7 +326,7 @@ window.openDetailPage = function(p) {
   imgList.forEach((imgSrc) => {
     let singleImgBox = document.createElement('div');
     singleImgBox.className = 'product-img-container';
-    singleImgBox.style.height = '300px';
+    singleImgBox.style.height = '280px';
     singleImgBox.style.marginBottom = '10px';
     singleImgBox.style.borderRadius = '12px';
     singleImgBox.style.border = '2px solid #FF8C00';
@@ -327,11 +343,13 @@ window.openDetailPage = function(p) {
   body.style.background = '#ffffff';
   body.style.border = '2px solid #FF8C00';
   body.style.borderRadius = '12px';
+  body.style.padding = '15px';
   body.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
   
   let title = document.createElement('h3');
   title.className = 'product-title';
-  title.style.fontSize = '22px';
+  title.style.fontSize = '20px';
+  title.style.whiteSpace = 'normal';
   title.textContent = p.name || '';
   body.appendChild(title);
   
@@ -344,22 +362,22 @@ window.openDetailPage = function(p) {
   
   let price = document.createElement('div');
   price.className = 'price';
-  price.style.fontSize = '22px';
+  price.style.fontSize = '20px';
   price.textContent = 'قیمت: Rs ' + (p.price || '0');
   body.appendChild(price);
   
   if(p.desc){
     let desc = document.createElement('div');
     desc.className = 'product-desc';
-    desc.style.fontSize = '15px';
+    desc.style.fontSize = '14px';
     desc.textContent = p.desc;
     body.appendChild(desc);
   }
 
   let btn = document.createElement('button');
   btn.className = 'whatsapp-btn';
-  btn.style.padding = '14px';
-  btn.style.fontSize = '16px';
+  btn.style.padding = '12px';
+  btn.style.fontSize = '15px';
   btn.textContent = 'WhatsApp Par Order Karein';
   btn.onclick = () => {
     let orderText = `मुझे यह चाहिए: ${p.name || ''} - Rs ${p.price || ''}`;
