@@ -1,48 +1,55 @@
 <!DOCTYPE html><html lang="ur"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>IJAZ ALI SHOP</title>
 <style>
-body{font-family:Arial;margin:0;background:#f9f9f9}
-.top-bar{display:flex;justify-content:space-between;align-items:center;background:#FF8C00;padding:8px 10px}
-.top-bar #google_translate_element{background:#fff;padding:5px 10px;border-radius:20px}
-.owner-top img{width:45px;height:45px;border-radius:50%;border:2px solid #FFD700;object-fit:cover}
-.header{text-align:center;background:#fff7eb;padding:12px;border-bottom:4px solid #FF8C00}
-.header img.logo{width:95px;border-radius:20px;border:3px solid #FFD700;box-shadow:0 4px 10px #0003}
+body{font-family:Arial, sans-serif;margin:0;background:#f4f6f8;box-sizing:border-box}
+*, *:before, *:after{box-sizing:inherit}
 
-/* Grid layout for 2 columns */
+.top-bar{display:flex;justify-content:space-between;align-items:center;background:#FF8C00;padding:10px 15px}
+.top-bar #google_translate_element{background:#fff;padding:4px 8px;border-radius:20px}
+.owner-top img{width:42px;height:42px;border-radius:50%;border:2px solid #FFD700;object-fit:cover}
+
+.header{text-align:center;background:#fff7eb;padding:15px;border-bottom:4px solid #FF8C00}
+.header img.logo{width:90px;height:90px;border-radius:20px;border:3px solid #FFD700;object-fit:cover;box-shadow:0 4px 10px rgba(0,0,0,0.15)}
+
+/* Grid layout for distinct separate cards */
 .products {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  padding: 12px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 15px;
+  max-width: 800px;
+  margin: 0 auto;
 }
-@media (max-width: 400px) {
+@media (max-width: 480px) {
   .products {
     grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 10px;
   }
 }
 
 .card {
-  background: #fff;
-  border-radius: 18px;
+  background: #ffffff;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #eaeaea;
 }
 
-/* Perfect Image Slider Styling */
+/* Image Slider Styling */
 .image-slider {
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   width: 100%;
-  height: 170px;
-  background: #f0f0f0;
+  height: 180px;
+  background: #eaeaea;
   -webkit-overflow-scrolling: touch;
 }
 .image-slider::-webkit-scrollbar {
-  height: 6px;
+  height: 5px;
 }
 .image-slider::-webkit-scrollbar-thumb {
   background: #FF8C00;
@@ -50,23 +57,46 @@ body{font-family:Arial;margin:0;background:#f9f9f9}
 }
 .image-slider img {
   width: 100%;
-  height: 170px;
+  height: 180px;
   flex: 0 0 100%;
   object-fit: cover;
   scroll-snap-align: start;
 }
 
 .card-body {
-  padding: 10px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
 }
-.price { color: #0a9e00; font-weight: bold; font-size: 16px; margin: 4px 0; }
-.search-box { padding: 10px; background: #fff; position: sticky; top: 0; z-index: 10; }
-.search-box input { width: 100%; padding: 12px; border: 2px solid #FF8C00; border-radius: 25px; box-sizing: border-box; text-align: center; }
-.product-desc { font-size: 12px; color: #444; margin: 4px 0; white-space: pre-line; }
+
+.product-title { font-size: 16px; font-weight: bold; color: #222; margin: 0 0 4px 0; }
+.brand-name { font-size: 13px; color: #885500; margin-bottom: 6px; display: block; }
+.price { color: #0a9e00; font-weight: bold; font-size: 17px; margin: 6px 0; }
+.product-desc { font-size: 13px; color: #555; margin: 6px 0; white-space: pre-line; line-height: 1.4; }
+
+.search-box { padding: 12px 15px; background: #fff; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.search-box input { width: 100%; padding: 12px 15px; border: 2px solid #FF8C00; border-radius: 25px; box-sizing: border-box; text-align: center; font-size: 14px; outline: none; }
+
+.whatsapp-btn {
+  width: 100%;
+  background: #25D366;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+.whatsapp-btn:hover { background: #20ba5a; }
 </style>
 <script type="importmap">{"imports":{"firebase/app":"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js","firebase/firestore":"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"}}</script>
 </head><body>
@@ -83,9 +113,9 @@ body{font-family:Arial;margin:0;background:#f9f9f9}
 </div>
 
 <div class="search-box"><input id="search" onkeyup="filterShop()" placeholder="تلاش کریں... جوتا، کپڑا، برانڈ"></div>
-<div id="shopList" class="products"><p style="grid-column:1/-1;text-align:center;padding:30px">لوڈ ہو رہا ہے...</p></div>
+<div id="shopList" class="products"><p style="grid-column:1/-1;text-align:center;padding:30px;color:#666;">لوڈ ہو رہا ہے...</p></div>
 
-<div style="background:#111;color:#fff;text-align:center;padding:12px;margin-top:30px">© 2027 R.A.W GROUP - CHUKERA 79</div>
+<div style="background:#111;color:#fff;text-align:center;padding:15px;margin-top:30px;font-size:13px;">© 2027 R.A.W GROUP - CHUKERA 79</div>
 
 <script type="module">
 import { initializeApp } from "firebase/app";
@@ -119,7 +149,7 @@ function render(list){
  let shop = document.getElementById('shopList');
  shop.innerHTML = '';
  if(list.length == 0){
-   shop.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:30px">ابھی دکان خالی ہے - Admin سے Add کریں</p>';
+   shop.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:30px;color:#666;">ابھی دکان خالی ہے - Admin से Add کریں</p>';
    return;
  }
  
@@ -133,6 +163,8 @@ function render(list){
   let imgList = [];
   if (Array.isArray(p.images) && p.images.length > 0) {
     imgList = p.images;
+  } else if (typeof p.images === 'string' && p.images.trim() !== '') {
+    imgList = [p.images];
   } else if (p.image) {
     imgList = [p.image];
   } else {
@@ -152,32 +184,35 @@ function render(list){
   
   const contentDiv = document.createElement('div');
   
-  const title = document.createElement('b');
+  const title = document.createElement('h3');
+  title.className = 'product-title';
   title.textContent = p.name || '';
   contentDiv.appendChild(title);
   
-  contentDiv.appendChild(document.createElement('br'));
-  
-  const brand = document.createElement('small');
-  brand.style.color = '#775500';
-  brand.textContent = p.brand || '';
-  contentDiv.appendChild(brand);
+  if(p.brand){
+    const brand = document.createElement('span');
+    brand.className = 'brand-name';
+    brand.textContent = p.brand;
+    contentDiv.appendChild(brand);
+  }
   
   const price = document.createElement('div');
   price.className = 'price';
   price.textContent = 'Rs ' + (p.price || '0');
   contentDiv.appendChild(price);
   
-  const desc = document.createElement('div');
-  desc.className = 'product-desc';
-  desc.textContent = p.desc || '';
-  contentDiv.appendChild(desc);
+  if(p.desc){
+    const desc = document.createElement('div');
+    desc.className = 'product-desc';
+    desc.textContent = p.desc;
+    contentDiv.appendChild(desc);
+  }
   
   body.appendChild(contentDiv);
 
   const btn = document.createElement('button');
+  btn.className = 'whatsapp-btn';
   btn.textContent = 'Order on WhatsApp';
-  btn.style.cssText = 'width:100%;background:#FF8C00;color:#fff;border:none;padding:8px;border-radius:8px;margin-top:8px;font-weight:bold;cursor:pointer;';
   btn.onclick = function() {
     let orderText = `मुझे यह चाहिए: ${p.name || ''} - Rs ${p.price || ''}`;
     window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
