@@ -14,6 +14,7 @@ body{font-family:Arial, sans-serif;background:#eaeef2;box-sizing:border-box;disp
 .header{text-align:center;background:#fff7eb;padding:12px;border-bottom:3px solid #FF8C00}
 .header img.logo{width:75px;height:75px;border-radius:15px;border:2px solid #FFD700;object-fit:cover;box-shadow:0 3px 8px rgba(0,0,0,0.15)}
 
+/* Category Bar - Bilkul saaf, barabar aur scrollable */
 .category-bar {
   display: flex;
   overflow-x: auto;
@@ -25,19 +26,21 @@ body{font-family:Arial, sans-serif;background:#eaeef2;box-sizing:border-box;disp
   position: sticky;
   top: 0;
   z-index: 100;
+  -webkit-overflow-scrolling: touch;
 }
 .category-bar::-webkit-scrollbar { display: none; }
 .cat-btn {
   background: #fff0d4;
   border: 2px solid #FF8C00;
   color: #b35900;
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: 15px;
   font-weight: bold;
   font-size: 12px;
   cursor: pointer;
-  transition: all 0.2s;
   flex-shrink: 0;
+  display: inline-block;
+  text-align: center;
 }
 .cat-btn.active, .cat-btn:hover {
   background: #FF8C00;
@@ -47,9 +50,9 @@ body{font-family:Arial, sans-serif;background:#eaeef2;box-sizing:border-box;disp
 .search-box { padding: 8px 12px; background: #fff; }
 .search-box input { width: 100%; padding: 8px 12px; border: 2px solid #FF8C00; border-radius: 20px; box-sizing: border-box; text-align: center; font-size: 13px; outline: none; }
 
-/* Products Grid - Chote, chauras aur mukammal line mein */
+/* Products Grid - 2 columns, chauras aur compact */
 .products {
-  max-width: 650px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 10px;
   display: grid;
@@ -58,34 +61,31 @@ body{font-family:Arial, sans-serif;background:#eaeef2;box-sizing:border-box;disp
   width: 100%;
   flex: 1;
 }
-@media (min-width: 500px) {
-  .products {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
 
 .card {
   background: #ffffff;
-  border-radius: 4px; /* Bilkul chauras char konay */
+  border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   border: 1.5px solid #FF8C00;
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  height: 250px;
   transition: transform 0.2s;
 }
 .card:hover { transform: scale(1.01); }
 
 .product-img-container {
   width: 100%;
-  height: 130px; /* Choti aur compact height taake lamba na lage */
+  height: 130px;
   background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   border-bottom: 1.5px solid #FF8C00;
+  flex-shrink: 0;
 }
 .product-img-container img {
   max-width: 100%;
@@ -97,15 +97,14 @@ body{font-family:Arial, sans-serif;background:#eaeef2;box-sizing:border-box;disp
   padding: 8px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  flex-grow: 1;
   justify-content: space-between;
+  height: calc(250px - 130px);
 }
 
 .product-title { font-size: 13px; font-weight: bold; color: #111; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.brand-name { font-size: 11px; color: #b36b00; font-weight: bold; }
-.price { color: #0a9e00; font-weight: bold; font-size: 14px; }
-.product-desc { display: none; } /* Main list mein description chupayi hai taake card chota aur saaf rahe */
+.brand-name { font-size: 11px; color: #b36b00; font-weight: bold; margin: 0; }
+.price { color: #0a9e00; font-weight: bold; font-size: 14px; margin: 0; }
+.product-desc { display: none; }
 
 .whatsapp-btn {
   width: 100%;
@@ -113,7 +112,7 @@ body{font-family:Arial, sans-serif;background:#eaeef2;box-sizing:border-box;disp
   color: #fff;
   border: none;
   padding: 6px;
-  border-radius: 4px; /* Chauras style button */
+  border-radius: 4px;
   font-weight: bold;
   font-size: 11px;
   cursor: pointer;
@@ -121,7 +120,6 @@ body{font-family:Arial, sans-serif;background:#eaeef2;box-sizing:border-box;disp
   align-items: center;
   justify-content: center;
   gap: 4px;
-  margin-top: 2px;
 }
 .whatsapp-btn:hover { background: #20ba5a; }
 
@@ -135,7 +133,6 @@ body{font-family:Arial, sans-serif;background:#eaeef2;box-sizing:border-box;disp
   width: 100%;
 }
 
-/* Daraz Style Separate Product Detail Page (White Background, Zoom & Detail View) */
 #product-detail-page {
   display: none;
   position: fixed;
@@ -338,7 +335,7 @@ window.openDetailPage = function(p) {
   imgList.forEach((imgSrc) => {
     let singleImgBox = document.createElement('div');
     singleImgBox.className = 'product-img-container';
-    singleImgBox.style.height = '320px'; // Detail page par tasveer bari aur saaf nazar aaye gi
+    singleImgBox.style.height = '320px';
     singleImgBox.style.marginBottom = '8px';
     singleImgBox.style.borderRadius = '4px';
     singleImgBox.style.border = '1.5px solid #FF8C00';
@@ -352,6 +349,7 @@ window.openDetailPage = function(p) {
 
   let body = document.createElement('div');
   body.className = 'card-body';
+  body.style.height = 'auto';
   body.style.background = '#ffffff';
   body.style.border = '1.5px solid #FF8C00';
   body.style.borderRadius = '4px';
@@ -382,7 +380,7 @@ window.openDetailPage = function(p) {
   if(p.desc){
     let desc = document.createElement('div');
     desc.className = 'product-desc';
-    desc.style.display = 'block'; // Tafseel detail page par barhi aur wazeh dikhe gi
+    desc.style.display = 'block';
     desc.style.fontSize = '14px';
     desc.style.background = '#fffaf3';
     desc.style.padding = '10px';
@@ -402,7 +400,7 @@ window.openDetailPage = function(p) {
   btn.textContent = 'WhatsApp Par Order Karein';
   btn.onclick = () => {
     let orderText = `मुझे यह चाहिए: ${p.name || ''} - Rs ${p.price || ''}`;
-    window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderTest));
+    window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
   };
   body.appendChild(btn);
 
