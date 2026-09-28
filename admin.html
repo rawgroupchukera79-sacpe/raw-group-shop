@@ -30,8 +30,11 @@ button{cursor:pointer;}
 }
 .btn-add:disabled{opacity:0.6}
 #status{text-align:center; margin-top:8px; font-weight:bold; color:green; border:1px dashed var(--orange); padding:7px; border-radius:8px;}
+
+/* Preview Images Box */
 #preview-container{display:flex; gap:6px; flex-wrap:wrap; margin-top:8px;}
-#preview-container img{width:70px; height:70px; object-fit:cover; border-radius:8px; border:2px solid var(--orange); display:none;}
+#preview-container img{width:70px; height:70px; object-fit:cover; border-radius:8px; border:2px solid var(--orange);}
+
 hr{border:none; border-top:2px dashed var(--orange); margin:20px 0;}
 h2{color:#111; text-align:center; font-size:20px; margin:0 0 10px 0;}
 .product-item{
@@ -61,13 +64,13 @@ h2{color:#111; text-align:center; font-size:20px; margin:0 0 10px 0;}
   <input id="price" type="number" placeholder="قیمت *">
   <textarea id="desc" rows="2" placeholder="تفصیل"></textarea>
   
-  <!-- Yahan multiple attribute add kiya hai taake 4-5 pictures select ho saken -->
+  <!-- Multiple files input -->
   <input id="imageFile" type="file" accept="image/*" multiple>
-  <div id="preview-container">
-    <img class="prev-img"><img class="prev-img"><img class="prev-img"><img class="prev-img">
-  </div>
   
-  <div id="status">تصاویر منتخب کریں (زیادہ سے زیادہ 4-5)</div>
+  <!-- Yeh div sari select ki gayi pictures ko preview mein dikhayega -->
+  <div id="preview-container"></div>
+  
+  <div id="status">تصاویر منتخب کریں</div>
   <button class="btn-add" id="addBtn">پروڈکٹ سیو کریں</button>
   <a href="shop.html" style="display:block; text-align:center; margin-top:10px; text-decoration:none; color:var(--orange); font-weight:bold; border:2px solid var(--orange); padding:8px; border-radius:8px;">← دکان دیکھیں</a>
 
@@ -96,23 +99,25 @@ function compress(f){return new Promise(r=>{const rd=new FileReader();rd.onload=
 
 const status=document.getElementById('status');
 const listDiv=document.getElementById('productList');
-const prevImgs = document.querySelectorAll('.prev-img');
+const previewContainer=document.getElementById('preview-container');
 
 document.getElementById('imageFile').addEventListener('change',e=>{
  selectedFiles = Array.from(e.target.files);
- if(selectedFiles.length === 0) return;
+ previewContainer.innerHTML = ''; // Purani preview saaf karein
  
- // Purani previews chupayein
- prevImgs.forEach(img => img.style.display = 'none');
- 
- // Nayi select ki gayi pictures dikhayein
- selectedFiles.forEach((file, index) => {
-   if(index < prevImgs.length) {
-     prevImgs[index].src = URL.createObjectURL(file);
-     prevImgs[index].style.display = 'block';
-   }
+ if(selectedFiles.length === 0) {
+   status.innerText = 'کوئی تصویر منتخب نہیں کی گئی';
+   return;
+ }
+
+ // Jitni pictures select ki hain, sabka preview show karein
+ selectedFiles.forEach(file => {
+   const img = document.createElement('img');
+   img.src = URL.createObjectURL(file);
+   previewContainer.appendChild(img);
  });
- status.innerText = selectedFiles.length + ' تصاویری تیار ✅';
+
+ status.innerText = selectedFiles.length + ' تصاویر منتخب ہو گئی ✅';
 });
 
 document.getElementById('addBtn').addEventListener('click',async()=>{
@@ -130,18 +135,23 @@ document.getElementById('addBtn').addEventListener('click',async()=>{
     compressedImages.push(base64Img);
   }
 
+  // Database mein ab 'images' ka array save hoga
   await addDoc(collection(db,'products'),{
     category:document.getElementById('category').value,
     name, brand:document.getElementById('brand').value,
     price:Number(price), desc:document.getElementById('desc').value,
-    images: compressedImages, // Ab yahan poora array save hoga
+    images: compressedImages,
     createdAt:serverTimestamp()
   });
   
   status.innerText='ماشاءاللہ پروڈکٹ سیو ہو گیا ✅';
-  selectedFiles=[]; document.getElementById('imageFile').value='';
-  document.getElementById('name').value=''; document.getElementById('price').value=''; document.getElementById('brand').value=''; document.getElementById('desc').value='';
-  prevImgs.forEach(img => img.style.display = 'none');
+  selectedFiles=[]; 
+  document.getElementById('imageFile').value='';
+  document.getElementById('name').value=''; 
+  document.getElementById('price').value=''; 
+  document.getElementById('brand').value=''; 
+  document.getElementById('desc').value='';
+  previewContainer.innerHTML = '';
   loadProducts();
  }catch(err){status.innerText='ایرر: '+err.message; alert(err.message);}
  btn.disabled=false; btn.innerText='پروڈکٹ سیو کریں';
@@ -156,8 +166,7 @@ async function loadProducts(){
   listDiv.innerHTML='';
   snap.forEach(d=>{
     const p=d.data();
-    // Support dono formats ke liye (purani single image aur nayi multiple images)
-    let mainImg = p.images ? p.images[0] : p.image;
+    let mainImg = (p.images && p.images.length > 0) ? p.images[0] : (p.image || 'logo.png');
     let imgCount = p.images ? p.images.length : 1;
     
     const div=document.createElement('div');
