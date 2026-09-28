@@ -8,9 +8,9 @@ body{font-family:Arial;margin:0;background:#f9f9f9}
 .header{text-align:center;background:#fff7eb;padding:12px;border-bottom:4px solid #FF8C00}
 .header img.logo{width:95px;border-radius:20px;border:3px solid #FFD700;box-shadow:0 4px 10px #0003}
 .products{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px}
-.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 8px #0002}
+.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 8px #0002;display:flex;flex-direction:column}
 
-/* Image Slider Styling */
+/* Image Slider Styling - Fixed for multiple images */
 .image-slider {
   display: flex;
   overflow-x: auto;
@@ -18,10 +18,10 @@ body{font-family:Arial;margin:0;background:#f9f9f9}
   width: 100%;
   height: 180px;
   background: #000;
-  scrollbar-width: none; /* Firefox ke liye scrollbar chupana */
+  scrollbar-width: none;
 }
 .image-slider::-webkit-scrollbar {
-  display: none; /* Chrome/Safari ke liye scrollbar chupana */
+  display: none;
 }
 .image-slider img {
   width: 100%;
@@ -31,10 +31,11 @@ body{font-family:Arial;margin:0;background:#f9f9f9}
   scroll-snap-align: start;
 }
 
-.card-body{padding:10px}
-.price{color:#0a9e00;font-weight:bold;font-size:18px}
+.card-body{padding:10px;display:flex;flex-direction:column;justify-content:space-between;flex-grow:1}
+.price{color:#0a9e00;font-weight:bold;font-size:18px;margin:4px 0}
 .search-box{padding:10px;background:#fff;position:sticky;top:0;z-index:10}
 .search-box input{width:100%;padding:13px;border:2px solid #FF8C00;border-radius:25px;box-sizing:border-box;text-align:center}
+.product-desc{font-size:13px;color:#444;margin:4px 0;white-space:pre-line;}
 </style>
 <script type="importmap">{"imports":{"firebase/app":"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js","firebase/firestore":"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"}}</script>
 </head><body>
@@ -72,10 +73,15 @@ const db = getFirestore(app);
 let allProducts = [];
 
 async function loadProducts(){
-  const snap = await getDocs(collection(db, "products"));
-  allProducts = [];
-  snap.forEach(doc=>{ allProducts.push({id:doc.id, ...doc.data()}); });
-  render(allProducts);
+  try {
+    const snap = await getDocs(collection(db, "products"));
+    allProducts = [];
+    snap.forEach(doc=>{ allProducts.push({id:doc.id, ...doc.data()}); });
+    render(allProducts);
+  } catch (err) {
+    console.error(err);
+    document.getElementById('shopList').innerHTML = '<p style="grid-column:1/3;text-align:center;padding:30px;color:red;">ڈیٹا لوڈ کرنے میں خرابی پیش آئی</p>';
+  }
 }
 
 function render(list){
@@ -83,15 +89,18 @@ function render(list){
  if(list.length==0){shop.innerHTML='<p style="grid-column:1/3;text-align:center;padding:30px">ابھی دکان خالی ہے - Admin سے Add کریں</p>';return;}
  
  list.forEach(p=>{
-  // Agar multiple images hain toh unka slider banayein, warna purani single image show karein
   let imagesHTML = '';
-  if (p.images && p.images.length > 0) {
+  
+  // Checking if images array exists and has multiple images
+  if (Array.isArray(p.images) && p.images.length > 0) {
     p.images.forEach(imgSrc => {
       imagesHTML += `<img src="${imgSrc}" onerror="this.src='logo.png'">`;
     });
+  } else if (p.image) {
+    // Fallback for single image field
+    imagesHTML = `<img src="${p.image}" onerror="this.src='logo.png'">`;
   } else {
-    let singleImg = p.image || 'logo.png';
-    imagesHTML = `<img src="${singleImg}" onerror="this.src='logo.png'">`;
+    imagesHTML = `<img src="logo.png" onerror="this.src='https://via.placeholder.com/180'">`;
   }
 
   shop.innerHTML += `
@@ -100,11 +109,13 @@ function render(list){
         ${imagesHTML}
       </div>
       <div class="card-body">
-        <b>${p.name}</b><br>
-        <small>${p.brand||''}</small>
-        <div class="price">Rs ${p.price}</div>
-        <small>${p.desc||''}</small><br>
-        <button onclick="window.open('https://wa.me/923334664227?text='+encodeURIComponent('मुझे यह चाहिए: ${p.name} - Rs ${p.price}'))" style="width:100%;background:#FF8C00;color:#fff;border:none;padding:8px;border-radius:8px;margin-top:6px;font-weight:bold">Order on WhatsApp</button>
+        <div>
+          <b>${p.name || ''}</b><br>
+          <small style="color:#775500;">${p.brand || ''}</small>
+          <div class="price">Rs ${p.price || '0'}</div>
+          <div class="product-desc">${p.desc || ''}</div>
+        </div>
+        <button onclick="window.open('https://wa.me/923334664227?text='+encodeURIComponent('مجھے یہ چاہیے: ${p.name || ''} - Rs ${p.price || ''}'))" style="width:100%;background:#FF8C00;color:#fff;border:none;padding:8px;border-radius:8px;margin-top:8px;font-weight:bold;cursor:pointer;">Order on WhatsApp</button>
       </div>
     </div>`;
  });
@@ -112,10 +123,19 @@ function render(list){
 
 window.filterShop = function(){
  let q=document.getElementById('search').value.toLowerCase();
- render(allProducts.filter(p=>(p.name+(p.brand||'')+(p.desc||'')).toLowerCase().includes(q)));
+ render(allProducts.filter(p=>( (p.name||'') + (p.brand||'') + (p.desc||'') ).toLowerCase().includes(q)));
 }
 loadProducts();
 </script>
-<script>function googleTranslateElementInit(){ new google.translate.TranslateElement({pageLanguage:'ur',includedLanguages:'en,ur,ar,zh-CN,hi,tr,es,fr,de,ru,bn,fa',layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element');}</script>
+
+<!-- Google Translate set to support all world languages -->
+<script>
+function googleTranslateElementInit(){ 
+  new google.translate.TranslateElement({
+    pageLanguage: 'ur',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  }, 'google_translate_element');
+}
+</script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body></html>
