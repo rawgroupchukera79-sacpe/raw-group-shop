@@ -62,7 +62,6 @@ h2{color:#111; text-align:center; font-size:20px; margin:0 0 10px 0;}
   <textarea id="desc" rows="2" placeholder="تفصیل"></textarea>
   
   <input id="imageFile" type="file" accept="image/*" multiple>
-  <!-- Yeh container ab dynamic tareeqay se jitni tasweerin select hongi sab dikhayega -->
   <div id="preview-container"></div>
   
   <div id="status">تصاویر منتخب کریں (زیادہ سے زیادہ 4-5)</div>
@@ -98,14 +97,13 @@ const previewContainer = document.getElementById('preview-container');
 
 document.getElementById('imageFile').addEventListener('change', e => {
  selectedFiles = Array.from(e.target.files);
- previewContainer.innerHTML = ''; // Purani previews saaf karein
+ previewContainer.innerHTML = ''; 
  
  if(selectedFiles.length === 0) {
    status.innerText = 'تصاویر منتخب کریں (زیادہ سے زیادہ 4-5)';
    return;
  }
  
- // Jitni files select hongi, sab ki choti preview automatically ban kar yahan show ho jayengi
  selectedFiles.forEach(file => {
    const reader = new FileReader();
    reader.onload = function(event) {
@@ -116,7 +114,7 @@ document.getElementById('imageFile').addEventListener('change', e => {
    reader.readAsDataURL(file);
  });
 
- status.innerText = selectedFiles.length + ' تصاویری تیار ✅';
+ status.innerText = selectedFiles.length + ' تصاویر تیار ✅';
 });
 
 document.getElementById('addBtn').addEventListener('click', async () => {
@@ -137,9 +135,9 @@ document.getElementById('addBtn').addEventListener('click', async () => {
   await addDoc(collection(db,'products'),{
     category: document.getElementById('category').value,
     name, 
-    brand: document.getElementById('brand').value,
+    brand: document.getElementById('brand').value || '',
     price: Number(price), 
-    desc: document.getElementById('desc').value,
+    desc: document.getElementById('desc').value || '',
     images: compressedImages,
     createdAt: serverTimestamp()
   });
@@ -170,7 +168,7 @@ async function loadProducts(){
   listDiv.innerHTML = '';
   snap.forEach(d => {
     const p = d.data();
-    let mainImg = p.images ? p.images[0] : p.image;
+    let mainImg = (p.images && p.images.length > 0) ? p.images[0] : (p.image || 'logo.png');
     let imgCount = p.images ? p.images.length : 1;
     
     const div = document.createElement('div');
