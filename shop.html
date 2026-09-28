@@ -11,7 +11,6 @@ body{font-family:Arial, sans-serif;margin:0;background:#eaeef2;box-sizing:border
 .header{text-align:center;background:#fff7eb;padding:15px;border-bottom:4px solid #FF8C00}
 .header img.logo{width:90px;height:90px;border-radius:20px;border:3px solid #FFD700;object-fit:cover;box-shadow:0 4px 10px rgba(0,0,0,0.15)}
 
-/* Category Filter Bar */
 .category-bar {
   display: flex;
   overflow-x: auto;
@@ -44,7 +43,6 @@ body{font-family:Arial, sans-serif;margin:0;background:#eaeef2;box-sizing:border
 .search-box { padding: 10px 15px; background: #fff; }
 .search-box input { width: 100%; padding: 10px 15px; border: 2px solid #FF8C00; border-radius: 25px; box-sizing: border-box; text-align: center; font-size: 14px; outline: none; }
 
-/* Products Grid Layout */
 .products {
   max-width: 600px;
   margin: 0 auto;
@@ -67,23 +65,20 @@ body{font-family:Arial, sans-serif;margin:0;background:#eaeef2;box-sizing:border
 }
 .card:hover { transform: scale(1.01); }
 
-.image-slider {
+.product-img-container {
+  width: 100%;
+  height: 220px;
+  background: #ffffff;
   display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  width: 100%;
-  height: 220px;
-  background: #222;
-  -webkit-overflow-scrolling: touch;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 2px solid #FF8C00;
 }
-.image-slider::-webkit-scrollbar { height: 6px; }
-.image-slider::-webkit-scrollbar-thumb { background: #FF8C00; border-radius: 10px; }
-.image-slider img {
-  width: 100%;
-  height: 220px;
-  flex: 0 0 100%;
-  object-fit: cover;
-  scroll-snap-align: start;
+.product-img-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .card-body {
@@ -116,90 +111,91 @@ body{font-family:Arial, sans-serif;margin:0;background:#eaeef2;box-sizing:border
 }
 .whatsapp-btn:hover { background: #20ba5a; }
 
-/* Full-Screen Zoom Modal (Jab product par touch kiya jaye) */
-#modal-overlay {
+/* Daraz Style Separate Product Detail Page (White Background, No Black Modal) */
+#product-detail-page {
   display: none;
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.85);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
+  background: #ffffff;
+  z-index: 2000;
+  overflow-y: auto;
   box-sizing: border-box;
 }
-.modal-content {
-  background: #fff;
-  width: 100%;
-  max-width: 500px;
-  max-height: 90vh;
-  border-radius: 18px;
-  overflow-y: auto;
-  border: 3px solid #FF8C00;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-.close-modal {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  background: #ff1a1a;
-  color: #fff;
-  border: none;
-  width: 35px; height: 35px;
-  border-radius: 50%;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 10;
+
+.detail-header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  background: #FF8C00;
+  color: #fff;
+  padding: 12px 15px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.back-btn {
+  background: #fff;
+  color: #FF8C00;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.detail-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 </style>
 <script type="importmap">{"imports":{"firebase/app":"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js","firebase/firestore":"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"}}</script>
 </head><body>
 
-<div class="top-bar">
-<div id="google_translate_element"></div>
-<div class="owner-top"><img src="ejaz.jpg" onerror="this.src='logo.png'" title="R.A.W GROUP Owner"></div>
-</div>
-
-<div class="header">
-<img class="logo" src="logo.png" onerror="this.src='https://via.placeholder.com/95'">
-<h2 style="margin:8px 0 0;color:#FF8C00">IJAZ ALI SHOP</h2>
-<p style="margin:2px 0;font-size:13px;color:#555">Best Quality Collection</p>
-</div>
-
-<!-- Category Bar -->
-<div class="category-bar" id="categoryBar">
-  <button class="cat-btn active" onclick="filterCategory('All', this)">تمام (All)</button>
-  <button class="cat-btn" onclick="filterCategory('Shoes', this)">👟 جوتے</button>
-  <button class="cat-btn" onclick="filterCategory('Clothes', this)">👕 کپڑے</button>
-  <button class="cat-btn" onclick="filterCategory('Watches', this)">⌚ گھڑیاں</button>
-  <button class="cat-btn" onclick="filterCategory('Perfume', this)">🧴 پرفیوم</button>
-  <button class="cat-btn" onclick="filterCategory('Other', this)">📦 دیگر</button>
-</div>
-
-<div class="search-box">
-  <input id="search" onkeyup="filterShop()" placeholder="تلاش کریں... نام یا برانڈ">
-</div>
-
-<div id="shopList" class="products">
-  <p style="text-align:center;padding:30px;color:#666;">لوڈ ہو رہا ہے...</p>
-</div>
-
-<!-- Zoom Modal Overlay -->
-<div id="modal-overlay" onclick="closeProductModal(event)">
-  <div class="modal-content" id="modalContent" onclick="event.stopPropagation()">
-    <button class="close-modal" onclick="closeProductModalDirect()">×</button>
-    <div id="modalBody"></div>
+<div id="main-shop-view">
+  <div class="top-bar">
+    <div id="google_translate_element"></div>
+    <div class="owner-top"><img src="ejaz.jpg" onerror="this.src='logo.png'" title="R.A.W GROUP Owner"></div>
   </div>
+
+  <div class="header">
+    <img class="logo" src="logo.png" onerror="this.src='https://via.placeholder.com/95'">
+    <h2 style="margin:8px 0 0;color:#FF8C00">IJAZ ALI SHOP</h2>
+    <p style="margin:2px 0;font-size:13px;color:#555">Best Quality Collection</p>
+  </div>
+
+  <div class="category-bar" id="categoryBar">
+    <button class="cat-btn active" onclick="filterCategory('All', this)">تمام (All)</button>
+    <button class="cat-btn" onclick="filterCategory('Shoes', this)">👟 جوتے</button>
+    <button class="cat-btn" onclick="filterCategory('Clothes', this)">👕 کپڑے</button>
+    <button class="cat-btn" onclick="filterCategory('Watches', this)">⌚ گھڑیاں</button>
+    <button class="cat-btn" onclick="filterCategory('Perfume', this)">🧴 پرفیوم</button>
+    <button class="cat-btn" onclick="filterCategory('Other', this)">📦 دیگر</button>
+  </div>
+
+  <div class="search-box">
+    <input id="search" onkeyup="filterShop()" placeholder="تلاش کریں... نام یا برانڈ">
+  </div>
+
+  <div id="shopList" class="products">
+    <p style="text-align:center;padding:30px;color:#666;">لوڈ ہو رہا ہے...</p>
+  </div>
+
+  <div style="background:#111;color:#fff;text-align:center;padding:15px;margin-top:30px;font-size:13px;">© 2027 R.A.W GROUP - CHUKERA 79</div>
 </div>
 
-<div style="background:#111;color:#fff;text-align:center;padding:15px;margin-top:30px;font-size:13px;">© 2027 R.A.W GROUP - CHUKERA 79</div>
+<div id="product-detail-page">
+  <div class="detail-header">
+    <button class="back-btn" onclick="closeDetailPage()">← Wapas</button>
+    <h3 style="margin:0;font-size:16px;">Product Details</h3>
+    <div style="width: 50px;"></div>
+  </div>
+  <div class="detail-container" id="detailContent"></div>
+</div>
 
 <script type="module">
 import { initializeApp } from "firebase/app";
@@ -241,29 +237,25 @@ function render(list){
  list.forEach(p => {
   const card = document.createElement('div');
   card.className = 'card';
-  card.onclick = () => openProductModal(p);
+  card.onclick = () => openDetailPage(p);
   
-  const slider = document.createElement('div');
-  slider.className = 'image-slider';
+  const imgContainer = document.createElement('div');
+  imgContainer.className = 'product-img-container';
   
-  let imgList = [];
+  let imgSrc = 'logo.png';
   if (Array.isArray(p.images) && p.images.length > 0) {
-    imgList = p.images;
+    imgSrc = p.images[0];
   } else if (typeof p.images === 'string' && p.images.trim() !== '') {
-    imgList = [p.images];
+    imgSrc = p.images;
   } else if (p.image) {
-    imgList = [p.image];
-  } else {
-    imgList = ['logo.png'];
+    imgSrc = p.image;
   }
 
-  imgList.forEach(imgSrc => {
-    const img = document.createElement('img');
-    img.src = imgSrc;
-    img.onerror = function() { this.src = 'logo.png'; };
-    slider.appendChild(img);
-  });
-  card.appendChild(slider);
+  const img = document.createElement('img');
+  img.src = imgSrc;
+  img.onerror = function() { this.src = 'logo.png'; };
+  imgContainer.appendChild(img);
+  card.appendChild(imgContainer);
 
   const body = document.createElement('div');
   body.className = 'card-body';
@@ -300,13 +292,9 @@ function render(list){
  });
 }
 
-window.openProductModal = function(p) {
-  let modalBody = document.getElementById('modalBody');
-  modalBody.innerHTML = '';
-  
-  let slider = document.createElement('div');
-  slider.className = 'image-slider';
-  slider.style.height = '280px';
+window.openDetailPage = function(p) {
+  let detailContent = document.getElementById('detailContent');
+  detailContent.innerHTML = '';
   
   let imgList = [];
   if (Array.isArray(p.images) && p.images.length > 0) {
@@ -319,16 +307,27 @@ window.openProductModal = function(p) {
     imgList = ['logo.png'];
   }
 
-  imgList.forEach(imgSrc => {
+  imgList.forEach((imgSrc) => {
+    let singleImgBox = document.createElement('div');
+    singleImgBox.className = 'product-img-container';
+    singleImgBox.style.height = '300px';
+    singleImgBox.style.marginBottom = '10px';
+    singleImgBox.style.borderRadius = '12px';
+    singleImgBox.style.border = '2px solid #FF8C00';
+    
     let img = document.createElement('img');
     img.src = imgSrc;
-    img.style.height = '280px';
-    slider.appendChild(img);
+    img.onerror = function() { this.src = 'logo.png'; };
+    singleImgBox.appendChild(img);
+    detailContent.appendChild(singleImgBox);
   });
-  modalBody.appendChild(slider);
 
   let body = document.createElement('div');
   body.className = 'card-body';
+  body.style.background = '#ffffff';
+  body.style.border = '2px solid #FF8C00';
+  body.style.borderRadius = '12px';
+  body.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
   
   let title = document.createElement('h3');
   title.className = 'product-title';
@@ -368,16 +367,17 @@ window.openProductModal = function(p) {
   };
   body.appendChild(btn);
 
-  modalBody.appendChild(body);
-  document.getElementById('modal-overlay').style.display = 'flex';
+  detailContent.appendChild(body);
+
+  document.getElementById('main-shop-view').style.display = 'none';
+  document.getElementById('product-detail-page').style.display = 'block';
+  window.scrollTo(0, 0);
 }
 
-window.closeProductModal = function(e) {
-  document.getElementById('modal-overlay').style.display = 'none';
-}
-
-window.closeProductModalDirect = function() {
-  document.getElementById('modal-overlay').style.display = 'none';
+window.closeDetailPage = function() {
+  document.getElementById('product-detail-page').style.display = 'none';
+  document.getElementById('main-shop-view').style.display = 'block';
+  window.scrollTo(0, 0);
 }
 
 window.filterCategory = function(cat, btnElement){
@@ -403,4 +403,14 @@ function applyFilters(){
 
 loadProducts();
 </script>
+
+<script>
+function googleTranslateElementInit(){ 
+  new google.translate.TranslateElement({
+    pageLanguage: 'ur',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  }, 'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body></html>
