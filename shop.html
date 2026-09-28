@@ -14,18 +14,21 @@ body{font-family:Arial, sans-serif;background:#eaeef2;box-sizing:border-box;disp
 .header{text-align:center;background:#fff7eb;padding:12px;border-bottom:3px solid #FF8C00}
 .header img.logo{width:75px;height:75px;border-radius:15px;border:2px solid #FFD700;object-fit:cover;box-shadow:0 3px 8px rgba(0,0,0,0.15)}
 
-/* Category Bar - Bilkul wazeh aur theek jagah par */
-.category-bar {
-  display: flex;
-  overflow-x: auto;
-  gap: 8px;
-  padding: 12px 10px;
+/* Category Bar - Overlap aur border ka masla khatam karne ke liye padding aur margin theek ki gayi hai */
+.category-container {
   background: #fff;
-  white-space: nowrap;
+  border-bottom: 2px solid #FF8C00;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   position: sticky;
   top: 0;
   z-index: 100;
+}
+.category-bar {
+  display: flex;
+  overflow-x: auto;
+  gap: 8px;
+  padding: 10px 12px;
+  white-space: nowrap;
   -webkit-overflow-scrolling: touch;
   align-items: center;
 }
@@ -48,7 +51,7 @@ body{font-family:Arial, sans-serif;background:#eaeef2;box-sizing:border-box;disp
   color: #fff;
 }
 
-.search-box { padding: 8px 12px; background: #fff; }
+.search-box { padding: 8px 12px; background: #fff; border-bottom: 1px solid #ddd; }
 .search-box input { width: 100%; padding: 8px 12px; border: 2px solid #FF8C00; border-radius: 20px; box-sizing: border-box; text-align: center; font-size: 13px; outline: none; }
 
 /* Products Grid - 2 columns, chauras aur compact */
@@ -190,17 +193,19 @@ body{font-family:Arial, sans-serif;background:#eaeef2;box-sizing:border-box;disp
     <p style="margin:2px 0;font-size:12px;color:#555">Best Quality Collection</p>
   </div>
 
-  <div class="category-bar" id="categoryBar">
-    <button class="cat-btn active" onclick="filterCategory('All', this)">تمام (All)</button>
-    <button class="cat-btn" onclick="filterCategory('Shoes', this)">👟 جوتے</button>
-    <button class="cat-btn" onclick="filterCategory('Clothes', this)">👕 کپڑے</button>
-    <button class="cat-btn" onclick="filterCategory('Watches', this)">⌚ گھڑیاں</button>
-    <button class="cat-btn" onclick="filterCategory('Perfume', this)">🧴 پرفیوم</button>
-    <button class="cat-btn" onclick="filterCategory('Mobiles', this)">📱 موبائل</button>
-    <button class="cat-btn" onclick="filterCategory('Electronics', this)">⚡ الیکٹرانکس</button>
-    <button class="cat-btn" onclick="filterCategory('Toys', this)">🧸 کھلونے</button>
-    <button class="cat-btn" onclick="filterCategory('Cosmetics', this)">💄 کاسمیٹکس</button>
-    <button class="cat-btn" onclick="filterCategory('Other', this)">📦 دیگر</button>
+  <div class="category-container">
+    <div class="category-bar" id="categoryBar">
+      <button class="cat-btn active" onclick="filterCategory('All', this)">تمام (All)</button>
+      <button class="cat-btn" onclick="filterCategory('Shoes', this)">👟 جوتے</button>
+      <button class="cat-btn" onclick="filterCategory('Clothes', this)">👕 کپڑے</button>
+      <button class="cat-btn" onclick="filterCategory('Watches', this)">⌚ گھڑیاں</button>
+      <button class="cat-btn" onclick="filterCategory('Perfume', this)">🧴 پرفیوم</button>
+      <button class="cat-btn" onclick="filterCategory('Mobiles', this)">📱 موبائل</button>
+      <button class="cat-btn" onclick="filterCategory('Electronics', this)">⚡ الیکٹرانکس</button>
+      <button class="cat-btn" onclick="filterCategory('Toys', this)">🧸 کھلونے</button>
+      <button class="cat-btn" onclick="filterCategory('Cosmetics', this)">💄 کاسمیٹکس</button>
+      <button class="cat-btn" onclick="filterCategory('Other', this)">📦 دیگر</button>
+    </div>
   </div>
 
   <div class="search-box">
