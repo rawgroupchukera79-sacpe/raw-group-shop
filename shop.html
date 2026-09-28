@@ -313,7 +313,7 @@ function render(list){
   btn.textContent = 'Order on WhatsApp';
   btn.onclick = (e) => {
     e.stopPropagation();
-    let orderText = `मुझे यह चाहिए: ${p.name || ''} - Rs ${p.price || ''}`;
+    let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - Rs ${p.price || ''}`;
     window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
   };
   body.appendChild(btn);
