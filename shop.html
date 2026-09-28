@@ -8,17 +8,13 @@ body{font-family:Arial;margin:0;background:#f9f9f9}
 .header{text-align:center;background:#fff7eb;padding:12px;border-bottom:4px solid #FF8C00}
 .header img.logo{width:95px;border-radius:20px;border:3px solid #FFD700;box-shadow:0 4px 10px #0003}
 
-/* Strict 2-column grid layout */
+/* Flexbox Layout to strictly separate cards side-by-side */
 .products {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   padding: 12px;
-}
-@media (max-width: 400px) {
-  .products {
-    grid-template-columns: 1fr;
-  }
+  justify-content: flex-start;
 }
 
 .card {
@@ -29,6 +25,14 @@ body{font-family:Arial;margin:0;background:#f9f9f9}
   display: flex;
   flex-direction: column;
   border: 1px solid #e0e0e0;
+  width: calc(50% - 6px); /* Exactly 2 cards per row with gap */
+  box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 100%; /* 1 card per row on very small mobile screens if needed, or keep 50% */
+  }
 }
 
 /* Image Slider Styling */
@@ -80,7 +84,7 @@ body{font-family:Arial;margin:0;background:#f9f9f9}
 </div>
 
 <div class="search-box"><input id="search" onkeyup="filterShop()" placeholder="تلاش کریں... جوتا، کپڑا، برانڈ"></div>
-<div id="shopList" class="products"><p style="grid-column:1/-1;text-align:center;padding:30px">لوڈ ہو رہا ہے...</p></div>
+<div id="shopList" class="products"><p style="width:100%;text-align:center;padding:30px">لوڈ ہو رہا ہے...</p></div>
 
 <div style="background:#111;color:#fff;text-align:center;padding:12px;margin-top:30px">© 2027 R.A.W GROUP - CHUKERA 79</div>
 
@@ -103,18 +107,19 @@ let allProducts = [];
 async function loadProducts(){
   try {
     const snap = await getDocs(collection(db, "products"));
+    allProgress = [];
     allProducts = [];
     snap.forEach(doc=>{ allProducts.push({id:doc.id, ...doc.data()}); });
     render(allProducts);
   } catch (err) {
     console.error(err);
-    document.getElementById('shopList').innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:30px;color:red;">ڈیٹا لوڈ کرنے میں خرابی پیش آئی</p>';
+    document.getElementById('shopList').innerHTML = '<p style="width:100%;text-align:center;padding:30px;color:red;">ڈیٹا لوڈ کرنے میں خرابی پیش آئی</p>';
   }
 }
 
 function render(list){
  let shop=document.getElementById('shopList'); shop.innerHTML='';
- if(list.length==0){shop.innerHTML='<p style="grid-column:1/-1;text-align:center;padding:30px">ابھی دکان خالی ہے - Admin سے Add کریں</p>';return;}
+ if(list.length==0){shop.innerHTML='<p style="width:100%;text-align:center;padding:30px">ابھی دکان خالی ہے - Admin سے Add کریں</p>';return;}
  
  list.forEach(p=>{
   let imagesHTML = '';
