@@ -1,89 +1,195 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Product Upload</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; }
-        .admin-container { max-width: 600px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: #333; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input[type="text"], textarea, input[type="file"], select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; }
-        button:hover { background-color: #218838; }
-        #loading { text-align: center; color: #007bff; display: none; margin-top: 10px; }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R.A.W GROUP - Admin Panel</title>
+<style>
+:root{ --orange:#FF8C00; }
+body{background:#f2f2f2; font-family:sans-serif; margin:0; padding:12px;}
+.box{
+  max-width:500px; margin:15px auto; background:white;
+  border:3px solid var(--orange);
+  border-radius:18px; padding:18px;
+  box-shadow: 0 0 0 4px white, 0 0 0 7px var(--orange);
+}
+.logo-box{
+  width:85px; height:85px; margin:0 auto 10px auto;
+  border:3px solid var(--orange); border-radius:50%; overflow:hidden;
+  display:flex; align-items:center; justify-content:center; background:white;
+}
+.logo-box img{width:100%; height:100%; object-fit:cover;}
+h1{color:var(--orange); text-align:center; font-size:24px; margin:8px 0 15px 0;}
+input,select,textarea{
+  width:100%; padding:12px; margin:6px 0; box-sizing:border-box;
+  border:2px solid var(--orange); border-radius:10px; font-size:16px; outline:none; background:white;
+}
+button{cursor:pointer;}
+.btn-add{
+  width:100%; padding:14px; background:var(--orange); color:white;
+  border:2px solid var(--orange); border-radius:10px; font-weight:bold; font-size:18px; margin-top:8px;
+}
+.btn-add:disabled{opacity:0.6}
+#status{text-align:center; margin-top:8px; font-weight:bold; color:green; border:1px dashed var(--orange); padding:7px; border-radius:8px;}
+#preview-container{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+#preview-container img{width:70px; height:70px; object-fit:cover; border-radius:8px; border:2px solid var(--orange);}
+hr{border:none; border-top:2px dashed var(--orange); margin:20px 0;}
+h2{color:#111; text-align:center; font-size:20px; margin:0 0 10px 0;}
+.product-item{
+  display:flex; gap:10px; align-items:center;
+  border:2px solid var(--orange); border-radius:12px; padding:8px; margin-bottom:10px; background:#fffaf3;
+}
+.product-item img{width:65px; height:65px; object-fit:cover; border-radius:8px; border:1px solid var(--orange);}
+.p-info{flex:1; text-align:right; font-size:14px;}
+.p-info b{font-size:15px; display:block;}
+.btn-del{background:#ff1a1a; color:white; border:none; padding:8px 12px; border-radius:8px; font-weight:bold;}
+</style>
 </head>
 <body>
+<div class="box">
+  <div class="logo-box"><img src="logo.png" onerror="this.parentElement.innerHTML='<b style=color:var(--orange)>R.A.W</b>'"></div>
+  <h1>R.A.W GROUP - Admin Panel</h1>
 
-<div class="admin-container">
-    <h2>Add New Product</h2>
-    <form id="productForm">
-        <div class="form-group">
-            <label for="productName">Product Name:</label>
-            <input type="text" id="productName" required>
-        </div>
-        <div class="form-group">
-            <label for="productPrice">Price:</label>
-            <input type="text" id="productPrice" required>
-        </div>
-        <div class="form-group">
-            <label for="productDesc">Description:</label>
-            <textarea id="productDesc" rows="4" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="productImages">Upload Images (Multiple):</label>
-            <input type="file" id="productImages" accept="image/*" multiple required>
-        </div>
-        <button type="submit" id="submitBtn">Publish Product</button>
-        <div id="loading">Uploading product, please wait...</div>
-    </form>
+  <select id="category">
+    <option value="Shoes">👟 جوتے - Shoes</option>
+    <option value="Clothes">👕 کپڑے - Clothes</option>
+    <option value="Watches">⌚ گھڑیاں - Watches</option>
+    <option value="Perfume">🧴 پرفیوم - Perfume</option>
+    <option value="Other">📦 دیگر - Other</option>
+  </select>
+  <input id="name" placeholder="پروڈکٹ کا نام *">
+  <input id="brand" placeholder="برانڈ (مثال: Nike)">
+  <input id="price" type="number" placeholder="قیمت *">
+  <textarea id="desc" rows="2" placeholder="تفصیل"></textarea>
+  
+  <input id="imageFile" type="file" accept="image/*" multiple>
+  <!-- Yeh container ab dynamic tareeqay se jitni tasweerin select hongi sab dikhayega -->
+  <div id="preview-container"></div>
+  
+  <div id="status">تصاویر منتخب کریں (زیادہ سے زیادہ 4-5)</div>
+  <button class="btn-add" id="addBtn">پروڈکٹ سیو کریں</button>
+  <a href="shop.html" style="display:block; text-align:center; margin-top:10px; text-decoration:none; color:var(--orange); font-weight:bold; border:2px solid var(--orange); padding:8px; border-radius:8px;">← دکان دیکھیں</a>
+
+  <hr>
+  <h2>موجودہ پروڈکٹس (ڈیلیٹ کریں)</h2>
+  <div id="productList">لوڈ ہو رہا ہے...</div>
 </div>
 
-<!-- Firebase SDKs -->
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDb } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, serverTimestamp, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // Apni Firebase configuration yahan lagayein
-    const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_STORAGE_BUCKET",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "YOUR_APP_ID"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE",
+  authDomain: "raw-group-shop.firebaseapp.com",
+  projectId: "raw-group-shop",
+  storageBucket: "raw-group-shop.firebasestorage.app",
+  messagingSenderId: "488689802066",
+  appId: "1:488689802066:web:1437531e15df63e958388b"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+let selectedFiles = [];
+function compress(f){return new Promise(r=>{const rd=new FileReader();rd.onload=e=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');const w=400;c.width=w;c.height=(im.height*w)/im.width;c.getContext('2d').drawImage(im,0,0,c.width,c.height);r(c.toDataURL('image/jpeg',0.5));};im.src=e.target.result;};rd.readAsDataURL(f);});}
 
-    const productForm = document.getElementById('productForm');
-    const loadingDiv = document.getElementById('loading');
+const status=document.getElementById('status');
+const listDiv=document.getElementById('productList');
+const previewContainer = document.getElementById('preview-container');
 
-    productForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        loadingDiv.style.display = 'block';
+document.getElementById('imageFile').addEventListener('change', e => {
+ selectedFiles = Array.from(e.target.files);
+ previewContainer.innerHTML = ''; // Purani previews saaf karein
+ 
+ if(selectedFiles.length === 0) {
+   status.innerText = 'تصاویر منتخب کریں (زیادہ سے زیادہ 4-5)';
+   return;
+ }
+ 
+ // Jitni files select hongi, sab ki choti preview automatically ban kar yahan show ho jayengi
+ selectedFiles.forEach(file => {
+   const reader = new FileReader();
+   reader.onload = function(event) {
+     const img = document.createElement('img');
+     img.src = event.target.result;
+     previewContainer.appendChild(img);
+   }
+   reader.readAsDataURL(file);
+ });
 
-        const name = document.getElementById('productName').value;
-        const price = document.getElementById('productPrice').value;
-        const description = document.getElementById('productDesc').value;
-        const imageFiles = document.getElementById('productImages').files;
+ status.innerText = selectedFiles.length + ' تصاویری تیار ✅';
+});
 
-        try {
-            // Yahan images ko base64 ya Cloudinary/Firebase storage par bhejane ka code hota hai
-            // Filhal aap is form ko apni zaroorat ke mutabiq modify kar sakte hain
-            
-            alert('Product details ready!');
-        } catch (error) {
-            console.error("Error adding product: ", error);
-        } finally {
-            loadingDiv.style.display = 'none';
-        }
+document.getElementById('addBtn').addEventListener('click', async () => {
+ const name = document.getElementById('name').value.trim();
+ const price = document.getElementById('price').value.trim();
+ if(!name || !price || selectedFiles.length === 0){ alert('نام، قیمت اور کم از کم ایک تصویر لازمی ہے'); return; }
+ 
+ const btn = document.getElementById('addBtn');
+ btn.disabled = true; status.innerText = 'تصاویر کمپریس اور سیو ہو رہی ہیں...';
+ 
+ try{
+  let compressedImages = [];
+  for(let file of selectedFiles) {
+    let base64Img = await compress(file);
+    compressedImages.push(base64Img);
+  }
+
+  await addDoc(collection(db,'products'),{
+    category: document.getElementById('category').value,
+    name, 
+    brand: document.getElementById('brand').value,
+    price: Number(price), 
+    desc: document.getElementById('desc').value,
+    images: compressedImages,
+    createdAt: serverTimestamp()
+  });
+  
+  status.innerText = 'ماشاءاللہ پروڈکٹ سیو ہو گیا ✅';
+  selectedFiles = []; 
+  document.getElementById('imageFile').value = '';
+  document.getElementById('name').value = ''; 
+  document.getElementById('price').value = ''; 
+  document.getElementById('brand').value = ''; 
+  document.getElementById('desc').value = '';
+  previewContainer.innerHTML = '';
+  loadProducts();
+ }catch(err){
+  status.innerText = 'ایرر: '+err.message; 
+  alert(err.message);
+ }
+ btn.disabled = false; 
+ btn.innerText = 'پروڈکٹ سیو کریں';
+});
+
+async function loadProducts(){
+ listDiv.innerHTML = 'لوڈ ہو رہا ہے...';
+ try{
+  const q = query(collection(db,'products'), orderBy('createdAt','desc'));
+  const snap = await getDocs(q);
+  if(snap.empty){ listDiv.innerHTML = '<p style=text-align:center>کوئی پروڈکٹ نہیں</p>'; return; }
+  listDiv.innerHTML = '';
+  snap.forEach(d => {
+    const p = d.data();
+    let mainImg = p.images ? p.images[0] : p.image;
+    let imgCount = p.images ? p.images.length : 1;
+    
+    const div = document.createElement('div');
+    div.className = 'product-item';
+    div.innerHTML = `
+      <img src="${mainImg}">
+      <div class="p-info"><b>${p.name}</b><span>${p.category} - Rs.${p.price} <br><small>(${imgCount} تصاویر)</small></span></div>
+      <button class="btn-del">ڈیلیٹ</button>
+    `;
+    div.querySelector('.btn-del').addEventListener('click', async () => {
+      if(!confirm('کیا آپ واقعی '+p.name+' کو ڈیلیٹ کرنا چاہتے ہیں؟')) return;
+      await deleteDoc(doc(db,'products', d.id));
+      div.remove();
     });
+    listDiv.appendChild(div);
+  });
+ }catch(e){ listDiv.innerHTML = 'ایرر: '+e.message; }
+}
+loadProducts();
 </script>
-
 </body>
 </html>
