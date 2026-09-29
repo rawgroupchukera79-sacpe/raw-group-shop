@@ -1,28 +1,144 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="fo-verify" content="ab275978-c61b-484b-aa60-f8ad866db45e" />
-<title>R.A.W GROUP</title>
-<style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-    body{background:#fff;color:#333;text-align:center;padding:15px}
-    .logo{width:220px;border-radius:20px;margin-top:20px;border:3px solid #FFD700}
-    h1{color:#b8860b;font-size:30px;margin:10px 0}
-    .menu{background:#FF8C00;display:flex;justify-content:center;gap:20px;padding:12px;margin:20px -15px}
-    .menu a{color:#fff;text-decoration:none;font-weight:bold}
-    .coming{color:#FF8C00;font-size:44px;font-weight:900;margin-top:25px}
-    .btn{background:#FF8C00;color:#fff;border:none;padding:14px 50px;border-radius:30px;font-weight:bold;margin-top:20px;cursor:pointer}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R.A.W GROUP SHOP - Online Store</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: #2c3e50;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin-bottom: 5px;
+        }
+        header p {
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .shop-heading {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .product-card h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .product-card p {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+        footer {
+            margin-top: 50px;
+            background: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 25px 20px;
+        }
+        footer p {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<img src="logo.png" class="logo">
-<h1>R.A.W. GROUP<br>CHUKERA 79</h1>
-<p style="color:#666;font-size:12px">Quality | Trust | Excellence</p>
-<div class="menu"><a href="index.html">Home</a><a href="shop.html">Shop</a><a href="#">Contact</a></div>
-<h2 class="coming">COMING SOON</h2>
-<p style="color:#555">جلد آرہی ہے</p>
-<a href="shop.html"><button class="btn">GET STARTED</button></a>
+
+    <!-- Header Section -->
+    <header>
+        <h1>R.A.W GROUP SHOP</h1>
+        <p>Your Trusted Online Shopping Destination</p>
+    </header>
+
+    <!-- Main Content / Products Section -->
+    <div class="container">
+        <h2 class="shop-heading">Featured Products</h2>
+        
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <h3>Quality Product 1</h3>
+                <p>Available Now</p>
+                <a href="contact.html" class="btn">Inquire Now</a>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <h3>Quality Product 2</h3>
+                <p>Available Now</p>
+                <a href="contact.html" class="btn">Inquire Now</a>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <h3>Quality Product 3</h3>
+                <p>Available Now</p>
+                <a href="contact.html" class="btn">Inquire Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section with Required Legal Links -->
+    <footer>
+        <p>&copy; 2026 R.A.W GROUP SHOP. All Rights Reserved.</p>
+        <p>
+            <a href="privacy.html">Privacy Policy</a> | 
+            <a href="terms.html">Terms & Conditions</a> | 
+            <a href="contact.html">Contact Us</a>
+        </p>
+    </footer>
+
 </body>
-</html>
+   </html>
+   
