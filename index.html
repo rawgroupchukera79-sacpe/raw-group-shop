@@ -24,11 +24,13 @@
             text-align: center;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .profile-img-container {
+        .images-container {
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: 20px;
             margin-bottom: 15px;
+            flex-wrap: wrap;
         }
         .profile-img-container img {
             width: 90px;
@@ -46,6 +48,21 @@
         header p {
             color: #fff3e0;
             font-size: 15px;
+        }
+        .translate-box {
+            margin-top: 15px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .goog-te-combo {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background: #fff;
+            color: #333;
+            font-size: 14px;
         }
         nav {
             background: #e65100;
@@ -164,11 +181,20 @@
 
     <!-- Header Section -->
     <header>
-        <div class="profile-img-container">
-            <img src="https://via.placeholder.com/90" alt="RAW Group Logo / Owner">
+        <div class="images-container">
+            <div class="profile-img-container">
+                <img src="logo.png" alt="RAW Group Logo">
+            </div>
+            <div class="profile-img-container">
+                <img src="ejaz.jpg" alt="Owner Picture">
+            </div>
         </div>
         <h1>R.A.W GROUP SHOP</h1>
         <p>Your Trusted Online Shopping Destination</p>
+        
+        <div class="translate-box">
+            <div id="google_translate_element"></div>
+        </div>
     </header>
 
     <!-- Navigation Menu as Buttons -->
@@ -234,8 +260,8 @@
             <p>If you have any questions or require support, you can reach us using the contact details below:</p>
             <div class="contact-info">
                 <p><strong>Business Name:</strong> RAW Group</p>
-                <p><strong>Mobile Number:</strong> +92 3334664227</p>
-                <p><strong>Email:</strong> your-rawgroupchukera79@gmail.com</p>
+                <p><strong>Mobile Number:</strong> 03334664227</p>
+                <p><strong>Email:</strong> rawgroupchukera79@gmail.com</p>
                 <p><strong>Location:</strong> Pakistan</p>
             </div>
             <a href="https://wa.me/923334664227?text=Hello%20RAW%20Group,%20I%20need%20some%20information." target="_blank" class="btn-whatsapp">Chat on WhatsApp</a>
@@ -247,6 +273,19 @@
     <footer>
         <p>&copy; 2026 R.A.W GROUP SHOP. All Rights Reserved.</p>
     </footer>
+
+    <!-- Google Translate Script with All Languages Support -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,ur,ar,hi,es,fr,de,zh-CN,fa,ps,tr,it,ru,ja,ko',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>
