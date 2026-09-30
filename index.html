@@ -102,25 +102,33 @@
         }
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin-bottom: 50px;
         }
         .product-card {
             background: #fff;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             text-align: center;
-            border-top: 4px solid #ff7e00;
+            border: 2px solid #ff7e00;
         }
-        .product-card img {
-            width: 100%;
-            height: 180px;
+        /* Har product ke ghar ke andar tamam tasviron ke liye gallery layout */
+        .product-images-grid {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+        .product-images-grid img {
+            width: 80px;
+            height: 80px;
             object-fit: cover;
             border-radius: 6px;
-            margin-bottom: 12px;
-            border: 1px solid #eee;
+            border: 1px solid #ff7e00;
+            flex-shrink: 0;
         }
         .product-card h3 {
             margin-bottom: 8px;
@@ -291,7 +299,7 @@
         <p><a href="admin.html" class="admin-link">Admin Portal</a></p>
     </footer>
 
-    <!-- Firebase Script to Fetch and Show Products -->
+    <!-- Firebase Script to Fetch and Show All Images Inside Each Product Card -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -322,17 +330,30 @@
                 grid.innerHTML = '';
                 snap.forEach(d => {
                     const p = d.data();
-                    let mainImg = (p.images && p.images.length > 0) ? p.images[0] : 'logo.png';
                     let productName = p.name || 'Product';
                     let productPrice = p.price || 0;
                     let productCategory = p.category || 'General';
+                    
+                    // Har product ki tamam tasviron ko aik row mein dikhane ke liye HTML banana
+                    let imagesHTML = '';
+                    if (p.images && p.images.length > 0) {
+                        p.images.forEach(imgSrc => {
+                            imagesHTML += `<img src="${imgSrc}" alt="${productName}">`;
+                        });
+                    } else if (p.image) {
+                        imagesHTML += `<img src="${p.image}" alt="${productName}">`;
+                    } else {
+                        imagesHTML += `<img src="logo.png" alt="${productName}">`;
+                    }
                     
                     let whatsappText = encodeURIComponent(`I want to order ${productName} (Price: Rs. ${productPrice})`);
                     
                     const card = document.createElement('div');
                     card.className = 'product-card';
                     card.innerHTML = `
-                        <img src="${mainImg}" alt="${productName}">
+                        <div class="product-images-grid">
+                            ${imagesHTML}
+                        </div>
                         <span class="category-tag">${productCategory}</span>
                         <h3>${productName}</h3>
                         <p>Rs. ${productPrice}</p>
