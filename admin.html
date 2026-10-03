@@ -59,6 +59,7 @@ h2{color:#111; text-align:center; font-size:20px; margin:0 0 10px 0;}
   <input id="name" placeholder="پروڈکٹ کا نام *">
   <input id="brand" placeholder="برانڈ (مثال: Nike)">
   <input id="price" type="number" placeholder="قیمت *">
+  <input id="affiliateLink" placeholder="ایمیزون ایفلی ایٹ لنک (Amazon Affiliate Link)">
   <textarea id="desc" rows="2" placeholder="تفصیل"></textarea>
   
   <input id="imageFile" type="file" accept="image/*" multiple>
@@ -137,17 +138,19 @@ document.getElementById('addBtn').addEventListener('click', async () => {
     name, 
     brand: document.getElementById('brand').value || '',
     price: Number(price), 
+    affiliateLink: document.getElementById('affiliateLink').value.trim() || '',
     desc: document.getElementById('desc').value || '',
     images: compressedImages,
     createdAt: serverTimestamp()
   });
   
-  status.innerText = 'ماشاءاللہ پروڈکٹ سیو ہو گیا ✅';
+  status.innerText = 'ماشاءاللہ پروڈکٹ سیو ہو गया ✅';
   selectedFiles = []; 
   document.getElementById('imageFile').value = '';
   document.getElementById('name').value = ''; 
   document.getElementById('price').value = ''; 
   document.getElementById('brand').value = ''; 
+  document.getElementById('affiliateLink').value = '';
   document.getElementById('desc').value = '';
   previewContainer.innerHTML = '';
   loadProducts();
