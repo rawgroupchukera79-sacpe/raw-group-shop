@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-
 <html lang="en">
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="fo-verify" content="9513c24d-5f2c-40a0-82b4-9f8aef17475e" />
     <title>R.A.W GROUP SHOP - Online Store</title>
-</head>
     <p>FlexOffers Verification Code: 48972050048</p>
     <style>
         * {
@@ -202,9 +200,24 @@
             font-weight: bold;
             transition: background 0.3s;
             width: 100%;
+            margin-bottom: 8px;
         }
         .btn-whatsapp:hover {
             background: #1ebe57;
+        }
+        .btn-amazon {
+            display: inline-block;
+            background: #FF9900;
+            color: #111;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        .btn-amazon:hover {
+            background: #e88b00;
         }
 
         /* Modal for Zooming Image */
@@ -410,6 +423,7 @@
                     let productName = p.name || 'Product';
                     let productPrice = p.price || 0;
                     let productCategory = p.category || 'General';
+                    let affiliateLink = p.affiliateLink || '';
                     
                     let images = [];
                     if (p.images && p.images.length > 0) {
@@ -432,6 +446,12 @@
                     
                     let whatsappText = encodeURIComponent(`I want to order ${productName} (Price: Rs. ${productPrice})`);
                     
+                    // Amazon button sirf tab dikhega jab affiliate link mojood hoga
+                    let amazonButtonHTML = '';
+                    if (affiliateLink) {
+                        amazonButtonHTML = `<a href="${affiliateLink}" target="_blank" class="btn-amazon">Buy on Amazon</a>`;
+                    }
+
                     const card = document.createElement('div');
                     card.className = 'product-card';
                     card.innerHTML = `
@@ -447,6 +467,7 @@
                         <h3>${productName}</h3>
                         <p>Rs. ${productPrice}</p>
                         <a href="https://wa.me/923334664227?text=${whatsappText}" target="_blank" class="btn-whatsapp">Order on WhatsApp</a>
+                        ${amazonButtonHTML}
                     `;
                     grid.appendChild(card);
 
