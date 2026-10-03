@@ -59,7 +59,7 @@ h2{color:#111; text-align:center; font-size:20px; margin:0 0 10px 0;}
   <input id="name" placeholder="پروڈکٹ کا نام *">
   <input id="brand" placeholder="برانڈ (مثال: Nike)">
   <input id="price" type="number" placeholder="قیمت *">
-  <input id="affiliateLink" placeholder="ایمیزون ایفلی ایٹ لنک (Amazon Affiliate Link)">
+  <input id="affiliateLink" placeholder="ایمیزون پروڈکٹ کا لنک (Amazon URL)">
   <textarea id="desc" rows="2" placeholder="تفصیل"></textarea>
   
   <input id="imageFile" type="file" accept="image/*" multiple>
@@ -88,6 +88,9 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+// Aapki Automatic Amazon Associates ID yahan fix kar di gayi hai
+const AMAZON_TAG = "rawgroup79-20";
 
 let selectedFiles = [];
 function compress(f){return new Promise(r=>{const rd=new FileReader();rd.onload=e=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');const w=400;c.width=w;c.height=(im.height*w)/im.width;c.getContext('2d').drawImage(im,0,0,c.width,c.height);r(c.toDataURL('image/jpeg',0.5));};im.src=e.target.result;};rd.readAsDataURL(f);});}
@@ -133,18 +136,31 @@ document.getElementById('addBtn').addEventListener('click', async () => {
     compressedImages.push(base64Img);
   }
 
+  // Raw user input link lena
+  let rawLink = document.getElementById('affiliateLink').value.trim();
+  let finalAffiliateLink = "";
+
+  if(rawLink) {
+    // Agar link mein pehle se tag mojood nahi hai, toh automatic tag attach kar dena
+    if(rawLink.includes("?")) {
+      finalAffiliateLink = rawLink + "&tag=" + AMAZON_TAG;
+    } else {
+      finalAffiliateLink = rawLink + "?tag=" + AMAZON_TAG;
+    }
+  }
+
   await addDoc(collection(db,'products'),{
     category: document.getElementById('category').value,
     name, 
     brand: document.getElementById('brand').value || '',
     price: Number(price), 
-    affiliateLink: document.getElementById('affiliateLink').value.trim() || '',
+    affiliateLink: finalAffiliateLink,
     desc: document.getElementById('desc').value || '',
     images: compressedImages,
     createdAt: serverTimestamp()
   });
   
-  status.innerText = 'ماشاءاللہ پروڈکٹ سیو ہو गया ✅';
+  status.innerText = 'ماشاءاللہ پروڈکٹ سیو ہو گیا ✅';
   selectedFiles = []; 
   document.getElementById('imageFile').value = '';
   document.getElementById('name').value = ''; 
