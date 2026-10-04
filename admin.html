@@ -51,6 +51,7 @@ h2{color:#111; text-align:center; font-size:20px; margin:0 0 10px 0;}
 .price-box input{flex:1;}
 #pkrPreview{text-align:center; font-size:13px; color:#555; margin-bottom:6px; font-weight:bold;}
 #cancelEditBtn{background:#666; color:white; border:none; padding:10px; border-radius:10px; font-weight:bold; width:100%; margin-top:5px; display:none;}
+.price-type-select{background:#fffaf3; font-weight:bold; color:#333;}
 </style>
 </head>
 <body>
@@ -79,15 +80,29 @@ h2{color:#111; text-align:center; font-size:20px; margin:0 0 10px 0;}
     <option value="Other">📦 دیگر - Other</option>
   </select>
   <input id="name" placeholder="پروڈکٹ کا نام *">
-  <input id="brand" placeholder="برانڈ (مثال: Nike)">
+  <input id="brand" placeholder="برانڈ (مثال: Nike یا Local)">
   
-  <div class="price-box">
-    <input id="priceUSD" type="number" step="0.01" placeholder="قیمت ڈالر میں ($) *">
-    <input id="ratePKR" type="number" value="280" placeholder="ڈالر ریٹ PKR">
-  </div>
-  <div id="pkrPreview">پاکستانی روپے میں تخمینہ: Rs. 0</div>
+  <!-- Price Type Selection -->
+  <select id="priceType" class="price-type-select">
+    <option value="pkr">🇵🇰 صرف پاکستانی روپیہ (PKR - لوکل چیز)</option>
+    <option value="usd">💲 ڈالر اور روپیہ (USD - ایمیزون پروڈکٹ)</option>
+  </select>
 
-  <input id="affiliateLink" placeholder="ایمیزون پروڈکٹ کا لنک (Amazon URL)">
+  <!-- Only PKR Input Container -->
+  <div id="pkrContainer">
+    <input id="priceDirectPKR" type="number" placeholder="قیمت پاکستانی روپے میں (Rs) *">
+  </div>
+
+  <!-- USD & Rate Input Container (Hidden by default) -->
+  <div id="usdContainer" style="display:none;">
+    <div class="price-box">
+      <input id="priceUSD" type="number" step="0.01" placeholder="قیمت ڈالر میں ($) *">
+      <input id="ratePKR" type="number" value="280" placeholder="ڈالر ریٹ PKR">
+    </div>
+    <div id="pkrPreview">پاکستانی روپے میں تخمینہ: Rs. 0</div>
+  </div>
+
+  <input id="affiliateLink" placeholder="پروڈکٹ کا لنک (Amazon URL یا WhatsApp/Order Link)">
   <textarea id="desc" rows="2" placeholder="تفصیل"></textarea>
   
   <input id="imageFile" type="file" accept="image/*" multiple>
@@ -119,10 +134,10 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const AMAZON_TAG = "rawgroup79-20";
-const CORRECT_PASS = "1234"; // Yahan aap apna password badal sakte hain
+const CORRECT_PASS = "1234";
 
-let editingId = null; // Track karne ke liye ke kaunsa product edit ho raha hai
-let existingImagesForEdit = []; // Purani images sambhalne ke liye
+let editingId = null;
+let existingImagesForEdit = [];
 
 const loginBox = document.getElementById('loginBox');
 const adminPanel = document.getElementById('adminPanel');
@@ -150,6 +165,21 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
   adminPanel.style.display = 'none';
   loginBox.style.display = 'block';
   document.getElementById('adminPass').value = '';
+});
+
+// Switch Price Type (PKR vs USD)
+const priceType = document.getElementById('priceType');
+const pkrContainer = document.getElementById('pkrContainer');
+const usdContainer = document.getElementById('usdContainer');
+
+priceType.addEventListener('change', () => {
+  if(priceType.value === 'pkr') {
+    pkrContainer.style.display = 'block';
+    usdContainer.style.display = 'none';
+  } else {
+    pkrContainer.style.display = 'none';
+    usdContainer.style.display = 'block';
+  }
 });
 
 // Price conversion live calculation
@@ -200,13 +230,18 @@ document.getElementById('imageFile').addEventListener('change', e => {
 // Save or Update Product
 addBtn.addEventListener('click', async () => {
  const name = document.getElementById('name').value.trim();
+ const isUSD = priceType.value === 'usd';
+ const directPKRVal = document.getElementById('priceDirectPKR').value.trim();
  const usdVal = document.getElementById('priceUSD').value.trim();
  
- if(!name || !usdVal){ alert('نام اور ڈالر قیمت لازمی ہیں'); return; }
+ if(!name || (isUSD && !usdVal) || (!isUSD && !directPKRVal)){ 
+   alert('نام اور قیمت درج کرنا لازمی ہے'); 
+   return; 
+ }
  if(!editingId && selectedFiles.length === 0){ alert('نئی پروڈکٹ کے لیے کم از کم ایک تصویر لازمی ہے'); return; }
  
  addBtn.disabled = true; 
- status.innerText = editingId ? 'پروڈکٹ اپ ڈیٹ ہو رہی ہے...' : 'تصاویر کمپریس اور سیو ہو رہی ہیں...';
+ status.innerText = editingId ? 'پروڈکٹ اپ ڈیٹ ہو رہی ہے...' : 'تصاویر کمپریس اور سیو ہو रही ہیں...';
  
  try{
   let compressedImages = existingImagesForEdit;
@@ -219,9 +254,10 @@ addBtn.addEventListener('click', async () => {
   }
 
   let rawLink = document.getElementById('affiliateLink').value.trim();
-  let finalAffiliateLink = "";
+  let finalAffiliateLink = rawLink;
 
-  if(rawLink) {
+  // Agar Amazon ka link hai aur USD mode hai toh tag attach karein
+  if(isUSD && rawLink) {
     if(rawLink.includes("?")) {
       finalAffiliateLink = rawLink.includes("tag=") ? rawLink : rawLink + "&tag=" + AMAZON_TAG;
     } else {
@@ -229,30 +265,35 @@ addBtn.addEventListener('click', async () => {
     }
   }
 
-  let numericUSD = Number(usdVal);
-  let rate = Number(ratePKR.value) || 280;
-  let numericPKR = Math.round(numericUSD * rate);
-
-  const productData = {
+  let productData = {
     category: document.getElementById('category').value,
     name, 
     brand: document.getElementById('brand').value || '',
-    priceUSD: numericUSD,
-    pricePKR: numericPKR,
-    price: numericUSD,
     affiliateLink: finalAffiliateLink,
     desc: document.getElementById('desc').value || '',
     images: compressedImages,
     createdAt: serverTimestamp()
   };
 
+  if(isUSD) {
+    let numericUSD = Number(usdVal);
+    let rate = Number(ratePKR.value) || 280;
+    productData.priceUSD = numericUSD;
+    productData.pricePKR = Math.round(numericUSD * rate);
+    productData.priceType = 'usd';
+    productData.price = numericUSD;
+  } else {
+    let numericPKR = Number(directPKRVal);
+    productData.pricePKR = numericPKR;
+    productData.priceType = 'pkr';
+    productData.price = numericPKR;
+  }
+
   if(editingId) {
-    // Update existing
     await updateDoc(doc(db, 'products', editingId), productData);
     status.innerText = 'ماشاءاللہ پروڈکٹ اپ ڈیٹ ہو گئی ✅';
     resetForm();
   } else {
-    // Add new
     await addDoc(collection(db, 'products'), productData);
     status.innerText = 'ماشاءاللہ پروڈکٹ سیو ہو گئی ✅';
     resetForm();
@@ -272,10 +313,14 @@ function resetForm() {
   selectedFiles = [];
   document.getElementById('imageFile').value = '';
   document.getElementById('name').value = ''; 
+  document.getElementById('priceDirectPKR').value = '';
   document.getElementById('priceUSD').value = ''; 
   document.getElementById('brand').value = ''; 
   document.getElementById('affiliateLink').value = '';
   document.getElementById('desc').value = '';
+  priceType.value = 'pkr';
+  pkrContainer.style.display = 'block';
+  usdContainer.style.display = 'none';
   pkrPreview.innerText = `پاکستانی روپے میں تخمینہ: Rs. 0`;
   previewContainer.innerHTML = '';
   addBtn.innerText = 'پروڈکٹ سیو کریں';
@@ -296,7 +341,13 @@ async function loadProducts(){
     const p = d.data();
     let mainImg = (p.images && p.images.length > 0) ? p.images[0] : (p.image || 'logo.png');
     let imgCount = p.images ? p.images.length : 1;
-    let priceDisplay = p.priceUSD ? `$${p.priceUSD} (Rs. ${p.pricePKR || Math.round(p.priceUSD * 280)})` : `Rs.${p.price}`;
+    
+    let priceDisplay = "";
+    if(p.priceType === 'usd' || p.priceUSD) {
+      priceDisplay = `$${p.priceUSD || p.price} (Rs. ${p.pricePKR || Math.round((p.priceUSD || p.price) * 280)})`;
+    } else {
+      priceDisplay = `Rs. ${p.pricePKR || p.price}`;
+    }
     
     const div = document.createElement('div');
     div.className = 'product-item';
@@ -316,14 +367,23 @@ async function loadProducts(){
       document.getElementById('category').value = p.category || 'Shoes';
       document.getElementById('name').value = p.name || '';
       document.getElementById('brand').value = p.brand || '';
-      document.getElementById('priceUSD').value = p.priceUSD || p.price || '';
       document.getElementById('affiliateLink').value = p.affiliateLink ? p.affiliateLink.split('&tag=')[0].split('?tag=')[0] : '';
       document.getElementById('desc').value = p.desc || '';
       
-      updatePKR();
+      if(p.priceType === 'usd' || p.priceUSD) {
+        priceType.value = 'usd';
+        pkrContainer.style.display = 'none';
+        usdContainer.style.display = 'block';
+        document.getElementById('priceUSD').value = p.priceUSD || p.price || '';
+        updatePKR();
+      } else {
+        priceType.value = 'pkr';
+        pkrContainer.style.display = 'block';
+        usdContainer.style.display = 'none';
+        document.getElementById('priceDirectPKR').value = p.pricePKR || p.price || '';
+      }
+
       existingImagesForEdit = p.images || [];
-      
-      // Show old images preview
       previewContainer.innerHTML = '';
       if(p.images) {
         p.images.forEach(imgSrc => {
@@ -351,5 +411,4 @@ async function loadProducts(){
 }
 </script>
 </body>
-    </html>
-    
+</html>
