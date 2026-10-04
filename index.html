@@ -355,7 +355,7 @@
         <div id="products">
             <h2 class="section-title">Featured Products</h2>
             <div class="products-grid" id="dynamicProductsGrid">
-                <p style="text-align:center; grid-column: 1/-1; color:#666;">پروڈکٹس لوڈ ہو ...</p>
+                <p style="text-align:center; grid-column: 1/-1; color:#666;">پروڈکٹس لوڈ ہو رہی ہیں...</p>
             </div>
         </div>
 
@@ -448,9 +448,23 @@
                 snap.forEach(d => {
                     const p = d.data();
                     let productName = p.name || 'Product';
-                    let productPrice = p.price || 0;
                     let productCategory = p.category || 'General';
                     let affiliateLink = p.affiliateLink || '';
+                    
+                    // Currency display logic without changing design
+                    let priceDisplay = "";
+                    let whatsappPriceText = "";
+
+                    if (p.priceType === 'usd' || p.priceUSD) {
+                        let usdVal = p.priceUSD || p.price || 0;
+                        let pkrVal = p.pricePKR || Math.round(usdVal * 280);
+                        priceDisplay = `$${usdVal} <span style="font-size: 0.9rem; color: #666;">(Rs. ${pkrVal.toLocaleString()})</span>`;
+                        whatsappPriceText = `$${usdVal} (Rs. ${pkrVal})`;
+                    } else {
+                        let pkrVal = p.pricePKR || p.price || 0;
+                        priceDisplay = `Rs. ${pkrVal.toLocaleString()}`;
+                        whatsappPriceText = `Rs. ${pkrVal}`;
+                    }
                     
                     let images = [];
                     if (p.images && p.images.length > 0) {
@@ -471,7 +485,7 @@
                         thumbsHTML += `<img src="${imgSrc}" alt="thumb" class="${activeClass}" data-index="${index}">`;
                     });
                     
-                    let whatsappText = encodeURIComponent(`I want to order ${productName} (Price: Rs. ${productPrice})`);
+                    let whatsappText = encodeURIComponent(`I want to order ${productName} (Price: ${whatsappPriceText})`);
                     
                     let amazonButtonHTML = '';
                     if (affiliateLink) {
@@ -491,7 +505,7 @@
                         </div>
                         <span class="category-tag">${productCategory}</span>
                         <h3>${productName}</h3>
-                        <p>Rs. ${productPrice}</p>
+                        <p>${priceDisplay}</p>
                         <a href="https://wa.me/923334664227?text=${whatsappText}" target="_blank" class="btn-whatsapp">Order on WhatsApp</a>
                         ${amazonButtonHTML}
                     `;
@@ -522,7 +536,7 @@
                     }, 100);
                 });
             } catch (err) {
-                grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color:red;">پروڈکٹس لوڈ کرنے में एरर آ गया: ' + err.message + '</p>';
+                grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color:red;">پروڈکٹس لوڈ کرنے میں ایرر آ گیا: ' + err.message + '</p>';
             }
         }
 
