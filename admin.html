@@ -44,10 +44,13 @@ h2{color:#111; text-align:center; font-size:20px; margin:0 0 10px 0;}
 .product-item img{width:65px; height:65px; object-fit:cover; border-radius:8px; border:1px solid var(--orange);}
 .p-info{flex:1; text-align:right; font-size:14px;}
 .p-info b{font-size:15px; display:block;}
-.btn-del{background:#ff1a1a; color:white; border:none; padding:8px 12px; border-radius:8px; font-weight:bold;}
+.btn-actions{display:flex; gap:5px; flex-direction:column;}
+.btn-del{background:#ff1a1a; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:bold; font-size:13px;}
+.btn-edit{background:#0080ff; color:white; border:none; padding:6px 10px; border-radius:6px; font-weight:bold; font-size:13px;}
 .price-box{display:flex; gap:8px;}
 .price-box input{flex:1;}
 #pkrPreview{text-align:center; font-size:13px; color:#555; margin-bottom:6px; font-weight:bold;}
+#cancelEditBtn{background:#666; color:white; border:none; padding:10px; border-radius:10px; font-weight:bold; width:100%; margin-top:5px; display:none;}
 </style>
 </head>
 <body>
@@ -92,16 +95,17 @@ h2{color:#111; text-align:center; font-size:20px; margin:0 0 10px 0;}
   
   <div id="status">تصاویر منتخب کریں (زیادہ سے زیادہ 4-5)</div>
   <button class="btn-add" id="addBtn">پروڈکٹ سیو کریں</button>
+  <button id="cancelEditBtn">ایڈٹ کینسل کریں</button>
   <a href="index.html" style="display:block; text-align:center; margin-top:10px; text-decoration:none; color:var(--orange); font-weight:bold; border:2px solid var(--orange); padding:8px; border-radius:8px;">← دکان دیکھیں</a>
 
   <hr>
-  <h2>موجودہ پروڈکٹس (ڈیلیٹ کریں)</h2>
+  <h2>موجودہ پروڈکٹس (ایڈٹ / ڈیلیٹ کریں)</h2>
   <div id="productList">لوڈ ہو رہا ہے...</div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, serverTimestamp, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, serverTimestamp, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE",
@@ -115,9 +119,11 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const AMAZON_TAG = "rawgroup79-20";
+const CORRECT_PASS = "1234"; // Yahan aap apna password badal sakte hain
 
-// Login Logic (Default password is '1234', you can change it here)
-const CORRECT_PASS = "1234";
+let editingId = null; // Track karne ke liye ke kaunsa product edit ho raha hai
+let existingImagesForEdit = []; // Purani images sambhalne ke liye
+
 const loginBox = document.getElementById('loginBox');
 const adminPanel = document.getElementById('adminPanel');
 
@@ -166,6 +172,8 @@ function compress(f){return new Promise(r=>{const rd=new FileReader();rd.onload=
 const status=document.getElementById('status');
 const listDiv=document.getElementById('productList');
 const previewContainer = document.getElementById('preview-container');
+const addBtn = document.getElementById('addBtn');
+const cancelEditBtn = document.getElementById('cancelEditBtn');
 
 document.getElementById('imageFile').addEventListener('change', e => {
  selectedFiles = Array.from(e.target.files);
@@ -189,19 +197,25 @@ document.getElementById('imageFile').addEventListener('change', e => {
  status.innerText = selectedFiles.length + ' تصاویر تیار ✅';
 });
 
-document.getElementById('addBtn').addEventListener('click', async () => {
+// Save or Update Product
+addBtn.addEventListener('click', async () => {
  const name = document.getElementById('name').value.trim();
  const usdVal = document.getElementById('priceUSD').value.trim();
- if(!name || !usdVal || selectedFiles.length === 0){ alert('نام، ڈالر قیمت اور کم از کم ایک تصویر لازمی ہے'); return; }
  
- const btn = document.getElementById('addBtn');
- btn.disabled = true; status.innerText = 'تصاویر کمپریس اور سیو ہو رہی ہیں...';
+ if(!name || !usdVal){ alert('نام اور ڈالر قیمت لازمی ہیں'); return; }
+ if(!editingId && selectedFiles.length === 0){ alert('نئی پروڈکٹ کے لیے کم از کم ایک تصویر لازمی ہے'); return; }
+ 
+ addBtn.disabled = true; 
+ status.innerText = editingId ? 'پروڈکٹ اپ ڈیٹ ہو رہی ہے...' : 'تصاویر کمپریس اور سیو ہو رہی ہیں...';
  
  try{
-  let compressedImages = [];
-  for(let file of selectedFiles) {
-    let base64Img = await compress(file);
-    compressedImages.push(base64Img);
+  let compressedImages = existingImagesForEdit;
+  if(selectedFiles.length > 0) {
+    compressedImages = [];
+    for(let file of selectedFiles) {
+      let base64Img = await compress(file);
+      compressedImages.push(base64Img);
+    }
   }
 
   let rawLink = document.getElementById('affiliateLink').value.trim();
@@ -209,7 +223,7 @@ document.getElementById('addBtn').addEventListener('click', async () => {
 
   if(rawLink) {
     if(rawLink.includes("?")) {
-      finalAffiliateLink = rawLink + "&tag=" + AMAZON_TAG;
+      finalAffiliateLink = rawLink.includes("tag=") ? rawLink : rawLink + "&tag=" + AMAZON_TAG;
     } else {
       finalAffiliateLink = rawLink + "?tag=" + AMAZON_TAG;
     }
@@ -219,21 +233,43 @@ document.getElementById('addBtn').addEventListener('click', async () => {
   let rate = Number(ratePKR.value) || 280;
   let numericPKR = Math.round(numericUSD * rate);
 
-  await addDoc(collection(db,'products'),{
+  const productData = {
     category: document.getElementById('category').value,
     name, 
     brand: document.getElementById('brand').value || '',
     priceUSD: numericUSD,
     pricePKR: numericPKR,
-    price: numericUSD, // Backwards compatibility if needed
+    price: numericUSD,
     affiliateLink: finalAffiliateLink,
     desc: document.getElementById('desc').value || '',
     images: compressedImages,
     createdAt: serverTimestamp()
-  });
-  
-  status.innerText = 'ماشاءاللہ پروڈکٹ سیو ہو گیا ✅';
-  selectedFiles = []; 
+  };
+
+  if(editingId) {
+    // Update existing
+    await updateDoc(doc(db, 'products', editingId), productData);
+    status.innerText = 'ماشاءاللہ پروڈکٹ اپ ڈیٹ ہو گئی ✅';
+    resetForm();
+  } else {
+    // Add new
+    await addDoc(collection(db, 'products'), productData);
+    status.innerText = 'ماشاءاللہ پروڈکٹ سیو ہو گئی ✅';
+    resetForm();
+  }
+
+  loadProducts();
+ }catch(err){
+  status.innerText = 'ایرر: '+err.message; 
+  alert(err.message);
+ }
+ addBtn.disabled = false; 
+});
+
+function resetForm() {
+  editingId = null;
+  existingImagesForEdit = [];
+  selectedFiles = [];
   document.getElementById('imageFile').value = '';
   document.getElementById('name').value = ''; 
   document.getElementById('priceUSD').value = ''; 
@@ -242,20 +278,18 @@ document.getElementById('addBtn').addEventListener('click', async () => {
   document.getElementById('desc').value = '';
   pkrPreview.innerText = `پاکستانی روپے میں تخمینہ: Rs. 0`;
   previewContainer.innerHTML = '';
-  loadProducts();
- }catch(err){
-  status.innerText = 'ایرر: '+err.message; 
-  alert(err.message);
- }
- btn.disabled = false; 
- btn.innerText = 'پروڈکٹ سیو کریں';
-});
+  addBtn.innerText = 'پروڈکٹ سیو کریں';
+  cancelEditBtn.style.display = 'none';
+  status.innerText = 'تصاویر منتخب کریں (زیادہ سے زیادہ 4-5)';
+}
+
+cancelEditBtn.addEventListener('click', resetForm);
 
 async function loadProducts(){
  listDiv.innerHTML = 'لوڈ ہو رہا ہے...';
  try{
   const q = query(collection(db,'products'), orderBy('createdAt','desc'));
-  const snap = __awaiter ? await getDocs(q) : await getDocs(q);
+  const snap = await getDocs(q);
   if(snap.empty){ listDiv.innerHTML = '<p style=text-align:center>کوئی پروڈکٹ نہیں</p>'; return; }
   listDiv.innerHTML = '';
   snap.forEach(d => {
@@ -269,17 +303,53 @@ async function loadProducts(){
     div.innerHTML = `
       <img src="${mainImg}">
       <div class="p-info"><b>${p.name}</b><span>${p.category} - ${priceDisplay} <br><small>(${imgCount} تصاویر)</small></span></div>
-      <button class="btn-del">ڈیلیٹ</button>
+      <div class="btn-actions">
+        <button class="btn-edit">ایڈٹ</button>
+        <button class="btn-del">ڈیلیٹ</button>
+      </div>
     `;
+
+    // Edit Button Click Action
+    div.querySelector('.btn-edit').addEventListener('click', () => {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+      editingId = d.id;
+      document.getElementById('category').value = p.category || 'Shoes';
+      document.getElementById('name').value = p.name || '';
+      document.getElementById('brand').value = p.brand || '';
+      document.getElementById('priceUSD').value = p.priceUSD || p.price || '';
+      document.getElementById('affiliateLink').value = p.affiliateLink ? p.affiliateLink.split('&tag=')[0].split('?tag=')[0] : '';
+      document.getElementById('desc').value = p.desc || '';
+      
+      updatePKR();
+      existingImagesForEdit = p.images || [];
+      
+      // Show old images preview
+      previewContainer.innerHTML = '';
+      if(p.images) {
+        p.images.forEach(imgSrc => {
+          const img = document.createElement('img');
+          img.src = imgSrc;
+          previewContainer.appendChild(img);
+        });
+      }
+
+      status.innerText = 'ایڈٹ موڈ آن ہے (اگر چاہیں تو نئی تصویر بھی منتخب کریں)';
+      addBtn.innerText = 'پروڈکٹ اپ ڈیٹ کریں';
+      cancelEditBtn.style.display = 'block';
+    });
+
+    // Delete Button Click Action
     div.querySelector('.btn-del').addEventListener('click', async () => {
       if(!confirm('کیا آپ واقعی '+p.name+' کو ڈیلیٹ کرنا چاہتے ہیں؟')) return;
       await deleteDoc(doc(db,'products', d.id));
       div.remove();
     });
+
     listDiv.appendChild(div);
   });
  }catch(e){ listDiv.innerHTML = 'ایرر: '+e.message; }
 }
 </script>
 </body>
-</html>
+    </html>
+    
