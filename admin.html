@@ -6,25 +6,30 @@
 <style>
 *{box-sizing:border-box;}
 :root{ --orange:#FF8C00; }
-body{background:#f2f2f2; font-family:sans-serif; margin:0; padding:10px;}
-.box{max-width:520px; margin:15px auto; background:white; border:3px solid var(--orange); border-radius:18px; padding:18px; overflow:hidden;}
+body{background:#f5f5f5; font-family:sans-serif; margin:0; padding:10px;}
+.box{max-width:520px; margin:15px auto; background:white; border:3px solid var(--orange); border-radius:18px; padding:18px; overflow:hidden; position:relative;}
 .logo-box{width:90px; height:90px; margin:0 auto 10px auto; border:3px solid var(--orange); border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:white;}
 .logo-box img{width:100%; height:100%; object-fit:cover;}
 h1{color:var(--orange); text-align:center; font-size:22px; margin:5px 0;}
-input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid var(--orange); border-radius:10px; font-size:16px; display:block;}
+input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid var(--orange); border-radius:10px; font-size:16px; display:block; box-sizing:border-box;}
 .btn-add{width:100%; padding:14px; background:var(--orange); color:white; border:none; border-radius:10px; font-weight:bold; font-size:18px; cursor:pointer;}
 .btn-small{padding:10px; background:#111; color:white; border:none; border-radius:8px; font-weight:bold; width:100%; margin:4px 0; cursor:pointer;}
-.btn-logout{background:#ff1a1a; color:white; border:none; padding:8px 12px; border-radius:8px; float:left; cursor:pointer;}
+.btn-logout{position:absolute; top:12px; left:12px; background:#ff1a1a; color:white; border:none; padding:7px 14px; border-radius:8px; cursor:pointer; font-weight:bold; z-index:10;}
 #status{text-align:center; color:green; border:1px dashed var(--orange); padding:7px; border-radius:8px; font-weight:bold; margin:8px 0;}
 #preview-container{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; justify-content:center;}
 #preview-container img{width:70px; height:70px; object-fit:cover; border-radius:8px; border:2px solid var(--orange);}
-.product-item{display:flex; gap:10px; align-items:center; border:2px solid var(--orange); border-radius:12px; padding:8px; margin-bottom:10px; background:#fffaf3; width:100%;}
+.product-item{display:flex; gap:10px; align-items:center; border:2px solid var(--orange); border-radius:12px; padding:8px; margin-bottom:10px; background:#fffaf3; width:100%; box-sizing:border-box;}
+.product-item img{width:60px; height:60px; object-fit:cover; border-radius:8px; flex-shrink:0;}
+.p-info{flex:1; text-align:right; font-size:13px; overflow:hidden;}
+.btn-edit{background:var(--orange); color:white; border:none; padding:6px 10px; border-radius:6px; margin:2px; cursor:pointer;}
+.btn-del{background:#ff1a1a; color:white; border:none; padding:6px 10px; border-radius:6px; margin:2px; cursor:pointer;}
+#pkrPreview{text-align:center; background:#fff6e6; padding:6px; border-radius:8px; font-weight:bold; font-size:14px;}
 </style>
 </head>
 <body>
 
 <div class="box" id="loginBox" style="text-align:center;">
-  <div class="logo-box"><img src="logo.png"></div>
+  <div class="logo-box"><img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'"></div>
   <h1>Admin Login</h1>
   <input type="password" id="adminPass" placeholder="1234" style="text-align:center;">
   <button class="btn-add" id="loginBtn" type="button">لاگ ان کریں</button>
@@ -33,21 +38,54 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
 
 <div class="box" id="adminPanel" style="display:none;">
   <button class="btn-logout" id="logoutBtn" type="button">لاگ آؤٹ</button>
-  <div class="logo-box"><img src="logo.png"></div>
+  <div class="logo-box"><img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'"></div>
   <h1>R.A.W GROUP</h1>
-  <div id="mainContent"> ... آپ کا باقی سارا پینل یہاں ویسا ہی رہے گا ... </div>
+  
+  <button class="btn-small" id="liveRateBtn" type="button" style="background:#0a8a00;">🔴 Live Dollar Rate لائیں</button>
+  <div id="liveRateInfo" style="text-align:center; font-size:12px; color:green; font-weight:bold; margin-bottom:8px;"></div>
+
+  <select id="category"><option>Shoes</option><option>Clothes</option><option>Watches</option><option>Perfume</option><option>Other</option></select>
+  <input id="name" placeholder="پروڈکٹ کا نام *">
+  <input id="brand" placeholder="برانڈ">
+
+  <select id="priceType">
+    <option value="pkr">🇵🇰 PKR قیمت</option>
+    <option value="usd">💲 USD + PKR</option>
+    <option value="live">🔴 00 On-Day Price</option>
+  </select>
+
+  <div id="pkrContainer"><input id="priceDirectPKR" type="number" placeholder="PKR قیمت لکھیں"></div>
+
+  <div id="usdContainer" style="display:none;">
+    <div style="display:flex; gap:8px;">
+      <input id="priceUSD" type="number" step="0.01" placeholder="$ قیمت (9.99)" style="flex:1;">
+      <input id="ratePKR" type="number" value="280" style="flex:1;">
+    </div>
+    <div id="pkrPreview">Rs. 0</div>
+  </div>
+
+  <div id="liveContainer" style="display:none; background:#ffe9cc; padding:10px; text-align:center; border-radius:8px; font-weight:bold; margin:6px 0;">00 Mode: دکان پر On-Day Live Price آئے گا</div>
+
+  <input id="affiliateLink" placeholder="Amazon / Affiliate لنک">
+  <input id="companyTag" placeholder="Tag (rawgroup79-20)">
+  <textarea id="desc" rows="2" placeholder="تفصیل لکھیں"></textarea>
+  <input id="imageFile" type="file" accept="image/*" multiple>
+  <div id="preview-container"></div>
+  <div id="status">تصاویر منتخب کریں</div>
+  <button class="btn-add" id="addBtn" type="button">سیو کریں</button>
+  <button id="cancelEditBtn" type="button" style="display:none; background:#666; color:white; width:100%; padding:10px; border-radius:10px; margin-top:5px; border:none;">کینسل کریں</button>
+  <hr style="margin:15px 0; border:1px dashed #FF8C00;">
   <div id="productList">لوڈ ہو رہا ہے...</div>
 </div>
 
-<!-- LOGIN FIX - YE ALAG HAI -->
 <script>
+// LOGIN FIX - ALAG SE
 const CORRECT_PASS = "1234";
 const loginBox = document.getElementById('loginBox');
 const adminPanel = document.getElementById('adminPanel');
-
 function doLogin(){
   let p = document.getElementById('adminPass').value.trim();
-  if(p === CORRECT_PASS || p === "1234" || p === "raw123"){
+  if(p === CORRECT_PASS){
     sessionStorage.setItem('raw_logged_in','true');
     loginBox.style.display='none';
     adminPanel.style.display='block';
@@ -62,21 +100,20 @@ document.getElementById('logoutBtn').addEventListener('click', function(){
   adminPanel.style.display='none';
   loginBox.style.display='block';
 });
-
-// Pehle se login hai to direct kholo
 if(sessionStorage.getItem('raw_logged_in')==='true'){
   loginBox.style.display='none';
   adminPanel.style.display='block';
 }
 </script>
 
-<!-- FIREBASE WALA CODE USKE BAAD -->
 <script type="module">
-// Yahan aapka purana Firebase wala sara code waisa hi rahega
-// bas login wala hissa maine upar nikal diya hai
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-// ... baqi code
-</script>
-</body>
-</html>
+import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, serverTimestamp, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const firebaseConfig = { apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE", authDomain: "raw-group-shop.firebaseapp.com", projectId: "raw-group-shop", storageBucket: "raw-group-shop.firebasestorage.app", messagingSenderId: "488689802066", appId: "1:488689802066:web:1437531e15df63e958388b" };
+const app = initializeApp(firebaseConfig); const db = getFirestore(app);
+const DEFAULT_TAG = "rawgroup79-20";
+let editingId=null, existingImagesForEdit=[], liveRate=280, selectedFiles=[];
+async function fetchLiveRate(){ try{ let r=await fetch('https://open.er-api.com/v6/latest/USD'); let d=await r.json(); liveRate=d.rates.PKR; document.getElementById('liveRateInfo').innerText='Live Rate: Rs. '+liveRate.toFixed(2); document.getElementById('ratePKR').value=liveRate.toFixed(2); localStorage.setItem('raw_rate',liveRate); updatePKR(); }catch(e){ liveRate=parseFloat(localStorage.getItem('raw_rate')||'280'); document.getElementById('liveRateInfo').innerText='Offline Rate: Rs. '+liveRate; } }
+document.getElementById('liveRateBtn').onclick=fetchLiveRate; fetchLiveRate();
+const priceType=document.getElementById('priceType'), pkrContainer=document.getElementById('pkrContainer'), usdContainer=document.getElementById('usdContainer'), liveContainer=document.getElementById('liveContainer');
+priceType.onchange
