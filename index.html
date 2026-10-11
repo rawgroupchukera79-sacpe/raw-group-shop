@@ -560,19 +560,17 @@
         }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<!-- R.A.W GROUP BOT - NO IMAGE NEEDED -->
+<!-- R.A.W GROUP BOT - SMART + MIC -->
 <div id="raw-bot-wrap" style="position:fixed;bottom:20px;right:15px;z-index:99999;">
   <div id="raw-drag-btn" style="width:85px;height:85px;background:linear-gradient(135deg,#FF8A00,#FF6B00);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:grab;box-shadow:0 10px 25px rgba(0,0,0,.35);border:3px solid #fff;user-select:none;touch-action:none">
-    <div style="font-size:26px;line-height:1">🦅</div>
-    <div style="font-size:9px;font-weight:900;color:#fff;text-align:center;line-height:1;margin-top:2px">R.A.W<br>GROUP</div>
+    <div style="font-size:26px">🦅</div><div style="font-size:9px;font-weight:900;color:#fff;text-align:center;line-height:1">R.A.W<br>GROUP</div>
     <div style="position:absolute;top:-5px;left:-5px;background:#111;color:#fff;font-size:9px;padding:3px 6px;border-radius:10px;border:2px solid #fff;font-weight:bold">AI</div>
     <div style="position:absolute;top:4px;right:6px;width:12px;height:12px;background:#25D366;border:2px solid #fff;border-radius:50%"></div>
   </div>
-  <div id="raw-chat" style="position:absolute;bottom:95px;right:0;width:335px;max-width:90vw;height:410px;background:#fff;border-radius:18px;box-shadow:0 15px 40px rgba(0,0,0,.3);display:none;flex-direction:column;overflow:hidden">
-    <div style="background:#111;color:#fff;padding:10px 14px;display:flex;justify-content:space-between"><div><b style="color:#FF8C00">R.A.W GROUP</b><span style="font-size:11px;display:block;opacity:.8">Online</span></div><span id="raw-x" style="font-size:28px;cursor:pointer">×</span></div>
+  <div id="raw-chat" style="position:absolute;bottom:95px;right:0;width:340px;max-width:92vw;height:430px;background:#fff;border-radius:18px;box-shadow:0 15px 40px rgba(0,0,0,.3);display:none;flex-direction:column;overflow:hidden">
+    <div style="background:#111;color:#fff;padding:10px 14px;display:flex;justify-content:space-between"><div><b style="color:#FF8C00">R.A.W GROUP</b><span style="font-size:11px;display:block;opacity:.8">Online • Smart AI</span></div><span id="raw-x" style="font-size:28px;cursor:pointer">×</span></div>
     <div id="raw-msgs" style="flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;background:#FFF8F0"></div>
-    <div style="display:flex;gap:6px;padding:10px;border-top:1px solid #eee"><input id="raw-in" placeholder="Sawal likhein..." style="flex:1;padding:10px 14px;border-radius:20px;border:1px solid #ddd;outline:none"/><button id="raw-go" style="background:#FF6B00;color:#fff;border:none;width:42px;height:42px;border-radius:50%">➤</button></div>
+    <div style="display:flex;gap:6px;padding:10px;border-top:1px solid #eee;align-items:center"><button id="raw-mic" style="width:38px;height:38px;border-radius:50%;border:none;background:#eee;cursor:pointer;font-size:18px">🎤</button><input id="raw-in" placeholder="Bolein ya likhein..." style="flex:1;padding:10px 14px;border-radius:20px;border:1px solid #ddd;outline:none"/><button id="raw-go" style="background:#FF6B00;color:#fff;border:none;width:42px;height:42px;border-radius:50%">➤</button></div>
   </div>
 </div>
 <script>
@@ -586,12 +584,23 @@ document.addEventListener('mousemove',function(e){if(!drag)return;var p=getP(e);
 document.addEventListener('touchmove',function(e){if(!drag)return;var p=getP(e);var dx=p.clientX-sx,dy=p.clientY-sy;if(Math.abs(dx)>3||Math.abs(dy)>3)hasMoved=true;wrap.style.left=(ox+dx)+'px';wrap.style.top=(oy+dy)+'px';wrap.style.right='auto';wrap.style.bottom='auto';if(e.cancelable)e.preventDefault();},{passive:false});
 function stopDrag(){drag=false;setTimeout(function(){hasMoved=false;},150);}
 document.addEventListener('mouseup',stopDrag);document.addEventListener('touchend',stopDrag);
-btn.addEventListener('click',function(){if(hasMoved)return;if(chat.style.display==='flex'){chat.style.display='none';}else{chat.style.display='flex';if(msgs.children.length===0){var d=document.createElement('div');d.style.cssText='padding:10px 12px;border-radius:12px;background:#fff;border:1px solid #ffe0b2;font-size:13px;align-self:flex-start';d.innerHTML='Assalam-o-Alaikum Ejaz bhai! 🧡<br>R.A.W Group mein khush amdeed!<br>Chhadi ki price, delivery ya legal ke bare mein poochein.';msgs.appendChild(d);}}});
+btn.addEventListener('click',function(){if(hasMoved)return;if(chat.style.display==='flex'){chat.style.display='none';}else{chat.style.display='flex';if(msgs.children.length===0){var d=document.createElement('div');d.style.cssText='padding:10px 12px;border-radius:12px;background:#fff;border:1px solid #ffe0b2;font-size:13px;align-self:flex-start';d.innerHTML='Assalam-o-Alaikum Ejaz bhai! 🧡<br>Main R.A.W GROUP ka AI hun. Chhadi, price, delivery ke bare mein poochein!';msgs.appendChild(d);}}});
 document.getElementById('raw-x').onclick=function(){chat.style.display='none';};
 function add(t,u){var d=document.createElement('div');d.style.cssText='padding:9px 12px;border-radius:12px;font-size:13px;max-width:84%;word-break:break-word;'+(u?'background:#111;color:#fff;align-self:flex-end':'background:#fff;border:1px solid #ffe0b2;align-self:flex-start');d.innerHTML=t;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
-function ans(q){var l=q.toLowerCase();if(l.includes('amazon')||l.includes('apradh')||l.includes('legal')||l.includes('police'))return 'Ji ye <b>100% Legal Self-Defense Stick</b> hai. Bina license ke rakh sakte hain. Amazon se sasti hamare paas <b>Rs 5099</b> mein hai. 🦅';if(l.includes('price')||l.includes('qimat')||l.includes('kitne')||l.includes('rate'))return 'Sirf <b>Rs 5099</b>! Cash on Delivery. Lahore 2 din, baqi 3 din mein delivery.';if(l.includes('chhadi')||l.includes('stick')||l.includes('lathi'))return 'Foldable 26 inch steel stick hai, halki, mazboot. Ghar, car, safar ke liye best hai. Buy Now par click karein.';if(l.includes('delivery')||l.includes('cod'))return 'Cash on Delivery hai! Ghar aane par paisa dein.';return 'Shukriya! Aapne kaha: "'+q+'"<br>Main R.A.W GROUP ka Smart AI hun, Price, Delivery, Legal ke bare mein khud jawab deta hun 🧡';}
+function ans(q){
+ var l=q.toLowerCase();
+ if(l.includes('mobile')||l.includes('phone')||l.includes('iphone')||l.includes('samsung')){return 'Maaf kijiye janab 🙏<br><b>Mobile hamare paas nahi hai.</b><br>Hamare paas sirf <b>R.A.W GROUP ke Self-Defense products</b> hain - jaise Foldable Chhadi (Rs 5099).<br>Ye aapki hifazat ke liye hai, mobile ke liye aapko mobile shop par jana hoga. 🧡';}
+ if(l.includes('amazon')||l.includes('apradh')||l.includes('legal')||l.includes('police')||l.includes('kanoon'))return 'Ji ye <b>100% Legal Self-Defense Stick</b> hai, bina license ke rakh sakte hain. Amazon se sasti hamare paas <b>Rs 5099</b> mein hai. 🦅';
+ if(l.includes('price')||l.includes('qimat')||l.includes('kitne')||l.includes('rate')||l.includes('paisa'))return 'Sirf <b>Rs 5099</b>! Cash on Delivery, 2-3 din mein delivery.';
+ if(l.includes('chhadi')||l.includes('stick')||l.includes('lathi')||l.includes('hathiyar'))return '26 inch foldable steel chhadi hai, halki, mazboot. Ghar, car, safar ke liye best hai. Buy Now par click karein.';
+ if(l.includes('delivery')||l.includes('cod')||l.includes('order'))return 'Cash on Delivery hai! Ghar aane par paisa dein. Lahore 2 din, Karachi/Isb 3 din.';
+ return 'Samajh gaya: "'+q+'"<br><br>Main <b>R.A.W GROUP ka AI</b> hun. Hamare paas Chhadi / Self-Defense Stick hai. Mobile, kapde jaisi cheezein hamare paas nahi hain.<br>Aap poochein: "Chhadi ki price kya hai?" 🧡';
+}
 function go(){var t=inp.value.trim();if(!t)return;add(t,true);inp.value='';setTimeout(function(){add(ans(t),false);},600);}
 document.getElementById('raw-go').onclick=go;inp.addEventListener('keydown',function(e){if(e.key==='Enter')go();});
+// MIC
+var mic=document.getElementById('raw-mic'); var rec=null;
+if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window){var SR=window.SpeechRecognition||window.webkitSpeechRecognition; rec=new SR(); rec.lang='ur-PK'; rec.onstart=function(){mic.style.background='#ff3b3b'; mic.style.color='#fff';}; rec.onend=function(){mic.style.background='#eee'; mic.style.color='#000';}; rec.onresult=function(e){inp.value=e.results[0][0].transcript; go();}; mic.onclick=function(){try{rec.start();}catch(err){try{rec.stop();}catch(e){}}}; } else { mic.style.display='none'; }
 })();
 </script>
 <!-- BOT END -->
