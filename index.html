@@ -594,47 +594,42 @@
 #raw-input-area{display:flex;gap:6px;padding:10px;border-top:1px solid #eee;align-items:center}
 #raw-input{flex:1;padding:11px 14px;border-radius:22px;border:1px solid #ddd;outline:none}
 #raw-mic,#raw-send{width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;font-size:18px}#raw-mic{background:#eee}#raw-mic.listening{background:#ff3b3b;color:#fff}#raw-send{background:#FF6B00;color:#fff}
-</style>
-
-<script><!-- R.A.W GROUP BOT START - FINAL -->
-<div id="raw-final-bot" style="position:fixed;bottom:18px;right:16px;z-index:99999;">
-  <div id="raw-btn">
-    <img src="raw-bot.png" alt="R.A.W GROUP" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-    <div style="display:none;width:70px;height:70px;background:#fff;border-radius:50%;align-items:center;justify-content:center;font-weight:bold;font-size:11px;color:#FF6B00;text-align:center">R.A.W<br>GROUP</div>
-    <div style="position:absolute;top:-3px;left:-3px;background:#111;color:#fff;font-size:10px;padding:4px 7px;border-radius:12px;border:2px solid #fff">AI</div>
-    <div style="position:absolute;top:5px;right:5px;width:12px;height:12px;background:#25D366;border:2px solid #fff;border-radius:50%"></div>
+</style><!-- R.A.W GROUP BOT - FIXED -->
+<div id="raw-final-bot" style="position:fixed;bottom:20px;right:15px;z-index:99999;">
+  <div id="raw-btn" style="width:80px;height:80px;background:#FF8A00;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:grab;box-shadow:0 10px 25px rgba(0,0,0,.3);position:relative">
+    <img src="raw-bot.png" style="width:68px;height:68px;border-radius:50%;background:#fff;object-fit:cover" alt="RAW"/>
+    <div style="position:absolute;top:-4px;left:-4px;background:#111;color:#fff;font-size:9px;padding:3px 6px;border-radius:10px;border:2px solid #fff;font-weight:bold">AI</div>
+    <div style="position:absolute;top:4px;right:4px;width:10px;height:10px;background:#25D366;border:2px solid #fff;border-radius:50%"></div>
   </div>
-  <div id="raw-chat-box">
-    <div style="background:#111;color:#fff;padding:12px;display:flex;justify-content:space-between"><div><b style="color:#FF8C00">R.A.W GROUP</b><span style="font-size:11px;display:block">Online</span></div><span id="raw-close" style="cursor:pointer;font-size:26px">×</span></div>
-    <div id="raw-messages" style="flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;background:#FFF8F0"><div style="padding:10px;border-radius:14px;background:#fff;border:1px solid #ffe0b2;font-size:13px">Assalam-o-Alaikum! R.A.W Group mein khush amdeed 🧡</div></div>
-    <div id="raw-typing" style="display:none;padding:6px 12px">R.A.W GROUP likh raha hai...</div>
-    <div style="display:flex;gap:6px;padding:10px;border-top:1px solid #eee"><button id="raw-mic">🎤</button><input id="raw-input" placeholder="Likhein ya bolein..." style="flex:1;padding:10px;border-radius:20px;border:1px solid #ddd"/><button id="raw-send" style="background:#FF6B00;color:#fff;border:none;width:42px;height:42px;border-radius:50%">➤</button></div>
+  <div id="raw-chat-box" style="position:absolute;bottom:90px;right:0;width:340px;max-width:92vw;height:420px;background:#fff;border-radius:18px;box-shadow:0 15px 40px rgba(0,0,0,.3);display:none;flex-direction:column;overflow:hidden">
+    <div style="background:#111;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center"><div><b style="color:#FF8C00">R.A.W GROUP</b><span style="font-size:11px;display:block;opacity:.8">Online • Smart AI</span></div><span id="raw-close" style="font-size:28px;cursor:pointer">×</span></div>
+    <div id="raw-messages" style="flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;background:#FFF8F0"></div>
+    <div style="display:flex;gap:6px;padding:10px;border-top:1px solid #eee"><input id="raw-input" placeholder="Sawal likhein..." style="flex:1;padding:10px 14px;border-radius:20px;border:1px solid #ddd;outline:none"/><button id="raw-send" style="background:#FF6B00;color:#fff;border:none;width:42px;height:42px;border-radius:50%;cursor:pointer">➤</button></div>
   </div>
 </div>
-<style>
-#raw-btn{width:92px;height:92px;background:#FF8A00;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:grab;box-shadow:0 12px 30px rgba(0,0,0,.3);position:relative}
-#raw-btn img{width:72px;height:72px;border-radius:50%;background:#fff;object-fit:cover}
-#raw-chat-box{position:absolute;bottom:110px;right:0;width:345px;max-width:90vw;height:430px;background:#fff;border-radius:20px;box-shadow:0 15px 45px rgba(0,0,0,.3);display:none;flex-direction:column;overflow:hidden}
-#raw-chat-box.open{display:flex}
-</style>
 <script>
 (function(){
-const wrap=document.getElementById('raw-final-bot'),btn=document.getElementById('raw-btn'),box=document.getElementById('raw-chat-box');
-let drag=false,moved=false,sx,sy,lx,ly;
-function s(e){drag=true;moved=false;let p=e.touches?e.touches[0]:e;sx=p.clientX;sy=p.clientY;let r=wrap.getBoundingClientRect();lx=r.left;ly=r.top;}
-function m(e){if(!drag)return;let p=e.touches?e.touches[0]:e;let dx=p.clientX-sx,dy=p.clientY-sy;if(Math.abs(dx)>5||Math.abs(dy)>5){moved=true;wrap.style.left=(lx+dx)+'px';wrap.style.top=(ly+dy)+'px';wrap.style.right='auto';wrap.style.bottom='auto';}if(e.cancelable)e.preventDefault();}
-function ee(){drag=false;setTimeout(()=>moved=false,150);}
-btn.addEventListener('mousedown',s);btn.addEventListener('touchstart',s,{passive:false});
-document.addEventListener('mousemove',m);document.addEventListener('touchmove',m,{passive:false});
-document.addEventListener('mouseup',ee);document.addEventListener('touchend',ee);
-btn.addEventListener('click',()=>{if(!moved)box.classList.toggle('open');});
-document.getElementById('raw-close').onclick=()=>box.classList.remove('open');
-const inp=document.getElementById('raw-input'),msgs=document.getElementById('raw-messages'),typ=document.getElementById('raw-typing');
-function add(t,c){let d=document.createElement('div');d.style.cssText='padding:10px 12px;border-radius:14px;font-size:13.5px;max-width:85%;'+(c=='user'?'background:#111;color:#fff;align-self:flex-end':'background:#fff;border:1px solid #ffe0b2;align-self:flex-start');d.innerHTML=t;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
-function reply(q){let l=q.toLowerCase();if(l.includes('amazon')||l.includes('apradh')||l.includes('kanoon'))return "Ji ye 100% legal hai! Bina license ke rakh sakte hain. Amazon se sasti hamare paas <b>Rs 5099</b> mein hai. Self-defense ke liye hai.";if(l.includes('price')||l.includes('qimat')||l.includes('kitne'))return "Sirf <b>Rs 5099</b>! Cash on Delivery. 2-3 din mein delivery.";if(l.includes('chhadi')||l.includes('stick'))return "Ye Foldable 26 inch Steel Stick hai, halki aur mazboot. Ghar, car, safar ke liye best.";return "Shukriya! Aapne pucha: "+q+"<br>Main R.A.W GROUP ka AI hun, chhadi ki price, delivery, legal ke bare mein khud jawab deta hun 🧡"; }
-function send(){let t=inp.value.trim();if(!t)return;add(t,'user');inp.value='';typ.style.display='block';setTimeout(()=>{typ.style.display='none';add(reply(t),'bot');},800);}
-document.getElementById('raw-send').onclick=send;inp.addEventListener('keydown',e=>{if(e.key==='Enter')send();});
+ try{
+  var wrap=document.getElementById('raw-final-bot');
+  var btn=document.getElementById('raw-btn');
+  var box=document.getElementById('raw-chat-box');
+  var msgs=document.getElementById('raw-messages');
+  var inp=document.getElementById('raw-input');
+  var dragging=false,moved=false,sx=0,sy=0,ox=0,oy=0;
+  function start(e){dragging=true;moved=false;var p=e.touches?e.touches[0]:e;sx=p.clientX;sy=p.clientY;var r=wrap.getBoundingClientRect();ox=r.left;oy=r.top;}
+  function move(e){if(!dragging)return;var p=e.touches?e.touches[0]:e;var dx=p.clientX-sx,dy=p.clientY-sy;if(Math.abs(dx)>4||Math.abs(dy)>4){moved=true;wrap.style.left=(ox+dx)+'px';wrap.style.top=(oy+dy)+'px';wrap.style.right='auto';wrap.style.bottom='auto';}if(e.cancelable)e.preventDefault();}
+  function end(){dragging=false;setTimeout(function(){moved=false;},200);}
+  btn.addEventListener('mousedown',start); btn.addEventListener('touchstart',start,{passive:false});
+  document.addEventListener('mousemove',move); document.addEventListener('touchmove',move,{passive:false});
+  document.addEventListener('mouseup',end); document.addEventListener('touchend',end);
+  btn.addEventListener('click',function(){if(!moved){box.style.display=box.style.display==='flex'?'none':'flex';if(box.style.display==='flex'&&msgs.children.length===0){var d=document.createElement('div');d.style.cssText='padding:10px;border-radius:12px;background:#fff;border:1px solid #ffe0b2;font-size:13px';d.innerHTML='Assalam-o-Alaikum! R.A.W Group mein khush amdeed 🧡<br>Chhadi ke bare mein poochein!';msgs.appendChild(d);}}});
+  document.getElementById('raw-close').onclick=function(){box.style.display='none';};
+  function addMsg(t,isUser){var d=document.createElement('div');d.style.cssText='padding:9px 12px;border-radius:12px;font-size:13px;max-width:85%;'+(isUser?'background:#111;color:#fff;align-self:flex-end':'background:#fff;border:1px solid #ffe0b2;align-self:flex-start');d.innerHTML=t;msgs.appendChild(d);msgs.scrollTop=9999;}
+  function getReply(q){var l=q.toLowerCase();if(l.includes('amazon'))return 'Amazon par mehngi hai, hamare paas <b>Rs 5099</b> mein 100% legal self-defense stick hai. Bina license ke rakh sakte hain.';if(l.includes('price')||l.includes('qimat')||l.includes('kitne'))return 'Sirf <b>Rs 5099</b> - Cash on Delivery, 2-3 din mein delivery.';if(l.includes('chhadi')||l.includes('stick'))return '26 inch foldable steel stick, halki aur mazboot. Ghar, car ke liye best.';return 'Aapne pucha: '+q+'<br>Main R.A.W ka AI hun, price, delivery, legal ke bare mein bata sakta hun 🧡';}
+  function send(){var t=inp.value.trim();if(!t)return;addMsg(t,true);inp.value='';setTimeout(function(){addMsg(getReply(t),false);},700);}
+  document.getElementById('raw-send').onclick=send; inp.addEventListener('keydown',function(e){if(e.key==='Enter')send();});
+ }catch(e){console.log('BOT ERROR',e);}
 })();
 </script>
-<!-- R.A.W GROUP BOT END -->
+<!-- BOT END -->
 </html>
