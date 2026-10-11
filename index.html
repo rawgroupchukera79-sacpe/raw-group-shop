@@ -559,15 +559,17 @@
             }, 'google_translate_element');
         }
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script><!-- R.A.W BOT FINAL FIXED - raw79-20 SMART SEARCH -->
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script><!-- R.A.W GROUP - FINAL SINGLE CODE - raw79-20 - ACACIA THEME KE LIYE -->
 <div id="rbw" style="position:fixed;bottom:20px;right:15px;z-index:999999">
-<div id="rbb" style="width:80px;height:80px;background:#FF6B00;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;border:3px solid #fff;box-shadow:0 8px 20px rgba(0,0,0,.3);cursor:move;touch-action:none"><div style="font-size:28px">🦅</div><div style="color:#fff;font-size:8px;font-weight:bold">R.A.W</div></div>
+<div id="rbb" style="width:80px;height:80px;background:#FF6B00;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;border:3px solid #fff;box-shadow:0 8px 20px rgba(0,0,0,.3);cursor:move;touch-action:none">
+<div style="font-size:28px">🦅</div><div style="color:#fff;font-size:8px;font-weight:bold">R.A.W GROUP</div>
+</div>
 <div id="rbc" style="display:none;position:absolute;bottom:90px;right:0;width:335px;max-width:92vw;height:440px;background:#fff;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.3);flex-direction:column;overflow:hidden">
 <div style="background:#111;color:#fff;padding:12px;display:flex;justify-content:space-between;align-items:center"><b style="color:#FF8C00;font-size:14px">R.A.W GROUP</b><span id="rbx" style="font-size:28px;cursor:pointer;line-height:1">×</span></div>
 <div id="rbm" style="flex:1;padding:10px;overflow:auto;background:#FFF8F0;display:flex;flex-direction:column;gap:6px"></div>
 <div style="display:flex;padding:8px;gap:6px;border-top:1px solid #eee;align-items:center;background:#fff">
-<button id="rbmic" style="width:44px;height:44px;border-radius:50%;border:2px solid #FF6B00;background:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center">🎤</button>
-<input id="rbi" placeholder="مثال: samsung mobile" style="flex:1;padding:12px;border-radius:25px;border:1px solid #ccc;outline:none;font-size:14px">
+<button id="rbmic" style="width:44px;height:44px;border-radius:50%;border:2px solid #FF6B00;background:#fff;font-size:20px;cursor:pointer">🎤</button>
+<input id="rbi" placeholder="samsung mobile, charger, watch..." style="flex:1;padding:12px;border-radius:25px;border:1px solid #ccc;outline:none;font-size:14px">
 <button id="rbs" style="background:#FF6B00;color:#fff;border:none;width:46px;height:46px;border-radius:50%;font-size:18px;cursor:pointer">➤</button>
 </div>
 </div>
@@ -581,27 +583,32 @@ document.onmouseup=function(){d=false;setTimeout(function(){mv=false},120)};
 b.ontouchstart=function(e){d=true;mv=false;sx=e.touches[0].clientX;sy=e.touches[0].clientY;var r=w.getBoundingClientRect();lx=r.left;ly=r.top;};
 document.ontouchmove=function(e){if(!d)return;var dx=e.touches[0].clientX-sx,dy=e.touches[0].clientY-sy;if(Math.abs(dx)>2||Math.abs(dy)>2)mv=true;w.style.left=(lx+dx)+'px';w.style.top=(ly+dy)+'px';w.style.right='auto';w.style.bottom='auto';};
 document.ontouchend=function(){d=false;setTimeout(function(){mv=false},120)};
-b.onclick=function(){if(mv)return;if(c.style.display=='flex'){c.style.display='none'}else{c.style.display='flex';if(m.children.length==0){var x=document.createElement('div');x.style='background:#fff;padding:10px 12px;border-radius:12px;font-size:13px;border:1px solid #ffe0b2;align-self:flex-start';x.innerHTML='Welcome to R.A.W GROUP 🧡<br>اب آپ انگریزی میں لکھیں جیسے: samsung mobile';m.appendChild(x)}}}
+b.onclick=function(){if(mv)return;if(c.style.display=='flex'){c.style.display='none'}else{c.style.display='flex';if(m.children.length==0){var x=document.createElement('div');x.style='background:#fff;padding:10px 12px;border-radius:12px;font-size:13px;border:1px solid #ffe0b2;align-self:flex-start';x.innerHTML='Welcome to R.A.W GROUP 🧡<br>آپ کو Amazon پر کیا چاہیے؟ انگریزی میں لکھیں جیسے: samsung mobile, charger';m.appendChild(x)}}}
 document.getElementById('rbx').onclick=function(){c.style.display='none'};
 function add(t,u){var x=document.createElement('div');x.style='padding:8px 10px;border-radius:10px;font-size:13px;max-width:84%;word-break:break-word;'+(u?'background:#111;color:#fff;align-self:flex-end':'background:#fff;border:1px solid #ffe0b2;align-self:flex-start');x.innerHTML=t;m.appendChild(x);m.scrollTop=m.scrollHeight}
 
 function getSmartLink(q){
-  var low = q.toLowerCase();
+  var low = q.toLowerCase().trim();
   var key = q;
-  if(low.includes('سامسنگ') || low.includes('samsung')) key = 'samsung mobile';
-  else if(low.includes('آئی فون') || low.includes('iphone')) key = 'iphone';
-  else if(low.includes('چھڑی') || low.includes('cane') || low.includes('stick')) key = 'foldable walking cane';
-  else if(low.includes('گھڑی') || low.includes('watch')) key = 'smart watch';
-  else if(low.includes('mobile') || low.includes('موبائل')) key = 'samsung mobile';
-
-  // اردو کے فالتو الفاظ نکال دو
-  key = key.replace(/مجھے|چاہیے|کا|کی|کو|ہے/g,'').trim();
-  return {url: 'https://www.amazon.com/s?k=' + encodeURIComponent(key) + '&tag=raw79-20', display: key};
+  // ذہین میپنگ - اب موبائل چارجر الگ اور سامسنگ الگ
+  if(low.includes('samsung') && low.includes('charger')) key = 'samsung charger';
+  else if(low.includes('mobile charger') || low.includes('charger')) key = 'mobile charger';
+  else if(low.includes('samsung')) key = 'samsung mobile';
+  else if(low === 'mobile' || low === 'all mobile' || low.includes('all category mobile')) key = 'mobile phone';
+  else if(low.includes('iphone')) key = 'iphone';
+  else if(low.includes('watch')) key = 'smart watch';
+  else if(low.includes('laptop')) key = 'laptop';
+  else if(low.includes('earbud') || low.includes('airpod')) key = 'earbuds';
+  else {
+    key = q.replace(/مجھے|چاہیے|کا|کی|کو|ہے|سامسنگ|موبائل/g,'').trim();
+    if(key.length < 2) key = q;
+  }
+  return {url: 'https://www.amazon.com/s?k='+encodeURIComponent(key)+'&tag=raw79-20', display: key};
 }
 
 function reply(q){
   var data = getSmartLink(q);
-  return 'آپ نے لکھا: <b>"'+q+'"</b><br>ہم Amazon پر یہ ڈھونڈیں گے: <b>'+data.display+'</b><br><br><div style="background:#fff8f0;border:1px solid #ffcc80;padding:10px;border-radius:10px;text-align:center"><a href="'+data.url+'" target="_blank" style="display:inline-block;background:#FF9900;color:#111;padding:10px 16px;border-radius:20px;text-decoration:none;font-weight:bold">Amazon پر '+data.display+' دیکھیں 🛒</a><br><span style="font-size:10px;color:#666;margin-top:5px;display:block">Your ID: raw79-20</span></div>';
+  return 'آپ نے کہا: <b>"'+q+'"</b><br>Amazon پر ڈھونڈا: <b>'+data.display+'</b><br><br><a href="'+data.url+'" target="_blank" style="text-decoration:none"><div style="background:#FF9900;color:#000;padding:12px;border-radius:10px;text-align:center;font-weight:bold;border:1px solid #000">🛒 Amazon پر '+data.display+' دیکھیں<br><span style="font-size:11px">ID: raw79-20</span></div></a><br><span style="font-size:9px;color:#888;word-break:break-all">'+data.url+'</span>';
 }
 function send(){var t=i.value.trim();if(!t)return;add(t,true);i.value='';setTimeout(function(){add(reply(t),false)},500)}
 document.getElementById('rbs').onclick=send;
