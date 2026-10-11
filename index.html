@@ -560,39 +560,85 @@
         }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<!-- R.A.W BOT FINAL SIMPLE -->
+<!-- R.A.W BOT - SYNC WITH WEBSITE LANGUAGE -->
 <div id="rbw" style="position:fixed;bottom:20px;right:15px;z-index:999999">
-<div id="rbb" style="width:80px;height:80px;background:#FF6B00;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;border:3px solid #fff;box-shadow:0 8px 20px rgba(0,0,0,.3);cursor:move">
+<div id="rbb" style="width:80px;height:80px;background:#FF6B00;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;border:3px solid #fff;box-shadow:0 8px 20px rgba(0,0,0,.3);cursor:move;touch-action:none">
 <div style="font-size:28px">🦅</div><div style="color:#fff;font-size:8px;font-weight:bold">R.A.W</div>
 </div>
-<div id="rbc" style="display:none;position:absolute;bottom:90px;right:0;width:320px;height:400px;background:#fff;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.3);flex-direction:column;overflow:hidden">
+<div id="rbc" style="display:none;position:absolute;bottom:90px;right:0;width:330px;max-width:92vw;height:420px;background:#fff;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.3);flex-direction:column;overflow:hidden">
 <div style="background:#111;color:#fff;padding:10px;display:flex;justify-content:space-between"><b style="color:#FF8C00">R.A.W GROUP</b><span id="rbx" style="font-size:24px;cursor:pointer">×</span></div>
-<div id="rbm" style="flex:1;padding:10px;overflow:auto;background:#FFF8F0"></div>
-<div style="display:flex;padding:8px;gap:5px;border-top:1px solid #eee"><input id="rbi" placeholder="Sawal likhein..." style="flex:1;padding:10px;border-radius:20px;border:1px solid #ccc"><button id="rbs" style="background:#FF6B00;color:#fff;border:none;width:40px;height:40px;border-radius:50%">➤</button></div>
+<div id="rbm" style="flex:1;padding:10px;overflow:auto;background:#FFF8F0;display:flex;flex-direction:column;gap:6px"></div>
+<div style="display:flex;padding:8px;gap:5px;border-top:1px solid #eee;align-items:center"><button id="rbmic" style="width:38px;height:38px;border-radius:50%;border:none;background:#eee;font-size:18px">🎤</button><input id="rbi" placeholder="Type in any language..." style="flex:1;padding:10px;border-radius:20px;border:1px solid #ccc;outline:none"><button id="rbs" style="background:#FF6B00;color:#fff;border:none;width:42px;height:42px;border-radius:50%">➤</button></div>
 </div>
 </div>
 <script>
 var w=document.getElementById('rbw'),b=document.getElementById('rbb'),c=document.getElementById('rbc'),m=document.getElementById('rbm'),i=document.getElementById('rbi');
 var d=false,mv=false,sx,sy,lx,ly;
-b.onmousedown=function(e){d=true;mv=false;sx=e.clientX;sy=e.clientY;var r=w.getBoundingClientRect();lx=r.left;ly=r.top;}
-document.onmousemove=function(e){if(!d)return;var dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)>2||Math.abs(dy)>2)mv=true;w.style.left=(lx+dx)+'px';w.style.top=(ly+dy)+'px';w.style.right='auto';w.style.bottom='auto';}
-document.onmouseup=function(){d=false;setTimeout(function(){mv=false},100)}
-b.ontouchstart=function(e){d=true;mv=false;sx=e.touches[0].clientX;sy=e.touches[0].clientY;var r=w.getBoundingClientRect();lx=r.left;ly=r.top;}
-document.ontouchmove=function(e){if(!d)return;var dx=e.touches[0].clientX-sx,dy=e.touches[0].clientY-sy;if(Math.abs(dx)>2||Math.abs(dy)>2)mv=true;w.style.left=(lx+dx)+'px';w.style.top=(ly+dy)+'px';w.style.right='auto';w.style.bottom='auto';}
-document.ontouchend=function(){d=false;setTimeout(function(){mv=false},100)}
-b.onclick=function(){if(mv)return;if(c.style.display=='flex'){c.style.display='none'}else{c.style.display='flex';if(m.children.length==0){var x=document.createElement('div');x.style='background:#fff;padding:8px;border-radius:10px;font-size:13px;border:1px solid #ffe0b2';x.innerHTML='Assalam o Alaikum! 🧡<br>Chhadi ke liye "price" likhein<br>Mobile/charger ke liye "mobile dhundh do" likhein';m.appendChild(x)}}}
-document.getElementById('rbx').onclick=function(){c.style.display='none'}
-function add(t,u){var x=document.createElement('div');x.style='padding:8px 10px;border-radius:10px;font-size:13px;max-width:80%;margin-bottom:6px;'+(u?'background:#111;color:#fff;margin-left:auto':'background:#fff;border:1px solid #ffe0b2');x.innerHTML=t;m.appendChild(x);m.scrollTop=m.scrollHeight}
-function reply(q){
-var l=q.toLowerCase();
-if(l.includes('mobile')||l.includes('dhundh')||l.includes('charger')||l.includes('earbuds')||l.includes('tozo')){
-return 'Ji mil gaya! 🧡<br>Aap ne "'+q+'" kaha.<br><br>Hamare <b>Featured Products</b> mein Amazon par ye sab hai:<br>1. TOZO T6 Earbuds - $19.99<br>2. iPhone Charger - $9.99<br>3. Dura Cell - $21.75<br><br>Neeche scroll karein aur <b>Buy on Amazon</b> par click karein 👇<br><br><b>Amazon par hamara commission ata hai (F8 Program)</b>';
+b.onmousedown=function(e){d=true;mv=false;sx=e.clientX;sy=e.clientY;var r=w.getBoundingClientRect();lx=r.left;ly=r.top;};
+document.onmousemove=function(e){if(!d)return;var dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)>2||Math.abs(dy)>2)mv=true;w.style.left=(lx+dx)+'px';w.style.top=(ly+dy)+'px';w.style.right='auto';w.style.bottom='auto';};
+document.onmouseup=function(){d=false;setTimeout(function(){mv=false},120)};
+b.ontouchstart=function(e){d=true;mv=false;sx=e.touches[0].clientX;sy=e.touches[0].clientY;var r=w.getBoundingClientRect();lx=r.left;ly=r.top;};
+document.ontouchmove=function(e){if(!d)return;var dx=e.touches[0].clientX-sx,dy=e.touches[0].clientY-sy;if(Math.abs(dx)>2||Math.abs(dy)>2)mv=true;w.style.left=(lx+dx)+'px';w.style.top=(ly+dy)+'px';w.style.right='auto';w.style.bottom='auto';};
+document.ontouchend=function(){d=false;setTimeout(function(){mv=false},120)};
+b.onclick=function(){if(mv)return;if(c.style.display=='flex'){c.style.display='none'}else{c.style.display='flex';if(m.children.length==0){var x=document.createElement('div');x.style='background:#fff;padding:10px 12px;border-radius:12px;font-size:13px;border:1px solid #ffe0b2;align-self:flex-start;line-height:1.5';x.innerHTML='Welcome to R.A.W GROUP 🧡<br>Amazon pe jane ke liye hum aapki khidmat ke liye hazir hain.';m.appendChild(x)}}}
+document.getElementById('rbx').onclick=function(){c.style.display='none'};
+function add(t,u){var x=document.createElement('div');x.style='padding:8px 10px;border-radius:10px;font-size:13px;max-width:84%;word-break:break-word;'+(u?'background:#111;color:#fff;align-self:flex-end':'background:#fff;border:1px solid #ffe0b2;align-self:flex-start');x.innerHTML=t;m.appendChild(x);m.scrollTop=m.scrollHeight}
+// WEBSITE LANGUAGE SYNC
+function getSiteLang(){
+  try{
+    var sel=document.querySelector('.goog-te-combo');
+    if(sel && sel.value) return sel.value;
+    // also check cookie
+    var m=document.cookie.match(/googtrans=\/[^\/]*\/([^;]+)/);
+    if(m) return m[1];
+  }catch(e){}
+  return null;
 }
-if(l.includes('chhadi')||l.includes('price')||l.includes('qimat'))return 'Foldable Chhadi <b>Rs 5099</b> mein! Cash on Delivery. Buy Now par click karein 🦅';
-return 'Aap ne kaha: "'+q+'"<br>Mobile ke liye "mobile dhundh do" likhein, main Amazon wale products dikha dunga!';
+function reply(q){
+  var siteLang = getSiteLang();
+  var l = q.toLowerCase();
+  var keyword = encodeURIComponent(q.trim());
+  var amazonLink = 'https://www.amazon.com/s?k='+keyword+'&tag=rawgroup08-20';
+
+  if(l.includes('chhadi')||l.includes('stick')||l.includes('lathi')){
+    if(siteLang && siteLang.startsWith('en')) return 'Our <b>Foldable Self-Defense Stick - Rs 5099</b> 🦅<br>Cash on Delivery!';
+    if(siteLang && siteLang=='ar') return 'عصا قابلة للطي - <b>5099 روبية</b> 🦅<br>الدفع عند الاستلام!';
+    return 'Hamari <b>Foldable Chhadi - Rs 5099</b> Cash on Delivery! 🦅';
+  }
+
+  // If website is in English
+  if(siteLang && siteLang.startsWith('en')){
+    return 'You searched: <b>"'+q+'"</b> 🧡<br><br><div style="background:#fff8f0;border:1px solid #ffcc80;padding:8px;border-radius:10px;text-align:center"><a href="'+amazonLink+'" target="_blank" style="display:inline-block;background:#FF9900;color:#111;padding:8px 14px;border-radius:20px;text-decoration:none;font-weight:bold">View on Amazon 🛒</a></div>';
+  }
+  // If website is in Arabic
+  if(siteLang && siteLang=='ar'){
+    return 'لقد بحثت عن: <b>"'+q+'"</b> 🧡<br><br><div style="background:#fff8f0;border:1px solid #ffcc80;padding:8px;border-radius:10px;text-align:center"><a href="'+amazonLink+'" target="_blank" style="display:inline-block;background:#FF9900;color:#111;padding:8px 14px;border-radius:20px;text-decoration:none;font-weight:bold">عرض على أمازون 🛒</a></div>';
+  }
+  // Default Urdu / Roman
+  return 'Aapne: <b>"'+q+'"</b><br><br><div style="background:#fff8f0;border:1px solid #ffcc80;padding:8px;border-radius:10px;text-align:center"><a href="'+amazonLink+'" target="_blank" style="display:inline-block;background:#FF9900;color:#111;padding:8px 14px;border-radius:20px;text-decoration:none;font-weight:bold">Amazon par Dekhein 🛒</a></div>';
 }
 function send(){var t=i.value.trim();if(!t)return;add(t,true);i.value='';setTimeout(function(){add(reply(t),false)},500)}
 document.getElementById('rbs').onclick=send;
-i.addEventListener('keydown',function(e){if(e.key=='Enter')send()})
+i.addEventListener('keydown',function(e){if(e.key=='Enter')send()});
+var mic=document.getElementById('rbmic'); var rec=null;
+try{
+if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window){
+var SR=window.SpeechRecognition||window.webkitSpeechRecognition; rec=new SR(); rec.lang='en-US';
+rec.onstart=function(){mic.style.background='#ff3b3b';mic.innerText='●';};
+rec.onend=function(){mic.style.background='#eee';mic.innerText='🎤';};
+rec.onresult=function(e){i.value=e.results[0][0].transcript;send();};
+mic.onclick=function(){try{rec.start();}catch(err){rec.stop();}};
+} else { mic.style.display='none'; }
+}catch(e){ mic.style.display='none'; }
+// Auto update when Google Translate changes
+setInterval(function(){
+  var sl=getSiteLang();
+  if(sl){
+    var ph = document.getElementById('rbi');
+    if(sl.startsWith('en')) ph.placeholder='Type anything...';
+    else if(sl=='ar') ph.placeholder='اكتب أي شيء...';
+    else ph.placeholder='Kuch bhi likhein...';
+  }
+},1000);
 </script>
 </html>
