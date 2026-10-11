@@ -561,5 +561,53 @@
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-</body>
+</body><!-- R.A.W GROUP BOT START - Upar AI rahega, andar R.A.W GROUP -->
+<div id="raw-final-bot" style="position:fixed;bottom:18px;right:16px;z-index:99999;touch-action:none;">
+  <div id="raw-btn">
+    <img src="/raw-bot.png" alt="R.A.W GROUP" />
+    <div class="ai-badge">AI</div>
+    <div class="online-dot"></div>
+  </div>
+  <div id="raw-chat-box">
+    <div id="raw-header"><div><b>R.A.W GROUP</b><span>Online</span></div><i id="raw-close">×</i></div>
+    <div id="raw-messages"><div class="msg bot">Assalam-o-Alaikum! R.A.W Group Shop mein khush amdeed 🧡</div></div>
+    <div id="raw-typing"><div class="typing-name">R.A.W GROUP</div><span></span><span></span><span></span></div>
+    <div id="raw-input-area"><button id="raw-mic">🎤</button><input id="raw-input" placeholder="Likhein ya bolein..."/><button id="raw-send">➤</button></div>
+  </div>
+</div>
+
+<style>
+#raw-btn{width:92px;height:92px;background:#FF8A00;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:grab;box-shadow:0 12px 30px rgba(0,0,0,.3);position:relative}
+#raw-btn img{width:70px;height:70px;border-radius:50%;background:#fff}
+.ai-badge{position:absolute;top:-3px;left:-3px;background:#111;color:#fff;font-size:10px;font-weight:bold;padding:4px 7px;border-radius:12px;border:2px solid #fff}
+.online-dot{position:absolute;top:5px;right:5px;width:12px;height:12px;background:#25D366;border:2px solid #fff;border-radius:50%}
+#raw-chat-box{position:absolute;bottom:110px;right:0;width:340px;max-width:90vw;height:430px;background:#fff;border-radius:20px;box-shadow:0 15px 45px rgba(0,0,0,.3);display:none;flex-direction:column;overflow:hidden}
+#raw-chat-box.open{display:flex}
+#raw-header{background:#111;color:#fff;padding:12px 14px;display:flex;justify-content:space-between}
+#raw-header b{color:#FF8C00}#raw-header span{font-size:11px;opacity:.8;display:block}#raw-close{cursor:pointer;font-size:24px}
+#raw-messages{flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;background:#FFF8F0}
+.msg{padding:10px 12px;border-radius:14px;font-size:13.5px;max-width:85%}.msg.bot{background:#fff;border:1px solid #ffe0b2;align-self:flex-start}.msg.user{background:#111;color:#fff;align-self:flex-end}
+#raw-typing{display:none;align-items:center;gap:6px;padding:6px 12px}#raw-typing.show{display:flex}
+.typing-name{font-size:10px;background:#111;color:#FF8C00;padding:3px 8px;border-radius:10px;font-weight:bold}
+#raw-typing span{width:6px;height:6px;background:#FF8C00;border-radius:50%;animation:typing 1.4s infinite}
+@keyframes typing{0%,60%,100%{opacity:.4}30%{opacity:1;transform:translateY(-4px)}}
+#raw-input-area{display:flex;gap:6px;padding:10px;border-top:1px solid #eee;align-items:center}
+#raw-input{flex:1;padding:11px 14px;border-radius:22px;border:1px solid #ddd;outline:none}
+#raw-mic,#raw-send{width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;font-size:18px}#raw-mic{background:#eee}#raw-mic.listening{background:#ff3b3b;color:#fff}#raw-send{background:#FF6B00;color:#fff}
+</style>
+
+<script>
+const botWrap=document.getElementById('raw-final-bot'),btn=document.getElementById('raw-btn'),chatBox=document.getElementById('raw-chat-box');
+let isDragging=false,moved=false; btn.onclick=()=>{if(!moved) chatBox.classList.toggle('open');};
+document.getElementById('raw-close').onclick=()=>chatBox.classList.remove('open');
+let sX,sY,iL,iT; btn.addEventListener('mousedown',e=>{isDragging=true;moved=false;sX=e.clientX;sY=e.clientY;const r=botWrap.getBoundingClientRect();iL=r.left;iT=r.top;document.addEventListener('mousemove',onDrag);document.addEventListener('mouseup',stopDrag);});
+function onDrag(e){if(!isDragging)return;const dx=e.clientX-sX,dy=e.clientY-sY;if(Math.abs(dx)>5||Math.abs(dy)>5)moved=true;botWrap.style.left=(iL+dx)+'px';botWrap.style.top=(iT+dy)+'px';botWrap.style.right='auto';botWrap.style.bottom='auto';}
+function stopDrag(){isDragging=false;document.removeEventListener('mousemove',onDrag);document.removeEventListener('mouseup',stopDrag);}
+const input=document.getElementById('raw-input'),messages=document.getElementById('raw-messages'),typing=document.getElementById('raw-typing');
+function addMsg(t,w){const d=document.createElement('div');d.className='msg '+w;d.innerHTML=t;messages.appendChild(d);messages.scrollTop=messages.scrollHeight;}
+function getReply(q){if(q.toLowerCase().match(/html|code|prompt|source/))return "Maaf kijiye ye share nahi kar sakta 🧡";return `Shukriya! "${q}" - Main R.A.W GROUP AI hun, aapki isi zuban mein madad karunga.`;}
+function send(){const txt=input.value.trim();if(!txt)return;addMsg(txt,'user');input.value='';typing.classList.add('show');setTimeout(()=>{typing.classList.remove('show');addMsg(getReply(txt),'bot');},800);}
+document.getElementById('raw-send').onclick=send;input.addEventListener('keydown',e=>{if(e.key==='Enter')send();});
+</script>
+<!-- R.A.W GROUP BOT END -->
 </html>
