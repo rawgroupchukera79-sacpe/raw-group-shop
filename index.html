@@ -560,78 +560,39 @@
         }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<!-- R.A.W GROUP BOT - AMAZON SEARCH -->
-<div id="raw-bot-wrap" style="position:fixed;bottom:20px;right:15px;z-index:99999;">
-  <div id="raw-drag-btn" style="width:85px;height:85px;background:linear-gradient(135deg,#FF8A00,#FF6B00);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:grab;box-shadow:0 10px 25px rgba(0,0,0,.35);border:3px solid #fff;user-select:none;touch-action:none">
-    <div style="font-size:26px">🦅</div><div style="font-size:9px;font-weight:900;color:#fff;text-align:center;line-height:1">R.A.W<br>GROUP</div>
-    <div style="position:absolute;top:-5px;left:-5px;background:#111;color:#fff;font-size:9px;padding:3px 6px;border-radius:10px;border:2px solid #fff;font-weight:bold">AI</div>
-    <div style="position:absolute;top:4px;right:6px;width:12px;height:12px;background:#25D366;border:2px solid #fff;border-radius:50%"></div>
-  </div>
-  <div id="raw-chat" style="position:absolute;bottom:95px;right:0;width:350px;max-width:92vw;height:440px;background:#fff;border-radius:18px;box-shadow:0 15px 40px rgba(0,0,0,.3);display:none;flex-direction:column;overflow:hidden">
-    <div style="background:#111;color:#fff;padding:10px 14px;display:flex;justify-content:space-between"><div><b style="color:#FF8C00">R.A.W GROUP</b><span style="font-size:11px;display:block;opacity:.8">Smart AI • Amazon Finder</span></div><span id="raw-x" style="font-size:28px;cursor:pointer">×</span></div>
-    <div id="raw-msgs" style="flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;background:#FFF8F0"></div>
-    <div style="display:flex;gap:6px;padding:10px;border-top:1px solid #eee;align-items:center"><button id="raw-mic" style="width:38px;height:38px;border-radius:50%;border:none;background:#eee;cursor:pointer;font-size:18px">🎤</button><input id="raw-in" placeholder="Bolein ya likhein..." style="flex:1;padding:10px 14px;border-radius:20px;border:1px solid #ddd;outline:none"/><button id="raw-go" style="background:#FF6B00;color:#fff;border:none;width:42px;height:42px;border-radius:50%">➤</button></div>
-  </div>
+<!-- R.A.W BOT FINAL SIMPLE -->
+<div id="rbw" style="position:fixed;bottom:20px;right:15px;z-index:999999">
+<div id="rbb" style="width:80px;height:80px;background:#FF6B00;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;border:3px solid #fff;box-shadow:0 8px 20px rgba(0,0,0,.3);cursor:move">
+<div style="font-size:28px">🦅</div><div style="color:#fff;font-size:8px;font-weight:bold">R.A.W</div>
+</div>
+<div id="rbc" style="display:none;position:absolute;bottom:90px;right:0;width:320px;height:400px;background:#fff;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.3);flex-direction:column;overflow:hidden">
+<div style="background:#111;color:#fff;padding:10px;display:flex;justify-content:space-between"><b style="color:#FF8C00">R.A.W GROUP</b><span id="rbx" style="font-size:24px;cursor:pointer">×</span></div>
+<div id="rbm" style="flex:1;padding:10px;overflow:auto;background:#FFF8F0"></div>
+<div style="display:flex;padding:8px;gap:5px;border-top:1px solid #eee"><input id="rbi" placeholder="Sawal likhein..." style="flex:1;padding:10px;border-radius:20px;border:1px solid #ccc"><button id="rbs" style="background:#FF6B00;color:#fff;border:none;width:40px;height:40px;border-radius:50%">➤</button></div>
+</div>
 </div>
 <script>
-(function(){
-var wrap=document.getElementById('raw-bot-wrap'),btn=document.getElementById('raw-drag-btn'),chat=document.getElementById('raw-chat'),msgs=document.getElementById('raw-msgs'),inp=document.getElementById('raw-in');
-var drag=false,hasMoved=false,sx=0,sy=0,ox=0,oy=0;
-function getP(e){return e.touches?e.touches[0]:e;}
-btn.addEventListener('mousedown',function(e){drag=true;hasMoved=false;var p=getP(e);sx=p.clientX;sy=p.clientY;var r=wrap.getBoundingClientRect();ox=r.left;oy=r.top;e.preventDefault();});
-btn.addEventListener('touchstart',function(e){drag=true;hasMoved=false;var p=getP(e);sx=p.clientX;sy=p.clientY;var r=wrap.getBoundingClientRect();ox=r.left;oy=r.top;},{passive:false});
-document.addEventListener('mousemove',function(e){if(!drag)return;var p=getP(e);var dx=p.clientX-sx,dy=p.clientY-sy;if(Math.abs(dx)>3||Math.abs(dy)>3)hasMoved=true;wrap.style.left=(ox+dx)+'px';wrap.style.top=(oy+dy)+'px';wrap.style.right='auto';wrap.style.bottom='auto';});
-document.addEventListener('touchmove',function(e){if(!drag)return;var p=getP(e);var dx=p.clientX-sx,dy=p.clientY-sy;if(Math.abs(dx)>3||Math.abs(dy)>3)hasMoved=true;wrap.style.left=(ox+dx)+'px';wrap.style.top=(oy+dy)+'px';wrap.style.right='auto';wrap.style.bottom='auto';if(e.cancelable)e.preventDefault();},{passive:false});
-function stopDrag(){drag=false;setTimeout(function(){hasMoved=false;},150);}
-document.addEventListener('mouseup',stopDrag);document.addEventListener('touchend',stopDrag);
-btn.addEventListener('click',function(){if(hasMoved)return;if(chat.style.display==='flex'){chat.style.display='none';}else{chat.style.display='flex';if(msgs.children.length===0){var d=document.createElement('div');d.style.cssText='padding:10px 12px;border-radius:12px;background:#fff;border:1px solid #ffe0b2;font-size:13px;align-self:flex-start';d.innerHTML='Assalam-o-Alaikum! 🧡<br>Mobile, charger, earbuds chahiye? Naam likhein, main Amazon se dhundh kar dunga!';msgs.appendChild(d);}}});
-document.getElementById('raw-x').onclick=function(){chat.style.display='none';};
-function add(t,u){var d=document.createElement('div');d.style.cssText='padding:9px 12px;border-radius:12px;font-size:13px;max-width:86%;word-break:break-word;'+(u?'background:#111;color:#fff;align-self:flex-end':'background:#fff;border:1px solid #ffe0b2;align-self:flex-start');d.innerHTML=t;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;}
-// AMAZON SEARCH FUNCTION
-function searchAmazon(keyword){
-  var cards = document.querySelectorAll('[class*="product"], div');
-  var results=[];
-  // Try to find product titles from page text - we will search all Buy on Amazon buttons
-  var buyBtns = document.querySelectorAll('button, a');
-  buyBtns.forEach(function(b){
-    if(b.innerText && b.innerText.toLowerCase().includes('buy on amazon')){
-      var card = b.closest('div');
-      var title = '';
-      // find title in parent
-      for(var i=0;i<5;i++){ if(!card) break; var t=card.innerText||''; if(t.length>10 && t.length<300){ var lines=t.split('\\n'); for(var l of lines){ if(l.trim().length>3 &&!l.toLowerCase().includes('buy') &&!l.toLowerCase().includes('whatsapp') &&!l.toLowerCase().includes('$')){ title=l.trim(); break; } } } if(title) break; card=card.parentElement; }
-      if(title && results.length<3){
-        // avoid duplicate
-        if(!results.find(r=>r.title===title)){
-          results.push({title:title, btn:b});
-        }
-      }
-    }
-  });
-  return results.slice(0,3);
+var w=document.getElementById('rbw'),b=document.getElementById('rbb'),c=document.getElementById('rbc'),m=document.getElementById('rbm'),i=document.getElementById('rbi');
+var d=false,mv=false,sx,sy,lx,ly;
+b.onmousedown=function(e){d=true;mv=false;sx=e.clientX;sy=e.clientY;var r=w.getBoundingClientRect();lx=r.left;ly=r.top;}
+document.onmousemove=function(e){if(!d)return;var dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)>2||Math.abs(dy)>2)mv=true;w.style.left=(lx+dx)+'px';w.style.top=(ly+dy)+'px';w.style.right='auto';w.style.bottom='auto';}
+document.onmouseup=function(){d=false;setTimeout(function(){mv=false},100)}
+b.ontouchstart=function(e){d=true;mv=false;sx=e.touches[0].clientX;sy=e.touches[0].clientY;var r=w.getBoundingClientRect();lx=r.left;ly=r.top;}
+document.ontouchmove=function(e){if(!d)return;var dx=e.touches[0].clientX-sx,dy=e.touches[0].clientY-sy;if(Math.abs(dx)>2||Math.abs(dy)>2)mv=true;w.style.left=(lx+dx)+'px';w.style.top=(ly+dy)+'px';w.style.right='auto';w.style.bottom='auto';}
+document.ontouchend=function(){d=false;setTimeout(function(){mv=false},100)}
+b.onclick=function(){if(mv)return;if(c.style.display=='flex'){c.style.display='none'}else{c.style.display='flex';if(m.children.length==0){var x=document.createElement('div');x.style='background:#fff;padding:8px;border-radius:10px;font-size:13px;border:1px solid #ffe0b2';x.innerHTML='Assalam o Alaikum! 🧡<br>Chhadi ke liye "price" likhein<br>Mobile/charger ke liye "mobile dhundh do" likhein';m.appendChild(x)}}}
+document.getElementById('rbx').onclick=function(){c.style.display='none'}
+function add(t,u){var x=document.createElement('div');x.style='padding:8px 10px;border-radius:10px;font-size:13px;max-width:80%;margin-bottom:6px;'+(u?'background:#111;color:#fff;margin-left:auto':'background:#fff;border:1px solid #ffe0b2');x.innerHTML=t;m.appendChild(x);m.scrollTop=m.scrollHeight}
+function reply(q){
+var l=q.toLowerCase();
+if(l.includes('mobile')||l.includes('dhundh')||l.includes('charger')||l.includes('earbuds')||l.includes('tozo')){
+return 'Ji mil gaya! 🧡<br>Aap ne "'+q+'" kaha.<br><br>Hamare <b>Featured Products</b> mein Amazon par ye sab hai:<br>1. TOZO T6 Earbuds - $19.99<br>2. iPhone Charger - $9.99<br>3. Dura Cell - $21.75<br><br>Neeche scroll karein aur <b>Buy on Amazon</b> par click karein 👇<br><br><b>Amazon par hamara commission ata hai (F8 Program)</b>';
 }
-function ans(q){
- var l=q.toLowerCase();
- if(l.includes('chhadi')||l.includes('stick'))return 'Foldable 26 inch steel chhadi <b>Rs 5099</b> mein! Self-defense ke liye best. Buy Now par click karein. 🦅';
- if(l.includes('price')||l.includes('qimat'))return 'Chhadi ki price <b>Rs 5099</b> hai. Cash on Delivery.';
- // FOR MOBILE / OTHER PRODUCTS - SEARCH AMAZON PRODUCTS ON PAGE
- if(l.includes('mobile')||l.includes('phone')||l.includes('earbuds')||l.includes('tozo')||l.includes('charger')||l.includes('iphone')||l.includes('duracell')||l.includes('dhundh')){
-   var prods = searchAmazon(l);
-   if(prods.length>0){
-     var html = 'Ji mil gaya! 🧡<br>Aapke liye hamare <b>Amazon Store</b> se:<br><br>';
-     prods.forEach(function(p,i){ html+='<div style="border:1px solid #ffe0b2;padding:6px;border-radius:8px;margin-bottom:6px;background:#fff8f0"><b>'+(i+1)+'. '+p.title+'</b><br><span style="font-size:11px">Neeche scroll karke "Buy on Amazon" par click karein ya</span> <a href="#featured" onclick="document.getElementById(\\'raw-chat\\').style.display=\\'none\\';document.querySelector(\\'h2\\').scrollIntoView({behavior:\\'smooth\\'})" style="color:#FF6B00;font-weight:bold">Yahan Click Karein</a></div>'; });
-     html+='<br>Chahiye to bataein kaunsa wala?';
-     return html;
-   } else {
-     return 'Aapne "'+q+'" manga hai! 🧡<br>Neeche <b>Featured Products</b> mein dekhein, wahan TOZO T6, iPhone Charger, Dura Cell waghera Amazon par available hain. Scroll karke <b>Buy on Amazon</b> par click karein. Main aapko wahan le chalta hun! 👇<br><br><a href="#featured" style="background:#FF6B00;color:#fff;padding:6px 12px;border-radius:20px;text-decoration:none">Amazon Products Dekhein</a>';
-   }
- }
- return 'Samajh gaya: "'+q+'"<br>Chhadi ke liye "chhadi price" likhein, ya mobile/charger ke liye "mobile dhundh do" likhein, main Amazon se dhundh kar dunga! 🧡';
+if(l.includes('chhadi')||l.includes('price')||l.includes('qimat'))return 'Foldable Chhadi <b>Rs 5099</b> mein! Cash on Delivery. Buy Now par click karein 🦅';
+return 'Aap ne kaha: "'+q+'"<br>Mobile ke liye "mobile dhundh do" likhein, main Amazon wale products dikha dunga!';
 }
-function go(){var t=inp.value.trim();if(!t)return;add(t,true);inp.value='';setTimeout(function(){add(ans(t),false);},700);}
-document.getElementById('raw-go').onclick=go;inp.addEventListener('keydown',function(e){if(e.key==='Enter')go();});
-var mic=document.getElementById('raw-mic'); var rec=null;
-if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window){var SR=window.SpeechRecognition||window.webkitSpeechRecognition; rec=new SR(); rec.lang='ur-PK'; rec.onstart=function(){mic.style.background='#ff3b3b'; mic.style.color='#fff';}; rec.onend=function(){mic.style.background='#eee'; mic.style.color='#000';}; rec.onresult=function(e){inp.value=e.results[0][0].transcript; go();}; mic.onclick=function(){try{rec.start();}catch(err){try{rec.stop();}catch(e){}}}; } else { mic.style.display='none'; }
-})();
+function send(){var t=i.value.trim();if(!t)return;add(t,true);i.value='';setTimeout(function(){add(reply(t),false)},500)}
+document.getElementById('rbs').onclick=send;
+i.addEventListener('keydown',function(e){if(e.key=='Enter')send()})
 </script>
-<!-- BOT END -->
 </html>
