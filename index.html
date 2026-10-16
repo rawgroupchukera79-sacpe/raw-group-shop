@@ -514,15 +514,15 @@
                     } else {
                         images = ['logo.png'];
                     }
+let uniqueId = 'slider_' + d.id;
+let mainImgId = 'main_' + d.id;
+let slidesHTML = `<img src="${images[0]}" alt="${productName}" id="${mainImgId}" onclick="window.open(this.src, '_blank')" style="width:100%; height:220px; object-fit:contain; cursor: zoom-in; border-radius:8px;">`;
+let thumbsHTML = '';
 
-                    let uniqueId = 'slider_' + d.id;
-                    let slidesHTML = '';
-                    let thumbsHTML = '';
+images.forEach((imgSrc, index) => {
+  let activeClass = index === 0 ? 'active-thumb' : '';
+  thumbsHTML += `<img src="${imgSrc}" alt="thumb" class="${activeClass}" onclick="document.getElementById('${mainImgId}').src='${imgSrc}document.querySelectorAll('#thumb_${uniqueId} img').forEach(e=>e.classList...('active-thumb')); this.classList.add('active-thumb');" style="width:50px; height:50px; object-fit:cover; cursor:pointer; border-radius:6px; border:2px solid transparent;">`;
 
-                    images.forEach((imgSrc, index) => {
-                        let activeClass = index === 0 ? 'active-thumb' : '';
-                        slidesHTML += `<img src="${imgSrc}" alt="${productName}" class="slide-img" data-full="${imgSrc}">`;
-                        thumbsHTML += `<img src="${imgSrc}" alt="thumb" class="${activeClass}" data-index="${index}">`;
                     });
                     
                     let whatsappText = encodeURIComponent(`I want to order ${productName} (Price: ${whatsappPriceText})`);
@@ -549,36 +549,9 @@
                         <a href="https://wa.me/923334664227?text=${whatsappText}" target="_blank" class="btn-whatsapp">Order on WhatsApp</a>
                         ${amazonButtonHTML}
                     `;
-                    grid.appendChild(card);
-
-                    setTimeout(() => {
-                        const slider = document.getElementById(uniqueId);
-                        const thumbs = document.querySelectorAll(`#thumb_${uniqueId} img`);
-
-                        thumbs.forEach((thumb, idx) => {
-                            thumb.addEventListener('click', () => {
-                                const slideImages = slider.querySelectorAll('img');
-                                slideImages[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                    grid.appendChild(card)
                                 
-                                thumbs.forEach(t => t.classList.remove('active-thumb'));
-                                thumb.classList.add('active-thumb');
-                            });
-                        });
-
-                        slider.querySelectorAll('img').forEach(img => {
-                            img.addEventListener('click', () => {
-                                const modal = document.getElementById('imageModal');
-                                const modalImg = document.getElementById('modalImg');
-                                modal.style.display = 'flex';
-                                modalImg.src = img.getAttribute('data-full');
-                            });
-                        });
-                    }, 100);
-                });
-            } catch (err) {
-                grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color:red;">پروڈکٹس لوڈ کرنے میں ایرر آ گیا: ' + err.message + '</p>';
-            }
-        }
+                            
 
         const modal = document.getElementById('imageModal');
         document.getElementById('closeModal').addEventListener('click', () => {
