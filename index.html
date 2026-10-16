@@ -275,6 +275,81 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
   gap: 15px;
 }
 
+/* Amazon-Style Gallery Component */
+.gallery-wrapper {
+  background: #ffffff;
+  border: 1px solid #ffe3cb;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.gallery-main-container {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.gallery-main-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 140, 0, 0.8);
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 5;
+}
+.nav-arrow.left { left: 8px; }
+.nav-arrow.right { right: 8px; }
+
+.thumbnails-bar {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+.thumbnails-bar::-webkit-scrollbar { height: 4px; }
+.thumbnails-bar::-webkit-scrollbar-thumb { background: #FF8C00; border-radius: 10px; }
+
+.thumb-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+  border: 2px solid #eee;
+  object-fit: cover;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+.thumb-img.active, .thumb-img:hover {
+  border-color: #FF8C00;
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(255, 140, 0, 0.3);
+}
+
 /* Floating & Draggable Chatbot Launcher */
 #chatbot-launcher {
   position: fixed;
@@ -289,7 +364,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
-  cursor: move; /* Drag cursor */
+  cursor: move;
   z-index: 3000;
   font-size: 24px;
   user-select: none;
@@ -303,7 +378,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
   bottom: 90px;
   right: 25px;
   width: 320px;
-  height: 400px;
+  height: 420px;
   background: #fff;
   border-radius: 15px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.2);
@@ -334,7 +409,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
   background: #fafafa;
 }
 .chat-msg {
-  max-width: 80%;
+  max-width: 85%;
   padding: 8px 12px;
   border-radius: 12px;
   font-size: 12px;
@@ -343,29 +418,70 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .chat-msg.bot { background: #fff8f0; border: 1px solid #ffe0b2; color: #333; align-self: flex-start; }
 .chat-msg.user { background: #FF8C00; color: #fff; align-self: flex-end; }
 
+.chat-msg .chat-link-btn {
+  display: inline-block;
+  margin-top: 8px;
+  background: #FF9900;
+  color: #111;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  text-align: center;
+}
+.chat-msg .chat-link-btn:hover { background: #e68a00; }
+
 .chat-footer {
   display: flex;
+  align-items: center;
   padding: 8px;
   background: #fff;
   border-top: 1px solid #eee;
+  gap: 4px;
 }
 .chat-footer input {
   flex: 1;
   border: 1px solid #FF8C00;
-  padding: 6px 12px;
+  padding: 6px 10px;
   border-radius: 15px;
   outline: none;
   font-size: 12px;
 }
-.chat-footer button {
+.mic-btn {
+  background: #fff0d4;
+  border: 1px solid #FF8C00;
+  color: #FF8C00;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+.mic-btn.recording {
+  background: #ff4d4d;
+  color: #fff;
+  border-color: #ff4d4d;
+  animation: pulse 1s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+.chat-footer button.send-btn {
   background: #FF8C00;
   color: #fff;
   border: none;
   padding: 6px 12px;
-  margin-left: 5px;
   border-radius: 15px;
   cursor: pointer;
   font-weight: 600;
+  font-size: 12px;
 }
 </style>
 
@@ -432,7 +548,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 <div id="chatbot-launcher">💬</div>
 <div id="chatbot-modal">
   <div class="chat-header" id="chatHeader">
-    <span>🤖 R.A.W Support AI (Drag Me)</span>
+    <span>🤖 R.A.W Support AI</span>
     <span style="cursor:pointer;" onclick="toggleChatbot()">✕</span>
   </div>
   <div class="chat-body" id="chatBody">
@@ -440,7 +556,8 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
   </div>
   <div class="chat-footer">
     <input type="text" id="chatInput" placeholder="Aapna sawal likhein..." onkeypress="if(event.key==='Enter') sendChatMessage()">
-    <button onclick="sendChatMessage()">Send</button>
+    <button class="mic-btn" id="micBtn" onclick="toggleVoiceInput()" title="Voice Input">🎤</button>
+    <button class="send-btn" onclick="sendChatMessage()">Send</button>
   </div>
 </div>
 
@@ -469,6 +586,7 @@ async function loadProducts(){
     const snap = await getDocs(collection(db, "products"));
     allProducts = [];
     snap.forEach(doc => { allProducts.push({id: doc.id, ...doc.data()}); });
+    window.allProductsData = allProducts;
     render(allProducts);
   } catch (err) {
     console.error(err);
@@ -563,19 +681,68 @@ window.openDetailPage = function(p) {
   else if (p.image) imgList = [p.image];
   else imgList = ['logo.png'];
 
-  imgList.forEach((imgSrc) => {
-    let singleImgBox = document.createElement('div');
-    singleImgBox.className = 'product-img-container';
-    singleImgBox.style.height = '300px';
-    singleImgBox.style.borderRadius = '8px';
-    singleImgBox.style.border = '1px solid #ffe3cb';
-    
-    let img = document.createElement('img');
-    img.src = imgSrc;
-    img.onerror = function() { this.src = 'logo.png'; };
-    singleImgBox.appendChild(img);
-    detailContent.appendChild(singleImgBox);
+  let activeIndex = 0;
+
+  let galleryWrapper = document.createElement('div');
+  galleryWrapper.className = 'gallery-wrapper';
+
+  let mainContainer = document.createElement('div');
+  mainContainer.className = 'gallery-main-container';
+
+  let mainImg = document.createElement('img');
+  mainImg.src = imgList[0];
+  mainImg.onerror = function() { this.src = 'logo.png'; };
+  mainContainer.appendChild(mainImg);
+
+  if(imgList.length > 1) {
+    let leftBtn = document.createElement('button');
+    leftBtn.className = 'nav-arrow left';
+    leftBtn.innerHTML = '❮';
+    leftBtn.onclick = () => {
+      activeIndex = (activeIndex - 1 + imgList.length) % imgList.length;
+      updateGallery();
+    };
+
+    let rightBtn = document.createElement('button');
+    rightBtn.className = 'nav-arrow right';
+    rightBtn.innerHTML = '❯';
+    rightBtn.onclick = () => {
+      activeIndex = (activeIndex + 1) % imgList.length;
+      updateGallery();
+    };
+
+    mainContainer.appendChild(leftBtn);
+    mainContainer.appendChild(rightBtn);
+  }
+
+  galleryWrapper.appendChild(mainContainer);
+
+  let thumbBar = document.createElement('div');
+  thumbBar.className = 'thumbnails-bar';
+
+  imgList.forEach((src, idx) => {
+    let thumb = document.createElement('img');
+    thumb.src = src;
+    thumb.className = 'thumb-img' + (idx === 0 ? ' active' : '');
+    thumb.onerror = function() { this.src = 'logo.png'; };
+    thumb.onclick = () => {
+      activeIndex = idx;
+      updateGallery();
+    };
+    thumbBar.appendChild(thumb);
   });
+
+  galleryWrapper.appendChild(thumbBar);
+  detailContent.appendChild(galleryWrapper);
+
+  function updateGallery() {
+    mainImg.src = imgList[activeIndex];
+    let thumbs = thumbBar.querySelectorAll('.thumb-img');
+    thumbs.forEach((t, i) => {
+      if(i === activeIndex) t.classList.add('active');
+      else t.classList.remove('active');
+    });
+  }
 
   let body = document.createElement('div');
   body.className = 'card-body';
@@ -696,6 +863,49 @@ function toggleChatbot() {
   modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
 }
 
+/* Voice Input Functionality */
+var recognition = null;
+var isRecording = false;
+
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.lang = 'ur-PK';
+
+  recognition.onresult = function(event) {
+    var transcript = event.results[0][0].transcript;
+    document.getElementById('chatInput').value = transcript;
+    stopVoiceInput();
+  };
+
+  recognition.onerror = function() { stopVoiceInput(); };
+  recognition.onend = function() { stopVoiceInput(); };
+}
+
+function toggleVoiceInput() {
+  if(!recognition) {
+    alert("Aapka browser Voice Input support nahi karta.");
+    return;
+  }
+  if(isRecording) stopVoiceInput();
+  else startVoiceInput();
+}
+
+function startVoiceInput() {
+  isRecording = true;
+  document.getElementById('micBtn').classList.add('recording');
+  recognition.start();
+}
+
+function stopVoiceInput() {
+  isRecording = false;
+  document.getElementById('micBtn').classList.remove('recording');
+  try { recognition.stop(); } catch(e) {}
+}
+
+/* Smart Amazon Affiliate Search & Dynamic Link Generator */
 function sendChatMessage() {
   var input = document.getElementById('chatInput');
   var txt = input.value.trim();
@@ -713,22 +923,38 @@ function sendChatMessage() {
     botDiv.className = 'chat-msg bot';
     
     var lower = txt.toLowerCase();
-    if(lower.includes('order') || lower.includes('خرید')) {
-      botDiv.textContent = "Order karne ke liye product par 'Order on WhatsApp' button par click karein.";
-    } else if(lower.includes('delivery') || lower.includes('شپنگ')) {
-      botDiv.textContent = "Hum poore Pakistan mein delivery service faraham karte hain.";
-    } else if(lower.includes('amazon')) {
-      botDiv.textContent = "Aap hamari Amazon affiliate products ke buttons se direct Amazon se bhi xareed sakte hain.";
+    var products = window.allProductsData || [];
+
+    // Extract item query keywords
+    var cleanKeyword = lower
+      .replace(/amazon|امیزون|se|chahie|chahiye|mange|de|dhund|kar|bhej|link|chahiye|mujhe/g, '')
+      .trim();
+
+    if(!cleanKeyword) cleanKeyword = "jewellery";
+
+    // 1. First Check Firebase Database for matching item with Amazon Link
+    var matchedProduct = products.find(p => 
+      (p.amazonLink || p.affiliateLink) && 
+      ((p.name || '').toLowerCase().includes(cleanKeyword) || 
+       (p.category || '').toLowerCase().includes(cleanKeyword) || 
+       (p.desc || '').toLowerCase().includes(cleanKeyword))
+    );
+
+    if(matchedProduct) {
+      var link = matchedProduct.amazonLink || matchedProduct.affiliateLink;
+      botDiv.innerHTML = `Hum ne aapki pasand <b>"${matchedProduct.name}"</b> dhoond li hai! Aap neche button se direct Amazon par ja kar khareed sakte hain:<br><a class="chat-link-btn" href="${link}" target="_blank">🛒 Open ${matchedProduct.name} on Amazon</a>`;
     } else {
-      botDiv.textContent = "Shukriya! Aap direct WhatsApp par bhi hum se rabta kar sakte hain: +923334664227";
+      // 2. Generate Live Amazon Search Link with User's Affiliate Tag (raw79-20)
+      var amazonAffiliateSearchUrl = "https://www.amazon.com/s?k=" + encodeURIComponent(cleanKeyword) + "&tag=raw79-20";
+      botDiv.innerHTML = `Hum ne Amazon par <b>"${cleanKeyword}"</b> ki live list tayar kar di hai. Aap ki affiliate ID ke sath direct dekhne ke liye button par click karein:<br><a class="chat-link-btn" href="${amazonAffiliateSearchUrl}" target="_blank">🛒 Direct Amazon Par "${cleanKeyword}" Dhoondain</a>`;
     }
     
     chatBody.appendChild(botDiv);
     chatBody.scrollTop = chatBody.scrollHeight;
-  }, 600);
+  }, 500);
 }
 
-/* Make Element Draggable (Mouse & Touch) */
+/* Make Element Draggable */
 function makeDraggable(element, handle) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   var dragHandle = handle || element;
@@ -793,7 +1019,6 @@ function makeDraggable(element, handle) {
     document.ontouchmove = null;
   }
 
-  // Click vs Drag distinction
   element.addEventListener('click', function(e) {
     if(!isDragging && element.id === 'chatbot-launcher') {
       toggleChatbot();
@@ -801,7 +1026,6 @@ function makeDraggable(element, handle) {
   });
 }
 
-// Enable Draggable on Chatbot Launcher Icon & Window Header
 window.onload = function() {
   makeDraggable(document.getElementById('chatbot-launcher'));
   makeDraggable(document.getElementById('chatbot-modal'), document.getElementById('chatHeader'));
