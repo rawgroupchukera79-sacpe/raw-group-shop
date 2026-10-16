@@ -9,52 +9,101 @@ body{margin:0;font-family:Arial;background:#f5f5f5}
 .top-header{background:#ff6600;color:white;text-align:center;padding:14px 10px 16px}
 .top-logos{display:flex;justify-content:center;gap:14px;margin-bottom:8px}
 .top-logos img{width:52px;height:52px;border-radius:50%;border:2px solid white;object-fit:cover;background:white}
-.second-header{display:flex;justify-content:center;align-items:center;background:#f8f8f8;padding:14px 12px;border-bottom:1px solid #eee}
-.welcome-center{background:white;border:1px solid #eee;border-radius:12px;padding:12px 22px;box-shadow:0 2px 8px rgba(0,0,0,0.08);text-align:center}
+.second-header{display:flex;justify-content:center;background:#f8f8f8;padding:14px;border-bottom:1px solid #eee}
+.welcome-center{background:white;border-radius:12px;padding:12px 22px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .below-icons{display:flex;justify-content:space-around;background:white;padding:14px 0;text-align:center}
 .orange-bar{background:#ff6600;color:white;text-align:center;padding:10px;font-weight:bold;font-size:13px}
-.info-strip{background:#ff6600;color:white;font-size:9px;text-align:center;padding:6px}
+.info-strip{background:#ff6600;color:white;font-size:10px;text-align:center;padding:6px}
 .nav-bar{background:#e65a00;display:flex;justify-content:center;gap:6px;padding:8px;flex-wrap:wrap}
-.nav-bar a{background:#ff8c33;color:white;padding:6px 12px;border-radius:6px;text-decoration:none;font-size:11px;font-weight:bold}
+.nav-bar a{background:#ff8c33;color:white;padding:6px 12px;border-radius:6px;text-decoration:none;font-size:11px;font-weight:bold;cursor:pointer}
+.section{background:white;margin:10px;border-radius:10px;padding:15px;display:none}
+.section.active{display:block}
+.products-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.product-card{background:white;border-radius:10px;padding:10px;box-shadow:0 2px 5px rgba(0,0,0,.1);text-align:center;border:1px solid #ffe0cc}
+.product-card img{width:100%;height:130px;object-fit:contain}
+.whatsapp-float{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;text-decoration:none;z-index:999}
 </style>
 </head>
 <body>
 
-<!-- TOP - 2 LOGO CENTER + TRANSLATOR CENTER -->
 <div class="top-header">
   <div class="top-logos">
-    <img src="logo1.png" alt="logo1" onerror="this.style.background='#fff'; this.src='https://via.placeholder.com/52'">
-    <img src="logo2.png" alt="logo2" onerror="this.style.background='#fff'; this.src='https://via.placeholder.com/52'">
+    <img src="logo1.png"><img src="logo2.png">
   </div>
-  <h1 style="margin:0;font-size:20px">R.A.W GROUP SHOP</h1>
-  <div style="font-size:11px;margin-top:4px">Your Trusted Online Shopping Destination</div>
-  <div style="display:flex;justify-content:center;margin-top:10px">
-    <div id="google_translate_element"></div>
-  </div>
+  <h1 style="margin:0">R.A.W GROUP SHOP</h1>
+  <div style="font-size:11px">Your Trusted Online Shopping Destination</div>
+  <div style="display:flex;justify-content:center;margin-top:10px"><div id="google_translate_element"></div></div>
 </div>
 
-<!-- SECOND HEADER - SIRF WELCOME CENTER ME -->
 <div class="second-header">
   <div class="welcome-center">
-    <b style="font-size:14px;color:#222;display:block">Welcome to R.A.W GROUP SHOP</b>
-    <span style="font-size:11px;color:#666;margin-top:4px;display:block">Amazon Trusted Partner <span style="background:#00c853;color:white;padding:3px 9px;border-radius:12px;font-size:10px">✓ Trusted</span></span>
+    <b>Welcome to R.A.W GROUP SHOP</b><br>
+    <small>Amazon Trusted Partner <span style="background:#00c853;color:white;padding:2px 8px;border-radius:10px">✓ Trusted</span></small>
   </div>
 </div>
 
 <div class="below-icons">
-  <div><div style="width:48px;height:48px;background:#ff6600;border-radius:50%;margin:0 auto 6px;display:flex;align-items:center;justify-content:center">🛒</div><div style="font-size:10px;font-weight:bold">Buy Amazon<br>Products</div></div>
-  <div><div style="width:48px;height:48px;background:#ff6600;border-radius:50%;margin:0 auto 6px;display:flex;align-items:center;justify-content:center">🤝</div><div style="font-size:10px;font-weight:bold">Sell Your Products<br>Through Us</div></div>
-  <div><div style="width:48px;height:48px;background:#ff6600;border-radius:50%;margin:0 auto 6px;display:flex;align-items:center;justify-content:center">📦</div><div style="font-size:10px;font-weight:bold">Sell Your Products<br>Through Us</div></div>
+  <div>🛒<br><b style="font-size:10px">Buy Amazon Products</b></div>
+  <div>🤝<br><b style="font-size:10px">Sell Through Us</b></div>
+  <div>📦<br><b style="font-size:10px">Sell Through Us</b></div>
 </div>
 
-<div class="orange-bar">Buy Amazon Products & Sell Your Products Through Us<br><small style="font-weight:normal;font-size:10px">آپ کی ہر پروڈکٹ خریدیں اور اپنی پروڈکٹس بھی ہمارے ذریعے بیچیں Amazon ہماری شاپ سے</small></div>
-<div class="info-strip">🌐 Website: https://raw-group-shop.vercel.app/ | 💬 WhatsApp: +923334664227</div>
-<div class="nav-bar"><a>Products</a><a>About Us</a><a>Privacy Policy</a><a>Terms</a><a>Contact</a></div>
+<div class="orange-bar">Buy Amazon Products & Sell Your Products Through Us</div>
+<div class="info-strip">Website: raw-group-shop.vercel.app | WhatsApp: +923334664227</div>
+
+<div class="nav-bar">
+  <a onclick="showSection('products')">Products</a>
+  <a onclick="showSection('about')">About Us</a>
+  <a onclick="showSection('privacy')">Privacy Policy</a>
+  <a onclick="showSection('terms')">Terms</a>
+  <a onclick="showSection('contact')">Contact</a>
+</div>
+
+<!-- PRODUCTS -->
+<div id="products" class="section active">
+  <h3 style="color:#ff6600;text-align:center">Featured Products</h3>
+  <div id="productsList" class="products-grid"></div>
+</div>
+
+<div id="about" class="section"><h3>About Us</h3><p>R.A.W GROUP SHOP Amazon Trusted Partner hai.</p></div>
+<div id="privacy" class="section"><h3>Privacy Policy</h3><p>Your data is safe with us.</p></div>
+<div id="terms" class="section"><h3>Terms & Conditions</h3><p>All sales are final, contact us on WhatsApp.</p></div>
+<div id="contact" class="section"><h3>Contact</h3><p>WhatsApp: +923334664227<br>Website: raw-group-shop.vercel.app</p></div>
+
+<a href="https://wa.me/923334664227" class="whatsapp-float" target="_blank">💬</a>
 
 <script>
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,300);
+}
+
+function loadProducts(){
+  let container = document.getElementById('productsList');
+  let products = JSON.parse(localStorage.getItem('raw_products') || '[]');
+  if(products.length==0){
+    products = JSON.parse(localStorage.getItem('products') || '[]');
+  }
+  if(products.length==0){
+    container.innerHTML = '<p style="grid-column:1/3;text-align:center;color:#666;font-size:13px">Abhi koi product nahi hai.</p>';
+    return;
+  }
+  container.innerHTML = '';
+  products.forEach(p=>{
+    container.innerHTML += `<div class="product-card">
+      <img src="${p.image || p.img || 'https://via.placeholder.com/200'}">
+      <h4 style="font-size:13px;margin:6px 0">${p.name || p.title || 'Product'}</h4>
+      <p style="color:#ff6600;font-weight:bold;font-size:13px">${p.price || ''}</p>
+      <a href="https://wa.me/923334664227?text=${encodeURIComponent('Salam, mujhe ye product chahiye: ' + (p.name||p.title))}" target="_blank" style="background:#25D366;color:white;padding:6px 10px;border-radius:5px;text-decoration:none;font-size:12px;display:block;margin-top:5px">Order on WhatsApp</a>
+      ${p.amazonLink ? `<a href="${p.amazonLink}" target="_blank" style="background:#ff9900;color:black;padding:6px 10px;border-radius:5px;text-decoration:none;font-size:12px;display:block;margin-top:5px">Buy on Amazon</a>` : ''}
+    </div>`;
+  });
+}
+loadProducts();
+
 function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en'},'google_translate_element');}
 </script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 </body>
 </html>
