@@ -87,7 +87,7 @@ if(sessionStorage.getItem('raw_logged_in')==='true'){loginBox.style.display='non
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, serverTimestamp, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, serverTimestamp, } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const firebaseConfig = { apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE", authDomain: "raw-group-shop.firebaseapp.com", projectId: "raw-group-shop", storageBucket: "raw-group-shop.firebasestorage.app", messagingSenderId: "488689802066", appId: "1:488689802066:web:1437531e15df63e958388b" };
 const app=initializeApp(firebaseConfig); const db=getFirestore(app);
 let editingId=null, existingImagesForEdit=[], liveRate=280, selectedFiles=[];
@@ -107,8 +107,7 @@ cancelEditBtn.onclick=resetForm;
 async function loadProducts(){ 
   listDiv.innerHTML='لوڈ ہو رہا ہے...'; 
   try{ 
-    const q=query(collection(db,'products'),orderBy('createdAt','desc')); 
-    const snap=await getDocs(q); 
+const snap=await getDocs(collection(db,'products'));
     if(snap.empty){listDiv.innerHTML='کوئی پروڈکٹ نہیں'; return;} 
     listDiv.innerHTML=''; 
     snap.forEach(d=>{ 
