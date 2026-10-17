@@ -1,3 +1,94 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R.A.W GROUP - Admin</title>
+<style>
+*{box-sizing:border-box;}
+:root{ --orange:#FF8C00; }
+body{background:#f5f5f5; font-family:sans-serif; margin:0; padding:10px;}
+.box{max-width:520px; margin:15px auto; background:white; border:3px solid var(--orange); border-radius:18px; padding:18px; overflow:hidden; position:relative;}
+.logo-box{width:90px; height:90px; margin:0 auto 10px auto; border:3px solid var(--orange); border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:white;}
+.logo-box img{width:100%; height:100%; object-fit:cover;}
+h1{color:var(--orange); text-align:center; font-size:22px; margin:5px 0;}
+input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid var(--orange); border-radius:10px; font-size:16px; display:block;}
+.btn-add{width:100%; padding:14px; background:var(--orange); color:white; border:none; border-radius:10px; font-weight:bold; font-size:18px; cursor:pointer;}
+.btn-logout{position:absolute; top:12px; left:12px; background:#ff1a1a; color:white; border:none; padding:7px 14px; border-radius:8px; cursor:pointer; font-weight:bold;}
+#status{text-align:center; color:green; border:1px dashed var(--orange); padding:7px; border-radius:8px; font-weight:bold; margin:8px 0;}
+#preview-container{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; justify-content:center;}
+#preview-container img{width:70px; height:70px; object-fit:cover; border-radius:8px; border:2px solid var(--orange);}
+.product-item{display:flex; gap:10px; align-items:center; border:2px solid var(--orange); border-radius:12px; padding:8px; margin-bottom:10px; background:#fffaf3; width:100%;}
+.product-item img{width:60px; height:60px; object-fit:cover; border-radius:8px; flex-shrink:0;}
+.p-info{flex:1; text-align:right; font-size:13px; overflow:hidden;}
+.btn-edit{background:var(--orange); color:white; border:none; padding:6px 10px; border-radius:6px; margin:2px; cursor:pointer;}
+.btn-del{background:#ff1a1a; color:white; border:none; padding:6px 10px; border-radius:6px; margin:2px; cursor:pointer;}
+#pkrPreview{text-align:center; background:#fff6e6; padding:6px; border-radius:8px; font-weight:bold; font-size:14px;}
+</style>
+</head>
+<body>
+
+<div class="box" id="loginBox" style="text-align:center;">
+  <div class="logo-box"><img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'"></div>
+  <h1>Admin Login</h1>
+  <input type="password" id="adminPass" placeholder="0000" style="text-align:center;">
+  <button class="btn-add" id="loginBtn" type="button">لاگ ان کریں</button>
+  <p id="loginError" style="color:red; font-weight:bold;"></p>
+</div>
+
+<div class="box" id="adminPanel" style="display:none;">
+  <button class="btn-logout" id="logoutBtn" type="button">لاگ آؤٹ</button>
+  <div class="logo-box"><img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'"></div>
+  <h1>R.A.W GROUP</h1>
+
+  <button class="btn-add" id="liveRateBtn" type="button" style="background:#0a8a00; padding:10px;">🔴 Live Dollar Rate لائیں</button>
+  <div id="liveRateInfo" style="text-align:center; font-size:12px; color:green; font-weight:bold; margin:5px 0;"></div>
+
+  <select id="category">
+    <option value="Shoes">جوتے (Shoes)</option>
+    <option value="Clothes">کپڑے (Clothes)</option>
+    <option value="Watches">گھڑیاں (Watches)</option>
+    <option value="Perfume">پرفیوم (Perfumes)</option>
+    <option value="Mobile">موبائل (Mobile)</option>
+    <option value="Electronics">الیکٹرانکس (Electronics)</option>
+    <option value="Toys">کھلونے (Toys)</option>
+    <option value="Cosmetics">کاسمیٹکس (Cosmetics)</option>
+    <option value="Services">سروسز (Services)</option>
+  </select>
+
+  <input id="name" placeholder="پروڈکٹ کا نام *">
+  <input id="brand" placeholder="برانڈ">
+  <select id="priceType">
+    <option value="pkr">🇵🇰 PKR قیمت</option>
+    <option value="usd">💲 USD + PKR</option>
+    <option value="live">🔴 00 On-Day Price</option>
+  </select>
+  <div id="pkrContainer"><input id="priceDirectPKR" type="number" placeholder="PKR قیمت لکھیں"></div>
+  <div id="usdContainer" style="display:none;"><div style="display:flex; gap:8px;"><input id="priceUSD" type="number" step="0.01" placeholder="$ قیمت" style="flex:1;"><input id="ratePKR" type="number" value="280" style="flex:1;"></div><div id="pkrPreview">Rs. 0</div></div>
+  <div id="liveContainer" style="display:none; background:#ffe9cc; padding:10px; text-align:center; border-radius:8px; font-weight:bold; margin:6px 0;">00 Mode: دکان پر On-Day Live Price</div>
+
+  <input id="affiliateLink" placeholder="Amazon / Daraz / Alibaba لنک">
+  <input id="companyTag" placeholder="Tag (rawgroup79-20)" value="rawgroup79-20">
+  <textarea id="desc" rows="2" placeholder="تفصیل لکھیں"></textarea>
+  <input id="imageFile" type="file" accept="image/*" multiple>
+  <div id="preview-container"></div>
+  <div id="status">تصاویر منتخب کریں</div>
+  <button class="btn-add" id="addBtn" type="button">سیو کریں</button>
+  <button id="cancelEditBtn" type="button" style="display:none; background:#666; color:white; width:100%; padding:10px; border-radius:10px; margin-top:5px; border:none;">کینسل کریں</button>
+  <a href="index.html" style="display:block; text-align:center; background:#111; color:white; padding:12px; border-radius:10px; text-decoration:none; margin-top:12px; font-weight:bold;">🛍️ Shop Dekhen - دکان دیکھیں</a>
+  <hr style="margin:15px 0; border:1px dashed #FF8C00;">
+  <div id="productList">لوڈ ہو رہا ہے...</div>
+</div>
+
+<script>
+const CORRECT_PASS="1234";
+const loginBox=document.getElementById('loginBox'), adminPanel=document.getElementById('adminPanel');
+function doLogin(){ let p=document.getElementById('adminPass').value.trim(); if(p===CORRECT_PASS){sessionStorage.setItem('raw_logged_in','true'); loginBox.style.display='none'; adminPanel.style.display='block';} else{document.getElementById('loginError').innerText='غلط پاس ورڈ! 1234 لکھیں';} }
+document.getElementById('loginBtn').addEventListener('click',doLogin);
+document.getElementById('adminPass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin();});
+document.getElementById('logoutBtn').addEventListener('click',()=>{sessionStorage.removeItem('raw_logged_in'); adminPanel.style.display='none'; loginBox.style.display='block';});
+if(sessionStorage.getItem('raw_logged_in')==='true'){loginBox.style.display='none'; adminPanel.style.display='block';}
+</script>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -45,7 +136,6 @@ function updatePKR(){
 document.getElementById('priceUSD').oninput = updatePKR; 
 document.getElementById('ratePKR').oninput = updatePKR;
 
-// 📸 آٹو ری سائيز فنکشن (Auto Smart Crop & Center-Resize to 400x400)
 function compressAndResize(f) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -53,20 +143,17 @@ function compressAndResize(f) {
       const img = new Image();
       img.onload = () => {
         const canvas = document.createElement('canvas');
-        const targetWidth = 400;  // 400x400 برابر سائز
+        const targetWidth = 400;
         const targetHeight = 400;
         canvas.width = targetWidth;
         canvas.height = targetHeight;
         const ctx = canvas.getContext('2d');
 
-        // سینٹر کراپ اور ری سائیز (Center Cropping)
         let minDimension = Math.min(img.width, img.height);
         let srcX = (img.width - minDimension) / 2;
         let srcY = (img.height - minDimension) / 2;
 
         ctx.drawImage(img, srcX, srcY, minDimension, minDimension, 0, 0, targetWidth, targetHeight);
-        
-        // 50% JPEG کوالٹی تاکہ سائز بالکل ہلکا رہے
         resolve(canvas.toDataURL('image/jpeg', 0.5));
       };
       img.onerror = reject;
@@ -80,7 +167,7 @@ function compressAndResize(f) {
 const status = document.getElementById('status'), listDiv = document.getElementById('productList'), previewContainer = document.getElementById('preview-container'), addBtn = document.getElementById('addBtn'), cancelEditBtn = document.getElementById('cancelEditBtn');
 
 document.getElementById('imageFile').onchange = e => { 
-  selectedFiles = Array.from(e.target.files).slice(0, 5); // زیادہ سے زیادہ 5 تصاویر
+  selectedFiles = Array.from(e.target.files).slice(0, 5); 
   previewContainer.innerHTML = ''; 
   selectedFiles.forEach(f => { 
     const r = new FileReader(); 
@@ -236,7 +323,7 @@ async function loadProducts(){
         previewContainer.innerHTML = ''; 
         if(p.images){
           p.images.forEach(s => {
-            const im = document.createElement('im');
+            const im = document.createElement('img');
             im.src = s;
             previewContainer.appendChild(im);
           });
@@ -260,3 +347,5 @@ async function loadProducts(){
 }
 loadProducts();
 </script>
+</body>
+</html>
