@@ -920,7 +920,7 @@ function stopVoiceInput() {
   try { recognition.stop(); } catch(e) {}
 }
 
-/* Smart Amazon Affiliate Search & Dynamic Link Generator */
+/* Smart Amazon Affiliate Search & Dynamic Link Generator with Urdu Mapping */
 function sendChatMessage() {
   var input = document.getElementById('chatInput');
   var txt = input.value.trim();
@@ -940,19 +940,44 @@ function sendChatMessage() {
     var lower = txt.toLowerCase();
     var products = window.allProductsData || [];
 
-    // Extract item query keywords
-    var cleanKeyword = lower
-      .replace(/amazon|امیزون|se|chahie|chahiye|mange|de|dhund|kar|bhej|link|chahiye|mujhe/g, '')
+    // Urdu to English Dictionary for Smart Amazon Search
+    var keywordMap = {
+      "جوگنگ بوٹ": "jogging shoes",
+      "جوتے": "shoes",
+      "بوٹ": "boots",
+      "سستے": "affordable",
+      "اچھے": "best quality",
+      "کپڑے": "clothes",
+      "گھڑیاں": "watches",
+      "گھڑی": "watch",
+      "پرفیوم": "perfume",
+      "موبائل": "mobile phone",
+      "کھلونے": "toys",
+      "کاسمیٹکس": "cosmetics",
+      "چارجر": "charger",
+      "ہیڈ فون": "headphones",
+      "ایئر بڈز": "earbuds"
+    };
+
+    var searchKeyword = lower;
+    Object.keys(keywordMap).forEach(function(key) {
+      if(searchKeyword.includes(key)) {
+        searchKeyword = searchKeyword.replace(new RegExp(key, 'g'), keywordMap[key]);
+      }
+    });
+
+    searchKeyword = searchKeyword
+      .replace(/amazon|امیزون|se|chahie|chahiye|mange|de|dhund|kar|bhej|link|mujhe|aur|اور/g, '')
       .trim();
 
-    if(!cleanKeyword) cleanKeyword = "jewellery";
+    if(!searchKeyword) searchKeyword = "best deals";
 
     // 1. First Check Firebase Database for matching item with Amazon Link
     var matchedProduct = products.find(p => 
       (p.amazonLink || p.affiliateLink) && 
-      ((p.name || '').toLowerCase().includes(cleanKeyword) || 
-       (p.category || '').toLowerCase().includes(cleanKeyword) || 
-       (p.desc || '').toLowerCase().includes(cleanKeyword))
+      ((p.name || '').toLowerCase().includes(searchKeyword) || 
+       (p.category || '').toLowerCase().includes(searchKeyword) || 
+       (p.desc || '').toLowerCase().includes(searchKeyword))
     );
 
     if(matchedProduct) {
@@ -960,8 +985,8 @@ function sendChatMessage() {
       botDiv.innerHTML = `Hum ne aapki pasand <b>"${matchedProduct.name}"</b> dhoond li hai! Aap neche button se direct Amazon par ja kar khareed sakte hain:<br><a class="chat-link-btn" href="${link}" target="_blank">🛒 Open ${matchedProduct.name} on Amazon</a>`;
     } else {
       // 2. Generate Live Amazon Search Link with User's Affiliate Tag (raw79-20)
-      var amazonAffiliateSearchUrl = "https://www.amazon.com/s?k=" + encodeURIComponent(cleanKeyword) + "&tag=raw79-20";
-      botDiv.innerHTML = `Hum ne Amazon par <b>"${cleanKeyword}"</b> ki live list tayar kar di hai. Aap ki affiliate ID ke sath direct dekhne ke liye button par click karein:<br><a class="chat-link-btn" href="${amazonAffiliateSearchUrl}" target="_blank">🛒 Direct Amazon Par "${cleanKeyword}" Dhoondain</a>`;
+      var amazonAffiliateSearchUrl = "https://www.amazon.com/s?k=" + encodeURIComponent(searchKeyword) + "&tag=raw79-20";
+      botDiv.innerHTML = `Hum ne Amazon par <b>"${txt}"</b> ki live list tayar kar di hai. Aap ki affiliate ID ke sath direct dekhne ke liye button par click karein:<br><a class="chat-link-btn" href="${amazonAffiliateSearchUrl}" target="_blank">🛒 Direct Amazon Par "${txt}" Dhoondain</a>`;
     }
     
     chatBody.appendChild(botDiv);
