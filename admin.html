@@ -2,12 +2,11 @@
 <html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>R.A.W GROUP - Admin</title>
+<title>R.A.W GROUP - Admin Final</title>
 <style>
-*{box-sizing:border-box;}
-:root{ --orange:#FF8C00; }
+*{box-sizing:border-box;} :root{ --orange:#FF8C00; }
 body{background:#f5f5f5; font-family:sans-serif; margin:0; padding:10px;}
-.box{max-width:520px; margin:15px auto; background:white; border:3px solid var(--orange); border-radius:18px; padding:18px; overflow:hidden; position:relative;}
+.box{max-width:520px; margin:15px auto; background:white; border:3px solid var(--orange); border-radius:18px; padding:18px; position:relative;}
 .logo-box{width:90px; height:90px; margin:0 auto 10px auto; border:3px solid var(--orange); border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:white;}
 .logo-box img{width:100%; height:100%; object-fit:cover;}
 h1{color:var(--orange); text-align:center; font-size:22px; margin:5px 0;}
@@ -26,23 +25,19 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
 </style>
 </head>
 <body>
-
 <div class="box" id="loginBox" style="text-align:center;">
   <div class="logo-box"><img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'"></div>
   <h1>Admin Login</h1>
-  <input type="password" id="adminPass" placeholder="0000" style="password-align:center;">
+  <input type="password" id="adminPass" placeholder="0000">
   <button class="btn-add" id="loginBtn" type="button">لاگ ان کریں</button>
   <p id="loginError" style="color:red; font-weight:bold;"></p>
 </div>
-
 <div class="box" id="adminPanel" style="display:none;">
   <button class="btn-logout" id="logoutBtn" type="button">لاگ آؤٹ</button>
   <div class="logo-box"><img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'"></div>
   <h1>R.A.W GROUP</h1>
-
   <button class="btn-add" id="liveRateBtn" type="button" style="background:#0a8a00; padding:10px;">🔴 Live Dollar Rate لائیں</button>
   <div id="liveRateInfo" style="text-align:center; font-size:12px; color:green; font-weight:bold; margin:5px 0;"></div>
-
   <select id="category">
     <option value="Shoes">جوتے (Shoes)</option>
     <option value="Clothes">کپڑے (Clothes)</option>
@@ -54,14 +49,12 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
     <option value="Cosmetics">کاسمیٹکس (Cosmetics)</option>
     <option value="Services">سروسز (Services)</option>
   </select>
-
   <input id="name" placeholder="پروڈکٹ کا نام *">
   <input id="brand" placeholder="برانڈ">
   <select id="priceType"><option value="pkr">🇵🇰 PKR قیمت</option><option value="usd">💲 USD + PKR</option><option value="live">🔴 00 On-Day Price</option></select>
   <div id="pkrContainer"><input id="priceDirectPKR" type="number" placeholder="PKR قیمت لکھیں"></div>
   <div id="usdContainer" style="display:none;"><div style="display:flex; gap:8px;"><input id="priceUSD" type="number" step="0.01" placeholder="$ قیمت" style="flex:1;"><input id="ratePKR" type="number" value="280" style="flex:1;"></div><div id="pkrPreview">Rs. 0</div></div>
   <div id="liveContainer" style="display:none; background:#ffe9cc; padding:10px; text-align:center; border-radius:8px; font-weight:bold; margin:6px 0;">00 Mode: دکان پر On-Day Live Price</div>
-
   <input id="affiliateLink" placeholder="Amazon / Daraz / Alibaba لنک">
   <input id="companyTag" placeholder="Tag (rawgroup79-20)" value="rawgroup79-20">
   <textarea id="desc" rows="2" placeholder="تفصیل لکھیں"></textarea>
@@ -70,11 +63,10 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
   <div id="status">تصاویر منتخب کریں</div>
   <button class="btn-add" id="addBtn" type="button">سیو کریں</button>
   <button id="cancelEditBtn" type="button" style="display:none; background:#666; color:white; width:100%; padding:10px; border-radius:10px; margin-top:5px; border:none;">کینسل کریں</button>
-  <a href="index.html" style="display:block; text-align:center; background:#111; color:white; padding:12px; border-radius:10px; text-decoration:none; margin-top:12px; font-weight:bold;">🛍️ Shop Dekhen - دکان دیکھیں</a>
+  <a href="index.html" style="display:block; text-align:center; background:#111; color:white; padding:12px; border-radius:10px; text-decoration:none; margin-top:12px; font-weight:bold;">🛍️ Shop Dekhen</a>
   <hr style="margin:15px 0; border:1px dashed #FF8C00;">
   <div id="productList">لوڈ ہو رہا ہے...</div>
 </div>
-
 <script>
 const CORRECT_PASS="1234";
 const loginBox=document.getElementById('loginBox'), adminPanel=document.getElementById('adminPanel');
@@ -84,10 +76,9 @@ document.getElementById('adminPass').addEventListener('keypress',e=>{if(e.key===
 document.getElementById('logoutBtn').addEventListener('click',()=>{sessionStorage.removeItem('raw_logged_in'); adminPanel.style.display='none'; loginBox.style.display='block';});
 if(sessionStorage.getItem('raw_logged_in')==='true'){loginBox.style.display='none'; adminPanel.style.display='block';}
 </script>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, serverTimestamp, } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const firebaseConfig = { apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE", authDomain: "raw-group-shop.firebaseapp.com", projectId: "raw-group-shop", storageBucket: "raw-group-shop.firebasestorage.app", messagingSenderId: "488689802066", appId: "1:488689802066:web:1437531e15df63e958388b" };
 const app=initializeApp(firebaseConfig); const db=getFirestore(app);
 let editingId=null, existingImagesForEdit=[], liveRate=280, selectedFiles=[];
@@ -97,17 +88,38 @@ const priceType=document.getElementById('priceType'), pkrContainer=document.getE
 priceType.onchange=()=>{ pkrContainer.style.display='none'; usdContainer.style.display='none'; liveContainer.style.display='none'; if(priceType.value==='pkr')pkrContainer.style.display='block'; if(priceType.value==='usd')usdContainer.style.display='block'; if(priceType.value==='live')liveContainer.style.display='block'; };
 function updatePKR(){ let usd=parseFloat(document.getElementById('priceUSD').value)||0; let rate=parseFloat(document.getElementById('ratePKR').value)||0; if(rate===0||isNaN(rate))rate=liveRate||280; let pkr=Math.round(usd*rate); document.getElementById('pkrPreview').innerText=`Rs. ${pkr.toLocaleString()} (Rate ${rate})`; }
 document.getElementById('priceUSD').oninput=updatePKR; document.getElementById('ratePKR').oninput=updatePKR;
-function compress(f){return new Promise(r=>{const rd=new FileReader();rd.onload=e=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=500;c.height=(im.height*500)/im.width;c.getContext('2d').drawImage(im,0,0,c.width,c.height);r(c.toDataURL('image/jpeg',0.6));};im.src=e.target.result;};rd.readAsDataURL(f);});}
+function compress(f){return new Promise(r=>{const rd=new FileReader();rd.onload=e=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');const MAX=400;let w=MAX;let h=(im.height*MAX)/im.width;if(h>MAX){h=MAX;w=(im.width*MAX)/im.height;}c.width=w;c.height=h;c.getContext('2d').drawImage(im,0,0,w,h);r(c.toDataURL('image/jpeg',0.5));};im.src=e.target.result;};rd.readAsDataURL(f);});}
 const status=document.getElementById('status'), listDiv=document.getElementById('productList'), previewContainer=document.getElementById('preview-container'), addBtn=document.getElementById('addBtn'), cancelEditBtn=document.getElementById('cancelEditBtn');
 document.getElementById('imageFile').onchange=e=>{ selectedFiles=Array.from(e.target.files); previewContainer.innerHTML=''; selectedFiles.forEach(f=>{ const r=new FileReader(); r.onload=ev=>{ const img=document.createElement('img'); img.src=ev.target.result; previewContainer.appendChild(img); }; r.readAsDataURL(f); }); status.innerText=selectedFiles.length+' تصاویر ✅'; };
-addBtn.onclick=async()=>{ const name=document.getElementById('name').value.trim(); const pType=priceType.value; if(!name){alert('نام لکھیں'); return;} if(!editingId&&selectedFiles.length===0&&existingImagesForEdit.length===0){alert('تصویر منتخب کریں'); return;} addBtn.disabled=true; status.innerText='Save ہو رہی ہے...'; try{ let compImgs=existingImagesForEdit; if(selectedFiles.length>0){ compImgs=[]; for(let f of selectedFiles){ compImgs.push(await compress(f)); } } let raw=document.getElementById('affiliateLink').value.trim(); let tag=document.getElementById('companyTag').value.trim()||"rawgroup79-20"; let final=raw; if(raw.includes('amazon')){ final=raw.includes('?')?(raw.includes('tag=')?raw:raw+'&tag='+tag):raw+'?tag='+tag; } let data={ category:document.getElementById('category').value, name, brand:document.getElementById('brand').value||'', affiliateLink:final, desc:document.getElementById('desc').value||'', images:compImgs, createdAt:serverTimestamp() }; if(pType==='usd'){ let usd=Number(document.getElementById('priceUSD').value)||0; let rate=Number(document.getElementById('ratePKR').value)||liveRate||280; if(rate===0)rate=liveRate||280; data.priceUSD=usd; data.pricePKR=Math.round(usd*rate); data.priceType='usd'; data.price=usd; data.rateUsed=rate; } else if(pType==='pkr'){ data.pricePKR=Number(document.getElementById('priceDirectPKR').value)||0; data.priceType='pkr'; data.price=data.pricePKR; } else{ data.priceType='live'; data.price=0; data.pricePKR=0; data.priceUSD=0; data.isZeroPrice=true; } if(editingId){ await updateDoc(doc(db,'products',editingId),data); status.innerText='Update ہو گیا ✅'; } else{ await addDoc(collection(db,'products'),data); status.innerText='Save ہو گیا ✅'; } resetForm(); loadProducts(); }catch(e){ status.innerText='Error: '+e.message; } addBtn.disabled=false; };
+addBtn.onclick=async()=>{ 
+  const name=document.getElementById('name').value.trim(); 
+  const pType=priceType.value; 
+  if(!name){alert('نام لکھیں'); return;} 
+  if(!editingId&&selectedFiles.length===0&&existingImagesForEdit.length===0){alert('تصویر منتخب کریں'); return;} 
+  addBtn.disabled=true; addBtn.innerText='انتظار کریں...'; status.innerText='Save ہو رہی ہے...'; 
+  try{ 
+    let compImgs=existingImagesForEdit; 
+    if(selectedFiles.length>0){ compImgs=[]; for(let f of selectedFiles){ compImgs.push(await compress(f)); } } 
+    let raw=document.getElementById('affiliateLink').value.trim(); 
+    let tag=document.getElementById('companyTag').value.trim()||"rawgroup79-20"; 
+    let final=raw; 
+    if(raw.includes('amazon')){ final=raw.includes('?')?(raw.includes('tag=')?raw:raw+'&tag='+tag):raw+'?tag='+tag; } 
+    let data={ category:document.getElementById('category').value, name, brand:document.getElementById('brand').value||'', affiliateLink:final, desc:document.getElementById('desc').value||'', images:compImgs }; 
+    if(pType==='usd'){ let usd=Number(document.getElementById('priceUSD').value)||0; let rate=Number(document.getElementById('ratePKR').value)||liveRate||280; data.priceUSD=usd; data.pricePKR=Math.round(usd*rate); data.priceType='usd'; data.price=usd; data.rateUsed=rate; } 
+    else if(pType==='pkr'){ data.pricePKR=Number(document.getElementById('priceDirectPKR').value)||0; data.priceType='pkr'; data.price=data.pricePKR; } 
+    else{ data.priceType='live'; data.price=0; data.pricePKR=0; data.priceUSD=0; data.isZeroPrice=true; } 
+    if(editingId){ await updateDoc(doc(db,'products',editingId),data); status.innerText='Update ہو گیا ✅'; } 
+    else{ data.createdAt=serverTimestamp(); await addDoc(collection(db,'products'),data); status.innerText='Save ہو گیا ✅'; } 
+    resetForm(); loadProducts(); 
+  }catch(e){ status.innerText='Error: '+e.message; alert('Error: '+e.message); } 
+  addBtn.disabled=false; addBtn.innerText='سیو کریں';
+};
 function resetForm(){ editingId=null; existingImagesForEdit=[]; selectedFiles=[]; document.getElementById('imageFile').value=''; document.getElementById('name').value=''; document.getElementById('priceDirectPKR').value=''; document.getElementById('priceUSD').value=''; document.getElementById('brand').value=''; document.getElementById('desc').value=''; previewContainer.innerHTML=''; addBtn.innerText='سیو کریں'; cancelEditBtn.style.display='none'; status.innerText='تصاویر منتخب کریں'; }
 cancelEditBtn.onclick=resetForm;
-
 async function loadProducts(){ 
   listDiv.innerHTML='لوڈ ہو رہا ہے...'; 
   try{ 
-const snap=await getDocs(collection(db,'products'));
+    const snap=await getDocs(collection(db,'products'));
     if(snap.empty){listDiv.innerHTML='کوئی پروڈکٹ نہیں'; return;} 
     listDiv.innerHTML=''; 
     snap.forEach(d=>{ 
@@ -116,8 +128,7 @@ const snap=await getDocs(collection(db,'products'));
       let price=p.priceType==='usd'?`$${p.priceUSD} (Rs.${p.pricePKR})`:p.priceType==='live'?'00 On-Day':`Rs.${p.pricePKR||p.price}`; 
       const div=document.createElement('div'); 
       div.className='product-item'; 
-      div.innerHTML=`<img src="${img}"><div class="p-info"><b>${p.name}</b><span>${price}</span></div><div><button class="btn-edit">ایڈٹ</button><button class="btn-del">ڈیلیٹ</button></div>`; 
-      
+      div.innerHTML=`<img src="${img}"><div class="p-info"><b>${p.name}</b><br><span>${price}</span></div><div><button class="btn-edit">ایڈٹ</button><button class="btn-del">ڈیلیٹ</button></div>`; 
       div.querySelector('.btn-edit').onclick=()=>{ 
         editingId=d.id; 
         document.getElementById('name').value=p.name||''; 
@@ -135,19 +146,13 @@ const snap=await getDocs(collection(db,'products'));
         cancelEditBtn.style.display='block'; 
         window.scrollTo({top:0,behavior:'smooth'});
       }; 
-
-      // Sahi kiya hua delete function
       div.querySelector('.btn-del').onclick=async()=>{ 
-        if(!confirm('ڈیلیٹ کریں؟'))return; 
-        await deleteDoc(doc(db,'products',d.id)); 
-        div.remove(); 
+        if(!confirm('ڈیلیٹ کریں؟ '+p.name))return; 
+        try{ await deleteDoc(doc(db,'products',d.id)); div.remove(); status.innerText='Delete ہو گیا ✅'; }catch(e){ alert('Delete Error: '+e.message); }
       }; 
-
       listDiv.appendChild(div); 
     }); 
-  }catch(e){ 
-    listDiv.innerHTML='Error: '+e.message; 
-  } 
+  }catch(e){ listDiv.innerHTML='Error: '+e.message; } 
 }
 loadProducts();
 </script>
