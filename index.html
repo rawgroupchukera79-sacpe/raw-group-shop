@@ -594,6 +594,20 @@ async function loadProducts(){
   }
 }
 
+// Price formatting helper function for correct display
+function formatPriceText(p) {
+  if (p.priceType === 'usd') {
+    let usd = p.priceUSD || p.price || 0;
+    let pkr = p.pricePKR || Math.round(usd * 280);
+    return `$${usd} (Rs. ${pkr.toLocaleString()})`;
+  } else if (p.priceType === 'live') {
+    return '00 On-Day Price';
+  } else {
+    let pkrVal = p.pricePKR || p.price || 0;
+    return `Rs. ${Number(pkrVal).toLocaleString()}`;
+  }
+}
+
 function render(list){
   let shop = document.getElementById('shopList');
   shop.innerHTML = '';
@@ -638,7 +652,7 @@ function render(list){
     
     const price = document.createElement('div');
     price.className = 'price';
-    price.textContent = 'Rs ' + (p.price || '0');
+    price.textContent = formatPriceText(p);
     body.appendChild(price);
 
     const btnGroup = document.createElement('div');
@@ -649,7 +663,7 @@ function render(list){
     waBtn.textContent = 'Order on WhatsApp';
     waBtn.onclick = (e) => {
       e.stopPropagation();
-      let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - Rs ${p.price || ''}`;
+      let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - ${formatPriceText(p)}`;
       window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
     };
     btnGroup.appendChild(waBtn);
@@ -769,7 +783,7 @@ window.openDetailPage = function(p) {
   let price = document.createElement('div');
   price.className = 'price';
   price.style.fontSize = '18px';
-  price.textContent = 'قیمت: Rs ' + (p.price || '0');
+  price.textContent = 'قیمت: ' + formatPriceText(p);
   body.appendChild(price);
   
   if(p.desc){
@@ -780,6 +794,7 @@ window.openDetailPage = function(p) {
     desc.style.borderRadius = '6px';
     desc.style.border = '1px dashed #FF8C00';
     desc.style.marginTop = '10px';
+    desc.style.whiteSpace = 'pre-wrap';
     desc.textContent = p.desc;
     body.appendChild(desc);
   }
@@ -794,7 +809,7 @@ window.openDetailPage = function(p) {
   waBtn.style.fontSize = '14px';
   waBtn.textContent = 'WhatsApp Par Order Karein';
   waBtn.onclick = () => {
-    let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - Rs ${p.price || ''}`;
+    let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - ${formatPriceText(p)}`;
     window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
   };
   btnGroup.appendChild(waBtn);
