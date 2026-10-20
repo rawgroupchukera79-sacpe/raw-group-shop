@@ -246,14 +246,12 @@ addBtn.onclick = async () => {
     } 
     
     resetForm(); 
-    loadProducts(); 
-  }  catch(e) { 
+    
+  } catch(e) { 
     console.error(e);
     let errMsg = (e && e.message) ? e.message : String(e);
-    status.innerText = 'Galti: ' + errMsg; 
-    alert('Save nahi ho saka: ' + errMsg);
-}
-
+    status.innerText = 'خرابی: ' + errMsg; 
+    alert('Save نہیں ہو سکا: ' + errMsg);
   } finally {
     addBtn.disabled = false; 
   }
