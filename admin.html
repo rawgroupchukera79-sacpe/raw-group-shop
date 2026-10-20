@@ -189,16 +189,13 @@ addBtn.onclick = async () => {
   
   addBtn.disabled = true; 
   status.innerText = 'تصاویر ری سائیز ہو رہی ہیں...'; 
-  
-  try { 
-    let compImgs = existingImagesForEdit; 
-    if(selectedFiles.length > 0){ 
-      compImgs = []; 
-      for(let f of selectedFiles){ 
-        let compressed = await compressAndResize(f);
-        compImgs.push(compressed); 
-      } 
-    } 
+      if (compImgs.length === 0) {
+      alert('Karam karke kam se kam ek tasveer zaroor select karein!');
+      addBtn.disabled = false;
+      status.innerText = 'Tasveerein select karein';
+      return;
+    }
+
     
     status.innerText = 'ڈیٹا بیس میں Save ہو رہا ہے...';
 
@@ -250,10 +247,13 @@ addBtn.onclick = async () => {
     
     resetForm(); 
     loadProducts(); 
-  } catch(e) { 
+  } } catch(e) { 
     console.error(e);
-    status.innerText = 'خرابی: ' + e.message; 
-    alert('Save نہیں ہو سکا: ' + e.message);
+    let errMsg = (e && e.message) ? e.message : String(e);
+    status.innerText = 'Galti: ' + errMsg; 
+    alert('Save nahi ho saka: ' + errMsg);
+}
+
   } finally {
     addBtn.disabled = false; 
   }
