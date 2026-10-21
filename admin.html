@@ -55,7 +55,24 @@ const CATEGORIES = [ "Shoes", "Men Shoes", "Women Shoes", "Kids Shoes", "Sports 
 ];
 </script>
 
-  <input id="name" placeholder="پروڈکٹ کا نام *">
+  <select id="category" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ffa500; border-radius:8px; background:white; font-weight:bold;">
+  <option value="">کیٹیگری منتخب کریں</option>
+</select>
+
+<script>
+  const catSelect = document.getElementById('category');
+  if(catSelect){
+    CATEGORIES.forEach(cat => {
+      const opt = document.createElement('option');
+      opt.value = cat;
+      opt.textContent = cat;
+      catSelect.appendChild(opt);
+    });
+  }
+</script>
+
+<input id="name" placeholder="پروڈکٹ کا نام *">
+<input id="name" placeholder="پروڈکٹ کا نام *">
   <input id="brand" placeholder="برانڈ">
   <select id="priceType">
     <option value="pkr">🇵🇰 PKR قیمت</option>
