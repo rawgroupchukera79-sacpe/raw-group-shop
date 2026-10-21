@@ -188,15 +188,23 @@ addBtn.onclick = async () => {
   if(!editingId && selectedFiles.length === 0 && existingImagesForEdit.length === 0){ alert('کم از کم 1 تصویر منتخب کریں'); return; } 
   
   addBtn.disabled = true; 
-  status.innerText = 'تصاویر ری سائیز ہو رہی ہیں...'; 
-      if (compImgs.length === 0) {
+
+  try {
+    status.innerText = 'تصاویر ری سائیز ہو رہی ہیں...'; 
+
+    let compImgs = [];
+    for (const f of selectedFiles) {
+      compImgs.push(await compressAndResize(f));
+    }
+    if (compImgs.length === 0) {
+      compImgs = existingImagesForEdit;
+    }
+    if (compImgs.length === 0) {
       alert('Karam karke kam se kam ek tasveer zaroor select karein!');
-      addBtn.disabled = false;
       status.innerText = 'Tasveerein select karein';
       return;
     }
 
-    
     status.innerText = 'ڈیٹا بیس میں Save ہو رہا ہے...';
 
     let raw = document.getElementById('affiliateLink').value.trim(); 
@@ -246,6 +254,7 @@ addBtn.onclick = async () => {
     } 
     
     resetForm(); 
+    loadProducts();
     
   } catch(e) { 
     console.error(e);
