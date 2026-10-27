@@ -83,6 +83,16 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .whatsapp-btn:hover { background: #1eb956; }
 .amazon-btn { background: #FF9900; color: #111; }
 .amazon-btn:hover { background: #e68a00; }
+.daraz-btn { background: #F85606; color: #fff; }
+.daraz-btn:hover { background: #d94a05; }
+.alibaba-btn { background: #FF6A00; color: #fff; }
+.alibaba-btn:hover { background: #e05e00; }
+.group-title { grid-column: 1 / -1; font-size: 14px; font-weight: 700; color: #222; background: #fff; border-left: 5px solid #FF8C00; border-radius: 8px; padding: 10px 12px; margin-top: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+.group-title.g-own { border-color: #25D366; }
+.group-title.g-amazon { border-color: #FF9900; }
+.group-title.g-daraz { border-color: #F85606; }
+.group-title.g-alibaba { border-color: #FF6A00; }
+.group-title.g-other { border-color: #888; }
 
 .footer-bar { background: #111; color: #ddd; text-align: center; padding: 15px; margin-top: auto; font-size: 12px; border-top: 2px solid #FF8C00; }
 
@@ -253,6 +263,63 @@ function formatPriceText(p) {
   }
 }
 
+/* Buy button rule:
+   - koi link nahi  -> sirf WhatsApp button
+   - Amazon link    -> sirf Amazon button
+   - Alibaba link   -> sirf Alibaba button
+   - Daraz link     -> sirf Daraz button (DCM tracking link ke sath)
+   - koi aur link   -> sirf "Buy Now" button */
+const DARAZ_TRACK = 'https://go.urtrackinglink.com/aff_c?offer_id=164&aff_id=174128';
+
+function getBuyInfo(p, detail) {
+  const raw = ((p.amazonLink || p.affiliateLink) || '').trim();
+  if (!raw) return null;
+
+  if (/daraz\./i.test(raw)) {
+    return {
+      label: detail ? '🛍️ Daraz Par Xareedain' : '🛍️ Buy on Daraz',
+      cls: 'amazon-btn daraz-btn',
+      url: DARAZ_TRACK + '&url=' + encodeURIComponent(raw) + '&aff_sub=' + (p.id || '')
+    };
+  }
+  if (/alibaba\./i.test(raw)) {
+    return {
+      label: detail ? '🏭 Alibaba Par Xareedain' : '🏭 Buy on Alibaba',
+      cls: 'amazon-btn alibaba-btn',
+      url: raw
+    };
+  }
+  if (/amazon\.|amzn\./i.test(raw)) {
+    return {
+      label: detail ? '🛒 Amazon Par Xareedain' : '🛒 Buy on Amazon',
+      cls: 'amazon-btn',
+      url: raw
+    };
+  }
+  return {
+    label: detail ? '🔗 Abhi Xareedain' : '🔗 Buy Now',
+    cls: 'amazon-btn',
+    url: raw
+  };
+}
+
+function getSource(p) {
+  const raw = ((p.amazonLink || p.affiliateLink) || '').trim();
+  if (!raw) return 'own';
+  if (/daraz\./i.test(raw)) return 'daraz';
+  if (/alibaba\./i.test(raw)) return 'alibaba';
+  if (/amazon\.|amzn\./i.test(raw)) return 'amazon';
+  return 'other';
+}
+
+const GROUPS = [
+  { key: 'own',     title: '🟢 Hamare Products (WhatsApp Order)' },
+  { key: 'amazon',  title: '🛒 Amazon Products' },
+  { key: 'daraz',   title: '🛍️ Daraz Products' },
+  { key: 'alibaba', title: '🏭 Alibaba Products' },
+  { key: 'other',   title: '🔗 Dusre Products' }
+];
+
 function render(list){
   let shop = document.getElementById('shopList');
   shop.innerHTML = '';
@@ -261,7 +328,16 @@ function render(list){
     return;
   }
  
-  list.forEach(p => {
+  GROUPS.forEach(g => {
+  const items = list.filter(p => getSource(p) === g.key);
+  if (items.length === 0) return;
+
+  const head = document.createElement('div');
+  head.className = 'group-title g-' + g.key;
+  head.textContent = g.title + ' (' + items.length + ')';
+  shop.appendChild(head);
+
+  items.forEach(p => {
     const card = document.createElement('div');
     card.className = 'card';
     card.onclick = () => openDetailPage(p);
@@ -303,30 +379,33 @@ function render(list){
     const btnGroup = document.createElement('div');
     btnGroup.className = 'btn-group';
 
-    const waBtn = document.createElement('button');
-    waBtn.className = 'whatsapp-btn';
-    waBtn.textContent = 'Order on WhatsApp';
-    waBtn.onclick = (e) => {
-      e.stopPropagation();
-      let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - ${formatPriceText(p)}`;
-      window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
-    };
-    btnGroup.appendChild(waBtn);
+    const buy = getBuyInfo(p, false);
 
-    if(p.amazonLink || p.affiliateLink) {
-      const amzBtn = document.createElement('button');
-      amzBtn.className = 'amazon-btn';
-      amzBtn.textContent = '🛒 Buy on Amazon';
-      amzBtn.onclick = (e) => {
+    if(!buy) {
+      const waBtn = document.createElement('button');
+      waBtn.className = 'whatsapp-btn';
+      waBtn.textContent = 'Order on WhatsApp';
+      waBtn.onclick = (e) => {
         e.stopPropagation();
-        window.open(p.amazonLink || p.affiliateLink, '_blank');
+        let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - ${formatPriceText(p)}`;
+        window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
       };
-      btnGroup.appendChild(amzBtn);
+      btnGroup.appendChild(waBtn);
+    } else {
+      const buyBtn = document.createElement('button');
+      buyBtn.className = buy.cls;
+      buyBtn.textContent = buy.label;
+      buyBtn.onclick = (e) => {
+        e.stopPropagation();
+        window.open(buy.url, '_blank', 'noopener');
+      };
+      btnGroup.appendChild(buyBtn);
     }
 
     body.appendChild(btnGroup);
     card.appendChild(body);
     shop.appendChild(card);
+  });
   });
 }
 
@@ -448,27 +527,29 @@ window.openDetailPage = function(p) {
   btnGroup.className = 'btn-group';
   btnGroup.style.marginTop = '15px';
 
-  let waBtn = document.createElement('button');
-  waBtn.className = 'whatsapp-btn';
-  waBtn.style.padding = '10px';
-  waBtn.style.fontSize = '14px';
-  waBtn.textContent = 'WhatsApp Par Order Karein';
-  waBtn.onclick = () => {
-    let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - ${formatPriceText(p)}`;
-    window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
-  };
-  btnGroup.appendChild(waBtn);
+  const buy = getBuyInfo(p, true);
 
-  if(p.amazonLink || p.affiliateLink) {
-    let amzBtn = document.createElement('button');
-    amzBtn.className = 'amazon-btn';
-    amzBtn.style.padding = '10px';
-    amzBtn.style.fontSize = '14px';
-    amzBtn.textContent = '🛒 Amazon Par Xareedain';
-    amzBtn.onclick = () => {
-      window.open(p.amazonLink || p.affiliateLink, '_blank');
+  if(!buy) {
+    let waBtn = document.createElement('button');
+    waBtn.className = 'whatsapp-btn';
+    waBtn.style.padding = '10px';
+    waBtn.style.fontSize = '14px';
+    waBtn.textContent = 'WhatsApp Par Order Karein';
+    waBtn.onclick = () => {
+      let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - ${formatPriceText(p)}`;
+      window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
     };
-    btnGroup.appendChild(amzBtn);
+    btnGroup.appendChild(waBtn);
+  } else {
+    let buyBtn = document.createElement('button');
+    buyBtn.className = buy.cls;
+    buyBtn.style.padding = '10px';
+    buyBtn.style.fontSize = '14px';
+    buyBtn.textContent = buy.label;
+    buyBtn.onclick = () => {
+      window.open(buy.url, '_blank', 'noopener');
+    };
+    btnGroup.appendChild(buyBtn);
   }
 
   body.appendChild(btnGroup);
