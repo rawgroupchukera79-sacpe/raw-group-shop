@@ -841,7 +841,7 @@ function makeDraggable(element, handle) {
   // Your WhatsApp Business Number
   const MY_WHATSAPP_NUMBER = "923334664227"; 
 
-  // Product Database
+  // Product Database jisme har platform ke links alag-alag hain
   const productDatabase = [
     {
       keywords: ["earbuds", "airpods", "handsfree", "bluetooth"],
@@ -872,27 +872,27 @@ function makeDraggable(element, handle) {
     let responseHTML = "";
 
     if (matchedProduct) {
-      responseHTML = `<p><strong>${matchedProduct.name}</strong> in platforms par available hai:</p><div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">`;
+      responseHTML = `<p>Hum ne aapki pasand <b>"${matchedProduct.name}"</b> dhoond li hai! Yeh cheez jahan-jahan padi hai, unke alag-alag links ye rahe:</p><div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">`;
       
       if (matchedProduct.daraz) {
-        responseHTML += `<a href="${matchedProduct.daraz}" target="_blank" style="padding:6px 12px; background:#f57224; color:#fff; border-radius:6px; text-decoration:none; font-size:12px;">Daraz</a>`;
+        responseHTML += `<a href="${matchedProduct.daraz}" target="_blank" style="padding:6px 12px; background:#f57224; color:#fff; border-radius:6px; text-decoration:none; font-size:12px;">🛒 Daraz Link</a>`;
       }
       if (matchedProduct.aliexpress) {
-        responseHTML += `<a href="${matchedProduct.aliexpress}" target="_blank" style="padding:6px 12px; background:#ff4747; color:#fff; border-radius:6px; text-decoration:none; font-size:12px;">AliExpress</a>`;
+        responseHTML += `<a href="${matchedProduct.aliexpress}" target="_blank" style="padding:6px 12px; background:#ff4747; color:#fff; border-radius:6px; text-decoration:none; font-size:12px;">🛒 AliExpress Link</a>`;
       }
       if (matchedProduct.alibaba) {
-        responseHTML += `<a href="${matchedProduct.alibaba}" target="_blank" style="padding:6px 12px; background:#ff6a00; color:#fff; border-radius:6px; text-decoration:none; font-size:12px;">Alibaba</a>`;
+        responseHTML += `<a href="${matchedProduct.alibaba}" target="_blank" style="padding:6px 12px; background:#ff6a00; color:#fff; border-radius:6px; text-decoration:none; font-size:12px;">🛒 Alibaba Link</a>`;
       }
       
       responseHTML += `</div>`;
     } else {
-      const whatsappMsg = encodeURIComponent(`Hello! Mujhe "${userInput}" chahiye jo website par nahi mil raha. Khas detail bataein.`);
+      const whatsappMsg = encodeURIComponent(`Hello! Mujhe "${userInput}" chahiye jo ke aapke paas available nahi hai. Iski mazeed maloomat dein.`);
       const whatsappUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${whatsappMsg}`;
 
       responseHTML = `
-        <p>Yeh product filhal site par available nahi hai. Mazeed maloomat ke liye WhatsApp par rabta karein:</p>
+        <p>Maazrat chahte hain, yeh cheez hamare paas abhi available nahi hai.</p>
         <a href="${whatsappUrl}" target="_blank" style="display:inline-block; margin-top:8px; padding:8px 14px; background:#25D366; color:#fff; font-weight:bold; border-radius:6px; text-decoration:none; font-size:13px;">
-          💬 WhatsApp Par Inquiry Bhejein
+          💬 WhatsApp Par Bat karein
         </a>
       `;
     }
