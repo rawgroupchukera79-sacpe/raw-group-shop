@@ -838,10 +838,10 @@ function makeDraggable(element, handle) {
 
 <!-- Smart Chatbot & Multi-Platform Link Converter -->
 <script>
-  // Your WhatsApp Business Number (Without + sign)
-  const MY_WHATSAPP_NUMBER = "923126788220"; 
+  // Your WhatsApp Business Number
+  const MY_WHATSAPP_NUMBER = "923334664227"; 
 
-  // Sample Product Database (Aap yahan apne products add kar sakte hain)
+  // Product Database
   const productDatabase = [
     {
       keywords: ["earbuds", "airpods", "handsfree", "bluetooth"],
@@ -861,8 +861,9 @@ function makeDraggable(element, handle) {
 
   // 1. Process User Query in Chatbot
   function processUserMessage(userInput) {
+    if (!userInput) return "";
     const query = userInput.toLowerCase().trim();
-    if (!query) return;
+    if (!query) return "";
 
     let matchedProduct = productDatabase.find(item => 
       item.keywords.some(kw => query.includes(kw))
@@ -910,17 +911,14 @@ function makeDraggable(element, handle) {
       let originalHref = link.getAttribute("href");
 
       if (originalHref) {
-        // Daraz Link Auto-Convert
         if (originalHref.includes("daraz.pk") && !originalHref.includes("urtrackinglink.com")) {
           let destinationUrl = encodeURIComponent(originalHref);
           link.href = `${DARAZ_AFFILIATE_BASE}&url=${destinationUrl}`;
         }
-        // AliExpress Link Auto-Convert
         else if (originalHref.includes("aliexpress.com") && !originalHref.includes(ALIBABA_ALIEXPRESS_ID)) {
           let separator = originalHref.includes("?") ? "&" : "?";
           link.href = `${originalHref}${separator}aff_fcid=${ALIBABA_ALIEXPRESS_ID}`;
         }
-        // Alibaba Link Auto-Convert
         else if (originalHref.includes("alibaba.com") && !originalHref.includes(ALIBABA_ALIEXPRESS_ID)) {
           let separator = originalHref.includes("?") ? "&" : "?";
           link.href = `${originalHref}${separator}pid=${ALIBABA_ALIEXPRESS_ID}`;
