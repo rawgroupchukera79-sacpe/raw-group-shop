@@ -832,95 +832,95 @@ function makeDraggable(element, handle) {
     document.onmousemove = elementDrag;
     isDragging = false;
   }
-
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    isDragging = true;
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    element.style.top = (element.offsetTop - pos2) + "px";
-    element.style.left = (element.offsetLeft - pos1) + "px";
-    element.style.bottom = "auto";
-    element.style.right = "auto";
-  }
-
-  function closeDragElement() {
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
-
-  function dragTouchStart(e) {
-    var touch = e.touches[0];
-    pos3 = touch.clientX;
-    pos4 = touch.clientY;
-    document.ontouchend = closeTouchDragElement;
-    document.ontouchmove = elementTouchDrag;
-    isDragging = false;
-  }
-
-  function elementTouchDrag(e) {
-    var touch = e.touches[0];
-    isDragging = true;
-    pos1 = pos3 - touch.clientX;
-    pos2 = pos4 - touch.clientY;
-    pos3 = touch.clientX;
-    pos4 = touch.clientY;
-    element.style.top = (element.offsetTop - pos2) + "px";
-    element.style.left = (element.offsetLeft - pos1) + "px";
-    element.style.bottom = "auto";
-    element.style.right = "auto";
-  }
-
-  function closeTouchDragElement() {
-    document.ontouchend = null;
-    document.ontouchmove = null;
-  }
-
-  element.addEventListener('click', function(e) {
-    if(!isDragging && element.id === 'chatbot-launcher') {
-      toggleChatbot();
-    }
-  });
-}
-
-window.onload = function() {
-  makeDraggable(document.getElementById('chatbot-launcher'));
-  makeDraggable(document.getElementById('chatbot-modal'), document.getElementById('chatHeader'));
-};
 </script>
+
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+<!-- Smart Chatbot & Multi-Platform Link Converter -->
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // 1. Daraz Affiliate Parameters
-    const DARAZ_AFFILIATE_BASE = "https://go.urtrackinglink.com/aff_c?offer_id=164&aff_id=174128&source=Raw79";
+  // Your WhatsApp Business Number (Without + sign)
+  const MY_WHATSAPP_NUMBER = "923126788220"; 
 
-    // 2. Alibaba / AliExpress Affiliate ID
+  // Sample Product Database (Aap yahan apne products add kar sakte hain)
+  const productDatabase = [
+    {
+      keywords: ["earbuds", "airpods", "handsfree", "bluetooth"],
+      name: "Wireless Earbuds",
+      daraz: "https://www.daraz.pk/products/sample-earbuds.html",
+      aliexpress: "https://www.aliexpress.com/item/sample-earbuds.html",
+      alibaba: null 
+    },
+    {
+      keywords: ["watch", "smartwatch"],
+      name: "Smart Watch",
+      daraz: "https://www.daraz.pk/products/sample-watch.html",
+      aliexpress: null,
+      alibaba: "https://www.alibaba.com/product-detail/sample-watch.html"
+    }
+  ];
+
+  // 1. Process User Query in Chatbot
+  function processUserMessage(userInput) {
+    const query = userInput.toLowerCase().trim();
+    if (!query) return;
+
+    let matchedProduct = productDatabase.find(item => 
+      item.keywords.some(kw => query.includes(kw))
+    );
+
+    let responseHTML = "";
+
+    if (matchedProduct) {
+      responseHTML = `<p><strong>${matchedProduct.name}</strong> in platforms par available hai:</p><div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">`;
+      
+      if (matchedProduct.daraz) {
+        responseHTML += `<a href="${matchedProduct.daraz}" target="_blank" style="padding:6px 12px; background:#f57224; color:#fff; border-radius:6px; text-decoration:none; font-size:12px;">Daraz</a>`;
+      }
+      if (matchedProduct.aliexpress) {
+        responseHTML += `<a href="${matchedProduct.aliexpress}" target="_blank" style="padding:6px 12px; background:#ff4747; color:#fff; border-radius:6px; text-decoration:none; font-size:12px;">AliExpress</a>`;
+      }
+      if (matchedProduct.alibaba) {
+        responseHTML += `<a href="${matchedProduct.alibaba}" target="_blank" style="padding:6px 12px; background:#ff6a00; color:#fff; border-radius:6px; text-decoration:none; font-size:12px;">Alibaba</a>`;
+      }
+      
+      responseHTML += `</div>`;
+    } else {
+      const whatsappMsg = encodeURIComponent(`Hello! Mujhe "${userInput}" chahiye jo website par nahi mil raha. Khas detail bataein.`);
+      const whatsappUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${whatsappMsg}`;
+
+      responseHTML = `
+        <p>Yeh product filhal site par available nahi hai. Mazeed maloomat ke liye WhatsApp par rabta karein:</p>
+        <a href="${whatsappUrl}" target="_blank" style="display:inline-block; margin-top:8px; padding:8px 14px; background:#25D366; color:#fff; font-weight:bold; border-radius:6px; text-decoration:none; font-size:13px;">
+          💬 WhatsApp Par Inquiry Bhejein
+        </a>
+      `;
+    }
+
+    return responseHTML;
+  }
+
+  // 2. Automated Affiliate Link Converter for Daraz, AliExpress & Alibaba
+  document.addEventListener("DOMContentLoaded", function () {
+    const DARAZ_AFFILIATE_BASE = "https://go.urtrackinglink.com/aff_c?offer_id=164&aff_id=174128&source=Raw79";
     const ALIBABA_ALIEXPRESS_ID = "15026521143";
 
-    // Website ke tamam links check karne ka logic
     const links = document.querySelectorAll("a");
 
     links.forEach(link => {
       let originalHref = link.getAttribute("href");
 
       if (originalHref) {
-        // --- DARAZ AUTO-CONVERT ---
+        // Daraz Link Auto-Convert
         if (originalHref.includes("daraz.pk") && !originalHref.includes("urtrackinglink.com")) {
           let destinationUrl = encodeURIComponent(originalHref);
           link.href = `${DARAZ_AFFILIATE_BASE}&url=${destinationUrl}`;
         }
-        
-        // --- ALIEXPRESS AUTO-CONVERT ---
+        // AliExpress Link Auto-Convert
         else if (originalHref.includes("aliexpress.com") && !originalHref.includes(ALIBABA_ALIEXPRESS_ID)) {
           let separator = originalHref.includes("?") ? "&" : "?";
           link.href = `${originalHref}${separator}aff_fcid=${ALIBABA_ALIEXPRESS_ID}`;
         }
-
-        // --- ALIBABA AUTO-CONVERT ---
+        // Alibaba Link Auto-Convert
         else if (originalHref.includes("alibaba.com") && !originalHref.includes(ALIBABA_ALIEXPRESS_ID)) {
           let separator = originalHref.includes("?") ? "&" : "?";
           link.href = `${originalHref}${separator}pid=${ALIBABA_ALIEXPRESS_ID}`;
