@@ -895,8 +895,11 @@ window.onload = function() {
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // Daraz / Network Tracking Parameters
+    // 1. Daraz Affiliate Parameters
     const DARAZ_AFFILIATE_BASE = "https://go.urtrackinglink.com/aff_c?offer_id=164&aff_id=174128&source=Raw79";
+
+    // 2. Alibaba / AliExpress Affiliate ID
+    const ALIBABA_ALIEXPRESS_ID = "15026521143";
 
     // Website ke tamam links check karne ka logic
     const links = document.querySelectorAll("a");
@@ -905,13 +908,22 @@ window.onload = function() {
       let originalHref = link.getAttribute("href");
 
       if (originalHref) {
-        // Agar link Daraz ka hai aur pehle se tracking link mein converted nahi hai
+        // --- DARAZ AUTO-CONVERT ---
         if (originalHref.includes("daraz.pk") && !originalHref.includes("urtrackinglink.com")) {
-          // Encoded destination URL for redirection
           let destinationUrl = encodeURIComponent(originalHref);
-          
-          // Auto-convert link into Affiliate URL
           link.href = `${DARAZ_AFFILIATE_BASE}&url=${destinationUrl}`;
+        }
+        
+        // --- ALIEXPRESS AUTO-CONVERT ---
+        else if (originalHref.includes("aliexpress.com") && !originalHref.includes(ALIBABA_ALIEXPRESS_ID)) {
+          let separator = originalHref.includes("?") ? "&" : "?";
+          link.href = `${originalHref}${separator}aff_fcid=${ALIBABA_ALIEXPRESS_ID}`;
+        }
+
+        // --- ALIBABA AUTO-CONVERT ---
+        else if (originalHref.includes("alibaba.com") && !originalHref.includes(ALIBABA_ALIEXPRESS_ID)) {
+          let separator = originalHref.includes("?") ? "&" : "?";
+          link.href = `${originalHref}${separator}pid=${ALIBABA_ALIEXPRESS_ID}`;
         }
       }
     });
