@@ -836,22 +836,30 @@ function makeDraggable(element, handle) {
 
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<!-- Smart Chatbot & Multi-Platform Link Converter -->
+<!-- R.A.W Chat Widget: apni index.html mein </body> se bilkul pehle paste karein.
+     Shadow DOM istemal hota hai, is liye is ka CSS/JS shop ke design ko nahi chhoota. -->
 <script>
-  // Your WhatsApp Business Number
-  const MY_WHATSAPP_NUMBER = "923334664227"; 
+(function () {
+function boot() {
+  if (document.getElementById("raw-chat-host")) return;
 
-  // Product Database jisme har platform ke links alag-alag hain
-  const productDatabase = [
+  // ====== SETTINGS ======
+  var MY_WHATSAPP_NUMBER = "923334664227";
+  var DARAZ_AFFILIATE_BASE = "https://go.urtrackinglink.com/aff_c?offer_id=164&aff_id=174128&source=Raw79";
+  var ALI_ID = "15026521143";
+  var SIDE = "left"; // "left" ya "right" (agar pehle se koi chat button right par hai to left rakhein)
+
+  // ====== PRODUCTS (asli links yahan lagayen) ======
+  var productDatabase = [
     {
-      keywords: ["earbuds", "airpods", "handsfree", "bluetooth"],
+      keywords: ["earbuds", "ear buds", "earphone", "airpods", "handsfree", "hands free", "bluetooth"],
       name: "Wireless Earbuds",
       daraz: "https://www.daraz.pk/products/sample-earbuds.html",
       aliexpress: "https://www.aliexpress.com/item/sample-earbuds.html",
-      alibaba: null 
+      alibaba: null
     },
     {
-      keywords: ["watch", "smartwatch"],
+      keywords: ["watch", "smartwatch", "smart watch", "ghari"],
       name: "Smart Watch",
       daraz: "https://www.daraz.pk/products/sample-watch.html",
       aliexpress: null,
@@ -859,73 +867,148 @@ function makeDraggable(element, handle) {
     }
   ];
 
-  // 1. Process User Query in Chatbot
-  function processUserMessage(userInput) {
-    if (!userInput) return "";
-    const query = userInput.toLowerCase().trim();
-    if (!query) return "";
-
-    let matchedProduct = productDatabase.find(item => 
-      item.keywords.some(kw => query.includes(kw))
-    );
-
-    let responseHTML = "";
-
-    if (matchedProduct) {
-      responseHTML = `<p>Hum ne aapki pasand <b>"${matchedProduct.name}"</b> dhoond li hai! Yeh cheez jahan-jahan padi hai, unke alag-alag links ye rahe:</p><div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">`;
-      
-      if (matchedProduct.daraz) {
-        responseHTML += `<a href="${matchedProduct.daraz}" target="_blank" style="padding:6px 12px; background:#f57224; color:#fff; border-radius:6px; text-decoration:none; font-size:12px;">🛒 Daraz Link</a>`;
-      }
-      if (matchedProduct.aliexpress) {
-        responseHTML += `<a href="${matchedProduct.aliexpress}" target="_blank" style="padding:6px 12px; background:#ff4747; color:#fff; border-radius:6px; text-decoration:none; font-size:12px;">🛒 AliExpress Link</a>`;
-      }
-      if (matchedProduct.alibaba) {
-        responseHTML += `<a href="${matchedProduct.alibaba}" target="_blank" style="padding:6px 12px; background:#ff6a00; color:#fff; border-radius:6px; text-decoration:none; font-size:12px;">🛒 Alibaba Link</a>`;
-      }
-      
-      responseHTML += `</div>`;
-    } else {
-      const whatsappMsg = encodeURIComponent(`Hello! Mujhe "${userInput}" chahiye jo ke aapke paas available nahi hai. Iski mazeed maloomat dein.`);
-      const whatsappUrl = `https://wa.me/${MY_WHATSAPP_NUMBER}?text=${whatsappMsg}`;
-
-      responseHTML = `
-        <p>Maazrat chahte hain, yeh cheez hamare paas abhi available nahi hai.</p>
-        <a href="${whatsappUrl}" target="_blank" style="display:inline-block; margin-top:8px; padding:8px 14px; background:#25D366; color:#fff; font-weight:bold; border-radius:6px; text-decoration:none; font-size:13px;">
-          💬 WhatsApp Par Bat karein
-        </a>
-      `;
-    }
-
-    return responseHTML;
+  // ====== AFFILIATE ======
+  function toAffiliate(url) {
+    if (url.indexOf("daraz.pk") > -1 && url.indexOf("urtrackinglink.com") < 0)
+      return DARAZ_AFFILIATE_BASE + "&url=" + encodeURIComponent(url);
+    if (url.indexOf("aliexpress.com") > -1 && url.indexOf(ALI_ID) < 0)
+      return url + (url.indexOf("?") > -1 ? "&" : "?") + "aff_fcid=" + ALI_ID;
+    if (url.indexOf("alibaba.com") > -1 && url.indexOf(ALI_ID) < 0)
+      return url + (url.indexOf("?") > -1 ? "&" : "?") + "pid=" + ALI_ID;
+    return url;
+  }
+  function linkBtn(url, color, label) {
+    return '<a href="' + toAffiliate(url) + '" target="_blank" rel="sponsored noopener" style="background:' + color + '">' + label + '</a>';
+  }
+  function esc(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
-  // 2. Automated Affiliate Link Converter for Daraz, AliExpress & Alibaba
-  document.addEventListener("DOMContentLoaded", function () {
-    const DARAZ_AFFILIATE_BASE = "https://go.urtrackinglink.com/aff_c?offer_id=164&aff_id=174128&source=Raw79";
-    const ALIBABA_ALIEXPRESS_ID = "15026521143";
-
-    const links = document.querySelectorAll("a");
-
-    links.forEach(link => {
-      let originalHref = link.getAttribute("href");
-
-      if (originalHref) {
-        if (originalHref.includes("daraz.pk") && !originalHref.includes("urtrackinglink.com")) {
-          let destinationUrl = encodeURIComponent(originalHref);
-          link.href = `${DARAZ_AFFILIATE_BASE}&url=${destinationUrl}`;
-        }
-        else if (originalHref.includes("aliexpress.com") && !originalHref.includes(ALIBABA_ALIEXPRESS_ID)) {
-          let separator = originalHref.includes("?") ? "&" : "?";
-          link.href = `${originalHref}${separator}aff_fcid=${ALIBABA_ALIEXPRESS_ID}`;
-        }
-        else if (originalHref.includes("alibaba.com") && !originalHref.includes(ALIBABA_ALIEXPRESS_ID)) {
-          let separator = originalHref.includes("?") ? "&" : "?";
-          link.href = `${originalHref}${separator}pid=${ALIBABA_ALIEXPRESS_ID}`;
-        }
-      }
+  // ====== BOT LOGIC ======
+  function processUserMessage(userInput) {
+    var query = (userInput || "").toLowerCase().trim();
+    if (!query) return "";
+    var m = productDatabase.find(function (item) {
+      return item.keywords.some(function (kw) { return query.indexOf(kw) > -1; });
     });
+    if (m) {
+      var html = '<p style="margin:0">Aap ki pasand <b>"' + m.name + '"</b> mil gayi! Yeh links dekhen:</p><div class="btnrow">';
+      if (m.daraz) html += linkBtn(m.daraz, "#f57224", "🛒 Daraz");
+      if (m.aliexpress) html += linkBtn(m.aliexpress, "#ff4747", "🛒 AliExpress");
+      if (m.alibaba) html += linkBtn(m.alibaba, "#ff6a00", "🛒 Alibaba");
+      return html + "</div>";
+    }
+    var msg = encodeURIComponent('Hello! Mujhe "' + userInput + '" chahiye jo aap ke paas available nahi hai. Iski mazeed maloomat dein.');
+    var url = "https://wa.me/" + MY_WHATSAPP_NUMBER + "?text=" + msg;
+    return '<p style="margin:0">Maazrat, yeh cheez abhi available nahi hai.</p>' +
+      '<div class="btnrow"><a href="' + url + '" target="_blank" rel="noopener" style="background:#25D366;font-size:13px;padding:8px 14px;font-weight:bold">💬 WhatsApp Par Baat Karein</a></div>';
+  }
+
+  // ====== UI (Shadow DOM: shop ke CSS se alag) ======
+  var host = document.createElement("div");
+  host.id = "raw-chat-host";
+  document.body.appendChild(host);
+  var root = host.attachShadow({ mode: "open" });
+
+  root.innerHTML =
+    '<style>' +
+    ':host{all:initial}' +
+    '*{box-sizing:border-box;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}' +
+    '#toggle{position:fixed;' + SIDE + ':16px;bottom:16px;width:56px;height:56px;border-radius:50%;border:0;background:#f57224;color:#fff;font-size:26px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:2147483000}' +
+    '#box{position:fixed;' + SIDE + ':16px;bottom:84px;width:min(360px,calc(100vw - 32px));background:#fff;border:1px solid #e3e3e3;border-radius:14px;overflow:hidden;display:none;flex-direction:column;box-shadow:0 8px 28px rgba(0,0,0,.2);z-index:2147483000;color:#222}' +
+    '#box.open{display:flex}' +
+    '#head{background:#f57224;color:#fff;padding:12px 14px;font-weight:600}' +
+    '#msgs{height:300px;overflow-y:auto;padding:10px;font-size:14px;line-height:1.5}' +
+    '.msg{margin:6px 0;padding:8px 10px;border-radius:10px;max-width:88%;word-wrap:break-word}' +
+    '.msg.user{background:#ffe9db;margin-left:auto}' +
+    '.msg.bot{background:#f1f1f1}' +
+    'form{display:flex;gap:6px;padding:8px;border-top:1px solid #e3e3e3;margin:0}' +
+    '#inp{flex:1;min-width:0;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:14px}' +
+    '#mic,#send{flex-shrink:0;padding:10px 12px;border-radius:8px;cursor:pointer;font-size:14px}' +
+    '#mic{border:1px solid #ddd;background:#fff;font-size:16px}' +
+    '#mic.listening{background:#e53935;border-color:#e53935;color:#fff}' +
+    '#send{border:0;background:#f57224;color:#fff;font-weight:600}' +
+    '#inp:focus-visible,#mic:focus-visible,#send:focus-visible,#toggle:focus-visible{outline:2px solid #f57224;outline-offset:2px}' +
+    '.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}' +
+    '.btnrow a{padding:6px 12px;color:#fff;border-radius:6px;text-decoration:none;font-size:12px}' +
+    '</style>' +
+    '<button id="toggle" aria-label="Chat kholen">💬</button>' +
+    '<div id="box" role="dialog" aria-label="Shop chat">' +
+    '<div id="head">R.A.W Group Assistant</div>' +
+    '<div id="msgs" aria-live="polite"></div>' +
+    '<form id="form"><input id="inp" autocomplete="off" placeholder="Kya chahiye? e.g. earbuds">' +
+    '<button id="mic" type="button" aria-label="Bol kar likhen">🎤</button>' +
+    '<button id="send" type="submit">Send</button></form></div>';
+
+  var $ = function (id) { return root.getElementById(id); };
+  var box = $("box"), list = $("msgs"), input = $("inp"), form = $("form"), micBtn = $("mic");
+
+  function addMessage(html, who) {
+    var d = document.createElement("div");
+    d.className = "msg " + who;
+    d.innerHTML = html;
+    list.appendChild(d);
+    list.scrollTop = list.scrollHeight;
+  }
+
+  $("toggle").addEventListener("click", function () {
+    box.classList.toggle("open");
+    if (box.classList.contains("open")) {
+      if (!list.children.length) addMessage("Assalam o Alaikum! Aap ko kya chahiye? Product ka naam likhen, jaise earbuds ya watch.", "bot");
+      input.focus();
+    }
   });
+
+  // ====== MIC ======
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    micBtn.style.display = "none";
+  } else {
+    var rec = new SR();
+    rec.lang = "en-US";
+    rec.interimResults = false;
+    rec.maxAlternatives = 1;
+    var listening = false;
+
+    rec.onresult = function (e) {
+      input.value = e.results[0][0].transcript;
+      if (form.requestSubmit) form.requestSubmit();
+      else form.dispatchEvent(new Event("submit", { cancelable: true }));
+    };
+    rec.onend = function () { listening = false; micBtn.classList.remove("listening"); };
+    rec.onerror = function (e) {
+      listening = false; micBtn.classList.remove("listening");
+      var reasons = {
+        "not-allowed": "Mic allow nahi hai. Chrome mein address bar ke 🔒 se Microphone allow karein.",
+        "service-not-allowed": "Is browser mein voice service band hai. Chrome istemal karein.",
+        "no-speech": "Awaaz nahi suni. Dobara 🎤 dabayen aur saaf bolen.",
+        "audio-capture": "Mic nahi mila. Check karein ke mic connected hai.",
+        "network": "Internet masla hai. Voice ke liye internet zaroori hai."
+      };
+      addMessage(reasons[e.error] || ("Mic error: " + e.error), "bot");
+    };
+    micBtn.addEventListener("click", function () {
+      if (!window.isSecureContext) {
+        addMessage("Mic sirf https:// par chalta hai.", "bot");
+        return;
+      }
+      if (listening) { rec.stop(); return; }
+      try { rec.start(); listening = true; micBtn.classList.add("listening"); }
+      catch (err) { addMessage("Mic shuru nahi ho saka: " + err.message, "bot"); }
+    });
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var text = input.value.trim();
+    if (!text) return;
+    addMessage(esc(text), "user");
+    addMessage(processUserMessage(text), "bot");
+    input.value = "";
+  });
+}
+if (document.body) boot(); else document.addEventListener("DOMContentLoaded", boot);
+})();
 </script>
 </body>
 </html>
