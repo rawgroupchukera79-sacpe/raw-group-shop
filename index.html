@@ -994,6 +994,35 @@ function boot() {
 }
 if (document.body) boot(); else document.addEventListener("DOMContentLoaded", boot);
 })();
+<!-- Google Translate - All Languages -->
+<style>
+  #google_translate_element {
+    position: fixed !important;
+    bottom: 80px !important;
+    right: 10px !important;
+    left: auto !important;
+    z-index: 99999 !important;
+    background: white;
+    border-radius: 25px;
+    padding: 6px 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border: 2px solid #ff8c00;
+  }
+  .goog-te-banner-frame.skiptranslate { display: none !important; }
+  body { top: 0px !important; }
+</style>
+
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
 </script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
