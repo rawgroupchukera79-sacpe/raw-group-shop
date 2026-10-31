@@ -113,22 +113,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .thumb-img { width: 60px; height: 60px; border-radius: 6px; border: 2px solid #eee; object-fit: cover; cursor: pointer; flex-shrink: 0; transition: all 0.2s ease; }
 .thumb-img.active, .thumb-img:hover { border-color: #FF8C00; transform: scale(1.05); box-shadow: 0 2px 8px rgba(255,140,0,0.3); }
 
-/* Chatbot */
-#chatbot-launcher { position: fixed; bottom: 25px; right: 25px; background: linear-gradient(135deg, #FF8C00, #FFD700); color: #fff; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255,140,0,0.4); cursor: move; z-index: 3000; font-size: 24px; user-select: none; touch-action: none; }
-#chatbot-modal { display: none; position: fixed; bottom: 90px; right: 25px; width: 320px; height: 420px; background: #fff; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border: 2px solid #FF8C00; z-index: 3001; flex-direction: column; overflow: hidden; }
-.chat-header { background: linear-gradient(135deg, #FF8C00, #e07b00); color: #fff; padding: 12px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center; cursor: move; }
-.chat-body { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; background: #fafafa; }
-.chat-msg { max-width: 85%; padding: 8px 12px; border-radius: 12px; font-size: 12px; line-height: 1.4; }
-.chat-msg.bot { background: #fff8f0; border: 1px solid #ffe0b2; color: #333; align-self: flex-start; }
-.chat-msg.user { background: #FF8C00; color: #fff; align-self: flex-end; }
-.chat-msg .chat-link-btn { display: inline-block; margin-top: 8px; background: #FF9900; color: #111; padding: 8px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.15); text-align: center; }
-.chat-msg .chat-link-btn:hover { background: #e68a00; }
-.chat-footer { display: flex; align-items: center; padding: 8px; background: #fff; border-top: 1px solid #eee; gap: 4px; }
-.chat-footer input { flex: 1; border: 1px solid #FF8C00; padding: 6px 10px; border-radius: 15px; outline: none; font-size: 12px; }
-.mic-btn { background: #fff0d4; border: 1px solid #FF8C00; color: #FF8C00; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
-.mic-btn.recording { background: #ff4d4d; color: #fff; border-color: #ff4d4d; animation: pulse 1s infinite; }
-@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-.chat-footer button.send-btn { background: #FF8C00; color: #fff; border: none; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-weight: 600; font-size: 12px; }
+/
 </style>
 
 <script type="importmap">
