@@ -658,157 +658,89 @@ function stopVoiceInput() {
   document.getElementById('micBtn').classList.remove('recording');
   try { recognition.stop(); } catch(e) {}
 }
+<script>
+// Chatbot Launcher ko screen par kahin bhi le jana
+(function() {
+    var launcher = document.getElementById('chatbot-launcher');
+    var modal = document.getElementById('chatbot-modal');
+    var header = document.querySelector('.chat-header');
+    if(!launcher) return;
 
-/* Smart Amazon Affiliate Search & Dynamic Link Generator with Urdu Mapping */
-function sendChatMessage() {
-  var input = document.getElementById('chatInput');
-  var txt = input.value.trim();
-  if(!txt) return;
+    function makeDraggable(element, handle) {
+        var isDragging = false;
+        var startX, startY, initialLeft, initialTop;
 
-  var chatBody = document.getElementById('chatBody');
-  var userDiv = document.createElement('div');
-  userDiv.className = 'chat-msg user';
-  userDiv.textContent = txt;
-  chatBody.appendChild(userDiv);
-  input.value = '';
+        function onStart(clientX, clientY) {
+            isDragging = true;
+            startX = clientX;
+            startY = clientY;
+            var rect = element.getBoundingClientRect();
+            initialLeft = rect.left;
+            initialTop = rect.top;
+            element.style.transition = 'none';
+        }
 
-  setTimeout(function() {
-    var botDiv = document.createElement('div');
-    botDiv.className = 'chat-msg bot';
-    
-    var lower = txt.toLowerCase();
-    var products = window.allProductsData || [];
+        function onMove(clientX, clientY) {
+            if(!isDragging) return;
+            var dx = clientX - startX;
+            var dy = clientY - startY;
+            var newLeft = initialLeft + dx;
+            var newTop = initialTop + dy;
 
-    // Urdu to English Dictionary for Smart Amazon Search
-    var keywordMap = {
-      "جوگنگ بوٹ": "jogging shoes",
-      "جوتے": "shoes",
-      "بوٹ": "boots",
-      "سستے": "affordable",
-      "اچھے": "best quality",
-      "کپڑے": "clothes",
-      "گھڑیاں": "watches",
-      "گھڑی": "watch",
-      "پرفیوم": "perfume",
-      "موبائل": "mobile phone",
-      "کھلونے": "toys",
-      "کاسمیٹکس": "cosmetics",
-      "چارجر": "charger",
-      "ہیڈ فون": "headphones",
-      "ایئر بڈز": "earbuds"
-    };
+            // Screen se bahar na jaye
+            newLeft = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newLeft));
+            newTop = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newTop));
 
-    var searchKeyword = lower;
-    Object.keys(keywordMap).forEach(function(key) {
-      if(searchKeyword.includes(key)) {
-        searchKeyword = searchKeyword.replace(new RegExp(key, 'g'), keywordMap[key]);
-      }
-    });
+            element.style.left = newLeft + 'px';
+            element.style.top = newTop + 'px';
+            element.style.right = 'auto';
+            element.style.bottom = 'auto';
+            element.style.position = 'fixed';
+        }
 
-    searchKeyword = searchKeyword
-      .replace(/amazon|امیزون|se|chahie|chahiye|mange|de|dhund|kar|bhej|link|mujhe|aur|اور/g, '')
-      .trim();
+        function onEnd() {
+            isDragging = false;
+            element.style.transition = '';
+        }
 
-    if(!searchKeyword) searchKeyword = "best deals";
+        // Mouse Events
+        handle.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            onStart(e.clientX, e.clientY);
+            document.addEventListener('mousemove', mouseMove);
+            document.addEventListener('mouseup', mouseUp);
+        });
 
-    // 1. First Check Firebase Database for matching item with Amazon Link
-    var matchedProduct = products.find(p => 
-      (p.amazonLink || p.affiliateLink) && 
-      ((p.name || '').toLowerCase().includes(searchKeyword) || 
-       (p.category || '').toLowerCase().includes(searchKeyword) || 
-       (p.desc || '').toLowerCase().includes(searchKeyword))
-    );
+        function mouseMove(e) { onMove(e.clientX, e.clientY); }
+        function mouseUp() {
+            onEnd();
+            document.removeEventListener('mousemove', mouseMove);
+            document.removeEventListener('mouseup', mouseUp);
+        }
 
-    if(matchedProduct) {
-      var link = matchedProduct.amazonLink || matchedProduct.affiliateLink;
-      botDiv.innerHTML = `Hum ne aapki pasand <b>"${matchedProduct.name}"</b> dhoond li hai! Aap neche button se direct Amazon par ja kar khareed sakte hain:<br><a class="chat-link-btn" href="${link}" target="_blank">🛒 Open ${matchedProduct.name} on Amazon</a>`;
-    } else {
-      // 2. Generate Live Amazon Search Link with User's Affiliate Tag (raw79-20)
-      var amazonAffiliateSearchUrl = "https://www.amazon.com/s?k=" + encodeURIComponent(searchKeyword) + "&tag=raw79-20";
-      botDiv.innerHTML = `Hum ne Amazon par <b>"${txt}"</b> ki live list tayar kar di hai. Aap ki affiliate ID ke sath direct dekhne ke liye button par click karein:<br><a class="chat-link-btn" href="${amazonAffiliateSearchUrl}" target="_blank">🛒 Direct Amazon Par "${txt}" Dhoondain</a>`;
+        // Touch Events (Mobile ke liye)
+        handle.addEventListener('touchstart', function(e) {
+            var touch = e.touches[0];
+            onStart(touch.clientX, touch.clientY);
+        }, {passive: false});
+
+        handle.addEventListener('touchmove', function(e) {
+            var touch = e.touches[0];
+            onMove(touch.clientX, touch.clientY);
+            e.preventDefault();
+        }, {passive: false});
+
+        handle.addEventListener('touchend', onEnd);
     }
+  
+    // Launcher ko draggable banao
+    makeDraggable(launcher, launcher);
     
-    chatBody.appendChild(botDiv);
-    chatBody.scrollTop = chatBody.scrollHeight;
-  }, 500);
-}
-
-/* Make Element Draggable */
-function makeDraggable(element, handle) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  var dragHandle = handle || element;
-  var isDragging = false;
-
-  dragHandle.onmousedown = dragMouseDown;
-  dragHandle.ontouchstart = dragTouchStart;
-
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    document.onmousemove = elementDrag;
-    isDragging = false;
-  }
-
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    isDragging = true;
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    element.style.top = (element.offsetTop - pos2) + "px";
-    element.style.left = (element.offsetLeft - pos1) + "px";
-    element.style.bottom = "auto";
-    element.style.right = "auto";
-  }
-
-  function closeDragElement() {
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
-
-  function dragTouchStart(e) {
-    var touch = e.touches[0];
-    pos3 = touch.clientX;
-    pos4 = touch.clientY;
-    document.ontouchend = closeTouchDragElement;
-    document.ontouchmove = elementTouchDrag;
-    isDragging = false;
-  }
-
-  function elementTouchDrag(e) {
-    var touch = e.touches[0];
-    isDragging = true;
-    pos1 = pos3 - touch.clientX;
-    pos2 = pos4 - touch.clientY;
-    pos3 = touch.clientX;
-    pos4 = touch.clientY;
-    element.style.top = (element.offsetTop - pos2) + "px";
-    element.style.left = (element.offsetLeft - pos1) + "px";
-    element.style.bottom = "auto";
-    element.style.right = "auto";
-  }
-
-  function closeTouchDragElement() {
-    document.ontouchend = null;
-    document.ontouchmove = null;
-  }
-
-  element.addEventListener('click', function(e) {
-    if(!isDragging && element.id === 'chatbot-launcher') {
-      toggleChatbot();
+    // Chat window ke header ko bhi draggable banao
+    if(modal && header){
+        makeDraggable(modal, header);
     }
-  });
-}
-
-window.onload = function() {
-  makeDraggable(document.getElementById('chatbot-launcher'));
-  makeDraggable(document.getElementById('chatbot-modal'), document.getElementById('chatHeader'));
-};
+})();
 </script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
