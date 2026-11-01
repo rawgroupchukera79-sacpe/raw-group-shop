@@ -309,7 +309,7 @@ function render(list){
     const btnGroup = document.createElement('div');
     btnGroup.className = 'btn-group';
 
-    // 1. WhatsApp Button (Hamesha rahega)
+    // WhatsApp Button
     const waBtn = document.createElement('button');
     waBtn.className = 'whatsapp-btn';
     waBtn.textContent = 'Order on WhatsApp';
@@ -320,8 +320,8 @@ function render(list){
     };
     btnGroup.appendChild(waBtn);
 
-    // 2. Daraz Button (Sirf jab darazLink mojood ho)
-    if(p.darazLink && p.darazLink.trim() !== '') {
+    // Daraz Button (Strict check: sirf tab jab link mojood ho)
+    if(p.darazLink && typeof p.darazLink === 'string' && p.darazLink.trim() !== '' && p.darazLink !== 'undefined') {
       const darazBtn = document.createElement('button');
       darazBtn.className = 'store-btn daraz-btn';
       darazBtn.textContent = '🛒 Buy on Daraz';
@@ -332,26 +332,37 @@ function render(list){
       btnGroup.appendChild(darazBtn);
     }
 
-    // 3. Amazon Button (Sirf jab amazonLink ya affiliateLink mojood ho)
+    // Amazon Button (Strict check)
     if((p.amazonLink && p.amazonLink.trim() !== '') || (p.affiliateLink && p.affiliateLink.trim() !== '')) {
+      let amzUrl = p.amazonLink || p.affiliateLink;
       const amzBtn = document.createElement('button');
       amzBtn.className = 'store-btn amazon-btn';
       amzBtn.textContent = '🛒 Buy on Amazon';
       amzBtn.onclick = (e) => {
         e.stopPropagation();
-        window.open(p.amazonLink || p.affiliateLink, '_blank');
+        window.open(amzUrl, '_blank');
       };
       btnGroup.appendChild(amzBtn);
     }
 
-    // 4. Alibaba Button (Sirf jab alibabaLink mojood ho)
-    if(p.alibabaLink && p.alibabaLink.trim() !== '') {
+    // Alibaba Button (Strict check)
+    if(p.alibabaLink && typeof p.alibabaLink === 'string' && p.alibabaLink.trim() !== '') {
       const aliBtn = document.createElement('button');
       aliBtn.className = 'store-btn alibaba-btn';
       aliBtn.textContent = '🛒 Buy on Alibaba';
       aliBtn.onclick = (e) => {
         e.stopPropagation();
         window.open(p.alibabaLink, '_blank');
+      };
+      btnGroup.appendChild(aliBtn);
+    }
+
+    body.appendChild(btnGroup);
+    card.appendChild(body);
+    shop.appendChild(card);
+  });
+}
+
       };
       btnGroup.appendChild(aliBtn);
     }
