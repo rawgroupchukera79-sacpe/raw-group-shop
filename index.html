@@ -610,14 +610,20 @@ window.sendChatMessage = function() {
     let lower = txt.toLowerCase();
     let products = window.allProductsData || [];
     
+    // Keywords saaf karke exact product match karna
     let searchKeyword = lower.replace(/amazon|daraz|alibaba|se|chahiye|mujhe|ka|ki|gi/g, '').trim();
-    if(!searchKeyword) searchKeyword = 'best deals';
     
-    let matchedProduct = products.find(p => (p.name || '').toLowerCase().includes(searchKeyword));
+    // Product ko naam ya category ya brand mein se dhoondna
+    let matchedProduct = products.find(p => {
+      let pName = (p.name || '').toLowerCase();
+      let pCat = (p.category || '').toLowerCase();
+      let pBrand = (p.brand || '').toLowerCase();
+      return pName.includes(searchKeyword) || pCat.includes(searchKeyword) || pBrand.includes(searchKeyword) || (searchKeyword.includes('ghadi') && (pName.includes('watch') || pCat.includes('watches')));
+    });
     
     if(matchedProduct) {
-      let link = matchedProduct.amazonLink || matchedProduct.affiliateLink || matchedProduct.darazLink || matchedProduct.alibabaLink || '#';
-      botDiv.innerHTML = `Aapki pasand <b>${matchedProduct.name}</b> mil gayi!<br><a class="chat-link-btn" href="${link}" target="_blank">Order Karein / Dekhein</a>`;
+      let link = matchedProduct.darazLink || matchedProduct.amazonLink || matchedProduct.affiliateLink || matchedProduct.alibabaLink || '#';
+      botDiv.innerHTML = `Aapki pasand <b>${matchedProduct.name}</b> mil gayi!<br><a class="chat-link-btn" href="${link}" target="_blank">Yahan Dekhein / Order Karein</a>`;
     } else {
       let darazUrl = `https://s.daraz.pk/s.Z7J7?search=` + encodeURIComponent(searchKeyword);
       let amazonUrl = `https://www.amazon.com/s?k=` + encodeURIComponent(searchKeyword);
