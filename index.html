@@ -14,8 +14,8 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 #main-shop-view { display: flex; flex-direction: column; min-height: 100vh; }
 
 /* Top bar (translate + owner) */
-.top-bar { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, #FF8C00 0%, #e07b00 100%); padding: 8px 15px; }
-.top-bar #google_translate_element { background: #fff; padding: 4px 8px; border-radius: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.top-bar { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, #FF8C00 0%, #e07b00 100%); padding: 8px 15px; position: relative; z-index: 1000; }
+.top-bar #google_translate_element { background: #fff; padding: 4px 8px; border-radius: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: inline-block; overflow: hidden; }
 .owner-top img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
 
 /* Brand strip */
@@ -153,12 +153,12 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
     </div>
   </div>
 
-  <!-- Banner slider: text ya rang yahan se badal sakte hain -->
+  <!-- Banner slider -->
   <div class="banner">
     <div class="banner-track" id="bannerTrack">
       <div class="slide s1 show"><h3>R.A.W GROUP SHOP</h3><p>Premium Quality Collection</p></div>
       <div class="slide s2"><h3>Order on WhatsApp</h3><p>Seedha order, fast delivery</p></div>
-      <div class="slide s3"><h3>Amazon Deals</h3><p>Best products, best prices</p></div>
+      <div class="slide s3"><h3>Amazon & Daraz Deals</h3><p>Best products, best prices</p></div>
     </div>
     <div class="dots" id="bannerDots"></div>
   </div>
@@ -233,13 +233,13 @@ async function loadProducts(){
     snap.forEach(doc => { allProducts.push({id: doc.id, ...doc.data()}); });
     window.allProductsData = allProducts;
     render(allProducts);
+    buildCategories(allProducts);
   } catch (err) {
     console.error(err);
     document.getElementById('shopList').innerHTML = `<p style="text-align:center;padding:20px;color:red;background:#fff;grid-column: 1 / -1;">ایرر تفصیل: ${err.message}</p>`;
   }
 }
 
-// Price formatting helper function for correct display
 function formatPriceText(p) {
   if (p.priceType === 'usd') {
     let usd = p.priceUSD || p.price || 0;
@@ -313,13 +313,13 @@ function render(list){
     };
     btnGroup.appendChild(waBtn);
 
-    if(p.amazonLink || p.affiliateLink) {
+    if(p.amazonLink || p.affiliateLink || p.darazLink) {
       const amzBtn = document.createElement('button');
       amzBtn.className = 'amazon-btn';
-      amzBtn.textContent = '🛒 Buy on Amazon';
+      amzBtn.textContent = '🛒 Buy Online';
       amzBtn.onclick = (e) => {
         e.stopPropagation();
-        window.open(p.amazonLink || p.affiliateLink, '_blank');
+        window.open(p.amazonLink || p.affiliateLink || p.darazLink, '_blank');
       };
       btnGroup.appendChild(amzBtn);
     }
@@ -331,6 +331,7 @@ function render(list){
 }
 
 window.openDetailPage = function(p) {
+  let detailPage = document.getElementById('product-detail-page');
   let detailContent = document.getElementById('detailContent');
   detailContent.innerHTML = '';
   
@@ -354,400 +355,410 @@ window.openDetailPage = function(p) {
   mainContainer.appendChild(mainImg);
 
   if(imgList.length > 1) {
-    let leftBtn = document.createElement('button');
-    leftBtn.className = 'nav-arrow left';
-    leftBtn.innerHTML = '❮';
-    leftBtn.onclick = () => {
+    let leftArrow = document.createElement('button');
+    leftArrow.className = 'nav-arrow left';
+    leftArrow.innerHTML = '&#10094;';
+    leftArrow.onclick = () => {
       activeIndex = (activeIndex - 1 + imgList.length) % imgList.length;
-      updateGallery();
+      mainImg.src = imgList[activeIndex];
+      updateThumbs();
     };
 
-    let rightBtn = document.createElement('button');
-    rightBtn.className = 'nav-arrow right';
-    rightBtn.innerHTML = '❯';
-    rightBtn.onclick = () => {
+    let rightArrow = document.createElement('button');
+    rightArrow.className = 'nav-arrow right';
+    rightArrow.innerHTML = '&#10095;';
+    rightArrow.onclick = () => {
       activeIndex = (activeIndex + 1) % imgList.length;
-      updateGallery();
+      mainImg.src = imgList[activeIndex];
+      updateThumbs();
     };
 
-    mainContainer.appendChild(leftBtn);
-    mainContainer.appendChild(rightBtn);
+    mainContainer.appendChild(leftArrow);
+    mainContainer.appendChild(rightArrow);
   }
 
   galleryWrapper.appendChild(mainContainer);
 
-  let thumbBar = document.createElement('div');
-  thumbBar.className = 'thumbnails-bar';
+  if(imgList.length > 1) {
+    let thumbsBar = document.createElement('div');
+    thumbsBar.className = 'thumbnails-bar';
+    imgList.forEach((src, idx) => {
+      let thumb = document.createElement('img');
+      thumb.className = 'thumb-img' + (idx === 0 ? ' active' : '');
+      thumb.src = src;
+      thumb.onclick = () => {
+        activeIndex = idx;
+        mainImg.src = src;
+        updateThumbs();
+      };
+      thumbsBar.appendChild(thumb);
+    });
+    galleryWrapper.appendChild(thumbsBar);
+  }
 
-  imgList.forEach((src, idx) => {
-    let thumb = document.createElement('img');
-    thumb.src = src;
-    thumb.className = 'thumb-img' + (idx === 0 ? ' active' : '');
-    thumb.onerror = function() { this.src = 'logo.png'; };
-    thumb.onclick = () => {
-      activeIndex = idx;
-      updateGallery();
-    };
-    thumbBar.appendChild(thumb);
-  });
-
-  galleryWrapper.appendChild(thumbBar);
-  detailContent.appendChild(galleryWrapper);
-
-  function updateGallery() {
-    mainImg.src = imgList[activeIndex];
-    let thumbs = thumbBar.querySelectorAll('.thumb-img');
-    thumbs.forEach((t, i) => {
-      if(i === activeIndex) t.classList.add('active');
+  function updateThumbs() {
+    let thumbs = galleryWrapper.querySelectorAll('.thumb-img');
+    thumbs.forEach((t, idx) => {
+      if(idx === activeIndex) t.classList.add('active');
       else t.classList.remove('active');
     });
   }
 
-  let body = document.createElement('div');
-  body.className = 'card-body';
-  body.style.background = '#ffffff';
-  body.style.border = '1px solid #ffe3cb';
-  body.style.borderRadius = '8px';
-  body.style.padding = '15px';
-  
-  let title = document.createElement('h3');
-  title.className = 'product-title';
-  title.style.fontSize = '18px';
-  title.style.whiteSpace = 'normal';
-  title.textContent = p.name || '';
-  body.appendChild(title);
-  
-  if(p.brand){
-    let brand = document.createElement('span');
-    brand.className = 'brand-name';
-    brand.style.fontSize = '13px';
-    brand.textContent = 'برانڈ: ' + p.brand;
-    body.appendChild(brand);
-  }
-  
-  let price = document.createElement('div');
-  price.className = 'price';
-  price.style.fontSize = '18px';
-  price.textContent = 'قیمت: ' + formatPriceText(p);
-  body.appendChild(price);
-  
-  if(p.desc){
-    let desc = document.createElement('div');
-    desc.style.fontSize = '14px';
-    desc.style.background = '#fff8f0';
-    desc.style.padding = '12px';
-    desc.style.borderRadius = '6px';
-    desc.style.border = '1px dashed #FF8C00';
-    desc.style.marginTop = '10px';
-    desc.style.whiteSpace = 'pre-wrap';
-    desc.textContent = p.desc;
-    body.appendChild(desc);
-  }
+  detailContent.appendChild(galleryWrapper);
 
-  let btnGroup = document.createElement('div');
-  btnGroup.className = 'btn-group';
-  btnGroup.style.marginTop = '15px';
+  let infoDiv = document.createElement('div');
+  infoDiv.style.background = '#fff';
+  infoDiv.style.padding = '15px';
+  infoDiv.style.borderRadius = '12px';
+  infoDiv.style.boxShadow = '0 4px 12px rgba(0,0,0,0.04)';
+  infoDiv.innerHTML = `
+    <h2 style="font-size:18px;color:#222;margin-bottom:8px;">${p.name || ''}</h2>
+    ${p.brand ? `<p style="color:#d97700;font-weight:600;font-size:13px;margin-bottom:8px;">برانڈ: ${p.brand}</p>` : ''}
+    <div style="font-size:18px;color:#2e7d32;font-weight:bold;margin-bottom:12px;">${formatPriceText(p)}</div>
+    <p style="font-size:13px;color:#555;line-height:1.5;margin-bottom:15px;">${p.description || 'Description not available.'}</p>
+  `;
 
+  let actionGroup = document.createElement('div');
+  actionGroup.className = 'btn-group';
+  
   let waBtn = document.createElement('button');
   waBtn.className = 'whatsapp-btn';
-  waBtn.style.padding = '10px';
-  waBtn.style.fontSize = '14px';
-  waBtn.textContent = 'WhatsApp Par Order Karein';
+  waBtn.style.padding = '12px';
+  waBtn.style.fontSize = '13px';
+  waBtn.textContent = 'Order on WhatsApp';
   waBtn.onclick = () => {
     let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - ${formatPriceText(p)}`;
     window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
   };
-  btnGroup.appendChild(waBtn);
+  actionGroup.appendChild(waBtn);
 
-  if(p.amazonLink || p.affiliateLink) {
+  if(p.amazonLink || p.affiliateLink || p.darazLink) {
     let amzBtn = document.createElement('button');
     amzBtn.className = 'amazon-btn';
-    amzBtn.style.padding = '10px';
-    amzBtn.style.fontSize = '14px';
-    amzBtn.textContent = '🛒 Amazon Par Xareedain';
+    amzBtn.style.padding = '12px';
+    amzBtn.style.fontSize = '13px';
+    amzBtn.textContent = '🛒 Buy on Amazon / Daraz';
     amzBtn.onclick = () => {
-      window.open(p.amazonLink || p.affiliateLink, '_blank');
+      window.open(p.amazonLink || p.affiliateLink || p.darazLink, '_blank');
     };
-    btnGroup.appendChild(amzBtn);
+    actionGroup.appendChild(amzBtn);
   }
 
-  body.appendChild(btnGroup);
-  detailContent.appendChild(body);
+  infoDiv.appendChild(actionGroup);
+  detailContent.appendChild(infoDiv);
 
-  document.getElementById('main-shop-view').style.display = 'none';
-  document.getElementById('product-detail-page').style.display = 'block';
-  window.scrollTo(0, 0);
-}
+  detailPage.style.display = 'block';
+};
 
 window.closeDetailPage = function() {
   document.getElementById('product-detail-page').style.display = 'none';
-  document.getElementById('main-shop-view').style.display = 'flex';
-  window.scrollTo(0, 0);
+};
+
+function buildCategories(products) {
+  let cats = {};
+  products.forEach(p => {
+    let c = p.category || 'Other';
+    let sc = p.subcategory || 'General';
+    if(!cats[c]) cats[c] = new Set();
+    cats[c].add(sc);
+  });
+
+  let listEl = document.getElementById('drawerList');
+  listEl.innerHTML = '';
+
+  let allRow = document.createElement('div');
+  allRow.className = 'cat-row';
+  allRow.innerHTML = `<button class="cat-btn active" onclick="filterByCategory('All', 'تمام (All)')">تمام (All)</button>`;
+  listEl.appendChild(allRow);
+
+  for(let c in cats) {
+    let row = document.createElement('div');
+    row.className = 'cat-row';
+    row.innerHTML = `<button class="cat-btn" onclick="filterByCategory('${c}', '${c}')">${c}</button>`;
+    
+    let subArr = Array.from(cats[c]);
+    if(subArr.length > 0 && !(subArr.length === 1 && subArr[0] === 'General')) {
+      let toggleBtn = document.createElement('button');
+      toggleBtn.className = 'sub-toggle';
+      toggleBtn.innerHTML = '▼';
+      let subDiv = document.createElement('div');
+      subDiv.className = 'sub-list';
+      
+      toggleBtn.onclick = () => {
+        subDiv.classList.toggle('open');
+        toggleBtn.innerHTML = subDiv.classList.contains('open') ? '▲' : '▼';
+      };
+
+      subArr.forEach(sc => {
+        let subBtn = document.createElement('button');
+        subBtn.className = 'cat-btn';
+        subBtn.textContent = sc;
+        subBtn.onclick = () => filterByCategory(c, c + ' › ' + sc, sc);
+        subDiv.appendChild(subBtn);
+      });
+
+      row.appendChild(toggleBtn);
+      listEl.appendChild(row);
+      listEl.appendChild(subDiv);
+    } else {
+      listEl.appendChild(row);
+    }
+  }
 }
 
-window.filterCategory = function(cat, btnElement){
+window.filterByCategory = function(cat, titleText, subcat = null) {
   currentCategory = cat;
-  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-  btnElement.classList.add('active');
-  applyFilters();
-  // (look only) title update + drawer band
-  document.getElementById('catTitle').textContent = btnElement.textContent.trim();
-  window.closeDrawer();
-}
+  document.getElementById('catTitle').textContent = titleText;
+  closeDrawer();
+  
+  let filtered = allProducts;
+  if(cat !== 'All') {
+    filtered = allProducts.filter(p => {
+      if(subcat) return p.category === cat && p.subcategory === subcat;
+      return p.category === cat;
+    });
+  }
+  render(filtered);
+};
 
-window.filterShop = function(){
-  applyFilters();
-}
-
-function applyFilters(){
-  let q = document.getElementById('search').value.toLowerCase();
+window.filterShop = function() {
+  let query = document.getElementById('search').value.toLowerCase();
   let filtered = allProducts.filter(p => {
-    let matchesCat = (currentCategory === 'All' || p.category === currentCategory);
-    let matchesSearch = ((p.name||'') + (p.brand||'') + (p.desc||'')).toLowerCase().includes(q);
-    return matchesCat && matchesSearch;
+    let nameMatch = (p.name || '').toLowerCase().includes(query);
+    let brandMatch = (p.brand || '').toLowerCase().includes(query);
+    let catMatch = (p.category || '').toLowerCase().includes(query);
+    return nameMatch || brandMatch || catMatch;
   });
   render(filtered);
+};
+
+window.openDrawer = function() {
+  document.getElementById('drawer-overlay').style.display = 'block';
+  document.getElementById('drawer').classList.add('open');
+};
+
+window.closeDrawer = function() {
+  document.getElementById('drawer-overlay').style.display = 'none';
+  document.getElementById('drawer').classList.remove('open');
+};
+
+// Banner Slider Timer
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const dotsContainer = document.getElementById('bannerDots');
+
+slides.forEach((_, i) => {
+  let dot = document.createElement('i');
+  if(i === 0) dot.className = 'on';
+  dot.onclick = () => setSlide(i);
+  dotsContainer.appendChild(dot);
+});
+
+function setSlide(n) {
+  slides[currentSlide].classList.remove('show');
+  dotsContainer.children[currentSlide].classList.remove('on');
+  currentSlide = n;
+  slides[currentSlide].classList.add('show');
+  dotsContainer.children[currentSlide].classList.add('on');
 }
+
+setInterval(() => {
+  let next = (currentSlide + 1) % slides.length;
+  setSlide(next);
+}, 4000);
+
+// Chatbot UI Toggle & Messaging with Amazon & Daraz Support
+window.toggleChatbot = function() {
+  let modal = document.getElementById('chatbot-modal');
+  modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+};
+
+document.getElementById('chatbot-launcher').onclick = function(e) {
+  let modal = document.getElementById('chatbot-modal');
+  if (modal.style.display !== 'flex') {
+    modal.style.display = 'flex';
+  }
+};
+
+window.sendChatMessage = function() {
+  let input = document.getElementById('chatInput');
+  let txt = input.value.trim();
+  if(!txt) return;
+  
+  let chatBody = document.getElementById('chatBody');
+  let userDiv = document.createElement('div');
+  userDiv.className = 'chat-msg user';
+  userDiv.textContent = txt;
+  chatBody.appendChild(userDiv);
+  input.value = '';
+  
+  setTimeout(function() {
+    let botDiv = document.createElement('div');
+    botDiv.className = 'chat-msg bot';
+    let lower = txt.toLowerCase();
+    let products = window.allProductsData || [];
+    
+    let searchKeyword = lower.replace(/amazon|daraz|se|chahiye|mujhe|ka|ki|gi/g, '').trim();
+    if(!searchKeyword) searchKeyword = 'best deals';
+    
+    let matchedProduct = products.find(p => (p.name || '').toLowerCase().includes(searchKeyword));
+    
+    if(matchedProduct) {
+      let link = matchedProduct.amazonLink || matchedProduct.affiliateLink || matchedProduct.darazLink || '#';
+      botDiv.innerHTML = `Aapki pasand <b>${matchedProduct.name}</b> mil gayi!<br><a class="chat-link-btn" href="${link}" target="_blank">Order Karein / Dekhein</a>`;
+    } else {
+      let darazUrl = `https://s.daraz.pk/s.Z7J7?search=` + encodeURIComponent(searchKeyword);
+      let amazonUrl = `https://www.amazon.com/s?k=` + encodeURIComponent(searchKeyword);
+      
+      botDiv.innerHTML = `Live list tayar hai <b>${txt}</b> ke liye:<br>` +
+                         `<a class="chat-link-btn" href="${darazUrl}" target="_blank">Daraz par check karein</a><br>` +
+                         `<a class="chat-link-btn" href="${amazonUrl}" target="_blank">Amazon par check karein</a>`;
+    }
+    
+    chatBody.appendChild(botDiv);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }, 500);
+};
+
+// Voice Input Support
+let recognition = null;
+let isRecording = false;
+window.toggleVoiceInput = function() {
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    alert('Aapka browser Voice Search support nahi karta.');
+    return;
+  }
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!recognition) {
+    recognition = new SpeechRecognition();
+    recognition.lang = 'ur-PK';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    
+    recognition.onstart = function() {
+      isRecording = true;
+      document.getElementById('micBtn').classList.add('recording');
+    };
+    recognition.onresult = function(event) {
+      let speechResult = event.results[0][0].transcript;
+      document.getElementById('chatInput').value = speechResult;
+      sendChatMessage();
+    };
+    recognition.onerror = function() { stopVoiceInput(); };
+    recognition.onend = function() { stopVoiceInput(); };
+  }
+
+  if (isRecording) {
+    recognition.stop();
+  } else {
+    try { recognition.start(); } catch(e) { stopVoiceInput(); }
+  }
+};
+
+function stopVoiceInput() {
+  isRecording = false;
+  let micBtn = document.getElementById('micBtn');
+  if(micBtn) micBtn.classList.remove('recording');
+}
+
+/* Safe Draggable Version for Chatbot */
+(function() {
+  function makeDraggable(element, handle) {
+    if (!element || !handle) return;
+    let isDragging = false, startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
+    let hasMoved = false;
+
+    function onStart(clientX, clientY) {
+      isDragging = true;
+      hasMoved = false;
+      startX = clientX;
+      startY = clientY;
+      let rect = element.getBoundingClientRect();
+      initialLeft = rect.left;
+      initialTop = rect.top;
+      element.style.transition = 'none';
+    }
+
+    function onMove(clientX, clientY) {
+      if (!isDragging) return;
+      let dx = clientX - startX;
+      let dy = clientY - startY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+        hasMoved = true;
+      }
+      let newLeft = initialLeft + dx;
+      let newTop = initialTop + dy;
+      
+      newLeft = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newLeft));
+      newTop = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newTop));
+      
+      element.style.left = newLeft + 'px';
+      element.style.top = newTop + 'px';
+      element.style.right = 'auto';
+      element.style.bottom = 'auto';
+      element.style.position = 'fixed';
+    }
+
+    function onEnd() {
+      isDragging = false;
+      element.style.transition = '';
+      setTimeout(function() { hasMoved = false; }, 150);
+    }
+
+    handle.addEventListener('mousedown', function(e) {
+      onStart(e.clientX, e.clientY);
+      let moveFn = function(ev) { onMove(ev.clientX, ev.clientY); };
+      let upFn = function() {
+        onEnd();
+        document.removeEventListener('mousemove', moveFn);
+        document.removeEventListener('mouseup', upFn);
+      };
+      document.addEventListener('mousemove', moveFn);
+      document.addEventListener('mouseup', upFn);
+    });
+
+    handle.addEventListener('touchstart', function(e) {
+      let touch = e.touches[0];
+      onStart(touch.clientX, touch.clientY);
+    }, {passive: true});
+
+    handle.addEventListener('touchmove', function(e) {
+      let touch = e.touches[0];
+      onMove(touch.clientX, touch.clientY);
+      if (hasMoved) { e.preventDefault(); }
+    }, {passive: false});
+
+    handle.addEventListener('touchend', onEnd);
+    
+    handle.addEventListener('click', function(e) {
+      if (hasMoved) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+  }
+
+  let launcher = document.getElementById('chatbot-launcher');
+  let modal = document.getElementById('chatbot-modal');
+  let header = document.getElementById('chatHeader');
+  
+  if (launcher) makeDraggable(launcher, launcher);
+  if (modal && header) makeDraggable(modal, header);
+})();
 
 loadProducts();
 </script>
 
-<script>
-/* ===== CATEGORY LIST (sirf look) =====
-   v = admin panel mein product ki category ka bilkul yahi naam hona chahiye.
-   Nai category add karni ho to yahan ek line add kar dein. */
-var CATEGORIES = [
-  {n:'🛍️ تمام (All)', v:'All'},
-  {n:'👟 جوتے', v:'Shoes', s:[{n:'Men Shoes',v:'Men Shoes'},{n:'Women Shoes',v:'Women Shoes'},{n:'Kids Shoes',v:'Kids Shoes'},{n:'Sports Shoes',v:'Sports Shoes'}]},
-  {n:'👕 کپڑے', v:'Clothes', s:[{n:'Men Clothes',v:'Men Clothes'},{n:'Women Clothes',v:'Women Clothes'},{n:'Kids Clothes',v:'Kids Clothes'}]},
-  {n:'⌚ گھڑیاں', v:'Watches', s:[{n:'Men Watches',v:'Men Watches'},{n:'Women Watches',v:'Women Watches'},{n:'Smart Watches',v:'Smart Watches'}]},
-  {n:'🧴 پرفیوم', v:'Perfume'},
-  {n:'📱 موبائل', v:'Mobiles', s:[{n:'Smartphones',v:'Smartphones'},{n:'Mobile Accessories',v:'Mobile Accessories'},{n:'Chargers',v:'Chargers'}]},
-  {n:'⚡ الیکٹرانکس', v:'Electronics', s:[{n:'Earbuds',v:'Earbuds'},{n:'Headphones',v:'Headphones'},{n:'Cameras',v:'Cameras'},{n:'Speakers',v:'Speakers'}]},
-  {n:'🧸 کھلونے', v:'Toys'},
-  {n:'💄 کاسمیٹکس', v:'Cosmetics'},
-  {n:'👜 Bags', v:'Bags'},
-  {n:'💍 Jewellery', v:'Jewellery'},
-  {n:'🏠 Home', v:'Home'},
-  {n:'🍳 Kitchen', v:'Kitchen'},
-  {n:'⚽ Sports', v:'Sports'},
-  {n:'🛒 Grocery', v:'Grocery'},
-  {n:'🚗 Automotive', v:'Automotive'},
-  {n:'📚 Books', v:'Books'},
-  {n:'🔧 Tools', v:'Tools'},
-  {n:'سرویسزز', v:'Other'}
-];
-
-(function(){
-  var list = document.getElementById('drawerList');
-  CATEGORIES.forEach(function(c, i){
-    var row = document.createElement('div');
-    row.className = 'cat-row';
-    var b = document.createElement('button');
-    b.className = 'cat-btn' + (i === 0 ? ' active' : '');
-    b.textContent = c.n;
-    b.onclick = function(){ filterCategory(c.v, b); };
-    row.appendChild(b);
-    list.appendChild(row);
-    if(c.s){
-      var arrow = document.createElement('button');
-      arrow.className = 'sub-toggle';
-      arrow.textContent = '▾';
-      var sub = document.createElement('div');
-      sub.className = 'sub-list';
-      c.s.forEach(function(s){
-        var sb = document.createElement('button');
-        sb.className = 'cat-btn';
-        sb.textContent = s.n;
-        sb.onclick = function(){ filterCategory(s.v, sb); };
-        sub.appendChild(sb);
-      });
-      arrow.onclick = function(){
-        var o = sub.classList.toggle('open');
-        arrow.textContent = o ? '▴' : '▾';
-      };
-      row.appendChild(arrow);
-      list.appendChild(sub);
-    }
-  });
-})();
-
-function openDrawer(){
-  document.getElementById('drawer').classList.add('open');
-  document.getElementById('drawer-overlay').style.display = 'block';
-}
-function closeDrawer(){
-  document.getElementById('drawer').classList.remove('open');
-  document.getElementById('drawer-overlay').style.display = 'none';
-}
-window.closeDrawer = closeDrawer;
-
-/* Banner slider */
-(function(){
-  var slides = document.querySelectorAll('#bannerTrack .slide');
-  var dotsBox = document.getElementById('bannerDots');
-  var cur = 0, timer;
-  slides.forEach(function(_, i){
-    var d = document.createElement('i');
-    d.onclick = function(){ go(i); };
-    dotsBox.appendChild(d);
-  });
-  function go(n){
-    cur = n;
-    slides.forEach(function(s, i){ s.classList.toggle('show', i === cur); });
-    dotsBox.querySelectorAll('i').forEach(function(d, i){ d.classList.toggle('on', i === cur); });
-    clearInterval(timer);
-    timer = setInterval(function(){ go((cur + 1) % slides.length); }, 4000);
+<!-- Google Translate Universal Script (Urdu + All Languages Enabled) -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'ur',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
   }
-  go(0);
-})();
 </script>
-
-<script>
-function googleTranslateElementInit(){ 
-  new google.translate.TranslateElement({
-    pageLanguage: 'ur',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-  }, 'google_translate_element');
-}
-
-/* Chatbot Visibility Toggle */
-function toggleChatbot() {
-  var modal = document.getElementById('chatbot-modal');
-  modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
-}
-
-/* Voice Input Functionality */
-var recognition = null;
-var isRecording = false;
-
-if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  recognition = new SpeechRecognition();
-  recognition.continuous = false;
-  recognition.interimResults = false;
-  recognition.lang = 'ur-PK';
-
-  recognition.onresult = function(event) {
-    var transcript = event.results[0][0].transcript;
-    document.getElementById('chatInput').value = transcript;
-    stopVoiceInput();
-  };
-
-  recognition.onerror = function() { stopVoiceInput(); };
-  recognition.onend = function() { stopVoiceInput(); };
-}
-
-function toggleVoiceInput() {
-  if(!recognition) {
-    alert("Aapka browser Voice Input support nahi karta.");
-    return;
-  }
-  if(isRecording) stopVoiceInput();
-  else startVoiceInput();
-}
-
-function startVoiceInput() {
-  isRecording = true;
-  document.getElementById('micBtn').classList.add('recording');
-  recognition.start();
-}
-
-function stopVoiceInput() {
-  isRecording = false;
-  document.getElementById('micBtn').classList.remove('recording');
-  try { recognition.stop(); } catch(e) {}
-}
-<script>
-/* Smart Multi-Platform Affiliate Search - Daraz, Alibaba, Amazon, WhatsApp */
-function sendChatMessage() {
-    var input = document.getElementById('chatInput');
-    var txt = input.value.trim();
-    if(!txt) return;
-    var chatBody = document.getElementById('chatBody');
-    var userDiv = document.createElement('div');
-    userDiv.className = 'chat-msg user';
-    userDiv.textContent = txt;
-    chatBody.appendChild(userDiv);
-    input.value = '';
-    setTimeout(function() {
-        var botDiv = document.createElement('div');
-        botDiv.className = 'chat-msg bot';
-        var lower = txt.toLowerCase();
-        var products = window.allProductsData || [];
-        var searchKeyword = lower.replace(/amazon|daraz|se|chahiye|mujhe|ka|ki/gi, '').trim();
-        if(!searchKeyword) searchKeyword = "best deals";
-        var matchedProduct = products.find(p => (p.name || '').toLowerCase().includes(searchKeyword));
-        if(matchedProduct) {
-          var link = matchedProduct.darazLink || matchedProduct.amazonLink || matchedProduct.affiliateLink || '#';
-          botDiv.innerHTML = `Aapki pasand <b>${matchedProduct.name}</b> mil gayi!<br><br><a href="${link}" target="_blank" style="background:#f85606;color:white;padding:10px 20px;border-radius:8px;text-decoration:none;display:inline-block;">Daraz Par Dekhein</a>`;
-        } else {
-          var darazUrl = "https://s.daraz.pk/s.Z7J7?search=" + encodeURIComponent(searchKeyword);
-          botDiv.innerHTML = `Live list tayar hai <b>${txt}</b> ke liye<br><br><a href="${darazUrl}" target="_blank" style="background:#f85606;color:white;padding:10px 20px;border-radius:8px;text-decoration:none;display:inline-block;">Daraz Par Dekhein</a>`;
-        }
-        chatBody.appendChild(botDiv);
-        chatBody.scrollTop = chatBody.scrollHeight;
-    }, 500);
-}
-/* Make Element Draggable - Fixed Version */
-(function(){
-  function makeDraggable(element, handle){
-    if(!element || !handle) return;
-    var isDragging = false, startX, startY, initialLeft, initialTop;
-    var hasMoved = false;
-
-    function onStart(clientX, clientY){
-      isDragging = true; hasMoved = false;
-      startX = clientX; startY = clientY;
-      var rect = element.getBoundingClientRect();
-      initialLeft = rect.left; initialTop = rect.top;
-      element.style.transition = 'none';
-    }
-    function onMove(clientX, clientY){
-      if(!isDragging) return;
-      var dx = clientX - startX; var dy = clientY - startY;
-      if(Math.abs(dx) > 3 || Math.abs(dy) > 3) hasMoved = true;
-      var newLeft = initialLeft + dx; var newTop = initialTop + dy;
-      newLeft = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newLeft));
-      newTop = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newTop));
-      element.style.left = newLeft + 'px'; element.style.top = newTop + 'px';
-      element.style.right = 'auto'; element.style.bottom = 'auto';
-      element.style.position = 'fixed';
-    }
-    function onEnd(){
-      isDragging = false; 
-      element.style.transition = '';
-      setTimeout(function(){ hasMoved = false; }, 150);
-    }
-
-    handle.addEventListener('mousedown', function(e){
-      onStart(e.clientX, e.clientY);
-      var mm = function(ev){ onMove(ev.clientX, ev.clientY); };
-      var mu = function(){ onEnd(); document.removeEventListener('mousemove', mm); document.removeEventListener('mouseup', mu); };
-      document.addEventListener('mousemove', mm);
-      document.addEventListener('mouseup', mu);
-    });
-
-    handle.addEventListener('touchstart', function(e){
-      onStart(e.touches[0].clientX, e.touches[0].clientY);
-    }, {passive:false});
-    
-    handle.addEventListener('touchmove', function(e){
-      onMove(e.touches[0].clientX, e.touches[0].clientY);
-      if(hasMoved) e.preventDefault();
-    }, {passive:false});
-    
-    handle.addEventListener('touchend', onEnd);
-
-    handle.addEventListener('click', function(e){
-      if(hasMoved){ e.preventDefault(); e.stopPropagation(); }
-    });
-  }
-  var launcher = document.getElementById('chatbot-launcher');
-  var modal = document.getElementById('chatbot-modal');
-  var header = document.getElementById('chatHeader');
-  if(launcher) makeDraggable(launcher, launcher);
-  if(modal && header) makeDraggable(modal, header);
-})();
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
