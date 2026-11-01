@@ -659,87 +659,71 @@ function stopVoiceInput() {
   try { recognition.stop(); } catch(e) {}
 }
 <script>
-// Chatbot Launcher ko screen par kahin bhi le jana
-(function() {
-    var launcher = document.getElementById('chatbot-launcher');
-    var modal = document.getElementById('chatbot-modal');
-    var header = document.querySelector('.chat-header');
-    if(!launcher) return;
-
-    function makeDraggable(element, handle) {
-        var isDragging = false;
-        var startX, startY, initialLeft, initialTop;
-
-        function onStart(clientX, clientY) {
-            isDragging = true;
-            startX = clientX;
-            startY = clientY;
-            var rect = element.getBoundingClientRect();
-            initialLeft = rect.left;
-            initialTop = rect.top;
-            element.style.transition = 'none';
+/* Smart Multi-Platform Affiliate Search - Daraz, Alibaba, Amazon, WhatsApp */
+function sendChatMessage() {
+    var input = document.getElementById('chatInput');
+    var txt = input.value.trim();
+    if(!txt) return;
+    var chatBody = document.getElementById('chatBody');
+    var userDiv = document.createElement('div');
+    userDiv.className = 'chat-msg user';
+    userDiv.textContent = txt;
+    chatBody.appendChild(userDiv);
+    input.value = '';
+    setTimeout(function() {
+        var botDiv = document.createElement('div');
+        botDiv.className = 'chat-msg bot';
+        var lower = txt.toLowerCase();
+        var products = window.allProductsData || [];
+        var searchKeyword = lower.replace(/amazon|daraz|se|chahiye|mujhe|ka|ki/gi, '').trim();
+        if(!searchKeyword) searchKeyword = "best deals";
+        var matchedProduct = products.find(p => (p.name || '').toLowerCase().includes(searchKeyword));
+        if(matchedProduct) {
+          var link = matchedProduct.darazLink || matchedProduct.amazonLink || matchedProduct.affiliateLink || '#';
+          botDiv.innerHTML = `Aapki pasand <b>${matchedProduct.name}</b> mil gayi!<br><br><a href="${link}" target="_blank" style="background:#f85606;color:white;padding:10px 20px;border-radius:8px;text-decoration:none;display:inline-block;">Daraz Par Dekhein</a>`;
+        } else {
+          var darazUrl = "https://s.daraz.pk/s.Z7J7?search=" + encodeURIComponent(searchKeyword);
+          botDiv.innerHTML = `Live list tayar hai <b>${txt}</b> ke liye<br><br><a href="${darazUrl}" target="_blank" style="background:#f85606;color:white;padding:10px 20px;border-radius:8px;text-decoration:none;display:inline-block;">Daraz Par Dekhein</a>`;
         }
+        chatBody.appendChild(botDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }, 500);
+}
 
-        function onMove(clientX, clientY) {
-            if(!isDragging) return;
-            var dx = clientX - startX;
-            var dy = clientY - startY;
-            var newLeft = initialLeft + dx;
-            var newTop = initialTop + dy;
-
-            // Screen se bahar na jaye
-            newLeft = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newLeft));
-            newTop = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newTop));
-
-            element.style.left = newLeft + 'px';
-            element.style.top = newTop + 'px';
-            element.style.right = 'auto';
-            element.style.bottom = 'auto';
-            element.style.position = 'fixed';
-        }
-
-        function onEnd() {
-            isDragging = false;
-            element.style.transition = '';
-        }
-
-        // Mouse Events
-        handle.addEventListener('mousedown', function(e) {
-            e.preventDefault();
-            onStart(e.clientX, e.clientY);
-            document.addEventListener('mousemove', mouseMove);
-            document.addEventListener('mouseup', mouseUp);
-        });
-
-        function mouseMove(e) { onMove(e.clientX, e.clientY); }
-        function mouseUp() {
-            onEnd();
-            document.removeEventListener('mousemove', mouseMove);
-            document.removeEventListener('mouseup', mouseUp);
-        }
-
-        // Touch Events (Mobile ke liye)
-        handle.addEventListener('touchstart', function(e) {
-            var touch = e.touches[0];
-            onStart(touch.clientX, touch.clientY);
-        }, {passive: false});
-
-        handle.addEventListener('touchmove', function(e) {
-            var touch = e.touches[0];
-            onMove(touch.clientX, touch.clientY);
-            e.preventDefault();
-        }, {passive: false});
-
-        handle.addEventListener('touchend', onEnd);
+/* Make Element Draggable - Fixed & Safe Version */
+(function(){
+  function makeDraggable(element, handle){
+    if(!element || !handle) return;
+    var isDragging = false, startX, startY, initialLeft, initialTop;
+    function onStart(clientX, clientY){
+      isDragging = true; startX = clientX; startY = clientY;
+      var rect = element.getBoundingClientRect();
+      initialLeft = rect.left; initialTop = rect.top;
+      element.style.transition = 'none';
     }
-  
-    // Launcher ko draggable banao
-    makeDraggable(launcher, launcher);
-    
-    // Chat window ke header ko bhi draggable banao
-    if(modal && header){
-        makeDraggable(modal, header);
+    function onMove(clientX, clientY){
+      if(!isDragging) return;
+      var dx = clientX - startX; var dy = clientY - startY;
+      var newLeft = initialLeft + dx; var newTop = initialTop + dy;
+      newLeft = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newLeft));
+      newTop = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newTop));
+      element.style.left = newLeft + 'px'; element.style.top = newTop + 'px';
+      element.style.right = 'auto'; element.style.bottom = 'auto';
+      element.style.position = 'fixed';
     }
+    function onEnd(){ isDragging = false; element.style.transition = ''; }
+    function mouseMove(e){ onMove(e.clientX, e.clientY); }
+    function mouseUp(){ onEnd(); document.removeEventListener('mousemove', mouseMove); document.removeEventListener('mouseup', mouseUp); }
+    handle.addEventListener('mousedown', function(e){ e.preventDefault(); onStart(e.clientX, e.clientY); document.addEventListener('mousemove', mouseMove); document.addEventListener('mouseup', mouseUp); });
+    handle.addEventListener('touchstart', function(e){ var touch = e.touches[0]; onStart(touch.clientX, touch.clientY); }, {passive: false});
+    handle.addEventListener('touchmove', function(e){ var touch = e.touches[0]; onMove(touch.clientX, touch.clientY); e.preventDefault(); }, {passive: false});
+    handle.addEventListener('touchend', onEnd);
+  }
+  var launcher = document.getElementById('chatbot-launcher');
+  var modal = document.getElementById('chatbot-modal');
+  var header = document.getElementById('chatHeader');
+  if(launcher) makeDraggable(launcher, launcher);
+  if(modal && header) makeDraggable(modal, header);
 })();
 </script>
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
