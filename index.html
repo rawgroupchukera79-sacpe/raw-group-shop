@@ -53,11 +53,6 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .cat-row { display: flex; align-items: center; border-bottom: 1px solid #f1f1f1; }
 .cat-btn { flex: 1; text-align: left; background: #fff; border: none; color: #333; padding: 13px 16px; font-weight: 600; font-size: 14px; cursor: pointer; font-family: inherit; }
 .cat-btn.active, .cat-btn:hover { background: #fff3e3; color: #d97700; }
-.sub-toggle { background: #fff; border: none; color: #FF8C00; padding: 13px 16px; font-size: 14px; cursor: pointer; }
-.sub-list { display: none; background: #fafafa; }
-.sub-list.open { display: block; }
-.sub-list .cat-btn { padding-left: 38px; font-weight: 500; font-size: 13px; background: #fafafa; border-bottom: 1px solid #f1f1f1; display: block; width: 100%; }
-.sub-list .cat-btn.active, .sub-list .cat-btn:hover { background: #fff3e3; color: #d97700; }
 
 .products { max-width: 1100px; margin: 0 auto; padding: 12px 15px 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; flex: 1; align-content: start; }
 @media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } .banner-track { height: 220px; } .slide h3 { font-size: 30px; } }
@@ -70,12 +65,18 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .product-title { font-size: 13px; font-weight: 600; color: #222; margin: 0 0 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .brand-name { font-size: 11px; color: #d97700; font-weight: 600; margin-bottom: 4px; display: block; }
 .price { color: #2e7d32; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
-.btn-group { display: flex; flex-direction: column; gap: 6px; }
-.whatsapp-btn, .amazon-btn { width: 100%; border: none; padding: 8px; border-radius: 6px; font-weight: 600; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: background 0.2s ease; }
+
+/* Buttons layout - Alag alag aur saaf suthre */
+.btn-group { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.whatsapp-btn, .store-btn { width: 100%; border: none; padding: 8px; border-radius: 6px; font-weight: 600; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: background 0.2s ease; text-decoration: none; }
 .whatsapp-btn { background: #25D366; color: #fff; }
 .whatsapp-btn:hover { background: #1eb956; }
+.daraz-btn { background: #ff6600; color: #fff; }
+.daraz-btn:hover { background: #e55c00; }
 .amazon-btn { background: #FF9900; color: #111; }
 .amazon-btn:hover { background: #e68a00; }
+.alibaba-btn { background: #e65100; color: #fff; }
+.alibaba-btn:hover { background: #cc4600; }
 
 .footer-bar { background: #111; color: #ddd; text-align: center; padding: 15px; margin-top: auto; font-size: 12px; border-top: 2px solid #FF8C00; }
 
@@ -153,7 +154,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
     <div class="dots" id="bannerDots"></div>
   </div>
 
-  <div class="sec-title" id="catTitle">تمام (All)</div>
+  <div class="sec-title" id="catTitle">📦 تمام (All)</div>
 
   <div id="shopList" class="products">
     <p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">لوڈ ہو رہا ہے...</p>
@@ -213,6 +214,27 @@ const db = getFirestore(app);
 let allProducts = [];
 let currentCategory = 'All';
 
+// Admin panel wali exact categories list
+const CATEGORIES = [
+  {n: '📦 تمام (All)', v: 'All'},
+  {n: '👞 جوتے (Shoes)', v: 'Shoes'},
+  {n: '👕 کپڑے (Clothes)', v: 'Clothes'},
+  {n: '⌚ گھڑیاں (Watches)', v: 'Watches'},
+  {n: '💄 کاسمیٹکس (Cosmetics)', v: 'Cosmetics'},
+  {n: '📱 موبائیل (Mobiles)', v: 'Mobiles'},
+  {n: '🏠 ہوم (Home)', v: 'Home'},
+  {n: '🧸 کھلौने (Toys)', v: 'Toys'},
+  {n: '🎒 بیگز (Bags)', v: 'Bags'},
+  {n: '💍 جیولری (Jewellery)', v: 'Jewellery'},
+  {n: '🍳 کچൻ (Kitchen)', v: 'Kitchen'},
+  {n: '⚽ اسپورٹس (Sports)', v: 'Sports'},
+  {n: '🛒 گروکری (Grocery)', v: 'Grocery'},
+  {n: '🚗 آٹوموٹو (Automotive)', v: 'Automotive'},
+  {n: '📚 بکس (Books)', v: 'Books'},
+  {n: '🛠️ ٹولز (Tools)', v: 'Tools'},
+  {n: '🌐 سروسز (Other)', v: 'Other'}
+];
+
 async function loadProducts(){
   try {
     const snap = await getDocs(collection(db, "products"));
@@ -220,7 +242,7 @@ async function loadProducts(){
     snap.forEach(doc => { allProducts.push({id: doc.id, ...doc.data()}); });
     window.allProductsData = allProducts;
     render(allProducts);
-    buildCategories(allProducts);
+    buildCategories();
   } catch (err) {
     console.error(err);
     document.getElementById('shopList').innerHTML = `<p style="text-align:center;padding:20px;color:red;background:#fff;grid-column: 1 / -1;">ایرر تفصیل: ${err.message}</p>`;
@@ -290,6 +312,7 @@ function render(list){
     const btnGroup = document.createElement('div');
     btnGroup.className = 'btn-group';
 
+    // 1. WhatsApp Button (Har product ke liye alag se)
     const waBtn = document.createElement('button');
     waBtn.className = 'whatsapp-btn';
     waBtn.textContent = 'Order on WhatsApp';
@@ -300,11 +323,10 @@ function render(list){
     };
     btnGroup.appendChild(waBtn);
 
+    // 2. Daraz Button (Sirf tab aayega jab darazLink mojood ho)
     if(p.darazLink) {
       const darazBtn = document.createElement('button');
-      darazBtn.className = 'amazon-btn';
-      darazBtn.style.background = '#ff6600';
-      darazBtn.style.color = '#fff';
+      darazBtn.className = 'store-btn daraz-btn';
       darazBtn.textContent = '🛒 Buy on Daraz';
       darazBtn.onclick = (e) => {
         e.stopPropagation();
@@ -313,9 +335,10 @@ function render(list){
       btnGroup.appendChild(darazBtn);
     }
 
+    // 3. Amazon Button (Sirf tab aayega jab amazonLink ya affiliateLink mojood ho)
     if(p.amazonLink || p.affiliateLink) {
       const amzBtn = document.createElement('button');
-      amzBtn.className = 'amazon-btn';
+      amzBtn.className = 'store-btn amazon-btn';
       amzBtn.textContent = '🛒 Buy on Amazon';
       amzBtn.onclick = (e) => {
         e.stopPropagation();
@@ -324,11 +347,10 @@ function render(list){
       btnGroup.appendChild(amzBtn);
     }
 
+    // 4. Alibaba Button (Sirf tab aayega jab alibabaLink mojood ho)
     if(p.alibabaLink) {
       const aliBtn = document.createElement('button');
-      aliBtn.className = 'amazon-btn';
-      aliBtn.style.background = '#e65100';
-      aliBtn.style.color = '#fff';
+      aliBtn.className = 'store-btn alibaba-btn';
       aliBtn.textContent = '🛒 Buy on Alibaba';
       aliBtn.onclick = (e) => {
         e.stopPropagation();
@@ -447,9 +469,7 @@ window.openDetailPage = function(p) {
 
   if(p.darazLink) {
     let darazBtn = document.createElement('button');
-    darazBtn.className = 'amazon-btn';
-    darazBtn.style.background = '#ff6600';
-    darazBtn.style.color = '#fff';
+    darazBtn.className = 'store-btn daraz-btn';
     darazBtn.style.padding = '12px';
     darazBtn.style.fontSize = '13px';
     darazBtn.textContent = '🛒 Buy on Daraz';
@@ -459,7 +479,7 @@ window.openDetailPage = function(p) {
 
   if(p.amazonLink || p.affiliateLink) {
     let amzBtn = document.createElement('button');
-    amzBtn.className = 'amazon-btn';
+    amzBtn.className = 'store-btn amazon-btn';
     amzBtn.style.padding = '12px';
     amzBtn.style.fontSize = '13px';
     amzBtn.textContent = '🛒 Buy on Amazon';
@@ -469,9 +489,7 @@ window.openDetailPage = function(p) {
 
   if(p.alibabaLink) {
     let aliBtn = document.createElement('button');
-    aliBtn.className = 'amazon-btn';
-    aliBtn.style.background = '#e65100';
-    aliBtn.style.color = '#fff';
+    aliBtn.className = 'store-btn alibaba-btn';
     aliBtn.style.padding = '12px';
     aliBtn.style.fontSize = '13px';
     aliBtn.textContent = '🛒 Buy on Alibaba';
@@ -489,69 +507,30 @@ window.closeDetailPage = function() {
   document.getElementById('product-detail-page').style.display = 'none';
 };
 
-function buildCategories(products) {
-  let cats = {};
-  products.forEach(p => {
-    let c = p.category || 'Other';
-    let sc = p.subcategory || 'General';
-    if(!cats[c]) cats[c] = new Set();
-    cats[c].add(sc);
-  });
-
+function buildCategories() {
   let listEl = document.getElementById('drawerList');
   listEl.innerHTML = '';
 
-  let allRow = document.createElement('div');
-  allRow.className = 'cat-row';
-  allRow.innerHTML = `<button class="cat-btn active" onclick="filterByCategory('All', 'تمام (All)')">تمام (All)</button>`;
-  listEl.appendChild(allRow);
-
-  for(let c in cats) {
+  CATEGORIES.forEach(cat => {
     let row = document.createElement('div');
     row.className = 'cat-row';
-    row.innerHTML = `<button class="cat-btn" onclick="filterByCategory('${c}', '${c}')">${c}</button>`;
-    
-    let subArr = Array.from(cats[c]);
-    if(subArr.length > 0 && !(subArr.length === 1 && subArr[0] === 'General')) {
-      let toggleBtn = document.createElement('button');
-      toggleBtn.className = 'sub-toggle';
-      toggleBtn.innerHTML = '▼';
-      let subDiv = document.createElement('div');
-      subDiv.className = 'sub-list';
-      
-      toggleBtn.onclick = () => {
-        subDiv.classList.toggle('open');
-        toggleBtn.innerHTML = subDiv.classList.contains('open') ? '▲' : '▼';
-      };
-
-      subArr.forEach(sc => {
-        let subBtn = document.createElement('button');
-        subBtn.className = 'cat-btn';
-        subBtn.textContent = sc;
-        subBtn.onclick = () => filterByCategory(c, c + ' › ' + sc, sc);
-        subDiv.appendChild(subBtn);
-      });
-
-      row.appendChild(toggleBtn);
-      listEl.appendChild(row);
-      listEl.appendChild(subDiv);
-    } else {
-      listEl.appendChild(row);
-    }
-  }
+    let btn = document.createElement('button');
+    btn.className = 'cat-btn' + (cat.v === 'All' ? ' active' : '');
+    btn.textContent = cat.n;
+    btn.onclick = () => filterByCategory(cat.v, cat.n);
+    row.appendChild(btn);
+    listEl.appendChild(row);
+  });
 }
 
-window.filterByCategory = function(cat, titleText, subcat = null) {
+window.filterByCategory = function(cat, titleText) {
   currentCategory = cat;
   document.getElementById('catTitle').textContent = titleText;
   closeDrawer();
   
   let filtered = allProducts;
   if(cat !== 'All') {
-    filtered = allProducts.filter(p => {
-      if(subcat) return p.category === cat && p.subcategory === subcat;
-      return p.category === cat;
-    });
+    filtered = allProducts.filter(p => (p.category || '').toLowerCase() === cat.toLowerCase());
   }
   render(filtered);
 };
