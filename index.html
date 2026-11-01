@@ -56,24 +56,22 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 
 .products { max-width: 1100px; margin: 0 auto; padding: 12px 15px 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; flex: 1; align-content: start; }
 @media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } .banner-track { height: 220px; } .slide h3 { font-size: 30px; } }
-.card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #d0e1f9; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,86,179,0.2); border-color: #0056b3; }
-.product-img-container { width: 100%; height: 150px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 8px; }
+
+/* ===== Colors: Golden base, Blue border, Orange buttons ===== */
+.card { background: linear-gradient(165deg, #FFE066 0%, #FFC300 100%); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.10); border: 2px solid #0056b3; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,86,179,0.3); border-color: #003d82; }
+.product-img-container { width: 100%; height: 150px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 8px; border-bottom: 2px solid #0056b3; }
 .product-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s ease; }
 .card:hover .product-img-container img { transform: scale(1.05); }
-.card-body { padding: 10px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; border-top: 1px solid #f5f5f5; }
-.product-title { font-size: 13px; font-weight: 600; color: #222; margin: 0 0 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.brand-name { font-size: 11px; color: #0056b3; font-weight: 600; margin-bottom: 4px; display: block; }
-.price { color: #2e7d32; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+.card-body { padding: 10px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
+.product-title { font-size: 13px; font-weight: 700; color: #1a1a1a; margin: 0 0 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brand-name { font-size: 11px; color: #003d82; font-weight: 700; margin-bottom: 4px; display: block; }
+.price { color: #1a1a1a; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
 
-/* Buttons styling - strictly separate */
+/* Buttons: sab orange, har button ka naam alag */
 .btn-group { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
-.whatsapp-btn, .store-btn { width: 100%; border: none; padding: 8px; border-radius: 6px; font-weight: 600; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: background 0.2s ease; text-decoration: none; }
-.whatsapp-btn { background: #25D366; color: #fff; }
-.whatsapp-btn:hover { background: #1eb956; }
-.daraz-btn { background: #ff6600; color: #fff; }
-.amazon-btn { background: #FF9900; color: #111; }
-.alibaba-btn { background: #e65100; color: #fff; }
+.whatsapp-btn, .store-btn { width: 100%; border: none; padding: 9px 8px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: background 0.2s ease; text-decoration: none; background: #E8590C; color: #fff; font-family: inherit; }
+.whatsapp-btn:hover, .store-btn:hover { background: #C74A08; }
 
 .footer-bar { background: #111; color: #ddd; text-align: center; padding: 15px; margin-top: auto; font-size: 12px; border-top: 2px solid #0056b3; }
 
@@ -81,7 +79,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .detail-header { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #0056b3, #003d82); color: #fff; padding: 12px 18px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
 .back-btn { background: #fff; color: #0056b3; border: none; padding: 6px 14px; border-radius: 20px; font-weight: 700; cursor: pointer; font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 .detail-container { max-width: 600px; margin: 0 auto; padding: 15px; display: flex; flex-direction: column; gap: 15px; }
-.gallery-wrapper { background: #fff; border: 1px solid #d0e1f9; border-radius: 12px; padding: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+.gallery-wrapper { background: #fff; border: 2px solid #0056b3; border-radius: 12px; padding: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
 .gallery-main-container { position: relative; width: 100%; height: 320px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; }
 .gallery-main-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,86,179,0.8); color: #fff; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.2); z-index: 5; }
@@ -92,32 +90,28 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .thumbnails-bar::-webkit-scrollbar-thumb { background: #0056b3; border-radius: 10px; }
 .thumb-img { width: 60px; height: 60px; border-radius: 6px; border: 2px solid #eee; object-fit: cover; cursor: pointer; flex-shrink: 0; transition: all 0.2s ease; }
 .thumb-img.active, .thumb-img:hover { border-color: #0056b3; transform: scale(1.05); box-shadow: 0 2px 8px rgba(0,86,179,0.3); }
+.detail-info { background: linear-gradient(165deg, #FFE066 0%, #FFC300 100%); border: 2px solid #0056b3; padding: 15px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
 
 #chatbot-launcher { position: fixed; bottom: 25px; right: 25px; background: linear-gradient(135deg, #0056b3, #007bff); color: #fff; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,86,179,0.4); cursor: move; z-index: 3000; font-size: 24px; user-select: none; touch-action: none; }
-#chatbot-modal { display: none; position: fixed; bottom: 90px; right: 25px; width: 320px; height: 420px; background: #fff; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border: 2px solid #0056b3; z-index: 3001; flex-direction: column; overflow: hidden; }
+#chatbot-modal { display: none; position: fixed; bottom: 90px; right: 25px; width: 320px; height: 420px; max-width: calc(100vw - 20px); background: #fff; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border: 2px solid #0056b3; z-index: 3001; flex-direction: column; overflow: hidden; }
 .chat-header { background: linear-gradient(135deg, #0056b3, #003d82); color: #fff; padding: 12px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center; cursor: move; }
 .chat-body { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; background: #fafafa; }
-.chat-msg { max-width: 85%; padding: 8px 12px; border-radius: 12px; font-size: 12px; line-height: 1.4; }
+.chat-msg { max-width: 92%; padding: 8px 12px; border-radius: 12px; font-size: 12px; line-height: 1.4; }
 .chat-msg.bot { background: #e6f0fa; border: 1px solid #b6d4fe; color: #333; align-self: flex-start; }
 .chat-msg.user { background: #0056b3; color: #fff; align-self: flex-end; }
-.chat-msg .chat-link-btn { display: inline-block; margin-top: 8px; background: #FF9900; color: #111; padding: 8px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.15); text-align: center; }
-.chat-msg .chat-link-btn:hover { background: #e68a00; }
+.chat-prod { margin-top: 8px; padding: 8px; background: linear-gradient(165deg, #FFE066 0%, #FFC300 100%); border: 2px solid #0056b3; border-radius: 8px; }
+.chat-prod .cp-name { font-weight: 700; color: #1a1a1a; }
+.chat-prod .cp-price { font-size: 11px; color: #1a1a1a; margin-bottom: 4px; }
+.chat-msg .chat-link-btn { display: inline-block; margin: 4px 4px 0 0; background: #E8590C; color: #fff; padding: 7px 10px; border: none; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 11px; font-family: inherit; cursor: pointer; text-align: center; }
+.chat-msg .chat-link-btn:hover { background: #C74A08; }
+.chat-msg .chat-link-btn.light { background: #fff; color: #0056b3; border: 1px solid #0056b3; }
 .chat-footer { display: flex; align-items: center; padding: 8px; background: #fff; border-top: 1px solid #eee; gap: 4px; }
-.chat-footer input { flex: 1; border: 1px solid #0056b3; padding: 6px 10px; border-radius: 15px; outline: none; font-size: 12px; }
+.chat-footer input { flex: 1; min-width: 0; border: 1px solid #0056b3; padding: 6px 10px; border-radius: 15px; outline: none; font-size: 12px; }
 .mic-btn { background: #e6f0fa; border: 1px solid #0056b3; color: #0056b3; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
 .mic-btn.recording { background: #ff4d4d; color: #fff; border-color: #ff4d4d; animation: pulse 1s infinite; }
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 .chat-footer button.send-btn { background: #0056b3; color: #fff; border: none; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-weight: 600; font-size: 12px; }
 </style>
-
-<script type="importmap">
-{
-  "imports": {
-    "firebase/app": "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js",
-    "firebase/firestore": "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"
-  }
-}
-</script>
 </head>
 <body>
 
@@ -192,8 +186,10 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 </div>
 
 <script type="module">
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+// Firebase ab loadProducts() ke andar load hota hai (importmap hata diya gaya hai),
+// taake agar internet slow ho to baqi page (menu, chatbot, banner) phir bhi chalay.
+const FIREBASE_APP_URL = "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+const FIREBASE_FS_URL  = "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE",
@@ -205,9 +201,8 @@ const firebaseConfig = {
   measurementId: "G-HNCH9V8MFF"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
+let db = null;
+let fs = null;
 let allProducts = [];
 let currentCategory = 'All';
 
@@ -232,19 +227,60 @@ const CATEGORIES = [
   {n: '🌐 سروسز (Other)', v: 'Other'}
 ];
 
+function withTimeout(promise, ms, message) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error(message)), ms))
+  ]);
+}
+
+function showShopMessage(text, color, withRetry) {
+  const shop = document.getElementById('shopList');
+  shop.innerHTML = '';
+  const box = document.createElement('div');
+  box.style.cssText = 'text-align:center;padding:20px;background:#fff;border-radius:10px;grid-column:1 / -1;color:' + color + ';';
+  const msg = document.createElement('p');
+  msg.textContent = text;
+  box.appendChild(msg);
+  if (withRetry) {
+    const btn = document.createElement('button');
+    btn.textContent = '🔄 دوبارہ کوشش کریں';
+    btn.style.cssText = 'margin-top:12px;padding:9px 18px;border:none;border-radius:8px;background:#E8590C;color:#fff;font-weight:700;cursor:pointer;font-family:inherit;';
+    btn.onclick = () => loadProducts();
+    box.appendChild(btn);
+  }
+  shop.appendChild(box);
+}
+
 async function loadProducts(){
+  showShopMessage('لوڈ ہو رہا ہے...', '#666', false);
   try {
-    const snap = await getDocs(collection(db, "products"));
+    if (!db) {
+      const [appMod, fsMod] = await withTimeout(
+        Promise.all([import(FIREBASE_APP_URL), import(FIREBASE_FS_URL)]),
+        20000,
+        'Firebase ki files load nahi hui. Internet check karein.'
+      );
+      fs = fsMod;
+      const app = appMod.initializeApp(firebaseConfig);
+      // Long-polling auto detect: kuch mobile networks par normal connection atak jata hai
+      db = fsMod.initializeFirestore(app, { experimentalAutoDetectLongPolling: true });
+    }
+    const snap = await withTimeout(
+      fs.getDocs(fs.collection(db, "products")),
+      20000,
+      'Products nahi aa rahe: internet slow hai ya Firebase jawab nahi de raha.'
+    );
     allProducts = [];
-    snap.forEach(doc => { allProducts.push({id: doc.id, ...doc.data()}); });
+    snap.forEach(d => { allProducts.push({id: d.id, ...d.data()}); });
     window.allProductsData = allProducts;
     render(allProducts);
-    buildCategories();
   } catch (err) {
     console.error(err);
-    document.getElementById('shopList').innerHTML = `<p style="text-align:center;padding:20px;color:red;background:#fff;grid-column: 1 / -1;">ایرر تفصیل: ${err.message}</p>`;
+    showShopMessage('ایرر تفصیل: ' + (err && err.message ? err.message : err), 'red', true);
   }
 }
+window.loadProducts = loadProducts;
 
 function formatPriceText(p) {
   if (p.priceType === 'usd') {
@@ -259,6 +295,97 @@ function formatPriceText(p) {
   }
 }
 
+/* =====================================================
+   STORE LINKS: har product ke apne link se sahi store
+   ===================================================== */
+const STORES = {
+  daraz:   { label: '🛒 Buy on Daraz' },
+  amazon:  { label: '🛒 Buy on Amazon' },
+  alibaba: { label: '🛒 Buy on Alibaba' },
+  other:   { label: '🛒 Buy Now' }
+};
+const STORE_ORDER = ['daraz', 'amazon', 'alibaba', 'other'];
+
+function cleanLink(v) {
+  if (typeof v !== 'string') return '';
+  v = v.trim();
+  if (!v || v === 'undefined' || v === 'null') return '';
+  return v;
+}
+
+// Link ke domain se store pehchano
+function detectStoreFromUrl(url) {
+  const u = (url || '').toLowerCase();
+  if (/daraz|hasoffers|go2cloud/.test(u)) return 'daraz';
+  if (/amazon\.|amzn\.|\/\/a\.co\//.test(u)) return 'amazon';
+  if (/alibaba|aliexpress|alicdn/.test(u)) return 'alibaba';
+  return null;
+}
+
+// Product ke store/source field se (agar admin ne bhara ho)
+function detectStoreFromProduct(p) {
+  const s = String(p.store || p.source || p.platform || p.storeType || '').toLowerCase();
+  if (s.includes('daraz')) return 'daraz';
+  if (s.includes('amazon')) return 'amazon';
+  if (s.includes('alibaba') || s.includes('aliexpress')) return 'alibaba';
+  return null;
+}
+
+// Return: [{store:'daraz', url:'...'}, ...]  (har store ka sirf ek button)
+function getStoreLinks(p) {
+  const fields = [
+    ['darazLink', 'daraz'],
+    ['amazonLink', 'amazon'],
+    ['alibabaLink', 'alibaba'],
+    ['affiliateLink', null],
+    ['link', null],
+    ['productLink', null],
+    ['buyLink', null]
+  ];
+  const found = {};
+  fields.forEach(([field, hint]) => {
+    const url = cleanLink(p[field]);
+    if (!url) return;
+    const store = detectStoreFromUrl(url) || hint || detectStoreFromProduct(p) || 'other';
+    if (!found[store]) found[store] = url;
+  });
+  return STORE_ORDER.filter(s => found[s]).map(s => ({ store: s, url: found[s] }));
+}
+
+function openWhatsApp(p) {
+  let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - ${formatPriceText(p)}`;
+  window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
+}
+
+// Apna product (koi link nahi) => sirf WhatsApp
+// Link wala product => sirf usi store ka button
+function buildButtons(p, big) {
+  const group = document.createElement('div');
+  group.className = 'btn-group';
+  const links = getStoreLinks(p);
+
+  if (links.length === 0) {
+    const wa = document.createElement('button');
+    wa.className = 'whatsapp-btn';
+    wa.textContent = '💬 Order on WhatsApp';
+    wa.onclick = (e) => { e.stopPropagation(); openWhatsApp(p); };
+    group.appendChild(wa);
+  } else {
+    links.forEach(l => {
+      const b = document.createElement('button');
+      b.className = 'store-btn ' + l.store + '-btn';
+      b.textContent = STORES[l.store].label;
+      b.onclick = (e) => { e.stopPropagation(); window.open(l.url, '_blank', 'noopener'); };
+      group.appendChild(b);
+    });
+  }
+
+  if (big) {
+    group.querySelectorAll('button').forEach(b => { b.style.padding = '12px'; b.style.fontSize = '13px'; });
+  }
+  return group;
+}
+
 function render(list){
   let shop = document.getElementById('shopList');
   shop.innerHTML = '';
@@ -266,15 +393,15 @@ function render(list){
     shop.innerHTML = '<p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">اس کیٹیگری میں کوئی پروڈکٹ موجود نہیں ہے</p>';
     return;
   }
- 
+
   list.forEach(p => {
     const card = document.createElement('div');
     card.className = 'card';
     card.onclick = () => openDetailPage(p);
-    
+
     const imgContainer = document.createElement('div');
     imgContainer.className = 'product-img-container';
-    
+
     let imgSrc = 'logo.png';
     if (Array.isArray(p.images) && p.images.length > 0) imgSrc = p.images[0];
     else if (typeof p.images === 'string' && p.images.trim() !== '') imgSrc = p.images;
@@ -288,86 +415,25 @@ function render(list){
 
     const body = document.createElement('div');
     body.className = 'card-body';
-    
+
     const title = document.createElement('h3');
     title.className = 'product-title';
     title.textContent = p.name || '';
     body.appendChild(title);
-    
+
     if(p.brand){
       const brand = document.createElement('span');
       brand.className = 'brand-name';
       brand.textContent = 'برانڈ: ' + p.brand;
       body.appendChild(brand);
     }
-    
+
     const price = document.createElement('div');
     price.className = 'price';
     price.textContent = formatPriceText(p);
     body.appendChild(price);
 
-    const btnGroup = document.createElement('div');
-    btnGroup.className = 'btn-group';
-
-    // WhatsApp Button
-    const waBtn = document.createElement('button');
-    waBtn.className = 'whatsapp-btn';
-    waBtn.textContent = 'Order on WhatsApp';
-    waBtn.onclick = (e) => {
-      e.stopPropagation();
-      let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - ${formatPriceText(p)}`;
-      window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
-    };
-    btnGroup.appendChild(waBtn);
-
-    // Daraz Button (Strict check: sirf tab jab link mojood ho)
-    if(p.darazLink && typeof p.darazLink === 'string' && p.darazLink.trim() !== '' && p.darazLink !== 'undefined') {
-      const darazBtn = document.createElement('button');
-      darazBtn.className = 'store-btn daraz-btn';
-      darazBtn.textContent = '🛒 Buy on Daraz';
-      darazBtn.onclick = (e) => {
-        e.stopPropagation();
-        window.open(p.darazLink, '_blank');
-      };
-      btnGroup.appendChild(darazBtn);
-    }
-
-    // Amazon Button (Strict check)
-    if((p.amazonLink && p.amazonLink.trim() !== '') || (p.affiliateLink && p.affiliateLink.trim() !== '')) {
-      let amzUrl = p.amazonLink || p.affiliateLink;
-      const amzBtn = document.createElement('button');
-      amzBtn.className = 'store-btn amazon-btn';
-      amzBtn.textContent = '🛒 Buy on Amazon';
-      amzBtn.onclick = (e) => {
-        e.stopPropagation();
-        window.open(amzUrl, '_blank');
-      };
-      btnGroup.appendChild(amzBtn);
-    }
-
-    // Alibaba Button (Strict check)
-    if(p.alibabaLink && typeof p.alibabaLink === 'string' && p.alibabaLink.trim() !== '') {
-      const aliBtn = document.createElement('button');
-      aliBtn.className = 'store-btn alibaba-btn';
-      aliBtn.textContent = '🛒 Buy on Alibaba';
-      aliBtn.onclick = (e) => {
-        e.stopPropagation();
-        window.open(p.alibabaLink, '_blank');
-      };
-      btnGroup.appendChild(aliBtn);
-    }
-
-    body.appendChild(btnGroup);
-    card.appendChild(body);
-    shop.appendChild(card);
-  });
-}
-
-      };
-      btnGroup.appendChild(aliBtn);
-    }
-
-    body.appendChild(btnGroup);
+    body.appendChild(buildButtons(p, false));
     card.appendChild(body);
     shop.appendChild(card);
   });
@@ -377,7 +443,7 @@ window.openDetailPage = function(p) {
   let detailPage = document.getElementById('product-detail-page');
   let detailContent = document.getElementById('detailContent');
   detailContent.innerHTML = '';
-  
+
   let imgList = [];
   if (Array.isArray(p.images) && p.images.length > 0) imgList = p.images;
   else if (typeof p.images === 'string' && p.images.trim() !== '') imgList = [p.images];
@@ -450,62 +516,15 @@ window.openDetailPage = function(p) {
   detailContent.appendChild(galleryWrapper);
 
   let infoDiv = document.createElement('div');
-  infoDiv.style.background = '#fff';
-  infoDiv.style.padding = '15px';
-  infoDiv.style.borderRadius = '12px';
-  infoDiv.style.boxShadow = '0 4px 12px rgba(0,0,0,0.04)';
+  infoDiv.className = 'detail-info';
   infoDiv.innerHTML = `
-    <h2 style="font-size:18px;color:#222;margin-bottom:8px;">${p.name || ''}</h2>
-    ${p.brand ? `<p style="color:#0056b3;font-weight:600;font-size:13px;margin-bottom:8px;">برانڈ: ${p.brand}</p>` : ''}
-    <div style="font-size:18px;color:#2e7d32;font-weight:bold;margin-bottom:12px;">${formatPriceText(p)}</div>
-    <p style="font-size:13px;color:#555;line-height:1.5;margin-bottom:15px;">${p.description || 'Description not available.'}</p>
+    <h2 style="font-size:18px;color:#1a1a1a;margin-bottom:8px;">${p.name || ''}</h2>
+    ${p.brand ? `<p style="color:#003d82;font-weight:700;font-size:13px;margin-bottom:8px;">برانڈ: ${p.brand}</p>` : ''}
+    <div style="font-size:18px;color:#1a1a1a;font-weight:bold;margin-bottom:12px;">${formatPriceText(p)}</div>
+    <p style="font-size:13px;color:#2b2b2b;line-height:1.5;margin-bottom:15px;">${p.description || 'Description not available.'}</p>
   `;
 
-  let actionGroup = document.createElement('div');
-  actionGroup.className = 'btn-group';
-  
-  let waBtn = document.createElement('button');
-  waBtn.className = 'whatsapp-btn';
-  waBtn.style.padding = '12px';
-  waBtn.style.fontSize = '13px';
-  waBtn.textContent = 'Order on WhatsApp';
-  waBtn.onclick = () => {
-    let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - ${formatPriceText(p)}`;
-    window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
-  };
-  actionGroup.appendChild(waBtn);
-
-  if(p.darazLink && p.darazLink.trim() !== '') {
-    let darazBtn = document.createElement('button');
-    darazBtn.className = 'store-btn daraz-btn';
-    darazBtn.style.padding = '12px';
-    darazBtn.style.fontSize = '13px';
-    darazBtn.textContent = '🛒 Buy on Daraz';
-    darazBtn.onclick = () => { window.open(p.darazLink, '_blank'); };
-    actionGroup.appendChild(darazBtn);
-  }
-
-  if((p.amazonLink && p.amazonLink.trim() !== '') || (p.affiliateLink && p.affiliateLink.trim() !== '')) {
-    let amzBtn = document.createElement('button');
-    amzBtn.className = 'store-btn amazon-btn';
-    amzBtn.style.padding = '12px';
-    amzBtn.style.fontSize = '13px';
-    amzBtn.textContent = '🛒 Buy on Amazon';
-    amzBtn.onclick = () => { window.open(p.amazonLink || p.affiliateLink, '_blank'); };
-    actionGroup.appendChild(amzBtn);
-  }
-
-  if(p.alibabaLink && p.alibabaLink.trim() !== '') {
-    let aliBtn = document.createElement('button');
-    aliBtn.className = 'store-btn alibaba-btn';
-    aliBtn.style.padding = '12px';
-    aliBtn.style.fontSize = '13px';
-    aliBtn.textContent = '🛒 Buy on Alibaba';
-    aliBtn.onclick = () => { window.open(p.alibabaLink, '_blank'); };
-    actionGroup.appendChild(aliBtn);
-  }
-
-  infoDiv.appendChild(actionGroup);
+  infoDiv.appendChild(buildButtons(p, true));
   detailContent.appendChild(infoDiv);
 
   detailPage.style.display = 'block';
@@ -531,14 +550,31 @@ function buildCategories() {
   });
 }
 
+// Product ki category kisi bhi tarah likhi ho (English / Urdu / emoji ke sath) pehchano
+function matchesCategory(p, catValue) {
+  const c = String(p.category || '').toLowerCase();
+  if (!c) return false;
+  const v = catValue.toLowerCase();
+  if (c === v || c.includes(v)) return true;
+  const entry = CATEGORIES.find(x => x.v === catValue);
+  if (entry) {
+    const urdu = entry.n.split('(')[0].replace(/[^\u0600-\u06FF\s]/g, '').trim();
+    if (urdu && c.includes(urdu)) return true;
+  }
+  return false;
+}
+
 window.filterByCategory = function(cat, titleText) {
   currentCategory = cat;
   document.getElementById('catTitle').textContent = titleText;
+  document.querySelectorAll('.cat-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent === titleText);
+  });
   closeDrawer();
-  
+
   let filtered = allProducts;
   if(cat !== 'All') {
-    filtered = allProducts.filter(p => (p.category || '').toLowerCase() === cat.toLowerCase());
+    filtered = allProducts.filter(p => matchesCategory(p, cat));
   }
   render(filtered);
 };
@@ -600,59 +636,211 @@ document.getElementById('chatbot-launcher').onclick = function(e) {
   }
 };
 
+/* =====================================================
+   CHATBOT: category aur product ke apne link pehchanta hai
+   ===================================================== */
+const CHAT_CATS = [
+  {v: 'Watches',    kw: ['ghadi', 'ghari', 'gharri', 'watch', 'watches', 'wristwatch', 'گھڑی', 'گھڑیاں']},
+  {v: 'Shoes',      kw: ['joota', 'jootay', 'juta', 'jooti', 'shoe', 'shoes', 'sandal', 'chappal', 'boots', 'sneakers', 'جوتے', 'جوتا']},
+  {v: 'Clothes',    kw: ['kapra', 'kapre', 'kapray', 'shirt', 'suit', 'dress', 'jeans', 'clothes', 'cloth', 'کپڑے', 'کپڑا']},
+  {v: 'Cosmetics',  kw: ['cosmetic', 'cosmetics', 'makeup', 'lipstick', 'cream', 'perfume', 'کاسمیٹکس']},
+  {v: 'Mobiles',    kw: ['mobile', 'mobiles', 'phone', 'smartphone', 'charger', 'earbuds', 'موبائیل', 'موبائل']},
+  {v: 'Home',       kw: ['furniture', 'decor', 'ghar', 'ہوم']},
+  {v: 'Toys',       kw: ['toy', 'toys', 'khilona', 'khilone', 'کھلونے']},
+  {v: 'Bags',       kw: ['bag', 'bags', 'purse', 'backpack', 'بیگ', 'بیگز']},
+  {v: 'Jewellery',  kw: ['jewellery', 'jewelry', 'zewar', 'ring', 'necklace', 'جیولری']},
+  {v: 'Kitchen',    kw: ['kitchen', 'bartan', 'cooker', 'کچن']},
+  {v: 'Sports',     kw: ['sport', 'sports', 'cricket', 'football', 'gym', 'اسپورٹس']},
+  {v: 'Grocery',    kw: ['grocery', 'ration', 'گروکری']},
+  {v: 'Automotive', kw: ['car', 'bike', 'automotive', 'helmet', 'آٹوموٹو']},
+  {v: 'Books',      kw: ['book', 'books', 'kitab', 'بکس', 'کتاب']},
+  {v: 'Tools',      kw: ['tool', 'tools', 'drill', 'ٹولز']}
+];
+
+const CHAT_STOP = new Set([
+  'mujhe', 'mujhay', 'chahiye', 'chahye', 'chahiyen', 'ka', 'ki', 'ke', 'ko', 'se', 'par', 'pe', 'mein', 'me',
+  'dikhao', 'dikhayen', 'dikhaen', 'dikhana', 'bhejo', 'bhej', 'do', 'dein', 'de', 'dena', 'hai', 'hain', 'ho',
+  'koi', 'aur', 'wali', 'wala', 'wale', 'kya', 'kuch', 'ek', 'acha', 'achi', 'achhi', 'best', 'price', 'rate',
+  'link', 'order', 'buy', 'product', 'products', 'for', 'the', 'a', 'i', 'need', 'want', 'show', 'me', 'please',
+  'plz', 'pls', 'mangwana', 'mangwani', 'mangwate', 'lena', 'leni', 'khareedna', 'chahta', 'chahti', 'hun', 'hoon',
+  'amazon', 'daraz', 'alibaba', 'مجھے', 'چاہیے', 'سے', 'کا', 'کی', 'کے', 'دکھائیں', 'دکھاؤ'
+]);
+
+const CHAT_GREET = ['salam', 'salaam', 'assalam', 'assalamualaikum', 'aoa', 'hello', 'hi', 'hey', 'سلام', 'اسلام', 'علیکم'];
+
+function chatTokens(txt) {
+  return (String(txt).toLowerCase().match(/[\p{L}\p{N}]+/gu) || []);
+}
+
+function tokenIsKeyword(token, kw) {
+  return token === kw || (kw.length > 4 && token.length > kw.length && token.startsWith(kw));
+}
+
+function detectChatCategory(tokens) {
+  for (const cat of CHAT_CATS) {
+    if (tokens.some(t => cat.kw.some(k => tokenIsKeyword(t, k)))) return cat;
+  }
+  return null;
+}
+
+function productHaystack(p) {
+  return [p.name, p.brand, p.category, p.description].map(x => String(x || '').toLowerCase()).join(' ');
+}
+
+function chatPriceLine(p) {
+  try { return formatPriceText(p); } catch (e) { return ''; }
+}
+
+function makeChatLink(label, url) {
+  const a = document.createElement('a');
+  a.className = 'chat-link-btn';
+  a.href = url;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  a.textContent = label;
+  return a;
+}
+
+function makeChatButton(label, light, onClick) {
+  const b = document.createElement('button');
+  b.className = 'chat-link-btn' + (light ? ' light' : '');
+  b.textContent = label;
+  b.onclick = onClick;
+  return b;
+}
+
+function buildChatReply(txt, botDiv) {
+  const products = window.allProductsData || [];
+  const tokens = chatTokens(txt);
+  const storeWanted = ['amazon', 'daraz', 'alibaba'].find(s => tokens.includes(s)) || null;
+  const cat = detectChatCategory(tokens);
+
+  const terms = tokens.filter(t =>
+    t.length >= 2 &&
+    !CHAT_STOP.has(t) &&
+    !CHAT_GREET.includes(t) &&
+    !(cat && cat.kw.some(k => tokenIsKeyword(t, k)))
+  );
+
+  // Sirf salam / hello
+  if (!cat && terms.length === 0) {
+    botDiv.textContent = storeWanted
+      ? 'Aap kaun si cheez ' + storeWanted.charAt(0).toUpperCase() + storeWanted.slice(1) + ' se chahte hain? Jaise: "ghadi", "joote", "mobile".'
+      : 'Walaikum assalam! Aap kaun si cheez dhoondh rahe hain? Jaise: "ghadi", "joote", "mobile" ya product ka naam likhein.';
+    return;
+  }
+
+  // Products dhoondo
+  let results = [];
+  if (cat) {
+    results = products.filter(p =>
+      matchesCategory(p, cat.v) ||
+      cat.kw.some(k => k.length >= 4 && /^[a-z]+$/.test(k) && String(p.name || '').toLowerCase().includes(k))
+    );
+    if (terms.length) {
+      const narrowed = results.filter(p => terms.some(t => productHaystack(p).includes(t)));
+      if (narrowed.length) results = narrowed;
+    }
+  } else {
+    results = products.filter(p => terms.some(t => t.length >= 3 && productHaystack(p).includes(t)));
+  }
+
+  // Agar user ne store ka naam likha to sirf usi store ke products
+  if (storeWanted) {
+    results = results.filter(p => getStoreLinks(p).some(l => l.store === storeWanted));
+  }
+
+  if (results.length > 0) {
+    const intro = document.createElement('div');
+    const what = cat ? cat.v : terms.join(' ');
+    intro.textContent = (storeWanted ? storeWanted.toUpperCase() + ' par ' : '') + what + ' ke products mil gaye:';
+    botDiv.appendChild(intro);
+
+    results.slice(0, 4).forEach(p => {
+      const box = document.createElement('div');
+      box.className = 'chat-prod';
+
+      const nm = document.createElement('div');
+      nm.className = 'cp-name';
+      nm.textContent = p.name || '';
+      box.appendChild(nm);
+
+      const pr = document.createElement('div');
+      pr.className = 'cp-price';
+      pr.textContent = chatPriceLine(p);
+      box.appendChild(pr);
+
+      let links = getStoreLinks(p);
+      if (storeWanted) links = links.filter(l => l.store === storeWanted);
+
+      if (links.length === 0) {
+        box.appendChild(makeChatButton('💬 Order on WhatsApp', false, () => openWhatsApp(p)));
+      } else {
+        links.forEach(l => box.appendChild(makeChatLink(STORES[l.store].label, l.url)));
+      }
+      box.appendChild(makeChatButton('Tafseel', true, () => window.openDetailPage(p)));
+      botDiv.appendChild(box);
+    });
+
+    if (results.length > 4) {
+      const more = document.createElement('div');
+      more.style.marginTop = '6px';
+      more.textContent = 'Aur ' + (results.length - 4) + ' products bhi hain: menu mein Categories kholein.';
+      botDiv.appendChild(more);
+    }
+    return;
+  }
+
+  // Shop mein nahi mila
+  const q = terms.join(' ') || (cat ? cat.v : '');
+  const msg = document.createElement('div');
+  msg.textContent = storeWanted
+    ? '"' + q + '" hamari shop mein ' + storeWanted + ' ke product ke taur par nahi mila. Aap seedha ' + storeWanted + ' par search kar sakte hain:'
+    : '"' + q + '" abhi hamari shop mein nahi mila. Aap bahar in sites par search kar sakte hain, ya WhatsApp par humein batayen:';
+  botDiv.appendChild(msg);
+
+  const enc = encodeURIComponent(q);
+  const urls = {
+    daraz: 'https://www.daraz.pk/catalog/?q=' + enc,
+    amazon: 'https://www.amazon.com/s?k=' + enc,
+    alibaba: 'https://www.alibaba.com/trade/search?fsb=y&IndexArea=product_en&SearchText=' + enc
+  };
+  const names = { daraz: 'Daraz', amazon: 'Amazon', alibaba: 'Alibaba' };
+  (storeWanted ? [storeWanted] : ['daraz', 'amazon', 'alibaba']).forEach(s => {
+    botDiv.appendChild(makeChatLink('🔎 ' + names[s] + ' par search', urls[s]));
+  });
+  if (!storeWanted) {
+    botDiv.appendChild(makeChatButton('💬 WhatsApp par batayen', true, () => {
+      window.open('https://wa.me/923334664227?text=' + encodeURIComponent('اسلام علیکم مجھے یہ چاہیے: ' + q));
+    }));
+  }
+}
+
 window.sendChatMessage = function() {
   let input = document.getElementById('chatInput');
   let txt = input.value.trim();
   if(!txt) return;
-  
+
   let chatBody = document.getElementById('chatBody');
   let userDiv = document.createElement('div');
   userDiv.className = 'chat-msg user';
   userDiv.textContent = txt;
   chatBody.appendChild(userDiv);
   input.value = '';
-  
+  chatBody.scrollTop = chatBody.scrollHeight;
+
   setTimeout(function() {
     let botDiv = document.createElement('div');
     botDiv.className = 'chat-msg bot';
-    let lower = txt.toLowerCase();
-    let products = window.allProductsData || [];
-    
-    // Smart Product Matching (Jaise 'ghadi' / 'watch')
-    let matchedProduct = products.find(p => {
-      let pName = (p.name || '').toLowerCase();
-      let pCat = (p.category || '').toLowerCase();
-      let pBrand = (p.brand || '').toLowerCase();
-      
-      let isWatchQuery = lower.includes('ghadi') || lower.includes('watch');
-      let isProductWatch = pName.includes('watch') || pCat.includes('watches') || pName.includes('ghadi');
-      
-      if (isWatchQuery && isProductWatch) return true;
-      
-      let cleanQuery = lower.replace(/amazon|daraz|alibaba|se|chahiye|mujhe|ka|ki|gi/g, '').trim();
-      if(cleanQuery.length > 2 && (pName.includes(cleanQuery) || pCat.includes(cleanQuery) || pBrand.includes(cleanQuery))) {
-        return true;
-      }
-      return false;
-    });
-    
-    if(matchedProduct) {
-      let link = matchedProduct.darazLink || matchedProduct.amazonLink || matchedProduct.affiliateLink || matchedProduct.alibabaLink || '#';
-      botDiv.innerHTML = `Aapki pasand <b>${matchedProduct.name}</b> mil gayi!<br><a class="chat-link-btn" href="${link}" target="_blank">🛒 Direct Product Dekhein / Order Karein</a>`;
-    } else {
-      let darazUrl = `https://s.daraz.pk/s.Z7J7?search=` + encodeURIComponent(txt);
-      let amazonUrl = `https://www.amazon.com/s?k=` + encodeURIComponent(txt);
-      let alibabaUrl = `https://www.alibaba.com/trade/search?fsb=y&IndexArea=product_en&SearchText=` + encodeURIComponent(txt);
-      
-      botDiv.innerHTML = `Live list tayar hai <b>${txt}</b> ke liye:<br>` +
-                         `<a class="chat-link-btn" href="${darazUrl}" target="_blank">Daraz par check karein</a><br>` +
-                         `<a class="chat-link-btn" href="${amazonUrl}" target="_blank">Amazon par check karein</a><br>` +
-                         `<a class="chat-link-btn" href="${alibabaUrl}" target="_blank">Alibaba par check karein</a>`;
+    try {
+      buildChatReply(txt, botDiv);
+    } catch (e) {
+      console.error(e);
+      botDiv.textContent = 'Maaf kijiye, kuch masla aa gaya. Dobara likh kar try karein.';
     }
-    
     chatBody.appendChild(botDiv);
     chatBody.scrollTop = chatBody.scrollHeight;
-  }, 500);
+  }, 400);
 };
 
 let recognition = null;
@@ -668,7 +856,7 @@ window.toggleVoiceInput = function() {
     recognition.lang = 'ur-PK';
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
-    
+
     recognition.onstart = function() {
       isRecording = true;
       document.getElementById('micBtn').classList.add('recording');
@@ -721,10 +909,10 @@ function stopVoiceInput() {
       }
       let newLeft = initialLeft + dx;
       let newTop = initialTop + dy;
-      
+
       newLeft = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newLeft));
       newTop = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newTop));
-      
+
       element.style.left = newLeft + 'px';
       element.style.top = newTop + 'px';
       element.style.right = 'auto';
@@ -762,7 +950,7 @@ function stopVoiceInput() {
     }, {passive: false});
 
     handle.addEventListener('touchend', onEnd);
-    
+
     handle.addEventListener('click', function(e) {
       if (hasMoved) {
         e.preventDefault();
@@ -774,11 +962,12 @@ function stopVoiceInput() {
   let launcher = document.getElementById('chatbot-launcher');
   let modal = document.getElementById('chatbot-modal');
   let header = document.getElementById('chatHeader');
-  
+
   if (launcher) makeDraggable(launcher, launcher);
   if (modal && header) makeDraggable(modal, header);
 })();
 
+buildCategories();
 loadProducts();
 </script>
 
