@@ -13,18 +13,15 @@
 html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif; background: #f4f6f9; color: #333; }
 #main-shop-view { display: flex; flex-direction: column; min-height: 100vh; }
 
-/* Top bar (translate + owner) */
 .top-bar { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, #FF8C00 0%, #e07b00 100%); padding: 8px 15px; position: relative; z-index: 1000; }
 .top-bar #google_translate_element { background: #fff; padding: 4px 8px; border-radius: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: inline-block; overflow: hidden; }
 .owner-top img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
 
-/* Brand strip */
 .header { display: flex; align-items: center; gap: 12px; background: #fff; padding: 10px 15px; }
 .header img.logo { width: 52px; height: 52px; border-radius: 12px; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 3px 8px rgba(255,140,0,0.25); }
 .header h2 { color: #FF8C00; font-size: 16px; font-weight: 700; line-height: 1.2; }
 .header p { font-size: 11px; color: #666; font-weight: 500; }
 
-/* Sticky main bar: menu button + search */
 .main-bar { position: sticky; top: 0; z-index: 100; display: flex; gap: 10px; align-items: center; background: #fff; padding: 10px 15px; border-bottom: 3px solid #FF8C00; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
 .menu-btn { display: flex; align-items: center; gap: 6px; flex-shrink: 0; background: linear-gradient(135deg, #FF8C00, #ff9f24); color: #fff; border: none; padding: 10px 14px; border-radius: 10px; font-weight: 600; font-size: 13px; cursor: pointer; font-family: inherit; box-shadow: 0 3px 8px rgba(255,140,0,0.35); }
 .menu-btn span { font-size: 18px; line-height: 1; }
@@ -32,7 +29,6 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .search-box input { width: 100%; padding: 10px 16px; border: 2px solid #FF8C00; border-radius: 10px; font-size: 13px; outline: none; background: #fff; font-family: inherit; }
 .search-box input:focus { box-shadow: 0 0 8px rgba(255,140,0,0.4); }
 
-/* Banner slider */
 .banner { position: relative; max-width: 1100px; width: 100%; margin: 12px auto 0; padding: 0 15px; }
 .banner-track { position: relative; height: 150px; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
 .slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 22px; color: #fff; opacity: 0; transition: opacity 0.6s ease; background-size: cover; background-position: center; }
@@ -46,10 +42,8 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .dots i { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; }
 .dots i.on { background: #FF8C00; width: 20px; border-radius: 6px; }
 
-/* Section title */
 .sec-title { max-width: 1100px; width: 100%; margin: 12px auto 0; padding: 0 15px; font-size: 15px; font-weight: 700; color: #222; border-left: 4px solid #FF8C00; padding-left: 11px; }
 
-/* Category drawer */
 #drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1500; }
 #drawer { position: fixed; top: 0; left: 0; bottom: 0; width: 82%; max-width: 320px; background: #fff; z-index: 1600; transform: translateX(-105%); transition: transform 0.3s ease; display: flex; flex-direction: column; box-shadow: 4px 0 20px rgba(0,0,0,0.25); }
 #drawer.open { transform: translateX(0); }
@@ -65,7 +59,6 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .sub-list .cat-btn { padding-left: 38px; font-weight: 500; font-size: 13px; background: #fafafa; border-bottom: 1px solid #f1f1f1; display: block; width: 100%; }
 .sub-list .cat-btn.active, .sub-list .cat-btn:hover { background: #fff3e3; color: #d97700; }
 
-/* Products grid */
 .products { max-width: 1100px; margin: 0 auto; padding: 12px 15px 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; flex: 1; align-content: start; }
 @media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } .banner-track { height: 220px; } .slide h3 { font-size: 30px; } }
 .card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #f0e4d6; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
@@ -77,7 +70,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .product-title { font-size: 13px; font-weight: 600; color: #222; margin: 0 0 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .brand-name { font-size: 11px; color: #d97700; font-weight: 600; margin-bottom: 4px; display: block; }
 .price { color: #2e7d32; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
-.btn-group { display: flex; flex-direction: column; gap: 5px; }
+.btn-group { display: flex; flex-direction: column; gap: 6px; }
 .whatsapp-btn, .amazon-btn { width: 100%; border: none; padding: 8px; border-radius: 6px; font-weight: 600; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: background 0.2s ease; }
 .whatsapp-btn { background: #25D366; color: #fff; }
 .whatsapp-btn:hover { background: #1eb956; }
@@ -86,7 +79,6 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 
 .footer-bar { background: #111; color: #ddd; text-align: center; padding: 15px; margin-top: auto; font-size: 12px; border-top: 2px solid #FF8C00; }
 
-/* Product detail */
 #product-detail-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f4f6f9; z-index: 2000; overflow-y: auto; }
 .detail-header { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #FF8C00, #e07b00); color: #fff; padding: 12px 18px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
 .back-btn { background: #fff; color: #FF8C00; border: none; padding: 6px 14px; border-radius: 20px; font-weight: 700; cursor: pointer; font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
@@ -103,7 +95,6 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .thumb-img { width: 60px; height: 60px; border-radius: 6px; border: 2px solid #eee; object-fit: cover; cursor: pointer; flex-shrink: 0; transition: all 0.2s ease; }
 .thumb-img.active, .thumb-img:hover { border-color: #FF8C00; transform: scale(1.05); box-shadow: 0 2px 8px rgba(255,140,0,0.3); }
 
-/* Chatbot */
 #chatbot-launcher { position: fixed; bottom: 25px; right: 25px; background: linear-gradient(135deg, #FF8C00, #FFD700); color: #fff; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(255,140,0,0.4); cursor: move; z-index: 3000; font-size: 24px; user-select: none; touch-action: none; }
 #chatbot-modal { display: none; position: fixed; bottom: 90px; right: 25px; width: 320px; height: 420px; background: #fff; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border: 2px solid #FF8C00; z-index: 3001; flex-direction: column; overflow: hidden; }
 .chat-header { background: linear-gradient(135deg, #FF8C00, #e07b00); color: #fff; padding: 12px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center; cursor: move; }
@@ -153,12 +144,11 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
     </div>
   </div>
 
-  <!-- Banner slider -->
   <div class="banner">
     <div class="banner-track" id="bannerTrack">
       <div class="slide s1 show"><h3>R.A.W GROUP SHOP</h3><p>Premium Quality Collection</p></div>
       <div class="slide s2"><h3>Order on WhatsApp</h3><p>Seedha order, fast delivery</p></div>
-      <div class="slide s3"><h3>Amazon & Daraz Deals</h3><p>Best products, best prices</p></div>
+      <div class="slide s3"><h3>Amazon, Daraz & Alibaba Deals</h3><p>Best products, best prices</p></div>
     </div>
     <div class="dots" id="bannerDots"></div>
   </div>
@@ -172,14 +162,12 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
   <div class="footer-bar">© 2026 R.A.W GROUP - CHUKERA 79 | All Rights Reserved</div>
 </div>
 
-<!-- Category Drawer -->
 <div id="drawer-overlay" onclick="closeDrawer()"></div>
 <div id="drawer">
   <div class="drawer-head"><span>☰ Categories</span><span class="x" onclick="closeDrawer()">✕</span></div>
   <div class="drawer-list" id="drawerList"></div>
 </div>
 
-<!-- Product Detail View -->
 <div id="product-detail-page">
   <div class="detail-header">
     <button class="back-btn" onclick="closeDetailPage()">← Wapas</button>
@@ -189,7 +177,6 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
   <div class="detail-container" id="detailContent"></div>
 </div>
 
-<!-- Floating & Draggable AI Chatbot -->
 <div id="chatbot-launcher">💬</div>
 <div id="chatbot-modal">
   <div class="chat-header" id="chatHeader">
@@ -313,15 +300,41 @@ function render(list){
     };
     btnGroup.appendChild(waBtn);
 
-    if(p.amazonLink || p.affiliateLink || p.darazLink) {
+    if(p.darazLink) {
+      const darazBtn = document.createElement('button');
+      darazBtn.className = 'amazon-btn';
+      darazBtn.style.background = '#ff6600';
+      darazBtn.style.color = '#fff';
+      darazBtn.textContent = '🛒 Buy on Daraz';
+      darazBtn.onclick = (e) => {
+        e.stopPropagation();
+        window.open(p.darazLink, '_blank');
+      };
+      btnGroup.appendChild(darazBtn);
+    }
+
+    if(p.amazonLink || p.affiliateLink) {
       const amzBtn = document.createElement('button');
       amzBtn.className = 'amazon-btn';
-      amzBtn.textContent = '🛒 Buy Online';
+      amzBtn.textContent = '🛒 Buy on Amazon';
       amzBtn.onclick = (e) => {
         e.stopPropagation();
-        window.open(p.amazonLink || p.affiliateLink || p.darazLink, '_blank');
+        window.open(p.amazonLink || p.affiliateLink, '_blank');
       };
       btnGroup.appendChild(amzBtn);
+    }
+
+    if(p.alibabaLink) {
+      const aliBtn = document.createElement('button');
+      aliBtn.className = 'amazon-btn';
+      aliBtn.style.background = '#e65100';
+      aliBtn.style.color = '#fff';
+      aliBtn.textContent = '🛒 Buy on Alibaba';
+      aliBtn.onclick = (e) => {
+        e.stopPropagation();
+        window.open(p.alibabaLink, '_blank');
+      };
+      btnGroup.appendChild(aliBtn);
     }
 
     body.appendChild(btnGroup);
@@ -432,16 +445,38 @@ window.openDetailPage = function(p) {
   };
   actionGroup.appendChild(waBtn);
 
-  if(p.amazonLink || p.affiliateLink || p.darazLink) {
+  if(p.darazLink) {
+    let darazBtn = document.createElement('button');
+    darazBtn.className = 'amazon-btn';
+    darazBtn.style.background = '#ff6600';
+    darazBtn.style.color = '#fff';
+    darazBtn.style.padding = '12px';
+    darazBtn.style.fontSize = '13px';
+    darazBtn.textContent = '🛒 Buy on Daraz';
+    darazBtn.onclick = () => { window.open(p.darazLink, '_blank'); };
+    actionGroup.appendChild(darazBtn);
+  }
+
+  if(p.amazonLink || p.affiliateLink) {
     let amzBtn = document.createElement('button');
     amzBtn.className = 'amazon-btn';
     amzBtn.style.padding = '12px';
     amzBtn.style.fontSize = '13px';
-    amzBtn.textContent = '🛒 Buy on Amazon / Daraz';
-    amzBtn.onclick = () => {
-      window.open(p.amazonLink || p.affiliateLink || p.darazLink, '_blank');
-    };
+    amzBtn.textContent = '🛒 Buy on Amazon';
+    amzBtn.onclick = () => { window.open(p.amazonLink || p.affiliateLink, '_blank'); };
     actionGroup.appendChild(amzBtn);
+  }
+
+  if(p.alibabaLink) {
+    let aliBtn = document.createElement('button');
+    aliBtn.className = 'amazon-btn';
+    aliBtn.style.background = '#e65100';
+    aliBtn.style.color = '#fff';
+    aliBtn.style.padding = '12px';
+    aliBtn.style.fontSize = '13px';
+    aliBtn.textContent = '🛒 Buy on Alibaba';
+    aliBtn.onclick = () => { window.open(p.alibabaLink, '_blank'); };
+    actionGroup.appendChild(aliBtn);
   }
 
   infoDiv.appendChild(actionGroup);
@@ -542,7 +577,6 @@ window.closeDrawer = function() {
   document.getElementById('drawer').classList.remove('open');
 };
 
-// Banner Slider Timer
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
 const dotsContainer = document.getElementById('bannerDots');
@@ -567,7 +601,6 @@ setInterval(() => {
   setSlide(next);
 }, 4000);
 
-// Chatbot UI Toggle & Messaging with Amazon & Daraz Support
 window.toggleChatbot = function() {
   let modal = document.getElementById('chatbot-modal');
   modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
@@ -598,21 +631,23 @@ window.sendChatMessage = function() {
     let lower = txt.toLowerCase();
     let products = window.allProductsData || [];
     
-    let searchKeyword = lower.replace(/amazon|daraz|se|chahiye|mujhe|ka|ki|gi/g, '').trim();
+    let searchKeyword = lower.replace(/amazon|daraz|alibaba|se|chahiye|mujhe|ka|ki|gi/g, '').trim();
     if(!searchKeyword) searchKeyword = 'best deals';
     
     let matchedProduct = products.find(p => (p.name || '').toLowerCase().includes(searchKeyword));
     
     if(matchedProduct) {
-      let link = matchedProduct.amazonLink || matchedProduct.affiliateLink || matchedProduct.darazLink || '#';
+      let link = matchedProduct.amazonLink || matchedProduct.affiliateLink || matchedProduct.darazLink || matchedProduct.alibabaLink || '#';
       botDiv.innerHTML = `Aapki pasand <b>${matchedProduct.name}</b> mil gayi!<br><a class="chat-link-btn" href="${link}" target="_blank">Order Karein / Dekhein</a>`;
     } else {
       let darazUrl = `https://s.daraz.pk/s.Z7J7?search=` + encodeURIComponent(searchKeyword);
       let amazonUrl = `https://www.amazon.com/s?k=` + encodeURIComponent(searchKeyword);
+      let alibabaUrl = `https://www.alibaba.com/trade/search?fsb=y&IndexArea=product_en&SearchText=` + encodeURIComponent(searchKeyword);
       
       botDiv.innerHTML = `Live list tayar hai <b>${txt}</b> ke liye:<br>` +
                          `<a class="chat-link-btn" href="${darazUrl}" target="_blank">Daraz par check karein</a><br>` +
-                         `<a class="chat-link-btn" href="${amazonUrl}" target="_blank">Amazon par check karein</a>`;
+                         `<a class="chat-link-btn" href="${amazonUrl}" target="_blank">Amazon par check karein</a><br>` +
+                         `<a class="chat-link-btn" href="${alibabaUrl}" target="_blank">Alibaba par check karein</a>`;
     }
     
     chatBody.appendChild(botDiv);
@@ -620,7 +655,6 @@ window.sendChatMessage = function() {
   }, 500);
 };
 
-// Voice Input Support
 let recognition = null;
 let isRecording = false;
 window.toggleVoiceInput = function() {
@@ -661,7 +695,6 @@ function stopVoiceInput() {
   if(micBtn) micBtn.classList.remove('recording');
 }
 
-/* Safe Draggable Version for Chatbot */
 (function() {
   function makeDraggable(element, handle) {
     if (!element || !handle) return;
@@ -749,7 +782,6 @@ function stopVoiceInput() {
 loadProducts();
 </script>
 
-<!-- Google Translate Universal Script (Urdu + All Languages Enabled) -->
 <script type="text/javascript">
   function googleTranslateElementInit() {
     new google.translate.TranslateElement({
