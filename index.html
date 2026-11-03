@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name='impact-site-verification' value='303ebe8c-12a9-4e20-9bdd-2a23efb92f39'>
 <title>R.A.W GROUP SHOP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,24 +10,25 @@
 
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif; background: #f4f6f9; color: #333; }
+html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif; background: #f5f5f5; color: #212121; }
 #main-shop-view { display: flex; flex-direction: column; min-height: 100vh; }
 
-.top-bar { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, #0056b3 0%, #003d82 100%); padding: 8px 15px; position: relative; z-index: 1000; }
+/* Daraz Orange & White Theme Colors */
+.top-bar { display: flex; justify-content: space-between; align-items: center; background: #f57224; padding: 8px 15px; position: relative; z-index: 1000; }
 .top-bar #google_translate_element { background: #fff; padding: 4px 8px; border-radius: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: inline-block; overflow: hidden; }
 .owner-top img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
 
 .header { display: flex; align-items: center; gap: 12px; background: #fff; padding: 10px 15px; }
-.header img.logo { width: 52px; height: 52px; border-radius: 12px; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 3px 8px rgba(255,140,0,0.25); }
-.header h2 { color: #0056b3; font-size: 16px; font-weight: 700; line-height: 1.2; }
+.header img.logo { width: 52px; height: 52px; border-radius: 12px; border: 2px solid #f57224; object-fit: cover; box-shadow: 0 3px 8px rgba(245,114,36,0.25); }
+.header h2 { color: #f57224; font-size: 16px; font-weight: 700; line-height: 1.2; }
 .header p { font-size: 11px; color: #666; font-weight: 500; }
 
-.main-bar { position: sticky; top: 0; z-index: 100; display: flex; gap: 10px; align-items: center; background: #fff; padding: 10px 15px; border-bottom: 3px solid #0056b3; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
-.menu-btn { display: flex; align-items: center; gap: 6px; flex-shrink: 0; background: linear-gradient(135deg, #0056b3, #007bff); color: #fff; border: none; padding: 10px 14px; border-radius: 10px; font-weight: 600; font-size: 13px; cursor: pointer; font-family: inherit; box-shadow: 0 3px 8px rgba(0,86,179,0.35); }
+.main-bar { position: sticky; top: 0; z-index: 100; display: flex; gap: 10px; align-items: center; background: #fff; padding: 10px 15px; border-bottom: 3px solid #f57224; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
+.menu-btn { display: flex; align-items: center; gap: 6px; flex-shrink: 0; background: #f57224; color: #fff; border: none; padding: 10px 14px; border-radius: 10px; font-weight: 600; font-size: 13px; cursor: pointer; font-family: inherit; box-shadow: 0 3px 8px rgba(245,114,36,0.35); }
 .menu-btn span { font-size: 18px; line-height: 1; }
 .search-box { flex: 1; min-width: 0; }
-.search-box input { width: 100%; padding: 10px 16px; border: 2px solid #0056b3; border-radius: 10px; font-size: 13px; outline: none; background: #fff; font-family: inherit; }
-.search-box input:focus { box-shadow: 0 0 8px rgba(0,86,179,0.4); }
+.search-box input { width: 100%; padding: 10px 16px; border: 2px solid #f57224; border-radius: 10px; font-size: 13px; outline: none; background: #fff; font-family: inherit; }
+.search-box input:focus { box-shadow: 0 0 8px rgba(245,114,36,0.4); }
 
 .banner { position: relative; max-width: 1100px; width: 100%; margin: 12px auto 0; padding: 0 15px; }
 .banner-track { position: relative; height: 150px; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
@@ -36,82 +36,92 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .slide.show { opacity: 1; }
 .slide h3 { font-size: 22px; font-weight: 700; text-shadow: 0 2px 6px rgba(0,0,0,0.3); }
 .slide p { font-size: 13px; margin-top: 4px; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
-.s1 { background-image: linear-gradient(135deg, #0056b3, #007bff); }
+.s1 { background-image: linear-gradient(135deg, #f57224, #d05b18); }
 .s2 { background-image: linear-gradient(135deg, #128C7E, #25D366); }
-.s3 { background-image: linear-gradient(135deg, #111, #FF9900); }
+.s3 { background-image: linear-gradient(135deg, #111, #f57224); }
 .dots { display: flex; justify-content: center; gap: 6px; margin-top: 8px; }
 .dots i { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; }
-.dots i.on { background: #0056b3; width: 20px; border-radius: 6px; }
+.dots i.on { background: #f57224; width: 20px; border-radius: 6px; }
 
-.sec-title { max-width: 1100px; width: 100%; margin: 12px auto 0; padding: 0 15px; font-size: 15px; font-weight: 700; color: #222; border-left: 4px solid #0056b3; padding-left: 11px; }
+.sec-title { max-width: 1100px; width: 100%; margin: 12px auto 0; padding: 0 15px; font-size: 15px; font-weight: 700; color: #222; border-left: 4px solid #f57224; padding-left: 11px; }
 
 #drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1500; }
 #drawer { position: fixed; top: 0; left: 0; bottom: 0; width: 82%; max-width: 320px; background: #fff; z-index: 1600; transform: translateX(-105%); transition: transform 0.3s ease; display: flex; flex-direction: column; box-shadow: 4px 0 20px rgba(0,0,0,0.25); }
 #drawer.open { transform: translateX(0); }
-.drawer-head { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, #0056b3, #003d82); color: #fff; padding: 14px 16px; font-weight: 700; font-size: 15px; }
+.drawer-head { display: flex; justify-content: space-between; align-items: center; background: #f57224; color: #fff; padding: 14px 16px; font-weight: 700; font-size: 15px; }
 .drawer-head span.x { cursor: pointer; font-size: 20px; }
 .drawer-list { flex: 1; overflow-y: auto; }
 .cat-row { display: flex; align-items: center; border-bottom: 1px solid #f1f1f1; }
 .cat-btn { flex: 1; text-align: left; background: #fff; border: none; color: #333; padding: 13px 16px; font-weight: 600; font-size: 14px; cursor: pointer; font-family: inherit; }
-.cat-btn.active, .cat-btn:hover { background: #e6f0fa; color: #0056b3; }
+.cat-btn.active, .cat-btn:hover { background: #fff3ec; color: #f57224; }
 
 .products { max-width: 1100px; margin: 0 auto; padding: 12px 15px 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; flex: 1; align-content: start; }
 @media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } .banner-track { height: 220px; } .slide h3 { font-size: 30px; } }
 
-/* ===== Colors: Golden base, Blue border, Orange buttons ===== */
-.card { background: linear-gradient(165deg, #FFE066 0%, #FFC300 100%); border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.10); border: 2px solid #0056b3; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,86,179,0.3); border-color: #003d82; }
-.product-img-container { width: 100%; height: 150px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 8px; border-bottom: 2px solid #0056b3; }
+/* Daraz Style Product Card */
+.card { background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.06); border: 1px solid #e5e5e5; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(245,114,36,0.15); border-color: #f57224; }
+.product-img-container { width: 100%; height: 150px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 8px; border-bottom: 1px solid #f1f1f1; }
 .product-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s ease; }
 .card:hover .product-img-container img { transform: scale(1.05); }
 .card-body { padding: 10px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
-.product-title { font-size: 13px; font-weight: 700; color: #1a1a1a; margin: 0 0 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.brand-name { font-size: 11px; color: #003d82; font-weight: 700; margin-bottom: 4px; display: block; }
-.price { color: #1a1a1a; font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+.product-title { font-size: 13px; font-weight: 600; color: #212121; margin: 0 0 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.brand-name { font-size: 11px; color: #757575; font-weight: 500; margin-bottom: 4px; display: block; }
+.price { color: #f57224; font-weight: 700; font-size: 15px; margin-bottom: 6px; }
 
-/* Buttons: sab orange, har button ka naam alag */
-.btn-group { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
-.whatsapp-btn, .store-btn { width: 100%; border: none; padding: 9px 8px; border-radius: 6px; font-weight: 700; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: background 0.2s ease; text-decoration: none; background: #E8590C; color: #fff; font-family: inherit; }
-.whatsapp-btn:hover, .store-btn:hover { background: #C74A08; }
+/* Rating Display in Card */
+.product-rating-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; font-size: 11px; color: #757575; }
+.stars-display { color: #ffb400; font-weight: 600; }
+.rating-count { color: #888; margin-left: 3px; }
 
-.footer-bar { background: #111; color: #ddd; text-align: center; padding: 15px; margin-top: auto; font-size: 12px; border-top: 2px solid #0056b3; }
+/* Buttons */
+.btn-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+.whatsapp-btn, .store-btn { width: 100%; border: none; padding: 9px 8px; border-radius: 4px; font-weight: 700; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: background 0.2s ease; text-decoration: none; background: #f57224; color: #fff; font-family: inherit; }
+.whatsapp-btn:hover, .store-btn:hover { background: #d05b18; }
 
-#product-detail-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f4f6f9; z-index: 2000; overflow-y: auto; }
-.detail-header { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #0056b3, #003d82); color: #fff; padding: 12px 18px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-.back-btn { background: #fff; color: #0056b3; border: none; padding: 6px 14px; border-radius: 20px; font-weight: 700; cursor: pointer; font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.footer-bar { background: #212121; color: #ddd; text-align: center; padding: 15px; margin-top: auto; font-size: 12px; border-top: 2px solid #f57224; }
+
+#product-detail-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f5f5f5; z-index: 2000; overflow-y: auto; }
+.detail-header { display: flex; align-items: center; justify-content: space-between; background: #f57224; color: #fff; padding: 12px 18px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+.back-btn { background: #fff; color: #f57224; border: none; padding: 6px 14px; border-radius: 20px; font-weight: 700; cursor: pointer; font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 .detail-container { max-width: 600px; margin: 0 auto; padding: 15px; display: flex; flex-direction: column; gap: 15px; }
-.gallery-wrapper { background: #fff; border: 2px solid #0056b3; border-radius: 12px; padding: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+.gallery-wrapper { background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; padding: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
 .gallery-main-container { position: relative; width: 100%; height: 320px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; }
 .gallery-main-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
-.nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,86,179,0.8); color: #fff; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.2); z-index: 5; }
+.nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(245,114,36,0.9); color: #fff; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.2); z-index: 5; }
 .nav-arrow.left { left: 8px; }
 .nav-arrow.right { right: 8px; }
 .thumbnails-bar { display: flex; gap: 10px; margin-top: 10px; overflow-x: auto; padding-bottom: 5px; }
 .thumbnails-bar::-webkit-scrollbar { height: 4px; }
-.thumbnails-bar::-webkit-scrollbar-thumb { background: #0056b3; border-radius: 10px; }
+.thumbnails-bar::-webkit-scrollbar-thumb { background: #f57224; border-radius: 10px; }
 .thumb-img { width: 60px; height: 60px; border-radius: 6px; border: 2px solid #eee; object-fit: cover; cursor: pointer; flex-shrink: 0; transition: all 0.2s ease; }
-.thumb-img.active, .thumb-img:hover { border-color: #0056b3; transform: scale(1.05); box-shadow: 0 2px 8px rgba(0,86,179,0.3); }
-.detail-info { background: linear-gradient(165deg, #FFE066 0%, #FFC300 100%); border: 2px solid #0056b3; padding: 15px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.thumb-img.active, .thumb-img:hover { border-color: #f57224; transform: scale(1.05); box-shadow: 0 2px 8px rgba(245,114,36,0.3); }
+.detail-info { background: #ffffff; border: 1px solid #e5e5e5; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
 
-#chatbot-launcher { position: fixed; bottom: 25px; right: 25px; background: linear-gradient(135deg, #0056b3, #007bff); color: #fff; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,86,179,0.4); cursor: move; z-index: 3000; font-size: 24px; user-select: none; touch-action: none; }
-#chatbot-modal { display: none; position: fixed; bottom: 90px; right: 25px; width: 320px; height: 420px; max-width: calc(100vw - 20px); background: #fff; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border: 2px solid #0056b3; z-index: 3001; flex-direction: column; overflow: hidden; }
-.chat-header { background: linear-gradient(135deg, #0056b3, #003d82); color: #fff; padding: 12px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center; cursor: move; }
+/* Rating Modal / Box Styles */
+.rate-action-row { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; }
+.rate-now-btn { background: #fff3ec; border: 1px solid #f57224; color: #f57224; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; cursor: pointer; }
+.rate-now-btn:hover { background: #f57224; color: #fff; }
+
+#chatbot-launcher { position: fixed; bottom: 25px; right: 25px; background: #f57224; color: #fff; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(245,114,36,0.4); cursor: move; z-index: 3000; font-size: 24px; user-select: none; touch-action: none; }
+#chatbot-modal { display: none; position: fixed; bottom: 90px; right: 25px; width: 320px; height: 420px; max-width: calc(100vw - 20px); background: #fff; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 3001; flex-direction: column; overflow: hidden; }
+.chat-header { background: #f57224; color: #fff; padding: 12px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center; cursor: move; }
 .chat-body { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; background: #fafafa; }
 .chat-msg { max-width: 92%; padding: 8px 12px; border-radius: 12px; font-size: 12px; line-height: 1.4; }
-.chat-msg.bot { background: #e6f0fa; border: 1px solid #b6d4fe; color: #333; align-self: flex-start; }
-.chat-msg.user { background: #0056b3; color: #fff; align-self: flex-end; }
-.chat-prod { margin-top: 8px; padding: 8px; background: linear-gradient(165deg, #FFE066 0%, #FFC300 100%); border: 2px solid #0056b3; border-radius: 8px; }
-.chat-prod .cp-name { font-weight: 700; color: #1a1a1a; }
-.chat-prod .cp-price { font-size: 11px; color: #1a1a1a; margin-bottom: 4px; }
-.chat-msg .chat-link-btn { display: inline-block; margin: 4px 4px 0 0; background: #E8590C; color: #fff; padding: 7px 10px; border: none; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 11px; font-family: inherit; cursor: pointer; text-align: center; }
-.chat-msg .chat-link-btn:hover { background: #C74A08; }
-.chat-msg .chat-link-btn.light { background: #fff; color: #0056b3; border: 1px solid #0056b3; }
+.chat-msg.bot { background: #fff3ec; border: 1px solid #ffd8cc; color: #333; align-self: flex-start; }
+.chat-msg.user { background: #f57224; color: #fff; align-self: flex-end; }
+.chat-prod { margin-top: 8px; padding: 8px; background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; }
+.chat-prod .cp-name { font-weight: 600; color: #212121; }
+.chat-prod .cp-price { font-size: 11px; color: #f57224; margin-bottom: 4px; font-weight: bold; }
+.chat-msg .chat-link-btn { display: inline-block; margin: 4px 4px 0 0; background: #f57224; color: #fff; padding: 7px 10px; border: none; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 11px; font-family: inherit; cursor: pointer; text-align: center; }
+.chat-msg .chat-link-btn:hover { background: #d05b18; }
+.chat-msg .chat-link-btn.light { background: #fff; color: #f57224; border: 1px solid #f57224; }
 .chat-footer { display: flex; align-items: center; padding: 8px; background: #fff; border-top: 1px solid #eee; gap: 4px; }
-.chat-footer input { flex: 1; min-width: 0; border: 1px solid #0056b3; padding: 6px 10px; border-radius: 15px; outline: none; font-size: 12px; }
-.mic-btn { background: #e6f0fa; border: 1px solid #0056b3; color: #0056b3; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+.chat-footer input { flex: 1; min-width: 0; border: 1px solid #f57224; padding: 6px 10px; border-radius: 15px; outline: none; font-size: 12px; }
+.mic-btn { background: #fff3ec; border: 1px solid #f57224; color: #f57224; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
 .mic-btn.recording { background: #ff4d4d; color: #fff; border-color: #ff4d4d; animation: pulse 1s infinite; }
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-.chat-footer button.send-btn { background: #0056b3; color: #fff; border: none; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-weight: 600; font-size: 12px; }
+.chat-footer button.send-btn { background: #f57224; color: #fff; border: none; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-weight: 600; font-size: 12px; }
 </style>
 </head>
 <body>
@@ -187,8 +197,6 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 </div>
 
 <script type="module">
-// Firebase ab loadProducts() ke andar load hota hai (importmap hata diya gaya hai),
-// taake agar internet slow ho to baqi page (menu, chatbot, banner) phir bhi chalay.
 const FIREBASE_APP_URL = "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 const FIREBASE_FS_URL  = "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
@@ -207,7 +215,6 @@ let fs = null;
 let allProducts = [];
 let currentCategory = 'All';
 
-// Admin panel wali exact categories list
 const CATEGORIES = [
   {n: '📦 تمام (All)', v: 'All'},
   {n: '👞 جوتے (Shoes)', v: 'Shoes'},
@@ -246,7 +253,7 @@ function showShopMessage(text, color, withRetry) {
   if (withRetry) {
     const btn = document.createElement('button');
     btn.textContent = '🔄 دوبارہ کوشش کریں';
-    btn.style.cssText = 'margin-top:12px;padding:9px 18px;border:none;border-radius:8px;background:#E8590C;color:#fff;font-weight:700;cursor:pointer;font-family:inherit;';
+    btn.style.cssText = 'margin-top:12px;padding:9px 18px;border:none;border-radius:8px;background:#f57224;color:#fff;font-weight:700;cursor:pointer;font-family:inherit;';
     btn.onclick = () => loadProducts();
     box.appendChild(btn);
   }
@@ -264,7 +271,6 @@ async function loadProducts(){
       );
       fs = fsMod;
       const app = appMod.initializeApp(firebaseConfig);
-      // Long-polling auto detect: kuch mobile networks par normal connection atak jata hai
       db = fsMod.initializeFirestore(app, { experimentalAutoDetectLongPolling: true });
     }
     const snap = await withTimeout(
@@ -296,9 +302,6 @@ function formatPriceText(p) {
   }
 }
 
-/* =====================================================
-   STORE LINKS: har product ke apne link se sahi store
-   ===================================================== */
 const STORES = {
   daraz:   { label: '🛒 Buy on Daraz' },
   amazon:  { label: '🛒 Buy on Amazon' },
@@ -314,7 +317,6 @@ function cleanLink(v) {
   return v;
 }
 
-// Link ke domain se store pehchano
 function detectStoreFromUrl(url) {
   const u = (url || '').toLowerCase();
   if (/daraz|hasoffers|go2cloud/.test(u)) return 'daraz';
@@ -323,7 +325,6 @@ function detectStoreFromUrl(url) {
   return null;
 }
 
-// Product ke store/source field se (agar admin ne bhara ho)
 function detectStoreFromProduct(p) {
   const s = String(p.store || p.source || p.platform || p.storeType || '').toLowerCase();
   if (s.includes('daraz')) return 'daraz';
@@ -332,7 +333,6 @@ function detectStoreFromProduct(p) {
   return null;
 }
 
-// Return: [{store:'daraz', url:'...'}, ...]  (har store ka sirf ek button)
 function getStoreLinks(p) {
   const fields = [
     ['darazLink', 'daraz'],
@@ -358,8 +358,6 @@ function openWhatsApp(p) {
   window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
 }
 
-// Apna product (koi link nahi) => sirf WhatsApp
-// Link wala product => sirf usi store ka button
 function buildButtons(p, big) {
   const group = document.createElement('div');
   group.className = 'btn-group';
@@ -386,6 +384,44 @@ function buildButtons(p, big) {
   }
   return group;
 }
+
+// Firebase Rating Submit Function
+async function submitRating(productId, starsCount) {
+  if (!db || !fs) {
+    alert('رابطہ قائم نہیں ہو سکا، براہ کرم انٹرنیٹ چیک کریں');
+    return;
+  }
+  try {
+    const productRef = fs.doc(db, "products", productId);
+    const docSnap = await fs.getDoc(productRef);
+    
+    let currentCount = 0;
+    let currentStars = 0;
+    
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      currentCount = data.ratingCount || 0;
+      currentStars = data.totalStars || 0;
+    }
+    
+    const newCount = currentCount + 1;
+    const newStars = currentStars + starsCount;
+    const avgRating = (newStars / newCount).toFixed(1);
+    
+    await fs.updateDoc(productRef, {
+      ratingCount: newCount,
+      totalStars: newStars,
+      averageRating: parseFloat(avgRating)
+    });
+    
+    alert("آپ کی ریٹنگ کا بہت شکریہ! ⭐");
+    loadProducts(); // لسٹ ریفریش کریں
+  } catch (err) {
+    console.error("Rating Error:", err);
+    alert("ریٹنگ محفوظ کرنے میں خرابی پیش آئی۔");
+  }
+}
+window.submitRating = submitRating;
 
 function render(list){
   let shop = document.getElementById('shopList');
@@ -433,6 +469,17 @@ function render(list){
     price.className = 'price';
     price.textContent = formatPriceText(p);
     body.appendChild(price);
+
+    // Rating Display Section
+    const ratingBox = document.createElement('div');
+    ratingBox.className = 'product-rating-box';
+    let avg = p.averageRating ? Number(p.averageRating).toFixed(1) : '4.8';
+    let count = p.ratingCount || 12;
+    ratingBox.innerHTML = `
+      <div class="stars-display">⭐ ${avg}</div>
+      <div class="rating-count">(${count} جائزے)</div>
+    `;
+    body.appendChild(ratingBox);
 
     body.appendChild(buildButtons(p, false));
     card.appendChild(body);
@@ -516,13 +563,24 @@ window.openDetailPage = function(p) {
 
   detailContent.appendChild(galleryWrapper);
 
+  let avg = p.averageRating ? Number(p.averageRating).toFixed(1) : '4.8';
+  let count = p.ratingCount || 12;
+
   let infoDiv = document.createElement('div');
   infoDiv.className = 'detail-info';
   infoDiv.innerHTML = `
-    <h2 style="font-size:18px;color:#1a1a1a;margin-bottom:8px;">${p.name || ''}</h2>
-    ${p.brand ? `<p style="color:#003d82;font-weight:700;font-size:13px;margin-bottom:8px;">برانڈ: ${p.brand}</p>` : ''}
-    <div style="font-size:18px;color:#1a1a1a;font-weight:bold;margin-bottom:12px;">${formatPriceText(p)}</div>
+    <h2 style="font-size:18px;color:#212121;margin-bottom:8px;">${p.name || ''}</h2>
+    ${p.brand ? `<p style="color:#757575;font-weight:600;font-size:13px;margin-bottom:8px;">برانڈ: ${p.brand}</p>` : ''}
+    <div style="font-size:18px;color:#f57224;font-weight:bold;margin-bottom:8px;">${formatPriceText(p)}</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;color:#555;">
+      <span>⭐ <b>${avg}</b> / 5 (${count} کسٹمر ریٹنگز)</span>
+    </div>
     <p style="font-size:13px;color:#2b2b2b;line-height:1.5;margin-bottom:15px;">${p.description || 'Description not available.'}</p>
+    
+    <div class="rate-action-row">
+      <span style="font-size:13px;font-weight:bold;color:#333;">اس پروڈکٹ کو ریٹنگ دیں:</span>
+      <button class="rate-now-btn" onclick="let s = prompt('1 سے 5 تک نمبر دیں (مثال کے طور پر 5):'); if(s && !isNaN(s) && s>=1 && s<=5) submitRating('${p.id}', Number(s));">⭐ ریٹنگ دیں</button>
+    </div>
   `;
 
   infoDiv.appendChild(buildButtons(p, true));
@@ -551,7 +609,6 @@ function buildCategories() {
   });
 }
 
-// Product ki category kisi bhi tarah likhi ho (English / Urdu / emoji ke sath) pehchano
 function matchesCategory(p, catValue) {
   const c = String(p.category || '').toLowerCase();
   if (!c) return false;
@@ -637,9 +694,6 @@ document.getElementById('chatbot-launcher').onclick = function(e) {
   }
 };
 
-/* =====================================================
-   CHATBOT: category aur product ke apne link pehchanta hai
-   ===================================================== */
 const CHAT_CATS = [
   {v: 'Watches',    kw: ['ghadi', 'ghari', 'gharri', 'watch', 'watches', 'wristwatch', 'گھڑی', 'گھڑیاں']},
   {v: 'Shoes',      kw: ['joota', 'jootay', 'juta', 'jooti', 'shoe', 'shoes', 'sandal', 'chappal', 'boots', 'sneakers', 'جوتے', 'جوتا']},
@@ -723,15 +777,13 @@ function buildChatReply(txt, botDiv) {
     !(cat && cat.kw.some(k => tokenIsKeyword(t, k)))
   );
 
-  // Sirf salam / hello
   if (!cat && terms.length === 0) {
     botDiv.textContent = storeWanted
-      ? 'Aap kaun si cheez ' + storeWanted.charAt(0).toUpperCase() + storeWanted.slice(1) + ' se chahte hain? Jaise: "ghadi", "joote", "mobile".'
-      : 'Walaikum assalam! Aap kaun si cheez dhoondh rahe hain? Jaise: "ghadi", "joote", "mobile" ya product ka naam likhein.';
+      ? 'Aap kaun si cheez ' + storeWanted.charAt(0).toUpperCase() + storeWanted.slice(1) + ' se chahte hain?'
+      : 'Walaikum assalam! Aap kaun si cheez dhoondh rahe hain? Jaise: "ghadi", "joote", "mobile".';
     return;
   }
 
-  // Products dhoondo
   let results = [];
   if (cat) {
     results = products.filter(p =>
@@ -746,7 +798,6 @@ function buildChatReply(txt, botDiv) {
     results = products.filter(p => terms.some(t => t.length >= 3 && productHaystack(p).includes(t)));
   }
 
-  // Agar user ne store ka naam likha to sirf usi store ke products
   if (storeWanted) {
     results = results.filter(p => getStoreLinks(p).some(l => l.store === storeWanted));
   }
@@ -782,39 +833,17 @@ function buildChatReply(txt, botDiv) {
       box.appendChild(makeChatButton('Tafseel', true, () => window.openDetailPage(p)));
       botDiv.appendChild(box);
     });
-
-    if (results.length > 4) {
-      const more = document.createElement('div');
-      more.style.marginTop = '6px';
-      more.textContent = 'Aur ' + (results.length - 4) + ' products bhi hain: menu mein Categories kholein.';
-      botDiv.appendChild(more);
-    }
     return;
   }
 
-  // Shop mein nahi mila
   const q = terms.join(' ') || (cat ? cat.v : '');
   const msg = document.createElement('div');
-  msg.textContent = storeWanted
-    ? '"' + q + '" hamari shop mein ' + storeWanted + ' ke product ke taur par nahi mila. Aap seedha ' + storeWanted + ' par search kar sakte hain:'
-    : '"' + q + '" abhi hamari shop mein nahi mila. Aap bahar in sites par search kar sakte hain, ya WhatsApp par humein batayen:';
+  msg.textContent = '"' + q + '" abhi hamاری shop mein nahi mila. Aap WhatsApp par rabta kar sakte hain:';
   botDiv.appendChild(msg);
 
-  const enc = encodeURIComponent(q);
-  const urls = {
-    daraz: 'https://www.daraz.pk/catalog/?q=' + enc,
-    amazon: 'https://www.amazon.com/s?k=' + enc,
-    alibaba: 'https://www.alibaba.com/trade/search?fsb=y&IndexArea=product_en&SearchText=' + enc
-  };
-  const names = { daraz: 'Daraz', amazon: 'Amazon', alibaba: 'Alibaba' };
-  (storeWanted ? [storeWanted] : ['daraz', 'amazon', 'alibaba']).forEach(s => {
-    botDiv.appendChild(makeChatLink('🔎 ' + names[s] + ' par search', urls[s]));
-  });
-  if (!storeWanted) {
-    botDiv.appendChild(makeChatButton('💬 WhatsApp par batayen', true, () => {
-      window.open('https://wa.me/923334664227?text=' + encodeURIComponent('اسلام علیکم مجھے یہ چاہیے: ' + q));
-    }));
-  }
+  botDiv.appendChild(makeChatButton('💬 WhatsApp par batayen', true, () => {
+    window.open('https://wa.me/923334664227?text=' + encodeURIComponent('اسلام علیکم مجھے یہ چاہیے: ' + q));
+  }));
 }
 
 window.sendChatMessage = function() {
@@ -837,7 +866,7 @@ window.sendChatMessage = function() {
       buildChatReply(txt, botDiv);
     } catch (e) {
       console.error(e);
-      botDiv.textContent = 'Maaf kijiye, kuch masla aa gaya. Dobara likh kar try karein.';
+      botDiv.textContent = 'Maaf kijiye, kuch masla aa gaya.';
     }
     chatBody.appendChild(botDiv);
     chatBody.scrollTop = chatBody.scrollHeight;
@@ -848,7 +877,7 @@ let recognition = null;
 let isRecording = false;
 window.toggleVoiceInput = function() {
   if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-    alert('Aapka browser Voice Search support nahi karta.');
+    alert('Browser Voice Search support nahi karta.');
     return;
   }
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -944,20 +973,13 @@ function stopVoiceInput() {
       onStart(touch.clientX, touch.clientY);
     }, {passive: true});
 
-    handle.addEventListener('touchmove', function(e) {
+    handle.addEventListener('touchmatch' in window ? 'touchmove' : 'touchmove', function(e) {
       let touch = e.touches[0];
       onMove(touch.clientX, touch.clientY);
       if (hasMoved) { e.preventDefault(); }
     }, {passive: false});
 
     handle.addEventListener('touchend', onEnd);
-
-    handle.addEventListener('click', function(e) {
-      if (hasMoved) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    });
   }
 
   let launcher = document.getElementById('chatbot-launcher');
