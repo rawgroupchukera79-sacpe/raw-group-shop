@@ -68,12 +68,6 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .product-title { font-size: 13px; font-weight: 600; color: #212121; margin: 0 0 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .brand-name { font-size: 11px; color: #757575; font-weight: 500; margin-bottom: 4px; display: block; }
 .price { color: #f57224; font-weight: 700; font-size: 15px; margin-bottom: 6px; }
-
-/* Rating Display in Card */
-.product-rating-box { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; font-size: 11px; color: #757575; }
-.stars-display { color: #ffb400; font-weight: 600; }
-.rating-count { color: #888; margin-left: 3px; }
-
 /* Buttons */
 .btn-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
 .whatsapp-btn, .store-btn { width: 100%; border: none; padding: 9px 8px; border-radius: 4px; font-weight: 700; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: background 0.2s ease; text-decoration: none; background: #f57224; color: #fff; font-family: inherit; }
@@ -97,12 +91,6 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .thumb-img { width: 60px; height: 60px; border-radius: 6px; border: 2px solid #eee; object-fit: cover; cursor: pointer; flex-shrink: 0; transition: all 0.2s ease; }
 .thumb-img.active, .thumb-img:hover { border-color: #f57224; transform: scale(1.05); box-shadow: 0 2px 8px rgba(245,114,36,0.3); }
 .detail-info { background: #ffffff; border: 1px solid #e5e5e5; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-
-/* Rating Modal / Box Styles */
-.rate-action-row { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; }
-.rate-now-btn { background: #fff3ec; border: 1px solid #f57224; color: #f57224; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; cursor: pointer; }
-.rate-now-btn:hover { background: #f57224; color: #fff; }
-
 #chatbot-launcher { position: fixed; bottom: 25px; right: 25px; background: #f57224; color: #fff; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(245,114,36,0.4); cursor: move; z-index: 3000; font-size: 24px; user-select: none; touch-action: none; }
 #chatbot-modal { display: none; position: fixed; bottom: 90px; right: 25px; width: 320px; height: 420px; max-width: calc(100vw - 20px); background: #fff; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 3001; flex-direction: column; overflow: hidden; }
 .chat-header { background: #f57224; color: #fff; padding: 12px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center; cursor: move; }
@@ -170,7 +158,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
     <p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">لوڈ ہو رہا ہے...</p>
   </div>
 
-  <div class="footer-bar">© 2026 R.A.W GROUP - CHUKERA 79 | All Rights Reserved</div>
+  <div class="footer-bar">© 2026 R.A.W GROUP CHOUKIRH 79 | All Rights Reserved</div>
 </div>
 
 <div id="drawer-overlay" onclick="closeDrawer()"></div>
@@ -393,43 +381,81 @@ function buildButtons(p, big) {
   return group;
 }
 
-// Firebase Rating Submit Function
-async function submitRating(productId, starsCount) {
-  if (!db || !fs) {
-    alert('رابطہ قائم نہیں ہو سکا، براہ کرم انٹرنیٹ چیک کریں');
-    return;
-  }
-  try {
-    const productRef = fs.doc(db, "products", productId);
-    const docSnap = await fs.getDoc(productRef);
-    
-    let currentCount = 0;
-    let currentStars = 0;
-    
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-      currentCount = data.ratingCount || 0;
-      currentStars = data.totalStars || 0;
+
+let selectedStarCount = 5;
+
+window.rateOurWebsite = function() {
+  selectedStarCount = 5;
+  highlightStars(5);
+  document.getElementById('review-msg-input').value = '';
+  document.getElementById('site-rating-modal').style.display = 'flex';
+};
+
+window.closeSiteRatingModal = function() {
+  document.getElementById('site-rating-modal').style.display = 'none';
+};
+
+window.setRatingStars = function(stars) {
+  selectedStarCount = stars;
+  highlightStars(stars);
+};
+
+function highlightStars(count) {
+  for (let i = 1; i <= 5; i++) {
+    let st = document.getElementById('st' + i);
+    if (st) {
+      st.style.color = i <= count ? '#ffb400' : '#ccc';
     }
-    
-    const newCount = currentCount + 1;
-    const newStars = currentStars + starsCount;
-    const avgRating = (newStars / newCount).toFixed(1);
-    
-    await fs.updateDoc(productRef, {
-      ratingCount: newCount,
-      totalStars: newStars,
-      averageRating: parseFloat(avgRating)
-    });
-    
-    alert("آپ کی ریٹنگ کا بہت شکریہ! ⭐");
-    loadProducts(); // لسٹ ریفریش کریں
-  } catch (err) {
-    console.error("Rating Error:", err);
-    alert("ریٹنگ محفوظ کرنے میں خرابی پیش آئی۔");
   }
 }
-window.submitRating = submitRating;
+
+window.submitReviewAndRating = async function() {
+  let reviewText = document.getElementById('review-msg-input').value.trim();
+  
+  if (!db || !fs) {
+    alert("Database connection masla hai.");
+    return;
+  }
+
+  try {
+    const siteRef = fs.doc(db, "site_settings", "store_rating");
+    const docSnap = await fs.getDoc(siteRef);
+
+    let count = 0;
+    let total = 0;
+
+    if (docSnap.exists()) {
+      let data = docSnap.data();
+      count = Number(data.ratingCount) || 0;
+      total = Number(data.totalStars) || 0;
+    }
+
+    let newCount = count + 1;
+    let newTotal = total + selectedStarCount;
+    let newAvg = (newTotal / newCount).toFixed(1);
+
+    await fs.setDoc(siteRef, {
+      ratingCount: newCount,
+      totalStars: newTotal,
+      averageRating: parseFloat(newAvg)
+    }, { merge: true });
+
+    if (reviewText) {
+      await fs.addDoc(fs.collection(db, "store_reviews"), {
+        stars: selectedStarCount,
+        review: reviewText,
+        time: new Date().toISOString()
+      });
+    }
+
+    closeSiteRatingModal();
+    alert("Aapki rating aur review ka bohot shukriya! ⭐");
+    loadWebsiteRating();
+  } catch (err) {
+    console.error("Review Error:", err);
+    alert("Review save karne mein masla aaya.");
+  }
+};
 
 function render(list){
   let shop = document.getElementById('shopList');
