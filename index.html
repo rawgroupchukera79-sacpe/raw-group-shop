@@ -191,6 +191,30 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
     <button class="send-btn" onclick="sendChatMessage()">Send</button>
   </div>
 </div>
+<!-- Website Rating & Review Modal -->
+<div id="site-rating-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:4000; align-items:center; justify-content:center;">
+  <div style="background:#fff; padding:20px; border-radius:12px; width:90%; max-width:320px; text-align:center; box-shadow:0 5px 20px rgba(0,0,0,0.2);">
+    <h3 style="margin-bottom:8px; color:#212121; font-size:16px;">Store ko Rating aur Review Dein ⭐</h3>
+    <p style="font-size:12px; color:#666; margin-bottom:12px;">Apna pasandeeda star select karein aur review likhein:</p>
+    
+    <!-- Clickable Stars -->
+    <div id="star-container" style="font-size:32px; cursor:pointer; color:#ffb400; margin-bottom:12px; display:flex; justify-content:center; gap:8px;">
+      <span onclick="setRatingStars(1)" id="st1">★</span>
+      <span onclick="setRatingStars(2)" id="st2">★</span>
+      <span onclick="setRatingStars(3)" id="st3">★</span>
+      <span onclick="setRatingStars(4)" id="st4">★</span>
+      <span onclick="setRatingStars(5)" id="st5">★</span>
+    </div>
+
+    <!-- Review Message Input -->
+    <textarea id="review-msg-input" placeholder="Apna message ya review yahan likhein..." style="width:100%; height:60px; padding:8px; border:1px solid #ccc; border-radius:6px; font-size:12px; margin-bottom:12px; outline:none; font-family:inherit; resize:none;"></textarea>
+    
+    <div style="display:flex; gap:8px;">
+      <button onclick="submitReviewAndRating()" style="flex:1; background:#f57224; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; cursor:pointer; font-size:12px;">Bhejen (Submit)</button>
+      <button onclick="closeSiteRatingModal()" style="background:#ddd; border:none; padding:8px 12px; border-radius:6px; font-weight:bold; cursor:pointer; font-size:12px;">Band</button>
+    </div>
+  </div>
+</div>
 
 <script type="module">
 const FIREBASE_APP_URL = "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
