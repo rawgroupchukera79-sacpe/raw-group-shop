@@ -43,6 +43,13 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .dots i { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; }
 .dots i.on { background: #f57224; width: 20px; border-radius: 6px; }
 
+/* Website Rating Header Card Style */
+.site-rating-card { max-width: 1100px; margin: 10px auto 0; padding: 10px 15px; background: #fff; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 6px rgba(0,0,0,0.06); border: 1px solid #e5e5e5; }
+.site-rating-info { font-size: 13px; color: #333; }
+.site-rating-info strong { color: #f57224; }
+.site-rate-btn { background: #f57224; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 12px; cursor: pointer; font-family: inherit; }
+.site-rate-btn:hover { background: #d05b18; }
+
 .sec-title { max-width: 1100px; width: 100%; margin: 12px auto 0; padding: 0 15px; font-size: 15px; font-weight: 700; color: #222; border-left: 4px solid #f57224; padding-left: 11px; }
 
 #drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1500; }
@@ -68,6 +75,10 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .product-title { font-size: 13px; font-weight: 600; color: #212121; margin: 0 0 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .brand-name { font-size: 11px; color: #757575; font-weight: 500; margin-bottom: 4px; display: block; }
 .price { color: #f57224; font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+
+.product-rating-box { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #666; margin-bottom: 6px; }
+.stars-display { color: #ffb400; font-weight: bold; }
+
 /* Buttons */
 .btn-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
 .whatsapp-btn, .store-btn { width: 100%; border: none; padding: 9px 8px; border-radius: 4px; font-weight: 700; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: background 0.2s ease; text-decoration: none; background: #f57224; color: #fff; font-family: inherit; }
@@ -91,6 +102,11 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .thumb-img { width: 60px; height: 60px; border-radius: 6px; border: 2px solid #eee; object-fit: cover; cursor: pointer; flex-shrink: 0; transition: all 0.2s ease; }
 .thumb-img.active, .thumb-img:hover { border-color: #f57224; transform: scale(1.05); box-shadow: 0 2px 8px rgba(245,114,36,0.3); }
 .detail-info { background: #ffffff; border: 1px solid #e5e5e5; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+
+.rate-action-row { display: flex; align-items: center; justify-content: space-between; background: #fff3ec; border: 1px solid #ffd8cc; padding: 10px; border-radius: 6px; margin-bottom: 12px; }
+.rate-now-btn { background: #f57224; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 12px; font-family: inherit; }
+.rate-now-btn:hover { background: #d05b18; }
+
 #chatbot-launcher { position: fixed; bottom: 25px; right: 25px; background: #f57224; color: #fff; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(245,114,36,0.4); cursor: move; z-index: 3000; font-size: 24px; user-select: none; touch-action: none; }
 #chatbot-modal { display: none; position: fixed; bottom: 90px; right: 25px; width: 320px; height: 420px; max-width: calc(100vw - 20px); background: #fff; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 3001; flex-direction: column; overflow: hidden; }
 .chat-header { background: #f57224; color: #fff; padding: 12px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center; cursor: move; }
@@ -142,7 +158,8 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
       <div class="slide s3"><h3>Amazon, Daraz & Alibaba Deals</h3><p>Best products, best prices</p></div>
     </div>
     <div class="dots" id="bannerDots"></div>
-  </div>  <!-- Website Rating Header Box -->
+  </div>
+
   <!-- Website Rating Header Box -->
   <div class="site-rating-card">
     <div class="site-rating-info">
@@ -152,7 +169,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
     <button class="site-rate-btn" onclick="rateOurWebsite()">Rate Our Website ⭐</button>
   </div>
 
- <div class="sec-title" id="catTitle">📦 تمام (All)</div>
+  <div class="sec-title" id="catTitle">📦 تمام (All)</div>
 
   <div id="shopList" class="products">
     <p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">لوڈ ہو رہا ہے...</p>
@@ -191,6 +208,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
     <button class="send-btn" onclick="sendChatMessage()">Send</button>
   </div>
 </div>
+
 <!-- Website Rating & Review Modal -->
 <div id="site-rating-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:4000; align-items:center; justify-content:center;">
   <div style="background:#fff; padding:20px; border-radius:12px; width:90%; max-width:320px; text-align:center; box-shadow:0 5px 20px rgba(0,0,0,0.2);">
@@ -279,7 +297,7 @@ function showShopMessage(text, color, withRetry) {
   }
   shop.appendChild(box);
 }
-// Store ki ratings aur reviews fetch karne ka function
+
 async function loadStoreRatings() {
   try {
     if (!db || !fs) return;
@@ -306,7 +324,6 @@ async function loadStoreRatings() {
 
 async function loadProducts(){
   showShopMessage('لوڈ ہو رہا ہے...', '#666', false);
-  
   loadStoreRatings();
 
   try {
@@ -335,6 +352,7 @@ async function loadProducts(){
   }
 }
 window.loadProducts = loadProducts;
+
 function formatPriceText(p) {
   if (p.priceType === 'usd') {
     let usd = p.priceUSD || p.price || 0;
@@ -431,7 +449,6 @@ function buildButtons(p, big) {
   return group;
 }
 
-
 let selectedStarCount = 5;
 
 window.rateOurWebsite = function() {
@@ -458,6 +475,7 @@ function highlightStars(count) {
     }
   }
 }
+
 window.submitReviewAndRating = async function() {
   let reviewText = document.getElementById('review-msg-input').value.trim();
   let rating = selectedStarCount || 5;
@@ -490,6 +508,14 @@ window.submitReviewAndRating = async function() {
     alert("Review save karne mein masla aaya.");
   }
 };
+
+function render(list) {
+  const shop = document.getElementById('shopList');
+  shop.innerHTML = '';
+  if(!list || list.length === 0) {
+    shop.innerHTML = '<p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">کوئی پروڈکٹ موجود نہیں ہے</p>';
+    return;
+  }
 
   list.forEach(p => {
     const card = document.createElement('div');
@@ -530,7 +556,6 @@ window.submitReviewAndRating = async function() {
     price.textContent = formatPriceText(p);
     body.appendChild(price);
 
-    // Rating Display Section
     const ratingBox = document.createElement('div');
     ratingBox.className = 'product-rating-box';
     let avg = p.averageRating ? Number(p.averageRating).toFixed(1) : '4.8';
@@ -636,11 +661,6 @@ window.openDetailPage = function(p) {
       <span>⭐ <b>${avg}</b> / 5 (${count} کسٹمر ریٹنگز)</span>
     </div>
     <p style="font-size:13px;color:#2b2b2b;line-height:1.5;margin-bottom:15px;">${p.description || 'Description not available.'}</p>
-    
-    <div class="rate-action-row">
-      <span style="font-size:13px;font-weight:bold;color:#333;">اس پروڈکٹ کو ریٹنگ دیں:</span>
-      <button class="rate-now-btn" onclick="let s = prompt('1 سے 5 تک نمبر دیں (مثال کے طور پر 5):'); if(s && !isNaN(s) && s>=1 && s<=5) submitRating('${p.id}', Number(s));">⭐ ریٹنگ دیں</button>
-    </div>
   `;
 
   infoDiv.appendChild(buildButtons(p, true));
@@ -898,7 +918,7 @@ function buildChatReply(txt, botDiv) {
 
   const q = terms.join(' ') || (cat ? cat.v : '');
   const msg = document.createElement('div');
-  msg.textContent = '"' + q + '" abhi hamاری shop mein nahi mila. Aap WhatsApp par rabta kar sakte hain:';
+  msg.textContent = '"' + q + '" abhi hamari shop mein nahi mila. Aap WhatsApp par rabta kar sakte hain:';
   botDiv.appendChild(msg);
 
   botDiv.appendChild(makeChatButton('💬 WhatsApp par batayen', true, () => {
@@ -1033,7 +1053,7 @@ function stopVoiceInput() {
       onStart(touch.clientX, touch.clientY);
     }, {passive: true});
 
-    handle.addEventListener('touchmatch' in window ? 'touchmove' : 'touchmove', function(e) {
+    handle.addEventListener('touchmove', function(e) {
       let touch = e.touches[0];
       onMove(touch.clientX, touch.clientY);
       if (hasMoved) { e.preventDefault(); }
