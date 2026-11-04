@@ -458,62 +458,38 @@ function highlightStars(count) {
     }
   }
 }
-
 window.submitReviewAndRating = async function() {
   let reviewText = document.getElementById('review-msg-input').value.trim();
-  
+  let rating = selectedStarCount || 5;
+
+  if (rating < 5 && reviewText === "") {
+    alert("Kahin 5 se kam rating ki waja zaroor likhein taaki hum behtari la sakein!");
+    return;
+  }
+
   if (!db || !fs) {
     alert("Database connection masla hai.");
     return;
   }
 
   try {
-    const siteRef = fs.doc(db, "site_settings", "store_rating");
-    const docSnap = await fs.getDoc(siteRef);
+    await fs.addDoc(fs.collection(db, "store_reviews"), {
+      rating: Number(rating),
+      review: reviewText,
+      createdAt: new Date().toISOString()
+    });
 
-    let count = 0;
-    let total = 0;
-
-    if (docSnap.exists()) {
-      let data = docSnap.data();
-      count = Number(data.ratingCount) || 0;
-      total = Number(data.totalStars) || 0;
+    alert("Shukria! Aapka review kamyabi se save ho gaya hai.");
+    document.getElementById('site-rating-modal').style.display = 'none';
+    
+    if (typeof loadStoreRatings === 'function') {
+      loadStoreRatings();
     }
-
-    let newCount = count + 1;
-    let newTotal = total + selectedStarCount;
-    let newAvg = (newTotal / newCount).toFixed(1);
-
-    await fs.setDoc(siteRef, {
-      ratingCount: newCount,
-      totalStars: newTotal,
-      averageRating: parseFloat(newAvg)
-    }, { merge: true });
-
-    if (reviewText) {
-      await fs.addDoc(fs.collection(db, "store_reviews"), {
-        stars: selectedStarCount,
-        review: reviewText,
-        time: new Date().toISOString()
-      });
-    }
-
-    closeSiteRatingModal();
-    alert("Aapki rating aur review ka bohot shukriya! ⭐");
-    loadWebsiteRating();
   } catch (err) {
-    console.error("Review Error:", err);
+    console.error("Review save error: ", err);
     alert("Review save karne mein masla aaya.");
   }
 };
-
-function render(list){
-  let shop = document.getElementById('shopList');
-  shop.innerHTML = '';
-  if(list.length === 0){
-    shop.innerHTML = '<p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">اس کیٹیگری میں کوئی پروڈکٹ موجود نہیں ہے</p>';
-    return;
-  }
 
   list.forEach(p => {
     const card = document.createElement('div');
