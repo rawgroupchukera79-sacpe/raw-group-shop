@@ -279,9 +279,36 @@ function showShopMessage(text, color, withRetry) {
   }
   shop.appendChild(box);
 }
+// Store ki ratings aur reviews fetch karne ka function
+async function loadStoreRatings() {
+  try {
+    if (!db || !fs) return;
+    const snap = await fs.getDocs(fs.collection(db, "store_reviews"));
+    let totalRating = 0;
+    let count = snap.docs.length;
+    
+    snap.forEach(d => {
+      const data = d.data();
+      totalRating += Number(data.rating || 5);
+    });
+
+    let avgRating = count > 0 ? (totalRating / count).toFixed(1) : "5.0";
+    
+    const avgElem = document.getElementById("site-avg-rating");
+    const totalElem = document.getElementById("site-total-reviews");
+    
+    if (avgElem) avgElem.innerText = avgRating;
+    if (totalElem) totalElem.innerText = count;
+  } catch (err) {
+    console.error("Ratings load karne mein masla hai: ", err);
+  }
+}
 
 async function loadProducts(){
   showShopMessage('لوڈ ہو رہا ہے...', '#666', false);
+  
+  loadStoreRatings();
+
   try {
     if (!db) {
       const [appMod, fsMod] = await withTimeout(
@@ -296,7 +323,7 @@ async function loadProducts(){
     const snap = await withTimeout(
       fs.getDocs(fs.collection(db, "products")),
       20000,
-      'Products nahi aa rahe: internet slow hai ya Firebase jawab nahi de raha.'
+      'Products nahi aa rahe: internet slow hai ya Firebase jawab nahi de raha'
     );
     allProducts = [];
     snap.forEach(d => { allProducts.push({id: d.id, ...d.data()}); });
@@ -304,9 +331,11 @@ async function loadProducts(){
     render(allProducts);
   } catch (err) {
     console.error(err);
-    showShopMessage('ایرر تفصیل: ' + (err && err.message ? err.message : err), 'red', true);
+    showShopMessage('ایرر تفصیل: ' + (err && err.message ? err.message : err), '#c00', true);
   }
 }
+window.loadProducts = loadProducts;
+
 window.loadProducts = loadProducts;
 
 function formatPriceText(p) {
