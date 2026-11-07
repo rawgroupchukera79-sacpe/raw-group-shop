@@ -2,28 +2,20 @@
 <html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>R.A.W GROUP - Secure Admin Panel</title>
+<title>R.A.W GROUP - Secure Admin Panel & Commission Tracker</title>
 <style>
 *{box-sizing:border-box;}
 :root{ --orange:#FF8C00; }
 body{background:#f5f5f5; font-family:sans-serif; margin:0; padding:10px;}
-.box{max-width:520px; margin:15px auto; background:white; border:3px solid var(--orange); border-radius:18px; padding:18px; overflow:hidden; position:relative;}
+.box{max-width:550px; margin:15px auto; background:white; border:3px solid var(--orange); border-radius:18px; padding:18px; overflow:hidden; position:relative;}
 .logo-box{width:90px; height:90px; margin:0 auto 10px auto; border:3px solid var(--orange); border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:white;}
 .logo-box img{width:100%; height:100%; object-fit:cover;}
 h1{color:var(--orange); text-align:center; font-size:22px; margin:5px 0;}
 input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid var(--orange); border-radius:10px; font-size:16px; display:block;}
 .btn-add{width:100%; padding:14px; background:var(--orange); color:white; border:none; border-radius:10px; font-weight:bold; font-size:18px; cursor:pointer;}
 .btn-logout{position:absolute; top:12px; left:12px; background:#ff1a1a; color:white; border:none; padding:7px 14px; border-radius:8px; cursor:pointer; font-weight:bold;}
-#status{text-align:center; color:green; border:1px dashed var(--orange); padding:7px; border-radius:8px; font-weight:bold; margin:8px 0;}
-#preview-container{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; justify-content:center;}
-#preview-container img{width:70px; height:70px; object-fit:cover; border-radius:8px; border:2px solid var(--orange);}
-.product-item{display:flex; gap:10px; align-items:center; border:2px solid var(--orange); border-radius:12px; padding:8px; margin-bottom:10px; background:#fffaf3; width:100%;}
-.product-item img{width:60px; height:60px; object-fit:cover; border-radius:8px; flex-shrink:0;}
-.p-info{flex:1; text-align:right; font-size:13px; overflow:hidden;}
-.btn-edit{background:var(--orange); color:white; border:none; padding:6px 10px; border-radius:6px; margin:2px; cursor:pointer;}
-.btn-del{background:#ff1a1a; color:white; border:none; padding:6px 10px; border-radius:6px; margin:2px; cursor:pointer;}
-.btn-approve{background:#28a745; color:white; border:none; padding:6px 10px; border-radius:6px; margin:2px; cursor:pointer; font-weight:bold;}
-#pkrPreview{text-align:center; background:#fff6e6; padding:6px; border-radius:8px; font-weight:bold; font-size:14px;}
+.order-card{border:2px solid #194376; background:#eef2f7; border-radius:10px; padding:10px; margin-bottom:10px; font-size:12px;}
+.profit-badge{background:#28a745; color:white; padding:3px 8px; border-radius:4px; font-weight:bold;}
 </style>
 </head>
 <body>
@@ -39,68 +31,14 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
 <div class="box" id="adminPanel" style="display:none;">
   <button class="btn-logout" id="logoutBtn" type="button">لاگ آؤٹ</button>
   <div class="logo-box"><img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'"></div>
-  <h1>R.A.W GROUP ADMIN</h1>
+  <h1>R.A.W GROUP ADMIN & PROFIT DASHBOARD</h1>
 
-  <!-- Shop Dekhne ka Wapas Rasta -->
-  <a href="index.html" target="_blank" style="display:block; text-align:center; background:#194376; color:white; padding:10px; border-radius:8px; text-decoration:none; margin-bottom:10px; font-weight:bold;">🛍️ Shop Dekhen - دکان دیکھیں</a>
+  <a href="index.html" target="_blank" style="display:block; text-align:center; background:#194376; color:white; padding:10px; border-radius:8px; text-decoration:none; margin-bottom:12px; font-weight:bold;">🛍️ Shop Dekhen - دکان دیکھیں</a>
 
-  <!-- Live Multi-Currency Rate Status Bar -->
-  <button class="btn-add" id="liveRateBtn" type="button" style="background:#0a8a00; padding:10px; font-size:14px; margin-bottom:6px;">🔴 Global Live Rates لائیں (USD, AED, GBP)</button>
-  <div id="liveRateInfo" style="text-align:center; font-size:11px; color:green; font-weight:bold; margin-bottom:8px;">Rates load ho rahe hain...</div>
-
-  <select id="category" style="width:100%; padding:12px; margin:8px 0; border:2px solid var(--orange); border-radius:8px; background:white; font-weight:bold;">
-    <option value="">کیٹیگری منتخب کریں</option>
-    <option value="Furniture & Decoration">Furniture & Decoration</option>
-    <option value="Car & Motorcycle">Car & Motorcycle</option>
-    <option value="Real Estate">Real Estate</option>
-    <option value="Electronics">Electronics</option>
-    <option value="Home & Kitchen Appliances">Home & Kitchen Appliances</option>
-    <option value="Fashion & Beauty">Fashion & Beauty</option>
-    <option value="Job offers">Job offers</option>
-    <option value="Kids & Baby-Shop">Kids & Baby-Shop</option>
-    <option value="Education / BookShop">Education / BookShop</option>
-    <option value="General store Food Delivery">General store Food Delivery</option>
-    <option value="Services & offers">Services & offers</option>
-    <option value="Health & Care">Health & Care</option>
-    <option value="Animals & Accessories">Animals & Accessories</option>
-    <option value="Sports & Hobbies">Sports & Hobbies</option>
-    <option value="Antique Coins Gemstone">Antique Coins Gemstone</option>
-    <option value="Tools & Heavy Machinery">Tools & Heavy Machinery</option>
-  </select>
-
-  <input id="name" placeholder="پروڈکٹ کا نام *">
-  <input id="brand" placeholder="برانڈ یا شہر (e.g. Sargodha)">
-  
-  <select id="priceType">
-    <option value="pkr">🇵🇰 PKR قیمت (Direct)</option>
-    <option value="usd">💲 USD ($) + Live Rate</option>
-    <option value="aed">🇦🇪 AED (Dirham) + Live Rate</option>
-    <option value="gbp">💷 GBP (Pound) + Live Rate</option>
-  </select>
-
-  <div id="pkrContainer"><input id="priceDirectPKR" type="number" placeholder="PKR قیمت لکھیں"></div>
-  <div id="currContainer" style="display:none;">
-    <div style="display:flex; gap:8px;">
-      <input id="priceForeign" type="number" step="0.01" placeholder="Foreign Currency Amount" style="flex:1;">
-      <input id="rateCustom" type="number" value="280" style="flex:1;" placeholder="Exchange Rate">
-    </div>
-    <div id="pkrPreview">Rs. 0</div>
+  <div style="background:#fff3ec; border:2px dashed #f57224; padding:10px; border-radius:10px; margin-bottom:15px; text-align:center;">
+    <h3 style="color:#194376; font-size:14px;">📊 Customer Orders & Platform Commission Tracker</h3>
+    <div id="ordersList" style="margin-top:10px; text-align:right;">لوڈ ہو رہا ہے...</div>
   </div>
-
-  <input id="affiliateLink" placeholder="Amazon / Daraz / Alibaba / WhatsApp Link">
-  <input id="companyTag" placeholder="Tag (rawgroup79-20)" value="rawgroup79-20">
-  <textarea id="desc" rows="2" placeholder="تفصیل لکھیں"></textarea>
-  
-  <input id="imageFile" type="file" accept="image/*" multiple>
-  <div id="preview-container"></div>
-  <div id="status">تصاویر منتخب کریں</div>
-  
-  <button class="btn-add" id="addBtn" type="button">سیو کریں</button>
-  <button id="cancelEditBtn" type="button" style="display:none; background:#666; color:white; width:100%; padding:10px; border-radius:10px; margin-top:5px; border:none;">کینسل کریں</button>
-  
-  <hr style="margin:15px 0; border:1px dashed #FF8C00;">
-  <h3 style="color:#194376; font-size:16px;">تمام پروڈکٹس اور اپروول مینیجر:</h3>
-  <div id="productList">لوڈ ہو رہا ہے...</div>
 </div>
 
 <script>
@@ -112,6 +50,7 @@ function doLogin(){
     sessionStorage.setItem('raw_logged_in','true'); 
     loginBox.style.display='none'; 
     adminPanel.style.display='block';
+    loadOrders();
   } else {
     document.getElementById('loginError').innerText='غلط پاس ورڈ! 1234 لکھیں';
   } 
@@ -128,257 +67,38 @@ if(sessionStorage.getItem('raw_logged_in')==='true'){loginBox.style.display='non
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = { apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE", authDomain: "raw-group-shop.firebaseapp.com", projectId: "raw-group-shop", storageBucket: "raw-group-shop.firebasestorage.app", messagingSenderId: "488689802066", appId: "1:488689802066:web:1437531e15df63e958388b" };
 const app = initializeApp(firebaseConfig); 
 const db = getFirestore(app);
 
-let editingId = null, existingImagesForEdit = [], selectedFiles = [];
-let rates = { USD: 278, AED: 75.6, GBP: 350 }; // Default fallback rates
-
-async function fetchLiveRates(){ 
-  try{ 
-    let r = await fetch('https://open.er-api.com/v6/latest/USD'); 
-    let d = await r.json(); 
-    let usdToPkr = d.rates.PKR;
-    let aedToPkr = usdToPkr / d.rates.AED;
-    let gbpToPkr = usdToPkr / d.rates.GBP;
-    
-    rates = { USD: usdToPkr, AED: aedToPkr, GBP: gbpToPkr };
-    document.getElementById('liveRateInfo').innerText = `Live Rates -> USD: Rs.${usdToPkr.toFixed(1)} | AED: Rs.${aedToPkr.toFixed(1)} | GBP: Rs.${gbpToPkr.toFixed(1)}`;
-    updateCurrencyRateInput();
-  }catch(e){ 
-    document.getElementById('liveRateInfo').innerText = 'Offline Rates Loaded (USD: 278, AED: 75.6, GBP: 350)';
-    updateCurrencyRateInput();
-  } 
-}
-document.getElementById('liveRateBtn').onclick = fetchLiveRates; 
-fetchLiveRates();
-
-const priceType = document.getElementById('priceType'), pkrContainer = document.getElementById('pkrContainer'), currContainer = document.getElementById('currContainer');
-priceType.onchange = () => { 
-  pkrContainer.style.display = priceType.value === 'pkr' ? 'block' : 'none'; 
-  currContainer.style.display = priceType.value !== 'pkr' ? 'block' : 'none'; 
-  updateCurrencyRateInput();
-};
-
-function updateCurrencyRateInput(){
-  let t = priceType.value;
-  let rateField = document.getElementById('rateCustom');
-  if(t === 'usd') rateField.value = rates.USD.toFixed(2);
-  else if(t === 'aed') rateField.value = rates.AED.toFixed(2);
-  else if(t === 'gbp') rateField.value = rates.GBP.toFixed(2);
-  updatePKR();
-}
-
-function updatePKR(){ 
-  let val = parseFloat(document.getElementById('priceForeign').value) || 0; 
-  let rate = parseFloat(document.getElementById('rateCustom').value) || 280; 
-  let pkr = Math.round(val * rate); 
-  document.getElementById('pkrPreview').innerText = `Rs. ${pkr.toLocaleString()} (Rate: ${rate})`; 
-}
-document.getElementById('priceForeign').oninput = updatePKR; 
-document.getElementById('rateCustom').oninput = updatePKR;
-
-async function compressAndResize(f) {
-  const size = 400;
-  let source, w, h, cleanup = () => {};
+window.loadOrders = async function() {
+  const container = document.getElementById('ordersList');
   try {
-    if (window.createImageBitmap) {
-      const bmp = await createImageBitmap(f);
-      source = bmp; w = bmp.width; h = bmp.height;
-      cleanup = () => bmp.close && bmp.close();
-    } else { throw new Error('fallback'); }
-  } catch (_) {
-    const url = URL.createObjectURL(f);
-    const img = new Image();
-    await new Promise((res, rej) => {
-      img.onload = res;
-      img.onerror = () => rej(new Error('تصویر نہیں کھل سکی'));
-      img.src = url;
+    const snap = await getDocs(collection(db, "orders"));
+    if(snap.empty) {
+      container.innerHTML = "<p style='text-align:center; color:#666;'>Abhi tak koi new order nahi aaya.</p>";
+      return;
+    }
+    container.innerHTML = "";
+    snap.forEach((docSnap) => {
+      const o = docSnap.data();
+      container.innerHTML += `
+        <div class="order-card">
+          <h4>📦 Product: ${o.productName}</h4>
+          <p>💰 Price: Rs. ${o.productPrice} | <span class="profit-badge">R.A.W Commission (5%): Rs. ${o.adminCommission}</span></p>
+          <p>👤 Customer: ${o.customerName} (${o.customerMobile})</p>
+          <p>📍 Address: ${o.customerAddress}</p>
+          <p>💳 Payment Method: ${o.paymentMethod || 'COD'}</p>
+          <p>🏷️ Seller: ${o.sellerName} (${o.sellerMobile})</p>
+        </div>
+      `;
     });
-    source = img; w = img.naturalWidth; h = img.naturalHeight;
-    cleanup = () => URL.revokeObjectURL(url);
-  }
-  const canvas = document.createElement('canvas');
-  canvas.width = size; canvas.height = size;
-  const ctx = canvas.getContext('2d');
-  const min = Math.min(w, h);
-  ctx.drawImage(source, (w - min) / 2, (h - min) / 2, min, min, 0, 0, size, size);
-  cleanup();
-  return canvas.toDataURL('image/jpeg', 0.6);
-}
-
-const status = document.getElementById('status'), listDiv = document.getElementById('productList'), previewContainer = document.getElementById('preview-container'), addBtn = document.getElementById('addBtn'), cancelEditBtn = document.getElementById('cancelEditBtn');
-
-document.getElementById('imageFile').onchange = e => {
-  selectedFiles = Array.from(e.target.files).slice(0, 5);
-  previewContainer.innerHTML = '';
-  selectedFiles.forEach(f => {
-    const img = document.createElement('img');
-    img.src = URL.createObjectURL(f);
-    previewContainer.appendChild(img);
-  });
-  status.innerText = selectedFiles.length + ' تصاویر منتخب ہیں ✅';
-};
-
-addBtn.onclick = async () => { 
-  const name = document.getElementById('name').value.trim(); 
-  const category = document.getElementById('category').value;
-  if(!name){ alert('پروڈکٹ کا نام لکھیں'); return; } 
-  if(!category){ alert('کیٹیگری منتخب کریں'); return; }
-  if(!editingId && selectedFiles.length === 0 && existingImagesForEdit.length === 0){ alert('کم از کم 1 تصویر منتخب کریں'); return; } 
-  
-  addBtn.disabled = true; 
-  try {
-    status.innerText = 'تصاویر ری سائیز ہو رہی ہیں...'; 
-    let compImgs = [];
-    for (const f of selectedFiles) {
-      compImgs.push(await compressAndResize(f));
-    }
-    if (compImgs.length === 0) { compImgs = existingImagesForEdit; }
-
-    status.innerText = 'ڈیٹا بیس میں Save ہو رہا ہے...';
-    let pType = priceType.value;
-    let rawLink = document.getElementById('affiliateLink').value.trim();
-    let tag = document.getElementById('companyTag').value.trim() || "rawgroup79-20";
-    let finalLink = rawLink;
-    if(rawLink.includes('amazon')){
-      finalLink = rawLink.includes('?') ? (rawLink.includes('tag=') ? rawLink : rawLink + '&tag=' + tag) : rawLink + '?tag=' + tag;
-    }
-
-    let foreignVal = parseFloat(document.getElementById('priceForeign').value) || 0;
-    let directPkr = parseFloat(document.getElementById('priceDirectPKR').value) || 0;
-    let rateUsed = parseFloat(document.getElementById('rateCustom').value) || 280;
-
-    let calculatedPKR = pType === 'pkr' ? directPkr : Math.round(foreignVal * rateUsed);
-
-    let data = { 
-      category: category, 
-      name: name, 
-      brand: document.getElementById('brand').value || 'Sargodha', 
-      affiliateLink: finalLink,
-      mobile: '03334664227',
-      desc: document.getElementById('desc').value || '', 
-      images: compImgs, 
-      priceType: pType,
-      price: pType === 'pkr' ? directPkr : foreignVal,
-      pricePKR: calculatedPKR,
-      rateUsed: rateUsed,
-      status: 'approved',
-      createdAt: serverTimestamp() 
-    }; 
-    
-    if(editingId){ 
-      await updateDoc(doc(db, 'products', editingId), data); 
-      status.innerText = 'آپڈیٹ ہو گیا ✅'; 
-    } else { 
-      await addDoc(collection(db, 'products'), data); 
-      status.innerText = 'کامیابی سے Save ہو گیا ✅'; 
-    } 
-    resetForm(); 
-    loadProducts();
-  } catch(e) { 
-    status.innerText = 'خرابی: ' + e.message; 
-  } finally {
-    addBtn.disabled = false; 
+  } catch(e) {
+    container.innerHTML = "Orders load karne mein masla hua.";
   }
 };
-
-function resetForm(){ 
-  editingId = null; 
-  existingImagesForEdit = []; 
-  selectedFiles = []; 
-  document.getElementById('imageFile').value = ''; 
-  document.getElementById('name').value = ''; 
-  document.getElementById('priceDirectPKR').value = ''; 
-  document.getElementById('priceForeign').value = ''; 
-  document.getElementById('brand').value = ''; 
-  document.getElementById('affiliateLink').value = '';
-  document.getElementById('desc').value = ''; 
-  document.getElementById('category').value = '';
-  previewContainer.innerHTML = ''; 
-  addBtn.innerText = 'سیو کریں'; 
-  cancelEditBtn.style.display = 'none'; 
-  status.innerText = 'تصاویر منتخب کریں'; 
-}
-cancelEditBtn.onclick = resetForm;
-
-async function loadProducts(){ 
-  listDiv.innerHTML = 'لوڈ ہو رہا ہے...'; 
-  try{ 
-    const snap = await getDocs(collection(db, 'products'));
-    if(snap.empty){ listDiv.innerHTML = 'کوئی پروڈکٹ نہیں ملی'; return; } 
-    listDiv.innerHTML = ''; 
-    snap.forEach(d => { 
-      const p = d.data(); 
-      let img = (p.images && p.images[0]) || 'logo.png'; 
-      let priceDisplay = p.priceType === 'usd' ? `$${p.price} (Rs.${p.pricePKR})` : p.priceType === 'aed' ? `AED ${p.price} (Rs.${p.pricePKR})` : p.priceType === 'gbp' ? `£${p.price} (Rs.${p.pricePKR})` : `Rs.${p.pricePKR || p.price}`;
-      
-      const div = document.createElement('div'); 
-      div.className = 'product-item'; 
-      div.innerHTML = `
-        <img src="${img}">
-        <div class="p-info">
-          <b>${p.name}</b><br>
-          <span>${priceDisplay} | ${p.category}</span>
-        </div>
-        <div>
-          <button class="btn-edit">ایڈٹ</button>
-          <button class="btn-del">ڈیلیٹ</button>
-        </div>
-      `; 
-
-      div.querySelector('.btn-edit').onclick = () => { 
-        editingId = d.id; 
-        document.getElementById('name').value = p.name || ''; 
-        document.getElementById('brand').value = p.brand || ''; 
-        document.getElementById('affiliateLink').value = p.affiliateLink || '';
-        document.getElementById('desc').value = p.desc || ''; 
-        document.getElementById('category').value = p.category || ''; 
-        
-        if(p.priceType && p.priceType !== 'pkr'){
-          priceType.value = p.priceType;
-          pkrContainer.style.display = 'none';
-          currContainer.style.display = 'block';
-          document.getElementById('priceForeign').value = p.price || '';
-          document.getElementById('rateCustom').value = p.rateUsed || 280;
-          updatePKR();
-        } else {
-          priceType.value = 'pkr';
-          pkrContainer.style.display = 'block';
-          currContainer.style.display = 'none';
-          document.getElementById('priceDirectPKR').value = p.pricePKR || p.price || '';
-        } 
-        
-        existingImagesForEdit = p.images || []; 
-        previewContainer.innerHTML = ''; 
-        if(p.images){
-          p.images.forEach(s => {
-            const im = document.createElement('img');
-            im.src = s;
-            previewContainer.appendChild(im);
-          });
-        } 
-        addBtn.innerText = 'اپ ڈیٹ کریں'; 
-        cancelEditBtn.style.display = 'block'; 
-        window.scrollTo({top:0, behavior:'smooth'});
-      }; 
-
-      div.querySelector('.btn-del').onclick = async () => { 
-        if(!confirm('ڈیلیٹ کرنا چاہتے ہیں؟')) return; 
-        await deleteDoc(doc(db, 'products', d.id)); 
-        div.remove(); 
-      }; 
-
-      listDiv.appendChild(div); 
-    }); 
-  }catch(e){ 
-    listDiv.innerHTML = 'Error: ' + e.message; 
-  } 
-}
-loadProducts();
 </script>
 </body>
 </html>
