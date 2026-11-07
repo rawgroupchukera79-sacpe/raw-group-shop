@@ -16,7 +16,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 
 .top-bar { display: flex; justify-content: space-between; align-items: center; background: #194376; padding: 8px 15px; position: relative; z-index: 1000; }
 .owner-branding { display: flex; align-items: center; gap: 6px; }
-.owner-branding img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+.owner-branding img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.3); background: #fff3ec; }
 
 #google_translate_element select { background: #fff; padding: 4px 8px; border-radius: 15px; border: 1px solid #ccc; font-size: 11px; outline: none; font-family: inherit; cursor: pointer; max-width: 140px; }
 .goog-te-banner-frame.skiptranslate { display: none !important; }
@@ -103,9 +103,9 @@ function googleTranslateElementInit() {
   <div class="top-bar">
     <div id="google_translate_element"></div>
     <div class="owner-branding">
-      <!-- Universal Fallbacks for Owner Images (ijaz.jpg, ejaj.jpg & logo.png) -->
-      <img src="ijaz.jpg" onerror="this.src='ejaj.jpg'; this.onerror=function(){this.src='logo.png';}" title="Ijaz Ahmad">
-      <img src="ejaj.jpg" onerror="this.src='ijaz.jpg'; this.onerror=function(){this.src='logo.png';}" title="R.A.W Group">
+      <!-- Mapped directly to ejaj.jpg and logo.png as present in your GitHub repository -->
+      <img src="ejaj.jpg" onerror="this.src='logo.png'" title="Ijaz Ahmad">
+      <img src="logo.png" title="R.A.W Group">
     </div>
   </div>
 
@@ -817,16 +817,23 @@ window.sendChatMessage = function() {
     if (isGreeting) {
       replyText = "وعلیکم السلام! " + timeGreeting + "! Main bilkul theek hoon, aap sunayein, aap kaise hain? R.A.W Group mein خوش آمدید!";
     } else if (query.indexOf('order') !== -1 || query.indexOf('khareed') !== -1) {
-      replyText = "Order karne ke liye product ke niche 'Order' button par click karein.";
+      replyTest = "Order karne ke liye product ke niche 'Order' button par click karein.";
     } else if (query.indexOf('paisa') !== -1 || query.indexOf('escrow') !== -1 || query.indexOf('safe') !== -1) {
       replyText = "R.A.W Group par aapka paisa Escrow Protection ke tehat 100% mehfooz rehta hai.";
     } else if (query.indexOf('sell') !== -1 || query.indexOf('ad') !== -1 || query.indexOf('bech') !== -1) {
       replyText = "Ad lagane ke liye niche wale gol plus (+) button par click karein.";
     } else {
+      let searchKeyWords = query.split(' ');
       let matches = allProductsCache.filter(function(p) {
         let pName = (p.name || p.title || '').toLowerCase();
         let pCat = (p.category || '').toLowerCase();
-        return pName.indexOf(query) !== -1 || pCat.indexOf(query) !== -1;
+        let pDesc = (p.description || '').toLowerCase();
+        for(let w of searchKeyWords) {
+          if(w.length > 1 && (pName.indexOf(w) !== -1 || pCat.indexOf(w) !== -1 || pDesc.indexOf(w) !== -1)) {
+            return true;
+          }
+        }
+        return false;
       });
       
       if(matches.length > 0) {
@@ -841,7 +848,7 @@ window.sendChatMessage = function() {
           actionLinkHTML = '<div style="margin-top:6px;"><a href="' + whatsappLink + '" target="_blank" style="background:#25d366; color:#fff; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">💬 Order via WhatsApp</a></div>';
         }
       } else {
-        replyText = "Maazrat, is naam ki exact product mojood nahi hai. WhatsApp 03334664227 par rabta karein!";
+        replyText = "Maazrat, is naam ki exact product nahi mili. Aap WhatsApp 03334664227 par rabta karein!";
       }
     }
 
