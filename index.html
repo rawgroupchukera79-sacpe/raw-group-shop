@@ -15,7 +15,8 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 #main-shop-view { display: flex; flex-direction: column; min-height: 100vh; }
 
 .top-bar { display: flex; justify-content: space-between; align-items: center; background: #194376; padding: 8px 15px; position: relative; z-index: 1000; }
-.owner-top img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+.owner-branding { display: flex; align-items: center; gap: 8px; }
+.owner-branding img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
 
 #google_translate_element select { background: #fff; padding: 4px 8px; border-radius: 15px; border: 1px solid #ccc; font-size: 11px; outline: none; font-family: inherit; cursor: pointer; max-width: 150px; }
 .goog-te-banner-frame.skiptranslate { display: none !important; }
@@ -31,11 +32,11 @@ body { top: 0px !important; }
 .cat-icon-circle { width: 50px; height: 50px; border-radius: 50%; background: #fff3ec; border: 2px solid #f57224; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 4px; box-shadow: 0 2px 6px rgba(245,114,36,0.2); }
 .cat-item span { font-size: 11px; font-weight: 600; color: #333; }
 
+/* Original Clean & Beautiful Banner */
 .banner { position: relative; max-width: 1100px; width: 100%; margin: 10px auto; padding: 0 15px; }
-.banner-track { height: 150px; border-radius: 12px; background: linear-gradient(135deg, #194376, #f57224); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); text-align: center; }
-.banner-track h3 { font-size: 16px; font-weight: bold; margin-bottom: 4px; }
-.banner-track p { font-size: 11px; opacity: 0.95; margin-bottom: 6px; }
-.banner-cta { background: #FFD700; color: #194376; padding: 5px 10px; border-radius: 15px; font-size: 11px; font-weight: bold; display: inline-block; margin: 0 auto; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+.banner-track { height: 140px; border-radius: 12px; background: linear-gradient(135deg, #194376, #f57224); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.banner-track h3 { font-size: 18px; font-weight: bold; }
+.banner-track p { font-size: 12px; opacity: 0.9; }
 
 .sec-title { max-width: 1100px; width: 100%; margin: 10px auto 0; padding: 0 15px; font-size: 14px; font-weight: 700; color: #222; border-left: 4px solid #f57224; padding-left: 8px; }
 
@@ -99,7 +100,9 @@ function googleTranslateElementInit() {
 <div id="main-shop-view">
   <div class="top-bar">
     <div id="google_translate_element"></div>
-    <div class="owner-top"><img src="ejaj.jpg" onerror="this.src='logo.png'" title="R.A.W GROUP Owner"></div>
+    <div class="owner-branding">
+      <img src="ejaj.jpg" onerror="this.src='logo.png'" title="Ijaz Ahmad">
+    </div>
   </div>
 
   <div class="search-bar-row">
@@ -128,12 +131,11 @@ function googleTranslateElementInit() {
     <div class="cat-item" onclick="filterByCategory('Tools & Heavy Machinery')"><div class="cat-icon-circle">🛠️</div><span>Tools</span></div>
   </div>
 
-  <!-- Promotional Banner for Seller Registration / Ad Posting -->
+  <!-- Original Beautiful Banner -->
   <div class="banner">
     <div class="banner-track">
       <h3>R.A.W GROUP CHOUKIRH 79</h3>
-      <p>Aapki Apni Online Marketplace — Yahan apni cheezein khud bechein!</p>
-      <div class="banner-cta" onclick="checkUserLoginAndOpenAd()">✨ Niche (+) Button Daba Kar Ad Lagayein!</div>
+      <p>Aapki Apni Online Marketplace</p>
     </div>
   </div>
 
@@ -144,16 +146,14 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Product Detail Modal for Multiple Pictures & Full Description -->
+<!-- Product Detail Modal -->
 <div id="product-detail-modal">
   <div class="detail-modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
       <h3 id="detTitle" style="font-size:14px; color:#194376;">Product Details</h3>
       <span style="cursor:pointer;font-weight:bold; font-size:16px;" onclick="closeProductDetailModal()">✕</span>
     </div>
-    
     <div id="detImagesContainer" style="display:flex; flex-direction:column; gap:8px; max-height:260px; overflow-y:auto; align-items:center; background:#fafafa; padding:8px; border-radius:6px; margin-bottom:10px;"></div>
-    
     <div id="detPrice" style="font-size:15px; font-weight:bold; color:#f57224; margin-bottom:6px;"></div>
     <div id="detCategory" style="font-size:11px; color:#194376; font-weight:bold; margin-bottom:4px;"></div>
     <div id="detCity" style="font-size:11px; color:#757575; margin-bottom:6px;"></div>
@@ -175,17 +175,14 @@ function googleTranslateElementInit() {
       <h3 style="font-size:14px; color:#194376;">🛒 Secure Escrow Order Form</h3>
       <span style="cursor:pointer;font-weight:bold;" onclick="closeOrderModal()">✕</span>
     </div>
-    
     <div class="escrow-notice">
-      <b>🛡️ R.A.W Escrow Protection:</b> Aapki payment safe rahegi. Scam se bachne ke liye online payment ki receipt WhatsApp par zaroor bhejein.
+      <b>🛡️ R.A.W Escrow Protection:</b> Aapki payment safe rahegi.
     </div>
-
     <div id="orderProductDetails" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376; font-weight:bold;"></div>
-    
     <form id="customerOrderForm" onsubmit="submitCustomerOrder(event)">
       <div class="form-group">
-        <label>Aapka Naam (Customer Name) *</label>
-        <input type="text" id="custName" required placeholder="e.g. Muhammad Ali">
+        <label>Aapka Naam *</label>
+        <input type="text" id="custName" required placeholder="Muhammad Ali">
       </div>
       <div class="form-group">
         <label>Mobile / WhatsApp Number *</label>
@@ -199,19 +196,15 @@ function googleTranslateElementInit() {
           <option value="Easypaisa / JazzCash / Raast">Easypaisa / JazzCash / Raast</option>
         </select>
       </div>
-
       <div id="securePaymentInfo" style="display:none; background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px; color:#333;">
         <b>🔒 Official R.A.W Group Account Details:</b><br>
-        • Meezan Bank: <b>[Yahan apna Meezan Bank account number likhein]</b><br>
-        • JazzCash / Easypaisa: <b>0333-4664227 (Ijaz Ahmad)</b><br>
-        <i>Note: Payment ke baad screenshot WhatsApp par zaroor bhejein!</i>
+        • JazzCash / Easypaisa: <b>0333-4664227 (Ijaz Ahmad)</b>
       </div>
-
       <div class="form-group">
         <label>Delivery Address / City *</label>
-        <textarea id="custAddress" rows="2" required placeholder="Poora pata aur shehar likhein..."></textarea>
+        <textarea id="custAddress" rows="2" required placeholder="Poora pata likhein..."></textarea>
       </div>
-      <button type="submit" class="btn-submit-ad" style="background:#f57224;">Confirm & Secure Order</button>
+      <button type="submit" class="btn-submit-ad" style="background:#f57224;">Confirm Order</button>
     </form>
   </div>
 </div>
@@ -223,11 +216,10 @@ function googleTranslateElementInit() {
       <h3 style="font-size:14px; color:#194376;">Partner / Seller Login</h3>
       <span style="cursor:pointer;font-weight:bold;" onclick="closeLoginModal()">✕</span>
     </div>
-    <p style="font-size:12px; color:#555; margin-bottom:10px;">Ad post karne ke liye apna naam aur mobile number likhein:</p>
     <form id="userLoginForm" onsubmit="submitUserLogin(event)">
       <div class="form-group">
         <label>Aapka Naam *</label>
-        <input type="text" id="loginName" required placeholder="e.g. Ali Ahmed">
+        <input type="text" id="loginName" required placeholder="Ali Ahmed">
       </div>
       <div class="form-group">
         <label>WhatsApp Number *</label>
@@ -258,7 +250,7 @@ function googleTranslateElementInit() {
           <option value="Home & Kitchen Appliances">Home & Kitchen Appliances</option>
           <option value="Fashion & Beauty">Fashion & Beauty</option>
           <option value="Job offers">Job offers</option>
-          <option value="Kids & Baby-Shop">Kids & Baby-Shop</option>
+          <option value="Kids & Baby-Shop">Kids & Baby</option>
           <option value="Education / BookShop">Education / BookShop</option>
           <option value="General store Food Delivery">General store Food Delivery</option>
           <option value="Services & offers">Services & offers</option>
@@ -271,31 +263,30 @@ function googleTranslateElementInit() {
       </div>
       <div class="form-group">
         <label>Ad Title (Product Naam) *</label>
-        <input type="text" id="adTitle" required placeholder="e.g. Samsung Phone">
+        <input type="text" id="adTitle" required placeholder="Samsung Phone">
       </div>
       <div class="form-group">
-        <label>Brand ya Shehar (e.g. Sargodha) *</label>
-        <input type="text" id="adCity" required placeholder="Sargodha">
+        <label>Brand ya Shehar *</label>
+        <input type="text" id="adCity" required value="Sargodha">
       </div>
       <div class="form-group">
         <label>Price (PKR) *</label>
-        <input type="number" id="adPrice" required placeholder="e.g. 15000">
+        <input type="number" id="adPrice" required placeholder="15000">
       </div>
       <div class="form-group">
         <label>WhatsApp / Contact Link (Optional)</label>
         <input type="text" id="adAffiliateLink" placeholder="https://...">
       </div>
       <div class="form-group">
-        <label>Tafseel Likhein (Description) *</label>
-        <textarea id="adDescription" rows="3" required placeholder="Product ki mukammal tafseel yahan likhein..."></textarea>
+        <label>Tafseel Likhein *</label>
+        <textarea id="adDescription" rows="3" required placeholder="Mukammal tafseel..."></textarea>
       </div>
       <div class="form-group">
-        <label>Tasveerein Select Karein (Multiple Images Auto-Resized) *</label>
+        <label>Tasveerein Select Karein *</label>
         <input type="file" id="imageFileInput" accept="image/*" multiple required onchange="handleMultipleImages(event)">
       </div>
       <p id="imgCountNotice" style="font-size:10px; color:#0a8a00; margin-bottom:8px; font-weight:bold;"></p>
-      <p style="font-size:10px; color:#0a8a00; margin-bottom:8px;">* 5% R.A.W Group Platform Commission automatically applies after customer satisfaction.</p>
-      <button type="submit" class="btn-submit-ad">Submit Ad For Review</button>
+      <button type="submit" class="btn-submit-ad">Submit Ad</button>
     </form>
   </div>
 </div>
@@ -312,15 +303,13 @@ function googleTranslateElementInit() {
       <span onclick="setStars(5)" style="cursor:pointer;">★</span>
     </div>
     <input type="text" id="reviewerName" placeholder="Aapka Naam..." style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #ccc; border-radius:6px; font-size:11px;">
-    <textarea id="reviewMsgInput" placeholder="Apna review yahan likhein..." style="width:100%; height:50px; padding:6px; border:1px solid #ccc; border-radius:6px; font-size:11px; margin-bottom:6px;"></textarea>
-    
+    <textarea id="reviewMsgInput" placeholder="Review likhein..." style="width:100%; height:50px; padding:6px; border:1px solid #ccc; border-radius:6px; font-size:11px; margin-bottom:6px;"></textarea>
     <div class="form-group" style="text-align:left; margin-bottom:8px;">
-      <label style="font-size:10px;">Tasveer Upload Karein (Optional)</label>
+      <label style="font-size:10px;">Tasveer (Optional)</label>
       <input type="file" id="reviewImageInput" accept="image/*" onchange="compressReviewImage(event)" style="font-size:10px; padding:4px;">
     </div>
-
     <div style="display:flex; gap:6px;">
-      <button onclick="submitUserReview()" style="flex:1; background:#f57224; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Submit Review</button>
+      <button onclick="submitUserReview()" style="flex:1; background:#f57224; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Submit</button>
       <button onclick="closeReviewModal()" style="background:#ddd; border:none; padding:7px 10px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
     </div>
   </div>
@@ -335,7 +324,7 @@ function googleTranslateElementInit() {
   </div>
   <div class="chat-body" id="chatBody">
     <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">
-      اسلام علیکم! Mic (🎤) ka button daba kar bolen, ya salam / sawal likhein. Main aapko jawab dunga aur parh kar bhi sunaunga!
+      اسلام علیکم! Mic (🎤) ka button daba kar bolen, ya sawal likhein.
     </div>
   </div>
   <div class="chat-footer">
@@ -372,7 +361,7 @@ window.handleMultipleImages = function(event) {
   const files = event.target.files;
   if (!files || files.length === 0) return;
   uploadedImagesArray = [];
-  document.getElementById('imgCountNotice').innerText = `${files.length} tasveerein select ho gayi hain, database size ke mutabiq optimize ho rahi hain...`;
+  document.getElementById('imgCountNotice').innerText = `${files.length} tasveerein select ho gayi hain, optimize ho rahi hain...`;
 
   let processedCount = 0;
   for (let i = 0; i < files.length; i++) {
@@ -393,7 +382,7 @@ window.handleMultipleImages = function(event) {
         uploadedImagesArray.push(base64);
         processedCount++;
         if(processedCount === files.length) {
-          document.getElementById('imgCountNotice').innerText = `✓ ${uploadedImagesArray.length} tasveerein bilkul tayar hain!`;
+          document.getElementById('imgCountNotice').innerText = `✓ ${uploadedImagesArray.length} tasveerein tayar hain!`;
         }
       }
     }
@@ -462,12 +451,12 @@ function renderProducts(products) {
     let priceVal = item.pricePKR || item.price || 0;
     let priceDisplay = `Rs. ${priceVal}`;
 
-    let verifiedBadge = item.isVerifiedSeller ? `<span style="color:#0a8a00; font-size:9px; font-weight:bold;"> ✓ R.A.W Verified</span>` : '';
-    let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName}${verifiedBadge}</div>` : '';
+    let verifiedBadge = item.isVerifiedSeller ? `<span style="color:#0a8a00; font-size:9px; font-weight:bold;"> ✓ Verified</span>` : '';
+    let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName} ${verifiedBadge}</div>` : '';
     
     let deleteBtnHTML = '';
     if (savedUser.mobile && item.mobile && savedUser.mobile === item.mobile) {
-      deleteBtnHTML = `<button class="delete-product-btn" onclick="deleteMyProduct('${item.id}')">🗑️ Item Delete Karein</button>`;
+      deleteBtnHTML = `<button class="delete-product-btn" onclick="deleteMyProduct('${item.id}')">🗑️ Delete</button>`;
     }
 
     let actionButtonsHTML = '';
@@ -475,7 +464,7 @@ function renderProducts(products) {
       let linkText = item.affiliateLink.includes('amazon') ? '🔗 Amazon Link' : item.affiliateLink.includes('daraz') ? '🔗 Daraz Link' : '🔗 Visit Link';
       actionButtonsHTML = `<a href="${item.affiliateLink}" target="_blank" class="affiliate-btn">${linkText}</a>`;
     } else {
-      let contactLink = `https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe\%20is\%20product\%20mein\%20interest\%20hai:\%20${encodeURIComponent(item.name || item.title)}`;
+      let contactLink = `https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
       actionButtonsHTML = `
         <div class="btn-row">
           <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
@@ -490,9 +479,11 @@ function renderProducts(products) {
         <div class="card-body">
           <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
           <span class="category-tag">${item.category || 'General'}</span>
-          <div class="city-label">📍 ${item.brand \vert{}\vert{} item.city \vert{}\vert{} 'Sargodha'}</div>${sellerInfo}
+          <div class="city-label">📍 ${item.brand || item.city || 'Sargodha'}</div>
+          ${sellerInfo}
           <div class="price">${priceDisplay}</div>
-          ${actionButtonsHTML}${deleteBtnHTML}
+          ${actionButtonsHTML}
+          ${deleteBtnHTML}
         </div>
       </div>
     `;
@@ -503,7 +494,7 @@ window.deleteMyProduct = async function(productId) {
   if(confirm("Kya aap waqai is item ko delete karna chahte hain?")) {
     try {
       await deleteDoc(doc(db, "products", productId));
-      alert("Item kamyabi se delete ho gayi hai.");
+      alert("Item delete ho gayi hai.");
       loadApprovedProducts();
     } catch(err) {
       alert("Delete karne mein masla hua.");
@@ -515,7 +506,8 @@ window.openProductDetail = function(item) {
   document.getElementById('detTitle').innerText = item.name || item.title;
   let priceVal = item.pricePKR || item.price || 0;
   document.getElementById('detPrice').innerText = `Price: Rs. ${priceVal}`;
-  document.getElementById('detCategory').innerText = `Category: ${item.category \vert{}\vert{} 'General'}`; document.getElementById('detCity').innerText = `Location: ${item.brand || item.city || 'Sargodha'}`;
+  document.getElementById('detCategory').innerText = `Category: ${item.category || 'General'}`;
+  document.getElementById('detCity').innerText = `Location: ${item.brand || item.city || 'Sargodha'}`;
   document.getElementById('detDescription').innerText = item.description || item.desc || 'Mazeed tafseel mojood nahi hai.';
 
   const imgContainer = document.getElementById('detImagesContainer');
@@ -560,7 +552,7 @@ window.filterShop = function() {
 window.openOrderModal = function(item) {
   selectedOrderProduct = item;
   let priceText = item.pricePKR || item.price || '0';
-  document.getElementById('orderProductDetails').innerText = `Product: ${item.name \vert{}\vert{} item.title} \vert{} Price: Rs.${priceText}`;
+  document.getElementById('orderProductDetails').innerText = `Product: ${item.name || item.title} | Price: Rs. ${priceText}`;
   document.getElementById('order-form-modal').style.display = 'flex';
 };
 window.closeOrderModal = () => document.getElementById('order-form-modal').style.display = 'none';
@@ -604,7 +596,7 @@ window.submitCustomerOrder = async function(e) {
       payoutStatus: "Pending Confirmation",
       createdAt: serverTimestamp()
     });
-    alert("Shukriya! Aapka order R.A.W Escrow Protection ke sath book ho gaya hai.");
+    alert("Shukriya! Aapka order book ho gaya hai.");
     document.getElementById('customerOrderForm').reset();
     closeOrderModal();
   } catch(err) {
@@ -649,7 +641,7 @@ window.submitUserAd = async function(e) {
   const description = document.getElementById('adDescription').value;
   const savedUser = JSON.parse(localStorage.getItem('raw_logged_seller') || '{}');
 
-  if (uploadedImagesArray.length === 0) { alert("Brahrahem kam az kam aik tasveer select karein!"); return; }
+  if (uploadedImagesArray.length === 0) { alert("Kam az kam aik tasveer select karein!"); return; }
 
   try {
     const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
@@ -667,7 +659,7 @@ window.submitUserAd = async function(e) {
       isVerifiedSeller: true,
       createdAt: serverTimestamp()
     });
-    alert("Shukriya! Aapka ad tamam tasveeron aur tafseel ke sath live ho gaya hai.");
+    alert("Shukriya! Aapka ad live ho gaya hai.");
     document.getElementById('userAdForm').reset();
     closeAdModal();
     uploadedImagesArray = [];
@@ -696,7 +688,7 @@ window.submitUserReview = async function() {
       image: compressedReviewBase64 || "",
       createdAt: serverTimestamp()
     });
-    alert("Shukriya! Aapka review kamyabi se submit ho gaya hai.");
+    alert("Shukriya! Review submit ho gaya hai.");
     document.getElementById('reviewerName').value = "";
     document.getElementById('reviewMsgInput').value = "";
     document.getElementById('reviewImageInput').value = "";
@@ -748,4 +740,68 @@ window.sendChatMessage = () => {
   const query = input.value.trim().toLowerCase();
   if(!query) return;
 
-  body.innerHTML += `<div style="background:#f57224; color:#fff; padding:6px; border-radius:8px; align-self:flex-
+  body.innerHTML += `<div style="background:#f57224; color:#fff; padding:6px; border-radius:8px; align-self:flex-end;">${input.value}</div>`;
+  input.value = "";
+
+  setTimeout(() => {
+    let replyText = "";
+    let actionLinkHTML = "";
+    const hour = new Date().getHours();
+    let timeGreeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
+
+    let isGreeting = query.includes('سلیم') || query.includes('السلام') || query.includes('سلام') || query.includes('salam') || query.includes('assalam') || query.includes('alaikum') || query.includes('salaam') || query.includes('hi') || query.includes('hello') || query.includes('hey') || query.includes('kaise') || query.includes('kya haal');
+
+    if (isGreeting) {
+      replyText = `وعلیکم السلام! ${timeGreeting}! Main bilkul theek hoon, aap sunayein, aap kaise hain? R.A.W Group mein خوش آمدید!`;
+    }
+    else if (query.includes('order') || query.includes('khareed')) {
+      replyText = "Order karne ke liye product ke niche 'Order' button par click karein.";
+    } 
+    else if (query.includes('paisa') || query.includes('escrow') || query.includes('safe')) {
+      replyText = "R.A.W Group par aapka paisa Escrow Protection ke tehat 100% mehfooz rehta hai.";
+    } 
+    else if (query.includes('sell') || query.includes('ad') || query.includes('bech')) {
+      replyText = "Ad lagane ke liye niche wale gol plus (+) button par click karein.";
+    } 
+    else {
+      let searchKey = query;
+      if (query.includes('mobile') || query.includes('phone') || query.includes('فون') || query.includes('موبائل')) {
+        searchKey = 'motorola'; 
+      } else if (query.includes('bed') || query.includes('sheet') || query.includes('چادر')) {
+        searchKey = 'bed sheet';
+      }
+
+      let matches = allProductsCache.filter(p => (p.name || p.title || '').toLowerCase().includes(searchKey) || (p.category || '').toLowerCase().includes(searchKey));
+      
+      if(matches.length > 0) {
+        let p = matches[0];
+        let pPrice = p.pricePKR || p.price || 0;
+        replyText = `Ji bilkul! Yeh rahi product: "${p.name || p.title}" — Qeemat: Rs. ${pPrice}.`;
+        
+        if (p.affiliateLink && p.affiliateLink.trim() !== '') {
+          actionLinkHTML = `<div style="margin-top:6px;"><a href="${p.affiliateLink}" target="_blank" style="background:#ff9900; color:#000; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">🔗 Open Link</a></div>`;
+        } else {
+          let whatsappLink = `https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(p.name || p.title)}`;
+          actionLinkHTML = `<div style="margin-top:6px;"><a href="${whatsappLink}" target="_blank" style="background:#25d366; color:#fff; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">💬 Order via WhatsApp</a></div>`;
+        }
+      } else {
+        replyText = `Maazrat, is naam ki exact product mojood nahi hai. WhatsApp 03334664227 par rabta karein!`;
+      }
+    }
+
+    body.innerHTML += `
+      <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">
+        <span>${replyText}</span>
+        ${actionLinkHTML}
+        <span class="speak-icon" onclick="speakText('${replyText.replace(/'/g, "")}')" title="Sunen" style="float:right;">🔊</span>
+      </div>
+    `;
+    body.scrollTop = body.scrollHeight;
+    speakText(replyText);
+  }, 500);
+};
+
+window.addEventListener('DOMContentLoaded', () => { loadApprovedProducts(); });
+</script>
+</body>
+</html>
