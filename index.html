@@ -295,7 +295,7 @@ function googleTranslateElementInit() {
   </div>
   <div class="chat-body" id="chatBody">
     <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">
-      السلام علیکم! Mic (🎤) ka button daba kar bolen, ya salam / sawal likhein. Main aapko jawab dunga aur parh kar bhi sunaunga!
+      اسلام علیکم! Mic (🎤) ka button daba kar bolen, ya salam / sawal likhein. Main aapko jawab dunga aur parh kar bhi sunaunga!
     </div>
   </div>
   <div class="chat-footer">
@@ -595,6 +595,7 @@ window.sendChatMessage = () => {
 
   setTimeout(() => {
     let replyText = "";
+    let actionLinkHTML = "";
     const hour = new Date().getHours();
     let timeGreeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
 
@@ -616,18 +617,39 @@ window.sendChatMessage = () => {
       replyText = "R.A.W Group sirf 5% platform commission charge karta hai, aur baqi 95% raqam seller ko milti hai.";
     } 
     else {
-      let matches = allProductsCache.filter(p => (p.name || p.title || '').toLowerCase().includes(query) || (p.category || '').toLowerCase().includes(query));
+      // Smart Keyword Mapping & Database Match
+      let searchKey = query;
+      if (query.includes('mobile') || query.includes('mobil') || query.includes('phone') || query.includes('فون') || query.includes('موبائل')) {
+        searchKey = 'motorola'; 
+      } else if (query.includes('bed') || query.includes('sheet') || query.includes('chaadar') || query.includes('چادر')) {
+        searchKey = 'bed sheet';
+      }
+
+      let matches = allProductsCache.filter(p => (p.name || p.title || '').toLowerCase().includes(searchKey) || (p.category || '').toLowerCase().includes(searchKey));
+      
       if(matches.length > 0) {
-        replyText = `Ji bilkul! Humein ${matches.length} products mili hain. Jese: ${matches[0].name || matches[0].title} - Rs. ${matches[0].pricePKR || matches[0].price}`;
+        let p = matches[0];
+        let priceStr = `Rs. ${p.pricePKR || p.price}`;
+        replyText = `Ji bilkul! Yeh rahi aapki mangwai gayi product: "${p.name || p.title}" — Qeemat: ${priceStr}.`;
+        
+        // Check if product has an affiliate link or standard link
+        if (p.affiliateLink && p.affiliateLink.trim() !== '') {
+          let linkName = p.affiliateLink.includes('amazon') ? '🔗 Open Amazon Affiliate Link' : p.affiliateLink.includes('daraz') ? '🔗 Open Daraz Link' : '🔗 Open Store Link';
+          actionLinkHTML = `<div style="margin-top:6px;"><a href="${p.affiliateLink}" target="_blank" style="background:#ff9900; color:#000; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">${linkName}</a></div>`;
+        } else {
+          let whatsappLink = `https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(p.name || p.title)}`;
+          actionLinkHTML = `<div style="margin-top:6px;"><a href="${whatsappLink}" target="_blank" style="background:#25d366; color:#fff; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">💬 Order via WhatsApp</a></div>`;
+        }
       } else {
-        replyText = "Maazrat, mujhe iska exact jawab nahi mila. Aap mazeed tafseel ke liye hamare WhatsApp number 03334664227 par rabta kar sakte hain.";
+        replyText = `Maazrat, is naam ki exact product hamare paas direct mojood nahi hai. Mazeed tafseel ke liye hamare WhatsApp number 03334664227 par rabta karein!`;
       }
     }
 
     body.innerHTML += `
-      <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc; display:flex; justify-content:space-between; align-items:center;">
+      <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">
         <span>${replyText}</span>
-        <span class="speak-icon" onclick="speakText('${replyText.replace(/'/g, "")}')" title="Sunen">🔊</span>
+        ${actionLinkHTML}
+        <span class="speak-icon" onclick="speakText('${replyText.replace(/'/g, "")}')" title="Sunen" style="float:right;">🔊</span>
       </div>
     `;
     body.scrollTop = body.scrollHeight;
