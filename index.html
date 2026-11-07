@@ -57,7 +57,7 @@ body { top: 0px !important; }
 .affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #000; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
 .delete-product-btn { background: #d9534f; color: #fff; border: none; width: 100%; padding: 4px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-top: 4px; cursor: pointer; }
 
-/* Product Detail Modal for Multiple Pictures Viewing */
+/* Product Detail Modal */
 #product-detail-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
 .detail-modal-content { background: #fff; border-radius: 12px; width: 100%; max-width: 450px; max-height: 90vh; overflow-y: auto; padding: 15px; }
 
@@ -75,7 +75,7 @@ body { top: 0px !important; }
 
 .escrow-notice { background: #e8f5e9; border: 1px solid #2e7d32; padding: 8px; border-radius: 6px; margin-bottom: 10px; font-size: 10px; color: #1b5e20; }
 
-/* Voice & Multilingual AI Chatbot CSS */
+/* Chatbot CSS */
 #chatbot-launcher { position: fixed; bottom: 70px; right: 15px; background: #f57224; color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; z-index: 2500; font-size: 20px; }
 #chatbot-modal { display: none; position: fixed; bottom: 125px; right: 15px; width: 320px; height: 430px; background: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 2501; flex-direction: column; overflow: hidden; }
 .chat-header { background: #f57224; color: #fff; padding: 10px; font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
@@ -144,17 +144,14 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Product Detail Modal for Multiple Pictures Viewing -->
+<!-- Product Detail Modal -->
 <div id="product-detail-modal">
   <div class="detail-modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
       <h3 id="detTitle" style="font-size:14px; color:#194376;">Product Details</h3>
       <span style="cursor:pointer;font-weight:bold; font-size:16px;" onclick="closeProductDetailModal()">✕</span>
     </div>
-    
-    <!-- All Database Images Container (Vertical Scroll) -->
     <div id="detImagesContainer" style="display:flex; flex-direction:column; gap:8px; max-height:260px; overflow-y:auto; align-items:center; background:#fafafa; padding:8px; border-radius:6px; margin-bottom:10px;"></div>
-    
     <div id="detPrice" style="font-size:15px; font-weight:bold; color:#f57224; margin-bottom:6px;"></div>
     <div id="detCategory" style="font-size:11px; color:#194376; font-weight:bold; margin-bottom:4px;"></div>
     <div id="detCity" style="font-size:11px; color:#757575; margin-bottom:6px;"></div>
@@ -210,23 +207,24 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Seller Login Modal -->
+<!-- Seller Login Modal (Clear & Friendly) -->
 <div id="user-login-modal" class="custom-modal">
   <div class="modal-content" style="text-align:center;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px; color:#194376;">Partner / Seller Login</h3>
+      <h3 style="font-size:14px; color:#194376;">🤝 Seller Portal Login</h3>
       <span style="cursor:pointer;font-weight:bold;" onclick="closeLoginModal()">✕</span>
     </div>
+    <p style="font-size:11px; color:#555; margin-bottom:10px;">Yahan apni cheezon ka ad lagane ke liye apna naam aur WhatsApp number likhein:</p>
     <form id="userLoginForm" onsubmit="submitUserLogin(event)">
-      <div class="form-group">
+      <div class="form-group" style="text-align:left;">
         <label>Aapka Naam *</label>
-        <input type="text" id="loginName" required placeholder="Ali Ahmed">
+        <input type="text" id="loginName" required placeholder="e.g. Ali Ahmed">
       </div>
-      <div class="form-group">
+      <div class="form-group" style="text-align:left;">
         <label>WhatsApp Number *</label>
         <input type="text" id="loginMobile" required placeholder="03331234567">
       </div>
-      <button type="submit" class="btn-submit-ad" style="background:#194376;">Login & Continue</button>
+      <button type="submit" class="btn-submit-ad" style="background:#194376;">Login & Post Free Ad</button>
     </form>
   </div>
 </div>
@@ -235,7 +233,7 @@ function googleTranslateElementInit() {
 <div id="ad-submission-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px; color:#194376;">Apni Cheez Bechein (Post Ad)</h3>
+      <h3 style="font-size:14px; color:#194376;">📦 Naya Ad Lagayein (Seller Dashboard)</h3>
       <span style="cursor:pointer;font-weight:bold;" onclick="closeAdModal()">✕</span>
     </div>
     <div id="loggedInUserTag" style="font-size:11px; background:#eef2f7; padding:5px; border-radius:4px; margin-bottom:8px; color:#194376; font-weight:bold;"></div>
@@ -287,7 +285,7 @@ function googleTranslateElementInit() {
         <input type="file" id="imageFileInput" accept="image/*" multiple required onchange="handleMultipleImages(event)">
       </div>
       <p id="imgCountNotice" style="font-size:10px; color:#0a8a00; margin-bottom:8px; font-weight:bold;"></p>
-      <button type="submit" class="btn-submit-ad">Submit Ad</button>
+      <button type="submit" class="btn-submit-ad">Publish Ad Live</button>
     </form>
   </div>
 </div>
@@ -452,12 +450,12 @@ function renderProducts(products) {
     let priceVal = item.pricePKR || item.price || 0;
     let priceDisplay = `Rs. ${priceVal}`;
 
-    let verifiedBadge = item.isVerifiedSeller ? `<span style="color:#0a8a00; font-size:9px; font-weight:bold;"> ✓ Verified</span>` : '';
+    let verifiedBadge = item.isVerifiedSeller ? `<span style="color:#0a8a00; font-size:9px; font-weight:bold;"> ✓ Verified Seller</span>` : '';
     let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName} ${verifiedBadge}</div>` : '';
     
     let deleteBtnHTML = '';
     if (savedUser.mobile && item.mobile && savedUser.mobile === item.mobile) {
-      deleteBtnHTML = `<button class="delete-product-btn" onclick="deleteMyProduct('${item.id}')">🗑️ Delete</button>`;
+      deleteBtnHTML = `<button class="delete-product-btn" onclick="deleteMyProduct('${item.id}')">🗑️ Delete My Ad</button>`;
     }
 
     let actionButtonsHTML = '';
@@ -469,7 +467,7 @@ function renderProducts(products) {
       actionButtonsHTML = `
         <div class="btn-row">
           <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
-          <button class="order-btn" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 Order</button>
+          <button class="order-btn" onclick='openOrderModal(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 Order</button>
         </div>
       `;
     }
@@ -492,10 +490,10 @@ function renderProducts(products) {
 }
 
 window.deleteMyProduct = async function(productId) {
-  if(confirm("Kya aap waqai is item ko delete karna chahte hain?")) {
+  if(confirm("Kya aap waqai is ad ko delete karna chahte hain?")) {
     try {
       await deleteDoc(doc(db, "products", productId));
-      alert("Item delete ho gayi hai.");
+      alert("Aapka ad delete ho gaya hai.");
       loadApprovedProducts();
     } catch(err) {
       alert("Delete karne mein masla hua.");
@@ -514,7 +512,6 @@ window.openProductDetail = function(item) {
   const imgContainer = document.getElementById('detImagesContainer');
   imgContainer.innerHTML = "";
 
-  // Fixed: Loading all images from database array correctly
   let imagesList = item.images;
   if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
     imagesList = item.img ? [item.img] : ['logo.png'];
@@ -588,7 +585,7 @@ window.submitCustomerOrder = async function(e) {
       productPrice: totalPrice,
       adminCommission: adminCommission,
       sellerPayout: sellerPayout,
-      sellerName: selectedOrderProduct.sellerName || 'Direct Admin',
+      sellerName: selectedOrderProduct.sellerName || 'Partner',
       sellerMobile: selectedOrderProduct.mobile || '03334664227',
       customerName: name,
       customerMobile: mobile,
@@ -612,7 +609,7 @@ window.checkUserLoginAndOpenAd = function() {
     document.getElementById('user-login-modal').style.display = 'flex';
   } else {
     const user = JSON.parse(savedUser);
-    document.getElementById('loggedInUserTag').innerText = `👤 Logged in as: ${user.name} (${user.mobile})`;
+    document.getElementById('loggedInUserTag').innerText = `👤 Seller: ${user.name} (${user.mobile})`;
     document.getElementById('ad-submission-modal').style.display = 'flex';
   }
 };
@@ -624,12 +621,12 @@ window.submitUserLogin = function(e) {
   e.preventDefault();
   const name = document.getElementById('loginName').value.trim();
   const mobile = document.getElementById('loginMobile').value.trim();
-  if(!name || !mobile) { alert("Naam aur mobile number lazmi likhein!"); return; }
+  if(!name || !mobile) { alert("Naam aur WhatsApp number lazmi likhein!"); return; }
 
   const userData = { name, mobile, loginTime: new Date().toLocaleString() };
   localStorage.setItem('raw_logged_seller', JSON.stringify(userData));
   closeLoginModal();
-  document.getElementById('loggedInUserTag').innerText = `👤 Logged in as: ${name} (${mobile})`;
+  document.getElementById('loggedInUserTag').innerText = `👤 Seller: ${name} (${mobile})`;
   document.getElementById('ad-submission-modal').style.display = 'flex';
 };
 
