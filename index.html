@@ -18,7 +18,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .top-bar { display: flex; justify-content: space-between; align-items: center; background: #194376; padding: 8px 15px; position: relative; z-index: 1000; }
 .owner-top img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
 
-/* Google Translate Styling - All Languages Enabled */
+/* Google Translate Styling */
 #google_translate_element select { background: #fff; padding: 4px 8px; border-radius: 15px; border: 1px solid #ccc; font-size: 11px; outline: none; font-family: inherit; cursor: pointer; max-width: 150px; }
 .goog-te-banner-frame.skiptranslate { display: none !important; }
 body { top: 0px !important; }
@@ -39,13 +39,6 @@ body { top: 0px !important; }
 .banner-track { height: 140px; border-radius: 12px; background: linear-gradient(135deg, #194376, #f57224); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 .banner-track h3 { font-size: 18px; font-weight: bold; }
 .banner-track p { font-size: 12px; opacity: 0.9; }
-
-/* Store Rating Card */
-.site-rating-card { max-width: 1100px; margin: 0 auto 10px; padding: 10px 15px; background: #fff; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e5e5e5; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-.site-rating-info { font-size: 12px; color: #333; }
-.site-rating-info strong { color: #f57224; }
-.google-verified-tag { font-size: 10px; color: #1a73e8; font-weight: bold; display: block; margin-top: 2px; }
-.site-rate-btn { background: #f57224; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 11px; cursor: pointer; }
 
 .sec-title { max-width: 1100px; width: 100%; margin: 10px auto 0; padding: 0 15px; font-size: 14px; font-weight: 700; color: #222; border-left: 4px solid #f57224; padding-left: 8px; }
 
@@ -77,7 +70,7 @@ body { top: 0px !important; }
 .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; font-family: inherit; }
 .btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 9px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
 
-/* Chatbot Restored */
+/* Chatbot */
 #chatbot-launcher { position: fixed; bottom: 70px; right: 15px; background: #f57224; color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; z-index: 2500; font-size: 20px; }
 #chatbot-modal { display: none; position: fixed; bottom: 125px; right: 15px; width: 300px; height: 380px; background: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 2501; flex-direction: column; overflow: hidden; }
 .chat-header { background: #f57224; color: #fff; padding: 10px; font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
@@ -88,7 +81,7 @@ body { top: 0px !important; }
 .send-btn { background: #f57224; color: #fff; border: none; padding: 5px 10px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 11px; }
 </style>
 
-<!-- Google Translate Script - All Languages Enabled -->
+<!-- Google Translate Script -->
 <script type="text/javascript">
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'ur', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
@@ -139,14 +132,6 @@ function googleTranslateElementInit() {
     </div>
   </div>
 
-  <div class="site-rating-card">
-    <div class="site-rating-info">
-      <span>⭐ Google Store Rating: <strong id="site-avg-rating">4.9</strong> / 5</span>
-      <span class="google-verified-tag">✓ Verified Google Reviews</span>
-    </div>
-    <button class="site-rate-btn" onclick="openReviewModal()">Rate Us ⭐</button>
-  </div>
-
   <div class="sec-title" id="catTitle">📦 تمام (All Products)</div>
 
   <div id="shopList" class="products">
@@ -156,24 +141,29 @@ function googleTranslateElementInit() {
 
 <div class="bottom-nav">
   <div class="nav-item" onclick="window.scrollTo({top:0, behavior:'smooth'})"><span class="icon">🏠</span><span>Home</span></div>
-  <div class="sell-fab" onclick="openAdModal()">+</div>
+  <div class="sell-fab" onclick="checkUserLoginAndOpenAd()">+</div>
   <div class="nav-item" onclick="openReviewModal()"><span class="icon">⭐</span><span>Review</span></div>
 </div>
 
-<!-- Chatbot Restored -->
-<div id="chatbot-launcher" onclick="toggleChatbot()">💬</div>
-<div id="chatbot-modal">
-  <div class="chat-header">
-    <span>🤖 R.A.W Support AI</span>
-    <span style="cursor:pointer;" onclick="toggleChatbot()">✕</span>
-  </div>
-  <div class="chat-body" id="chatBody">
-    <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">اسلام علیکم! R.A.W GROUP Assist mein khushamdeed. Main aapki kya madad kar sakta hoon?</div>
-  </div>
-  <div class="chat-footer">
-    <input type="text" id="chatInput" placeholder="Aapna sawal likhein..." onkeypress="if(event.key==='Enter') sendChatMessage()">
-    <button class="mic-btn" onclick="toggleVoiceInput()" title="Voice Input">🎤</button>
-    <button class="send-btn" onclick="sendChatMessage()">Send</button>
+<!-- User Login Modal for Posting Ads -->
+<div id="user-login-modal" class="custom-modal">
+  <div class="modal-content" style="text-align:center;">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
+      <h3 style="font-size:14px; color:#194376;">Partner / Seller Login</h3>
+      <span style="cursor:pointer;font-weight:bold;" onclick="closeLoginModal()">✕</span>
+    </div>
+    <p style="font-size:12px; color:#555; margin-bottom:10px;">Ad post karne ke liye apna naam aur mobile number likhein taake humein pata ho ke aap hamare sath kaam kar rahe hain:</p>
+    <form id="userLoginForm" onsubmit="submitUserLogin(event)">
+      <div class="form-group">
+        <label>Aapka Naam *</label>
+        <input type="text" id="loginName" required placeholder="e.g. Ali Ahmed">
+      </div>
+      <div class="form-group">
+        <label>WhatsApp Number *</label>
+        <input type="text" id="loginMobile" required placeholder="03331234567">
+      </div>
+      <button type="submit" class="btn-submit-ad" style="background:#194376;">Login & Continue</button>
+    </form>
   </div>
 </div>
 
@@ -184,6 +174,7 @@ function googleTranslateElementInit() {
       <h3 style="font-size:14px; color:#194376;">Apni Cheez Bechein (Post Ad)</h3>
       <span style="cursor:pointer;font-weight:bold;" onclick="closeAdModal()">✕</span>
     </div>
+    <div id="loggedInUserTag" style="font-size:11px; background:#eef2f7; padding:5px; border-radius:4px; margin-bottom:8px; color:#194376; font-weight:bold;"></div>
     <form id="userAdForm" onsubmit="submitUserAd(event)">
       <div class="form-group">
         <label>Ad Title (Product Naam) *</label>
@@ -220,10 +211,6 @@ function googleTranslateElementInit() {
         <input type="text" id="adCity" required value="Sargodha">
       </div>
       <div class="form-group">
-        <label>WhatsApp Number *</label>
-        <input type="text" id="adMobile" value="03334664227" required>
-      </div>
-      <div class="form-group">
         <label>Tasveer Select Karein (Auto Resize) *</label>
         <input type="file" id="imageFileInput" accept="image/*" required onchange="compressImage(event)">
       </div>
@@ -249,6 +236,23 @@ function googleTranslateElementInit() {
       <button onclick="submitUserReview()" style="flex:1; background:#f57224; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Submit Review</button>
       <button onclick="closeReviewModal()" style="background:#ddd; border:none; padding:7px 10px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
     </div>
+  </div>
+</div>
+
+<!-- Chatbot -->
+<div id="chatbot-launcher" onclick="toggleChatbot()">💬</div>
+<div id="chatbot-modal">
+  <div class="chat-header">
+    <span>🤖 R.A.W Support AI</span>
+    <span style="cursor:pointer;" onclick="toggleChatbot()">✕</span>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">اسلام علیکم! R.A.W GROUP Assist mein khushamdeed. Main aapki kya madad kar sakta hoon?</div>
+  </div>
+  <div class="chat-footer">
+    <input type="text" id="chatInput" placeholder="Aapna sawal likhein..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+    <button class="mic-btn" onclick="toggleVoiceInput()" title="Voice Input">🎤</button>
+    <button class="send-btn" onclick="sendChatMessage()">Send</button>
   </div>
 </div>
 
@@ -311,6 +315,7 @@ window.loadApprovedProducts = async function() {
       const img = (item.images && item.images[0]) || item.img || 'logo.png';
       let priceDisplay = item.priceType === 'usd' ? `$${item.price} (Rs.${item.pricePKR})` : item.priceType === 'aed' ? `AED ${item.price} (Rs.${item.pricePKR})` : item.priceType === 'gbp' ? `£${item.price} (Rs.${item.pricePKR})` : `Rs.${item.pricePKR || item.price}`;
 
+      let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName}</div>` : '';
       let contactLink = item.affiliateLink ? item.affiliateLink : `https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
 
       shopList.innerHTML += `
@@ -320,6 +325,7 @@ window.loadApprovedProducts = async function() {
             <h3 class="product-title">${item.name || item.title}</h3>
             <span class="category-tag">${item.category || 'General'}</span>
             <div class="city-label">📍 ${item.brand || item.city || 'Sargodha'}</div>
+            ${sellerInfo}
             <div class="price">${priceDisplay}</div>
             <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Contact</a>
           </div>
@@ -347,13 +353,42 @@ window.filterShop = function() {
   });
 };
 
+// Check if User is Logged In Before Opening Ad Modal
+window.checkUserLoginAndOpenAd = function() {
+  const savedUser = localStorage.getItem('raw_logged_seller');
+  if(!savedUser) {
+    document.getElementById('user-login-modal').style.display = 'flex';
+  } else {
+    const user = JSON.parse(savedUser);
+    document.getElementById('loggedInUserTag').innerText = `👤 Logged in as: ${user.name} (${user.mobile})`;
+    document.getElementById('ad-submission-modal').style.display = 'flex';
+  }
+};
+
+window.closeLoginModal = () => document.getElementById('user-login-modal').style.display = 'none';
+
+window.submitUserLogin = function(e) {
+  e.preventDefault();
+  const name = document.getElementById('loginName').value.trim();
+  const mobile = document.getElementById('loginMobile').value.trim();
+  if(!name || !mobile) { alert("Naam aur mobile number lazmi likhein!"); return; }
+
+  const userData = { name, mobile, loginTime: new Date().toLocaleString() };
+  localStorage.setItem('raw_logged_seller', JSON.stringify(userData));
+  
+  closeLoginModal();
+  document.getElementById('loggedInUserTag').innerText = `👤 Logged in as: ${name} (${mobile})`;
+  document.getElementById('ad-submission-modal').style.display = 'flex';
+};
+
 window.submitUserAd = async function(e) {
   e.preventDefault();
   const name = document.getElementById('adTitle').value;
   const category = document.getElementById('adCategory').value;
   const price = document.getElementById('adPrice').value;
   const city = document.getElementById('adCity').value;
-  const mobile = document.getElementById('adMobile').value;
+  
+  const savedUser = JSON.parse(localStorage.getItem('raw_logged_seller') || '{}');
 
   if (!compressedBase64Image) {
     alert("Brahrahem tasveer select karein!");
@@ -363,7 +398,9 @@ window.submitUserAd = async function(e) {
   try {
     const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
     await addDoc(collection(db, "products"), {
-      name, category, pricePKR: Number(price), price: Number(price), brand: city, mobile,
+      name, category, pricePKR: Number(price), price: Number(price), brand: city, 
+      mobile: savedUser.mobile || '03334664227',
+      sellerName: savedUser.name || 'Partner',
       images: [compressedBase64Image],
       status: "approved",
       createdAt: serverTimestamp()
