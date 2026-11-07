@@ -34,10 +34,11 @@ body { top: 0px !important; }
 
 .banner { position: relative; max-width: 1100px; width: 100%; margin: 10px auto; padding: 0 15px; }
 .banner-track { height: 140px; border-radius: 12px; background: linear-gradient(135deg, #194376, #f57224); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-.banner-track h3 { font-size: 18px; font-weight: bold; }
-.banner-track p { font-size: 12px; opacity: 0.9; }
+.banner-track h3 { font-size: 16px; font-weight: bold; }
+.banner-track p { font-size: 11px; opacity: 0.95; margin-top: 3px; }
 
-.sec-title { max-width: 1100px; width: 100%; margin: 10px auto 0; padding: 0 15px; font-size: 14px; font-weight: 700; color: #222; border-left: 4px solid #f57224; padding-left: 8px; }
+/* Perfect Corner Alignments for Control Buttons */
+.controls-header { max-width: 1100px; width: 100%; margin: 10px auto 0; padding: 0 15px; display: flex; justify-content: space-between; align-items: center; }
 
 .products { max-width: 1100px; margin: 0 auto; padding: 10px 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
 @media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } }
@@ -83,7 +84,6 @@ body { top: 0px !important; }
 .chat-footer input { flex: 1; border: 1px solid #f57224; padding: 5px 8px; border-radius: 12px; outline: none; font-size: 11px; }
 .mic-btn { background: #194376; color: #fff; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
 .send-btn { background: #f57224; color: #fff; border: none; padding: 5px 10px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 11px; }
-.speak-icon { cursor: pointer; margin-left: 5px; font-size: 12px; color: #194376; }
 
 /* Seller Dashboard Panel */
 #seller-dashboard-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
@@ -134,16 +134,18 @@ function googleTranslateElementInit() {
     <div class="cat-item" onclick="filterByCategory('Tools & Heavy Machinery')"><div class="cat-icon-circle">🛠️</div><span>Tools</span></div>
   </div>
 
+  <!-- Updated Banner with Official Affiliate Deals Mention -->
   <div class="banner">
     <div class="banner-track">
       <h3>R.A.W GROUP CHOUKIRH 79</h3>
-      <p>Aapki Apni Online Marketplace</p>
+      <p>Official Online Marketplace & Partner Deals (Amazon, Alibaba & Daraz Affiliates)</p>
     </div>
   </div>
 
-  <div style="max-width:1100px; margin: 0 auto; padding: 0 15px; display:flex; justify-content:space-between; align-items:center;">
-    <div class="sec-title" id="catTitle" style="padding-left:0; margin:0;">📦 تمام (All Products)</div>
+  <!-- Perfectly Aligned Corner Controls Header -->
+  <div class="controls-header">
     <button onclick="openSellerDashboard()" style="background:#194376; color:#fff; border:none; padding:5px 10px; border-radius:6px; font-size:11px; font-weight:bold; cursor:pointer;">⚙️ Manage My Ads</button>
+    <div id="catTitle" style="font-size:13px; font-weight:700; color:#222;">📦 تمام (All Products)</div>
   </div>
 
   <div id="shopList" class="products">
@@ -823,7 +825,6 @@ window.sendChatMessage = function() {
       replyText = "Ad lagane ke liye niche wale gol plus (+) button par click karein.";
     } else {
       let foundMatch = null;
-      // Universal Flexible Search: Checks any English or Urdu character match across name, category, and description
       for (let i = 0; i < allProductsCache.length; i++) {
         let p = allProductsCache[i];
         let pName = (p.name || p.title || '').toLowerCase();
@@ -836,7 +837,6 @@ window.sendChatMessage = function() {
         }
       }
 
-      // Fallback keyword split matching
       if (!foundMatch && allProductsCache.length > 0) {
         let queryWords = query.split(' ');
         for (let i = 0; i < allProductsCache.length; i++) {
@@ -845,4 +845,37 @@ window.sendChatMessage = function() {
           let pCat = (p.category || '').toLowerCase();
           for (let w = 0; w < queryWords.length; w++) {
             let word = queryWords[w];
-            if (word.length > 1 && (pName.includes(word)
+            if (word.length > 1 && (pName.includes(word) || pCat.includes(word))) {
+              foundMatch = p;
+              break;
+            }
+          }
+          if (foundMatch) break;
+        }
+      }
+
+      if (foundMatch) {
+        let pPrice = foundMatch.pricePKR || foundMatch.price || 0;
+        replyText = 'Ji bilkul! Yeh rahi product: "' + (foundMatch.name || foundMatch.title) + '" — Qeemat: Rs. ' + pPrice + '.';
+        
+        if (foundMatch.affiliateLink && foundMatch.affiliateLink.trim() !== '') {
+          actionLinkHTML = '<div style="margin-top:6px;"><a href="' + foundMatch.affiliateLink + '" target="_blank" style="background:#ff9900; color:#000; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">🔗 Open Link</a></div>';
+        } else {
+          let whatsappLink = 'https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20' + encodeURIComponent(foundMatch.name || foundMatch.title);
+          actionLinkHTML = '<div style="margin-top:6px;"><a href="' + whatsappLink + '" target="_blank" style="background:#25d366; color:#fff; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">💬 Order via WhatsApp</a></div>';
+        }
+      } else {
+        replyText = "Maazrat, is naam ki product nahi mili. Aap WhatsApp 03334664227 par rabta karein!";
+      }
+    }
+
+    body.innerHTML += '<div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;"><span>' + replyText + '</span>' + actionLinkHTML + '</div>';
+    body.scrollTop = body.scrollHeight;
+    speakText(replyText);
+  }, 500);
+};
+
+window.addEventListener('DOMContentLoaded', function() { loadApprovedProducts(); });
+</script>
+</body>
+</html>
