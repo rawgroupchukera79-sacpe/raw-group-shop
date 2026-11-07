@@ -42,10 +42,10 @@ body { top: 0px !important; }
 @media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } }
 
 .card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.06); border: 1px solid #e5e5e5; display: flex; flex-direction: column; cursor: pointer; }
-.product-img-container { width: 100%; height: 140px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 6px; border-bottom: 1px solid #f1f1f1; }
+.product-img-container { width: 100%; height: 140px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 6px; border-bottom: 1px solid #f1f1f1; cursor: pointer; }
 .product-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .card-body { padding: 8px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
-.product-title { font-size: 12px; font-weight: 600; color: #212121; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.product-title { font-size: 12px; font-weight: 600; color: #212121; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
 .category-tag { font-size: 9px; color: #194376; background: #eef2f7; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 3px; font-weight: bold; }
 .city-label { font-size: 10px; color: #757575; margin: 2px 0; }
 .price { color: #f57224; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
@@ -142,6 +142,22 @@ function googleTranslateElementInit() {
   <div class="nav-item" onclick="openReviewModal()"><span class="icon">⭐</span><span>Review</span></div>
 </div>
 
+<!-- Product Detail Modal for Multiple Pictures Viewing -->
+<div id="product-detail-modal" class="custom-modal">
+  <div class="modal-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
+      <h3 id="detTitle" style="font-size:14px; color:#194376;">Product Details</h3>
+      <span style="cursor:pointer;font-weight:bold;" onclick="closeProductDetailModal()">✕</span>
+    </div>
+    <!-- Multiple Images Container -->
+    <div id="detImagesContainer" style="display:flex; flex-direction:column; gap:10px; max-height:250px; overflow-y:auto; align-items:center; background:#fafafa; padding:8px; border-radius:6px; margin-bottom:10px;"></div>
+    <div id="detPrice" style="font-size:14px; font-weight:bold; color:#f57224; margin-bottom:6px;"></div>
+    <div id="detCategory" style="font-size:10px; color:#194376; font-weight:bold; margin-bottom:4px;"></div>
+    <div id="detCity" style="font-size:11px; color:#757575; margin-bottom:10px;"></div>
+    <div id="detActionBtn"></div>
+  </div>
+</div>
+
 <!-- Customer Escrow Protected Order Modal with Secure Payment Details -->
 <div id="order-form-modal" class="custom-modal">
   <div class="modal-content">
@@ -174,7 +190,7 @@ function googleTranslateElementInit() {
         </select>
       </div>
 
-      <!-- Secure Account Box (Yahan aap apna account number khud likh lein) -->
+      <!-- Secure Account Box -->
       <div id="securePaymentInfo" style="display:none; background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px; color:#333;">
         <b>🔒 Official R.A.W Group Account Details:</b><br>
         • Meezan Bank: <b>[Yahan apna Meezan Bank account number likhein]</b><br>
@@ -266,7 +282,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- User Review Modal -->
+<!-- User Review Modal with Picture Upload Option -->
 <div id="user-review-modal" class="custom-modal">
   <div class="modal-content" style="text-align:center;">
     <h3 style="font-size:14px; margin-bottom:8px;">Apna Review Dein ⭐</h3>
@@ -278,7 +294,14 @@ function googleTranslateElementInit() {
       <span onclick="setStars(5)" style="cursor:pointer;">★</span>
     </div>
     <input type="text" id="reviewerName" placeholder="Aapka Naam..." style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #ccc; border-radius:6px; font-size:11px;">
-    <textarea id="reviewMsgInput" placeholder="Apna review yahan likhein..." style="width:100%; height:55px; padding:6px; border:1px solid #ccc; border-radius:6px; font-size:11px; margin-bottom:10px;"></textarea>
+    <textarea id="reviewMsgInput" placeholder="Apna review yahan likhein..." style="width:100%; height:50px; padding:6px; border:1px solid #ccc; border-radius:6px; font-size:11px; margin-bottom:6px;"></textarea>
+    
+    <!-- New Picture Upload Option for Review -->
+    <div class="form-group" style="text-align:left; margin-bottom:8px;">
+      <label style="font-size:10px;">Tasveer Upload Karein (Optional)</label>
+      <input type="file" id="reviewImageInput" accept="image/*" onchange="compressReviewImage(event)" style="font-size:10px; padding:4px;">
+    </div>
+
     <div style="display:flex; gap:6px;">
       <button onclick="submitUserReview()" style="flex:1; background:#f57224; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Submit Review</button>
       <button onclick="closeReviewModal()" style="background:#ddd; border:none; padding:7px 10px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
@@ -322,6 +345,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 let compressedBase64Image = "";
+let compressedReviewBase64 = "";
 let selectedCategoryFilter = "All";
 let currentRatingScore = 5;
 let allProductsCache = [];
@@ -343,6 +367,27 @@ window.compressImage = function(event) {
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
       compressedBase64Image = canvas.toDataURL('image/jpeg', 0.7);
+    }
+  }
+  reader.readAsDataURL(file);
+};
+
+window.compressReviewImage = function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.src = e.target.result;
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      const MAX_WIDTH = 300;
+      const scaleSize = MAX_WIDTH / img.width;
+      canvas.width = MAX_WIDTH;
+      canvas.height = img.height * scaleSize;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      compressedReviewBase64 = canvas.toDataURL('image/jpeg', 0.7);
     }
   }
   reader.readAsDataURL(file);
@@ -403,9 +448,9 @@ function renderProducts(products) {
 
     shopList.innerHTML += `
       <div class="card">
-        <div class="product-img-container"><img src="${img}" onerror="this.src='logo.png'"></div>
+        <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${img}" onerror="this.src='logo.png'"></div>
         <div class="card-body">
-          <h3 class="product-title">${item.name || item.title}</h3>
+          <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
           <span class="category-tag">${item.category || 'General'}</span>
           <div class="city-label">📍 ${item.brand || item.city || 'Sargodha'}</div>
           ${sellerInfo}
@@ -416,6 +461,33 @@ function renderProducts(products) {
     `;
   });
 }
+
+// Open Product Detail Modal to show All Images and Info
+window.openProductDetail = function(item) {
+  document.getElementById('detTitle').innerText = item.name || item.title;
+  document.getElementById('detPrice').innerText = `Price: Rs. ${item.pricePKR || item.price || '0'}`;
+  document.getElementById('detCategory').innerText = `Category: ${item.category || 'General'}`;
+  document.getElementById('detCity').innerText = `Location: ${item.brand || item.city || 'Sargodha'}`;
+
+  const imgContainer = document.getElementById('detImagesContainer');
+  imgContainer.innerHTML = "";
+
+  let imagesList = item.images || [item.img || 'logo.png'];
+  imagesList.forEach(imgSrc => {
+    imgContainer.innerHTML += `<img src="${imgSrc}" style="max-width:100%; max-height:200px; object-fit:contain; border-radius:4px; border:1px solid #eee;" onerror="this.src='logo.png'">`;
+  });
+
+  const actionDiv = document.getElementById('detActionBtn');
+  if (item.affiliateLink && item.affiliateLink.trim() !== '') {
+    actionDiv.innerHTML = `<a href="${item.affiliateLink}" target="_blank" style="background:#ff9900; color:#000; padding:8px 12px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none; display:block; text-align:center;">🔗 Open Link</a>`;
+  } else {
+    actionDiv.innerHTML = `<button onclick='closeProductDetailModal(); openOrderModal(${JSON.stringify(item).replace(/'/g, "&#39;")})' style="background:#f57224; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; font-size:12px; width:100%; cursor:pointer;">🛒 Secure Order Now</button>`;
+  }
+
+  document.getElementById('product-detail-modal').style.display = 'flex';
+};
+
+window.closeProductDetailModal = () => document.getElementById('product-detail-modal').style.display = 'none';
 
 window.filterByCategory = function(cat) {
   selectedCategoryFilter = cat;
@@ -544,6 +616,36 @@ window.submitUserAd = async function(e) {
   }
 };
 
+// ==================== SUBMIT REVIEW WITH IMAGE TO FIREBASE ====================
+window.setStars = (score) => { currentRatingScore = score; };
+window.openReviewModal = () => document.getElementById('user-review-modal').style.display = 'flex';
+window.closeReviewModal = () => document.getElementById('user-review-modal').style.display = 'none';
+
+window.submitUserReview = async function() {
+  const name = document.getElementById('reviewerName').value.trim();
+  const msg = document.getElementById('reviewMsgInput').value.trim();
+  if(!name || !msg) { alert("Naam aur review message lazmi likhein!"); return; }
+
+  try {
+    const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+    await addDoc(collection(db, "reviews"), {
+      name: name,
+      rating: currentRatingScore,
+      message: msg,
+      image: compressedReviewBase64 || "",
+      createdAt: serverTimestamp()
+    });
+    alert("Shukriya! Aapka review kamyabi se submit ho gaya hai.");
+    document.getElementById('reviewerName').value = "";
+    document.getElementById('reviewMsgInput').value = "";
+    document.getElementById('reviewImageInput').value = "";
+    compressedReviewBase64 = "";
+    closeReviewModal();
+  } catch(err) {
+    alert("Review submit karne mein masla hua.");
+  }
+};
+
 // ==================== VOICE & AI SMART ASSISTANT CHATBOT ====================
 window.toggleChatbot = () => {
   const m = document.getElementById('chatbot-modal');
@@ -617,7 +719,6 @@ window.sendChatMessage = () => {
       replyText = "R.A.W Group sirf 5% platform commission charge karta hai, aur baqi 95% raqam seller ko milti hai.";
     } 
     else {
-      // Smart Keyword Mapping & Database Match
       let searchKey = query;
       if (query.includes('mobile') || query.includes('mobil') || query.includes('phone') || query.includes('فون') || query.includes('موبائل')) {
         searchKey = 'motorola'; 
@@ -632,7 +733,6 @@ window.sendChatMessage = () => {
         let priceStr = `Rs. ${p.pricePKR || p.price}`;
         replyText = `Ji bilkul! Yeh rahi aapki mangwai gayi product: "${p.name || p.title}" — Qeemat: ${priceStr}.`;
         
-        // Check if product has an affiliate link or standard link
         if (p.affiliateLink && p.affiliateLink.trim() !== '') {
           let linkName = p.affiliateLink.includes('amazon') ? '🔗 Open Amazon Affiliate Link' : p.affiliateLink.includes('daraz') ? '🔗 Open Daraz Link' : '🔗 Open Store Link';
           actionLinkHTML = `<div style="margin-top:6px;"><a href="${p.affiliateLink}" target="_blank" style="background:#ff9900; color:#000; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">${linkName}</a></div>`;
@@ -656,13 +756,6 @@ window.sendChatMessage = () => {
     speakText(replyText);
   }, 500);
 };
-
-window.setStars = (score) => { currentRatingScore = score; alert(`${score} Stars selected!`); };
-window.openReviewModal = () => document.getElementById('user-review-modal').style.display = 'flex';
-window.closeReviewModal = () => document.getElementById('user-review-modal').style.display = 'none';
-
-window.openAdModal = () => document.getElementById('ad-submission-modal').style.display = 'flex';
-window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
 
 window.addEventListener('DOMContentLoaded', () => { loadApprovedProducts(); });
 </script>
