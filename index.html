@@ -14,7 +14,6 @@
 html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif; background: #f5f5f5; color: #212121; padding-bottom: 60px; }
 #main-shop-view { display: flex; flex-direction: column; min-height: 100vh; }
 
-/* Top Bar */
 .top-bar { display: flex; justify-content: space-between; align-items: center; background: #194376; padding: 8px 15px; position: relative; z-index: 1000; }
 .owner-top img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
 
@@ -26,7 +25,6 @@ body { top: 0px !important; }
 .search-container { flex: 1; position: relative; }
 .search-container input { width: 100%; padding: 8px 14px; border-radius: 20px; border: none; outline: none; font-size: 13px; font-family: inherit; }
 
-/* Category Icons Row */
 .cat-scroll-row { display: flex; gap: 12px; overflow-x: auto; padding: 12px 15px; background: #fff; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 .cat-scroll-row::-webkit-scrollbar { display: none; }
 .cat-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; min-width: 70px; text-align: center; }
@@ -40,7 +38,6 @@ body { top: 0px !important; }
 
 .sec-title { max-width: 1100px; width: 100%; margin: 10px auto 0; padding: 0 15px; font-size: 14px; font-weight: 700; color: #222; border-left: 4px solid #f57224; padding-left: 8px; }
 
-/* Products Grid */
 .products { max-width: 1100px; margin: 0 auto; padding: 10px 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
 @media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } }
 
@@ -56,14 +53,13 @@ body { top: 0px !important; }
 .btn-row { display: flex; gap: 4px; }
 .whatsapp-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #25d366; color: #fff; text-align: center; text-decoration: none; }
 .order-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #f57224; color: #fff; text-align: center; }
+.affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #000; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
 
-/* Bottom Nav */
 .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #194376; display: flex; justify-content: space-around; align-items: center; height: 55px; z-index: 2000; box-shadow: 0 -2px 10px rgba(0,0,0,0.15); }
 .nav-item { color: #fff; font-size: 10px; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; cursor: pointer; flex: 1; }
 .nav-item span.icon { font-size: 18px; }
 .sell-fab { position: relative; top: -15px; width: 45px; height: 45px; background: #f57224; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); border: 2px solid #fff; cursor: pointer; }
 
-/* Modals */
 .custom-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
 .modal-content { background: #fff; border-radius: 12px; width: 100%; max-width: 420px; max-height: 90vh; overflow-y: auto; padding: 15px; }
 .form-group { margin-bottom: 10px; }
@@ -71,7 +67,7 @@ body { top: 0px !important; }
 .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; font-family: inherit; }
 .btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 9px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
 
-/* Smart AI Chatbot */
+/* Chatbot */
 #chatbot-launcher { position: fixed; bottom: 70px; right: 15px; background: #f57224; color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; z-index: 2500; font-size: 20px; }
 #chatbot-modal { display: none; position: fixed; bottom: 125px; right: 15px; width: 310px; height: 400px; background: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 2501; flex-direction: column; overflow: hidden; }
 .chat-header { background: #f57224; color: #fff; padding: 10px; font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
@@ -142,7 +138,7 @@ function googleTranslateElementInit() {
   <div class="nav-item" onclick="openReviewModal()"><span class="icon">⭐</span><span>Review</span></div>
 </div>
 
-<!-- Customer Direct Order Form Modal with Payment Choice -->
+<!-- Customer Direct Order Form Modal -->
 <div id="order-form-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -199,7 +195,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Ad Submission Form Modal (With 5% Platform Commission Info) -->
+<!-- Ad Submission Form Modal -->
 <div id="ad-submission-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -246,7 +242,6 @@ function googleTranslateElementInit() {
         <label>Tasveer Select Karein (Auto Resize) *</label>
         <input type="file" id="imageFileInput" accept="image/*" required onchange="compressImage(event)">
       </div>
-      <p style="font-size:10px; color:#0a8a00; margin-bottom:8px;">* Note: 5% R.A.W Group Platform Commission automatically applies on sold orders.</p>
       <button type="submit" class="btn-submit-ad">Submit Ad For Review</button>
     </form>
   </div>
@@ -372,7 +367,21 @@ function renderProducts(products) {
     let priceDisplay = item.priceType === 'usd' ? `$${item.price} (Rs.${item.pricePKR})` : item.priceType === 'aed' ? `AED ${item.price} (Rs.${item.pricePKR})` : item.priceType === 'gbp' ? `£${item.price} (Rs.${item.pricePKR})` : `Rs.${item.pricePKR || item.price}`;
 
     let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName}</div>` : '';
-    let contactLink = item.affiliateLink ? item.affiliateLink : `https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
+    
+    // Affiliate link check and button rendering
+    let actionButtonsHTML = '';
+    if (item.affiliateLink && item.affiliateLink.trim() !== '') {
+      let linkText = item.affiliateLink.includes('amazon') ? '🔗 Amazon Link' : item.affiliateLink.includes('daraz') ? '🔗 Daraz Link' : '🔗 Visit Link';
+      actionButtonsHTML = `<a href="${item.affiliateLink}" target="_blank" class="affiliate-btn">${linkText}</a>`;
+    } else {
+      let contactLink = `https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
+      actionButtonsHTML = `
+        <div class="btn-row">
+          <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
+          <button class="order-btn" onclick='openOrderModal(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 Order</button>
+        </div>
+      `;
+    }
 
     shopList.innerHTML += `
       <div class="card">
@@ -383,10 +392,7 @@ function renderProducts(products) {
           <div class="city-label">📍 ${item.brand || item.city || 'Sargodha'}</div>
           ${sellerInfo}
           <div class="price">${priceDisplay}</div>
-          <div class="btn-row">
-            <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
-            <button class="order-btn" onclick='openOrderModal(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 Order</button>
-          </div>
+          ${actionButtonsHTML}
         </div>
       </div>
     `;
@@ -408,7 +414,6 @@ window.filterShop = function() {
   });
 };
 
-// Customer Order Form with Commission Calculation
 window.openOrderModal = function(item) {
   selectedOrderProduct = item;
   let priceText = item.pricePKR || item.price || '0';
@@ -427,8 +432,7 @@ window.submitCustomerOrder = async function(e) {
   if(!name || !mobile || !address) { alert("Tamam fields pur karein!"); return; }
 
   let totalPrice = Number(selectedOrderProduct.pricePKR || selectedOrderProduct.price || 0);
-  let commissionRate = 0.05; // 5% Platform Commission
-  let adminCommission = Math.round(totalPrice * commissionRate);
+  let adminCommission = Math.round(totalPrice * 0.05);
   let sellerPayout = totalPrice - adminCommission;
 
   try {
@@ -447,7 +451,7 @@ window.submitCustomerOrder = async function(e) {
       status: "pending",
       createdAt: serverTimestamp()
     });
-    alert("Shukriya! Aapka order kamyabi se book ho gaya hai. Hum jald aapse rabta karenge.");
+    alert("Shukriya! Aapka order kamyabi se book ho gaya hai.");
     document.getElementById('customerOrderForm').reset();
     closeOrderModal();
   } catch(err) {
@@ -455,7 +459,6 @@ window.submitCustomerOrder = async function(e) {
   }
 };
 
-// Check Login
 window.checkUserLoginAndOpenAd = function() {
   const savedUser = localStorage.getItem('raw_logged_seller');
   if(!savedUser) {
@@ -517,7 +520,6 @@ window.submitUserAd = async function(e) {
   }
 };
 
-// Smart Chatbot
 window.toggleChatbot = () => {
   const m = document.getElementById('chatbot-modal');
   m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
