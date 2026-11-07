@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>R.A.W GROUP CHOUKIRH 79 SHOP</title>
 <meta name="google-site-verification" content="yeLNijbmqR4ERCkTu7OH9wZIw9081mm5aUR5Ku3V5JA" />
-<meta name="description" content="R.A.W Group Choukirh 79 - Online Classifieds, Products, Mobiles, Vehicles and Electronics Marketplace in Sargodha Pakistan.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
@@ -15,12 +14,17 @@
 html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif; background: #f5f5f5; color: #212121; padding-bottom: 60px; }
 #main-shop-view { display: flex; flex-direction: column; min-height: 100vh; }
 
-/* Top Bar */
-.top-bar { display: flex; justify-content: space-between; align-items: center; background: #194376; padding: 10px 15px; position: relative; z-index: 1000; }
-.top-bar #google_translate_element { background: #fff; padding: 4px 8px; border-radius: 20px; font-size: 11px; }
-.search-container { flex: 1; margin: 0 10px; position: relative; }
+/* Top Bar with Google Translate & Owner Image */
+.top-bar { display: flex; justify-content: space-between; align-items: center; background: #194376; padding: 8px 15px; position: relative; z-index: 1000; }
+.owner-top img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+
+/* Google Translate Styling */
+#google_translate_element select { background: #fff; padding: 4px 8px; border-radius: 15px; border: 1px solid #ccc; font-size: 11px; outline: none; font-family: inherit; cursor: pointer; }
+
+/* Search Bar */
+.search-bar-row { display: flex; align-items: center; background: #194376; padding: 6px 15px 10px; }
+.search-container { flex: 1; position: relative; }
 .search-container input { width: 100%; padding: 8px 14px; border-radius: 20px; border: none; outline: none; font-size: 13px; font-family: inherit; }
-.admin-badge { background: #f57224; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; }
 
 /* Category Icons Row */
 .cat-scroll-row { display: flex; gap: 12px; overflow-x: auto; padding: 12px 15px; background: #fff; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
@@ -34,7 +38,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .banner-track h3 { font-size: 18px; font-weight: bold; }
 .banner-track p { font-size: 12px; opacity: 0.9; }
 
-/* Google Style Live Rating Card */
+/* Store Rating Card */
 .site-rating-card { max-width: 1100px; margin: 0 auto 10px; padding: 10px 15px; background: #fff; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e5e5e5; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 .site-rating-info { font-size: 12px; color: #333; }
 .site-rating-info strong { color: #f57224; }
@@ -70,131 +74,50 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .form-group label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 3px; }
 .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; font-family: inherit; }
 .btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 9px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
-
-/* Chatbot */
-#chatbot-launcher { position: fixed; bottom: 70px; right: 15px; background: #f57224; color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; z-index: 2500; font-size: 20px; }
-#chatbot-modal { display: none; position: fixed; bottom: 125px; right: 15px; width: 300px; height: 380px; background: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 2501; flex-direction: column; overflow: hidden; }
-.chat-header { background: #f57224; color: #fff; padding: 10px; font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
-.chat-body { flex: 1; padding: 8px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; background: #fafafa; font-size: 11px; }
-.chat-footer { display: flex; align-items: center; padding: 6px; background: #fff; border-top: 1px solid #eee; gap: 4px; }
-.chat-footer input { flex: 1; border: 1px solid #f57224; padding: 5px 8px; border-radius: 12px; outline: none; font-size: 11px; }
-.mic-btn { background: #fff3ec; border: 1px solid #f57224; color: #f57224; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; }
-.send-btn { background: #f57224; color: #fff; border: none; padding: 5px 10px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 11px; }
 </style>
 
-<!-- Google Structured Data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "R.A.W GROUP CHOUKIRH 79",
-  "image": "https://raw-group-shop.vercel.app/logo.png",
-  "@id": "https://raw-group-shop.vercel.app/",
-  "url": "https://raw-group-shop.vercel.app/",
-  "telephone": "+923334664227",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Choukirh 79",
-    "addressLocality": "Sargodha",
-    "addressRegion": "Punjab",
-    "postalCode": "40100",
-    "addressCountry": "PK"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 32.0836,
-    "longitude": 72.6711
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "28"
-  },
-  "priceRange": "PKR"
+<!-- Google Translate Script -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'ur', includedLanguages: 'en,ur,ar,hi,fa,zh-CN', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
 }
 </script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
 
 <div id="main-shop-view">
+  <!-- Top Bar with Google Translate & Owner Photo -->
   <div class="top-bar">
     <div id="google_translate_element"></div>
+    <div class="owner-top"><img src="ejaz.jpg" onerror="this.src='logo.png'" title="R.A.W GROUP Owner"></div>
+  </div>
+
+  <div class="search-bar-row">
     <div class="search-container">
       <input id="search" onkeyup="filterShop()" placeholder="🔍 تلاش کریں... (Search)">
     </div>
-    <button class="admin-badge" onclick="openAdminPanel()">🔐 Admin</button>
   </div>
 
   <!-- Synchronized Categories Strip -->
-  <div class="cat-scroll-row" id="homeCategoriesBar">
-    <div class="cat-item" onclick="filterByCategory('All')">
-      <div class="cat-icon-circle">📦</div>
-      <span>تمام (All)</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Furniture & Decoration')">
-      <div class="cat-icon-circle">🛋️</div>
-      <span>Furniture</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Car & Motorcycle')">
-      <div class="cat-icon-circle">🚗</div>
-      <span>Vehicles</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Real Estate')">
-      <div class="cat-icon-circle">🏠</div>
-      <span>Real Estate</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Electronics')">
-      <div class="cat-icon-circle">💻</div>
-      <span>Electronics</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Home & Kitchen Appliances')">
-      <div class="cat-icon-circle">🍳</div>
-      <span>Home & Kitchen</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Fashion & Beauty')">
-      <div class="cat-icon-circle">👗</div>
-      <span>Fashion</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Job offers')">
-      <div class="cat-icon-circle">💼</div>
-      <span>Jobs</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Kids & Baby-Shop')">
-      <div class="cat-icon-circle">🧸</div>
-      <span>Kids & Baby</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Education / BookShop')">
-      <div class="cat-icon-circle">📚</div>
-      <span>BookShop</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('General store Food Delivery')">
-      <div class="cat-icon-circle">🛒</div>
-      <span>General Store</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Services & offers')">
-      <div class="cat-icon-circle">🌐</div>
-      <span>Services</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Health & Care')">
-      <div class="cat-icon-circle">🩺</div>
-      <span>Health & Care</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Animals & Accessories')">
-      <div class="cat-icon-circle">🐾</div>
-      <span>Animals</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Sports & Hobbies')">
-      <div class="cat-icon-circle">⚽</div>
-      <span>Sports</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Antique Coins Gemstone')">
-      <div class="cat-icon-circle">💍</div>
-      <span>Gemstone</span>
-    </div>
-    <div class="cat-item" onclick="filterByCategory('Tools & Heavy Machinery')">
-      <div class="cat-icon-circle">🛠️</div>
-      <span>Tools</span>
-    </div>
+  <div class="cat-scroll-row">
+    <div class="cat-item" onclick="filterByCategory('All')"><div class="cat-icon-circle">📦</div><span>تمام (All)</span></div>
+    <div class="cat-item" onclick="filterByCategory('Furniture & Decoration')"><div class="cat-icon-circle">🛋️</div><span>Furniture</span></div>
+    <div class="cat-item" onclick="filterByCategory('Car & Motorcycle')"><div class="cat-icon-circle">🚗</div><span>Vehicles</span></div>
+    <div class="cat-item" onclick="filterByCategory('Real Estate')"><div class="cat-icon-circle">🏠</div><span>Real Estate</span></div>
+    <div class="cat-item" onclick="filterByCategory('Electronics')"><div class="cat-icon-circle">💻</div><span>Electronics</span></div>
+    <div class="cat-item" onclick="filterByCategory('Home & Kitchen Appliances')"><div class="cat-icon-circle">🍳</div><span>Home & Kitchen</span></div>
+    <div class="cat-item" onclick="filterByCategory('Fashion & Beauty')"><div class="cat-icon-circle">👗</div><span>Fashion</span></div>
+    <div class="cat-item" onclick="filterByCategory('Job offers')"><div class="cat-icon-circle">💼</div><span>Jobs</span></div>
+    <div class="cat-item" onclick="filterByCategory('Kids & Baby-Shop')"><div class="cat-icon-circle">🧸</div><span>Kids & Baby</span></div>
+    <div class="cat-item" onclick="filterByCategory('Education / BookShop')"><div class="cat-icon-circle">📚</div><span>BookShop</span></div>
+    <div class="cat-item" onclick="filterByCategory('General store Food Delivery')"><div class="cat-icon-circle">🛒</div><span>General Store</span></div>
+    <div class="cat-item" onclick="filterByCategory('Services & offers')"><div class="cat-icon-circle">🌐</div><span>Services</span></div>
+    <div class="cat-item" onclick="filterByCategory('Health & Care')"><div class="cat-icon-circle">🩺</div><span>Health & Care</span></div>
+    <div class="cat-item" onclick="filterByCategory('Animals & Accessories')"><div class="cat-icon-circle">🐾</div><span>Animals</span></div>
+    <div class="cat-item" onclick="filterByCategory('Sports & Hobbies')"><div class="cat-icon-circle">⚽</div><span>Sports</span></div>
+    <div class="cat-item" onclick="filterByCategory('Antique Coins Gemstone')"><div class="cat-icon-circle">💍</div><span>Gemstone</span></div>
+    <div class="cat-item" onclick="filterByCategory('Tools & Heavy Machinery')"><div class="cat-icon-circle">🛠️</div><span>Tools</span></div>
   </div>
 
   <div class="banner">
@@ -220,18 +143,12 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 </div>
 
 <div class="bottom-nav">
-  <div class="nav-item" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-    <span class="icon">🏠</span>
-    <span>Home</span>
-  </div>
+  <div class="nav-item" onclick="window.scrollTo({top:0, behavior:'smooth'})"><span class="icon">🏠</span><span>Home</span></div>
   <div class="sell-fab" onclick="openAdModal()">+</div>
-  <div class="nav-item" onclick="openReviewModal()">
-    <span class="icon">⭐</span>
-    <span>Review</span>
-  </div>
+  <div class="nav-item" onclick="openReviewModal()"><span class="icon">⭐</span><span>Review</span></div>
 </div>
 
-<!-- Ad Submission Form Modal with Synchronized Categories -->
+<!-- Ad Submission Form Modal -->
 <div id="ad-submission-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -286,17 +203,6 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
   </div>
 </div>
 
-<!-- Admin Panel Modal -->
-<div id="admin-panel-modal" class="custom-modal">
-  <div class="modal-content" style="max-width:550px;">
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px;">🔐 Admin Panel - All Ads Manager</h3>
-      <span style="cursor:pointer;font-weight:bold;" onclick="closeAdminPanel()">✕</span>
-    </div>
-    <div id="admin-pending-list"><p style="text-align:center; color:#666;">Loading...</p></div>
-  </div>
-</div>
-
 <!-- User Review Modal -->
 <div id="user-review-modal" class="custom-modal">
   <div class="modal-content" style="text-align:center;">
@@ -317,26 +223,9 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
   </div>
 </div>
 
-<!-- Chatbot -->
-<div id="chatbot-launcher" onclick="toggleChatbot()">💬</div>
-<div id="chatbot-modal">
-  <div class="chat-header">
-    <span>🤖 R.A.W Support AI</span>
-    <span style="cursor:pointer;" onclick="toggleChatbot()">✕</span>
-  </div>
-  <div class="chat-body" id="chatBody">
-    <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">اسلام علیکم! R.A.W GROUP Assist mein kushamdeed. Main aapki kya madad kar sakta hoon?</div>
-  </div>
-  <div class="chat-footer">
-    <input type="text" id="chatInput" placeholder="Aapna sawal likhein..." onkeypress="if(event.key==='Enter') sendChatMessage()">
-    <button class="mic-btn" onclick="toggleVoiceInput()" title="Voice Input">🎤</button>
-    <button class="send-btn" onclick="sendChatMessage()">Send</button>
-  </div>
-</div>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE",
@@ -344,8 +233,7 @@ const firebaseConfig = {
   projectId: "raw-group-shop",
   storageBucket: "raw-group-shop.firebasestorage.app",
   messagingSenderId: "488689802066",
-  appId: "1:488689802066:web:1437531e15df63e958388b",
-  measurementId: "G-HNCH9V8MFF"
+  appId: "1:488689802066:web:1437531e15df63e958388b"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -379,10 +267,11 @@ window.compressImage = function(event) {
 window.loadApprovedProducts = async function() {
   const shopList = document.getElementById('shopList');
   try {
-    const querySnapshot = await getDocs(collection(db, "ads"));
+    // Ab yeh sahi 'products' collection se data uthayega
+    const querySnapshot = await getDocs(collection(db, "products"));
     
     if (querySnapshot.empty) {
-      shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Database mein abhi koi ad mojood nahi hai.</p>`;
+      shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Database mein abhi koi product mojood nahi hai.</p>`;
       return;
     }
 
@@ -391,16 +280,20 @@ window.loadApprovedProducts = async function() {
       const item = docSnap.data();
       if (selectedCategoryFilter !== 'All' && item.category !== selectedCategoryFilter) return;
 
-      const img = item.img || 'logo.png';
+      const img = (item.images && item.images[0]) || item.img || 'logo.png';
+      let priceDisplay = item.priceType === 'usd' ? `$${item.price} (Rs.${item.pricePKR})` : item.priceType === 'aed' ? `AED ${item.price} (Rs.${item.pricePKR})` : item.priceType === 'gbp' ? `£${item.price} (Rs.${item.pricePKR})` : `Rs.${item.pricePKR || item.price}`;
+
+      let contactLink = item.affiliateLink ? item.affiliateLink : `https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
+
       shopList.innerHTML += `
         <div class="card">
           <div class="product-img-container"><img src="${img}" onerror="this.src='logo.png'"></div>
           <div class="card-body">
-            <h3 class="product-title">${item.title}</h3>
+            <h3 class="product-title">${item.name || item.title}</h3>
             <span class="category-tag">${item.category || 'General'}</span>
-            <div class="city-label">📍 ${item.city || 'Sargodha'}</div>
-            <div class="price">PKR ${item.price}</div>
-            <a href="https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.title)}" target="_blank" class="whatsapp-btn">💬 Contact</a>
+            <div class="city-label">📍 ${item.brand || item.city || 'Sargodha'}</div>
+            <div class="price">${priceDisplay}</div>
+            <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Contact</a>
           </div>
         </div>
       `;
@@ -428,7 +321,7 @@ window.filterShop = function() {
 
 window.submitUserAd = async function(e) {
   e.preventDefault();
-  const title = document.getElementById('adTitle').value;
+  const name = document.getElementById('adTitle').value;
   const category = document.getElementById('adCategory').value;
   const price = document.getElementById('adPrice').value;
   const city = document.getElementById('adCity').value;
@@ -440,11 +333,12 @@ window.submitUserAd = async function(e) {
   }
 
   try {
-    await addDoc(collection(db, "ads"), {
-      title, category, price, city, mobile,
-      img: compressedBase64Image,
+    const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+    await addDoc(collection(db, "products"), {
+      name, category, pricePKR: Number(price), price: Number(price), brand: city, mobile,
+      images: [compressedBase64Image],
       status: "approved",
-      createdAt: new Date()
+      createdAt: serverTimestamp()
     });
     alert("Shukriya! Aapka ad kamyabi se live ho gaya hai.");
     document.getElementById('userAdForm').reset();
@@ -453,47 +347,6 @@ window.submitUserAd = async function(e) {
     loadApprovedProducts();
   } catch (err) {
     alert("Masla hua, dobara koshish karein.");
-  }
-};
-
-window.openAdminPanel = async function() {
-  document.getElementById('admin-panel-modal').style.display = 'flex';
-  const listContainer = document.getElementById('admin-pending-list');
-  listContainer.innerHTML = "Loading all ads...";
-
-  try {
-    const snap = await getDocs(collection(db, "ads"));
-
-    if (snap.empty) {
-      listContainer.innerHTML = "<p style='text-align:center; padding:10px;'>Database mein koi ad nahi mili!</p>";
-      return;
-    }
-
-    listContainer.innerHTML = "";
-    snap.forEach((docSnap) => {
-      const ad = docSnap.data();
-      const id = docSnap.id;
-      listContainer.innerHTML += `
-        <div style="border:1px solid #ddd; padding:8px; border-radius:6px; margin-bottom:8px; font-size:12px; background:#fff;">
-          <h4>${ad.title} (PKR ${ad.price})</h4>
-          <p><strong>Category:</strong> ${ad.category} | <strong>City:</strong> ${ad.city} | <strong>Mobile:</strong> ${ad.mobile}</p>
-          <div style="margin-top:6px; display:flex; gap:6px;">
-            <button onclick="deleteAd('${id}')" style="background:#dc3545; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">✕ Delete Ad</button>
-          </div>
-        </div>
-      `;
-    });
-  } catch (err) {
-    listContainer.innerHTML = "Error loading ads.";
-  }
-};
-
-window.deleteAd = async function(id) {
-  if (confirm("Kya aap waqai is ad ko delete karna chahte hain?")) {
-    await deleteDoc(doc(db, "ads", id));
-    alert("Ad delete kar di gayi hai.");
-    openAdminPanel();
-    loadApprovedProducts();
   }
 };
 
@@ -506,8 +359,9 @@ window.submitUserReview = async function() {
   if(!msg || !name) { alert("Naam aur review lazmi likhein!"); return; }
   
   try {
+    const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
     await addDoc(collection(db, "reviews"), {
-      name, rating: currentRatingScore, message: msg, createdAt: new Date()
+      name, rating: currentRatingScore, message: msg, createdAt: serverTimestamp()
     });
     alert("Shukriya! Aapka review jama ho gaya hai.");
     document.getElementById('reviewerName').value = "";
@@ -520,26 +374,6 @@ window.submitUserReview = async function() {
 
 window.openAdModal = () => document.getElementById('ad-submission-modal').style.display = 'flex';
 window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
-window.closeAdminPanel = () => document.getElementById('admin-panel-modal').style.display = 'none';
-
-window.toggleChatbot = () => {
-  const m = document.getElementById('chatbot-modal');
-  m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
-};
-
-window.toggleVoiceInput = () => { alert("Voice input active hai."); };
-
-window.sendChatMessage = () => {
-  const input = document.getElementById('chatInput');
-  const body = document.getElementById('chatBody');
-  if(!input.value) return;
-  body.innerHTML += `<div style="background:#f57224; color:#fff; padding:6px; border-radius:8px; align-self:flex-end;">${input.value}</div>`;
-  input.value = "";
-  setTimeout(() => {
-    body.innerHTML += `<div style="background:#fff3ec; padding:6px; border-radius:8px; border:1px solid #ffd8cc;">Shukriya! Aapke sawal ka jawab jald diya jayega.</div>`;
-    body.scrollTop = body.scrollHeight;
-  }, 500);
-};
 
 window.addEventListener('DOMContentLoaded', () => { loadApprovedProducts(); });
 </script>
