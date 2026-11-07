@@ -103,15 +103,14 @@ function googleTranslateElementInit() {
   <div class="top-bar">
     <div id="google_translate_element"></div>
     <div class="owner-branding">
-      <!-- Universal Fallback: guaranteed display for Ejaz & Logo -->
-      <img src="ejaj.jpg" onerror="this.onerror=function(){this.src='logo.png';}; this.src='ejaj.jpg';" title="Ejaz Ahmad">
-      <img src="logo.png" onerror="this.style.display='none';" title="R.A.W Group">
+      <img src="ejaj.jpg" onerror="this.src='logo.png'" title="Ejaz Ahmad">
+      <img src="logo.png" title="R.A.W Group">
     </div>
   </div>
 
   <div class="search-bar-row">
     <div class="search-container">
-      <input id="search" onkeyup="filterShop()" placeholder="🔍 تلاش کریں... (Search)">
+      <input id="search" onkeyup="filterShop()" placeholder="🔍 تلاش کریں یا نام لکھیں... (Search Products)">
     </div>
   </div>
 
@@ -219,7 +218,7 @@ function googleTranslateElementInit() {
       </div>
       <div id="securePaymentInfo" style="display:none; background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px; color:#333;">
         <b>🔒 Official R.A.W Group Account Details:</b><br>
-        • JazzCash / Easypaisa: <b>0333-4664227 (Ijaz Ahmad)</b>
+        • JazzCash / Easypaisa: <b>0333-4664227 (Ejaz Ahmad)</b>
       </div>
       <div class="form-group">
         <label>Delivery Address / City *</label>
@@ -824,54 +823,26 @@ window.sendChatMessage = function() {
       replyText = "Ad lagane ke liye niche wale gol plus (+) button par click karein.";
     } else {
       let foundMatch = null;
+      // Universal Flexible Search: Checks any English or Urdu character match across name, category, and description
       for (let i = 0; i < allProductsCache.length; i++) {
         let p = allProductsCache[i];
         let pName = (p.name || p.title || '').toLowerCase();
         let pCat = (p.category || '').toLowerCase();
-        if (pName.indexOf(query) !== -1 || query.indexOf(pName) !== -1 || pCat.indexOf(query) !== -1) {
+        let pDesc = (p.description || '').toLowerCase();
+        
+        if (pName.includes(query) || query.includes(pName) || pCat.includes(query) || pDesc.includes(query)) {
           foundMatch = p;
           break;
         }
       }
 
+      // Fallback keyword split matching
       if (!foundMatch && allProductsCache.length > 0) {
         let queryWords = query.split(' ');
         for (let i = 0; i < allProductsCache.length; i++) {
           let p = allProductsCache[i];
           let pName = (p.name || p.title || '').toLowerCase();
+          let pCat = (p.category || '').toLowerCase();
           for (let w = 0; w < queryWords.length; w++) {
             let word = queryWords[w];
-            if (word.length > 2 && pName.indexOf(word) !== -1) {
-              foundMatch = p;
-              break;
-            }
-          }
-          if (foundMatch) break;
-        }
-      }
-
-      if (foundMatch) {
-        let pPrice = foundMatch.pricePKR || foundMatch.price || 0;
-        replyText = 'Ji bilkul! Yeh rahi product: "' + (foundMatch.name || foundMatch.title) + '" — Qeemat: Rs. ' + pPrice + '.';
-        
-        if (foundMatch.affiliateLink && foundMatch.affiliateLink.trim() !== '') {
-          actionLinkHTML = '<div style="margin-top:6px;"><a href="' + foundMatch.affiliateLink + '" target="_blank" style="background:#ff9900; color:#000; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">🔗 Open Link</a></div>';
-        } else {
-          let whatsappLink = 'https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20' + encodeURIComponent(foundMatch.name || foundMatch.title);
-          actionLinkHTML = '<div style="margin-top:6px;"><a href="' + whatsappLink + '" target="_blank" style="background:#25d366; color:#fff; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">💬 Order via WhatsApp</a></div>';
-        }
-      } else {
-        replyText = "Maazrat, is naam ki exact product nahi mili. Aap WhatsApp 03334664227 par rabta karein!";
-      }
-    }
-
-    body.innerHTML += '<div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;"><span>' + replyText + '</span>' + actionLinkHTML + '</div>';
-    body.scrollTop = body.scrollHeight;
-    speakText(replyText);
-  }, 500);
-};
-
-window.addEventListener('DOMContentLoaded', function() { loadApprovedProducts(); });
-</script>
-</body>
-</html>
+            if (word.length > 1 && (pName.includes(word)
