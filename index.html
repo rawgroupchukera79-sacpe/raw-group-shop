@@ -52,6 +52,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .product-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .card-body { padding: 8px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
 .product-title { font-size: 12px; font-weight: 600; color: #212121; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.category-tag { font-size: 9px; color: #194376; background: #eef2f7; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 3px; font-weight: bold; }
 .city-label { font-size: 10px; color: #757575; margin: 2px 0; }
 .price { color: #f57224; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
 .whatsapp-btn { width: 100%; border: none; padding: 7px; border-radius: 4px; font-weight: 700; font-size: 11px; cursor: pointer; background: #f57224; color: #fff; text-align: center; text-decoration: none; }
@@ -80,6 +81,38 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .mic-btn { background: #fff3ec; border: 1px solid #f57224; color: #f57224; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; }
 .send-btn { background: #f57224; color: #fff; border: none; padding: 5px 10px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 11px; }
 </style>
+
+<!-- Google Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "R.A.W GROUP CHOUKIRH 79",
+  "image": "https://raw-group-shop.vercel.app/logo.png",
+  "@id": "https://raw-group-shop.vercel.app/",
+  "url": "https://raw-group-shop.vercel.app/",
+  "telephone": "+923334664227",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Choukirh 79",
+    "addressLocality": "Sargodha",
+    "addressRegion": "Punjab",
+    "postalCode": "40100",
+    "addressCountry": "PK"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 32.0836,
+    "longitude": 72.6711
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "28"
+  },
+  "priceRange": "PKR"
+}
+</script>
 </head>
 <body>
 
@@ -92,16 +125,17 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
     <button class="admin-badge" onclick="openAdminPanel()">🔐 Admin</button>
   </div>
 
-  <div class="cat-scroll-row">
+  <!-- Synchronized Categories Strip -->
+  <div class="cat-scroll-row" id="homeCategoriesBar">
     <div class="cat-item" onclick="filterByCategory('All')">
       <div class="cat-icon-circle">📦</div>
       <span>تمام (All)</span>
     </div>
-    <div class="cat-item" onclick="filterByCategory('Furniture')">
+    <div class="cat-item" onclick="filterByCategory('Furniture & Decoration')">
       <div class="cat-icon-circle">🛋️</div>
       <span>Furniture</span>
     </div>
-    <div class="cat-item" onclick="filterByCategory('Vehicles')">
+    <div class="cat-item" onclick="filterByCategory('Car & Motorcycle')">
       <div class="cat-icon-circle">🚗</div>
       <span>Vehicles</span>
     </div>
@@ -109,13 +143,57 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
       <div class="cat-icon-circle">🏠</div>
       <span>Real Estate</span>
     </div>
-    <div class="cat-item" onclick="filterByCategory('Mobiles')">
-      <div class="cat-icon-circle">📱</div>
-      <span>Mobiles</span>
-    </div>
     <div class="cat-item" onclick="filterByCategory('Electronics')">
       <div class="cat-icon-circle">💻</div>
       <span>Electronics</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Home & Kitchen Appliances')">
+      <div class="cat-icon-circle">🍳</div>
+      <span>Home & Kitchen</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Fashion & Beauty')">
+      <div class="cat-icon-circle">👗</div>
+      <span>Fashion</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Job offers')">
+      <div class="cat-icon-circle">💼</div>
+      <span>Jobs</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Kids & Baby-Shop')">
+      <div class="cat-icon-circle">🧸</div>
+      <span>Kids & Baby</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Education / BookShop')">
+      <div class="cat-icon-circle">📚</div>
+      <span>BookShop</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('General store Food Delivery')">
+      <div class="cat-icon-circle">🛒</div>
+      <span>General Store</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Services & offers')">
+      <div class="cat-icon-circle">🌐</div>
+      <span>Services</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Health & Care')">
+      <div class="cat-icon-circle">🩺</div>
+      <span>Health & Care</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Animals & Accessories')">
+      <div class="cat-icon-circle">🐾</div>
+      <span>Animals</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Sports & Hobbies')">
+      <div class="cat-icon-circle">⚽</div>
+      <span>Sports</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Antique Coins Gemstone')">
+      <div class="cat-icon-circle">💍</div>
+      <span>Gemstone</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Tools & Heavy Machinery')">
+      <div class="cat-icon-circle">🛠️</div>
+      <span>Tools</span>
     </div>
   </div>
 
@@ -153,7 +231,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
   </div>
 </div>
 
-<!-- Ad Submission Modal -->
+<!-- Ad Submission Form Modal with Synchronized Categories -->
 <div id="ad-submission-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -168,12 +246,23 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
       <div class="form-group">
         <label>Category *</label>
         <select id="adCategory" required>
-          <option value="Mobiles">Mobiles</option>
-          <option value="Furniture">Furniture</option>
-          <option value="Vehicles">Vehicles</option>
+          <option value="">Select Category</option>
+          <option value="Furniture & Decoration">Furniture & Decoration</option>
+          <option value="Car & Motorcycle">Car & Motorcycle</option>
           <option value="Real Estate">Real Estate</option>
           <option value="Electronics">Electronics</option>
-          <option value="Other">Other</option>
+          <option value="Home & Kitchen Appliances">Home & Kitchen Appliances</option>
+          <option value="Fashion & Beauty">Fashion & Beauty</option>
+          <option value="Job offers">Job offers</option>
+          <option value="Kids & Baby-Shop">Kids & Baby-Shop</option>
+          <option value="Education / BookShop">Education / BookShop</option>
+          <option value="General store Food Delivery">General store Food Delivery</option>
+          <option value="Services & offers">Services & offers</option>
+          <option value="Health & Care">Health & Care</option>
+          <option value="Animals & Accessories">Animals & Accessories</option>
+          <option value="Sports & Hobbies">Sports & Hobbies</option>
+          <option value="Antique Coins Gemstone">Antique Coins Gemstone</option>
+          <option value="Tools & Heavy Machinery">Tools & Heavy Machinery</option>
         </select>
       </div>
       <div class="form-group">
@@ -197,7 +286,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
   </div>
 </div>
 
-<!-- Admin Panel Modal (Updated to show ALL ads for easy management) -->
+<!-- Admin Panel Modal -->
 <div id="admin-panel-modal" class="custom-modal">
   <div class="modal-content" style="max-width:550px;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -287,7 +376,6 @@ window.compressImage = function(event) {
   reader.readAsDataURL(file);
 };
 
-// Load All Products (Ab yeh database ki saari ads uthayega aur website par dikhayega)
 window.loadApprovedProducts = async function() {
   const shopList = document.getElementById('shopList');
   try {
@@ -309,6 +397,7 @@ window.loadApprovedProducts = async function() {
           <div class="product-img-container"><img src="${img}" onerror="this.src='logo.png'"></div>
           <div class="card-body">
             <h3 class="product-title">${item.title}</h3>
+            <span class="category-tag">${item.category || 'General'}</span>
             <div class="city-label">📍 ${item.city || 'Sargodha'}</div>
             <div class="price">PKR ${item.price}</div>
             <a href="https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.title)}" target="_blank" class="whatsapp-btn">💬 Contact</a>
@@ -354,7 +443,7 @@ window.submitUserAd = async function(e) {
     await addDoc(collection(db, "ads"), {
       title, category, price, city, mobile,
       img: compressedBase64Image,
-      status: "approved", // Ab direct approved ho kar live ho jayegi
+      status: "approved",
       createdAt: new Date()
     });
     alert("Shukriya! Aapka ad kamyabi se live ho gaya hai.");
@@ -367,7 +456,6 @@ window.submitUserAd = async function(e) {
   }
 };
 
-// Admin Panel (Ab yeh database ki saari ads dikhayega taake aap manage kar sakein)
 window.openAdminPanel = async function() {
   document.getElementById('admin-panel-modal').style.display = 'flex';
   const listContainer = document.getElementById('admin-pending-list');
@@ -388,7 +476,7 @@ window.openAdminPanel = async function() {
       listContainer.innerHTML += `
         <div style="border:1px solid #ddd; padding:8px; border-radius:6px; margin-bottom:8px; font-size:12px; background:#fff;">
           <h4>${ad.title} (PKR ${ad.price})</h4>
-          <p>Category: ${ad.category} | City: ${ad.city} | Mobile: ${ad.mobile}</p>
+          <p><strong>Category:</strong> ${ad.category} | <strong>City:</strong> ${ad.city} | <strong>Mobile:</strong> ${ad.mobile}</p>
           <div style="margin-top:6px; display:flex; gap:6px;">
             <button onclick="deleteAd('${id}')" style="background:#dc3545; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">✕ Delete Ad</button>
           </div>
