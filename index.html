@@ -69,7 +69,7 @@ body { top: 0px !important; }
 
 .escrow-notice { background: #e8f5e9; border: 1px solid #2e7d32; padding: 8px; border-radius: 6px; margin-bottom: 10px; font-size: 10px; color: #1b5e20; }
 
-/* Voice & Multilingual Chatbot CSS */
+/* Voice & Multilingual AI Chatbot CSS */
 #chatbot-launcher { position: fixed; bottom: 70px; right: 15px; background: #f57224; color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; z-index: 2500; font-size: 20px; }
 #chatbot-modal { display: none; position: fixed; bottom: 125px; right: 15px; width: 320px; height: 430px; background: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 2501; flex-direction: column; overflow: hidden; }
 .chat-header { background: #f57224; color: #fff; padding: 10px; font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
@@ -142,7 +142,7 @@ function googleTranslateElementInit() {
   <div class="nav-item" onclick="openReviewModal()"><span class="icon">⭐</span><span>Review</span></div>
 </div>
 
-<!-- Customer Escrow Protected Order Modal -->
+<!-- Customer Escrow Protected Order Modal with Secure Payment Details -->
 <div id="order-form-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -151,7 +151,7 @@ function googleTranslateElementInit() {
     </div>
     
     <div class="escrow-notice">
-      <b>🛡️ R.A.W Escrow Protection:</b> Aapki payment R.A.W Group ke paas safe rahegi. Jab tak aapko sahi product nahi mil jaati, seller ko payout nahi diya jayega. 100% Money-Back Guarantee!
+      <b>🛡️ R.A.W Escrow Protection:</b> Aapki payment safe rahegi. Scam se bachne ke liye online payment ki receipt WhatsApp par zaroor bhejein.
     </div>
 
     <div id="orderProductDetails" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376; font-weight:bold;"></div>
@@ -167,13 +167,21 @@ function googleTranslateElementInit() {
       </div>
       <div class="form-group">
         <label>Payment Method *</label>
-        <select id="custPaymentMethod" required>
+        <select id="custPaymentMethod" onchange="togglePaymentInstructions(this.value)" required>
           <option value="Cash on Delivery">Cash on Delivery (COD)</option>
           <option value="Meezan Bank Transfer">Meezan Bank Transfer</option>
           <option value="Easypaisa / JazzCash / Raast">Easypaisa / JazzCash / Raast</option>
-          <option value="Payoneer / International Transfer">Payoneer / International Transfer</option>
         </select>
       </div>
+
+      <!-- Secure Account Box (Yahan aap apna account number khud likh lein) -->
+      <div id="securePaymentInfo" style="display:none; background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px; color:#333;">
+        <b>🔒 Official R.A.W Group Account Details:</b><br>
+        • Meezan Bank: <b>[Yahan apna Meezan Bank account number likhein]</b><br>
+        • JazzCash / Easypaisa: <b>0333-4664227 (Ijaz Ahmad)</b><br>
+        <i>Note: Payment ke baad screenshot WhatsApp par zaroor bhejein!</i>
+      </div>
+
       <div class="form-group">
         <label>Delivery Address / City *</label>
         <textarea id="custAddress" rows="2" required placeholder="Poora pata aur shehar likhein..."></textarea>
@@ -287,7 +295,7 @@ function googleTranslateElementInit() {
   </div>
   <div class="chat-body" id="chatBody">
     <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">
-      اسلام علیکم! Mic (🎤) ka button daba kar bolen, ya salam / sawal likhein. Main aapko jawab dunga aur parh kar bhi sunaunga!
+      السلام علیکم! Mic (🎤) ka button daba kar bolen, ya salam / sawal likhein. Main aapko jawab dunga aur parh kar bhi sunaunga!
     </div>
   </div>
   <div class="chat-footer">
@@ -355,7 +363,7 @@ window.loadApprovedProducts = async function() {
     renderProducts(allProductsCache);
   } catch (error) {
     console.error(error);
-    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:red;">Data load karne mein masla hua.</p>`;
+    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:red;">Data load karne mein masla hua.</p>`;
   }
 };
 
@@ -431,6 +439,15 @@ window.openOrderModal = function(item) {
   document.getElementById('order-form-modal').style.display = 'flex';
 };
 window.closeOrderModal = () => document.getElementById('order-form-modal').style.display = 'none';
+
+window.togglePaymentInstructions = function(method) {
+  const infoBox = document.getElementById('securePaymentInfo');
+  if (method !== 'Cash on Delivery') {
+    infoBox.style.display = 'block';
+  } else {
+    infoBox.style.display = 'none';
+  }
+};
 
 window.submitCustomerOrder = async function(e) {
   e.preventDefault();
@@ -579,13 +596,12 @@ window.sendChatMessage = () => {
   setTimeout(() => {
     let replyText = "";
     const hour = new Date().getHours();
-    let timeGreeting = hour < 12 ? "Good Morning! 🌅" : hour < 17 ? "Good Afternoon! ☀️" : "Good Evening! 🌙";
+    let timeGreeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
 
-    // Human-like Friendly Greeting, Well-being Check & Exact Answer Flow
-    let isGreeting = query.includes('salam') || query.includes('assalam') || query.includes('alaikum') || query.includes('salaam') || query.includes('hi') || query.includes('hello') || query.includes('hey') || query.includes('kaise') || query.includes('kya haal');
+    let isGreeting = query.includes('سلیم') || query.includes('السلام') || query.includes('سلام') || query.includes('salam') || query.includes('assalam') || query.includes('alaikum') || query.includes('salaam') || query.includes('hi') || query.includes('hello') || query.includes('hey') || query.includes('kaise') || query.includes('kya haal');
 
     if (isGreeting) {
-      replyText = `Walaikum Assalam! ${timeGreeting} Main bilkul theek hoon, aap sunayein, aap kaise hain aur sab theek-thaak hai? R.A.W Group mein خوش آمدید، main aapki kya madad kar sakta hoon?`;
+      replyText = `وعلیکم السلام! ${timeGreeting}! Main bilkul theek hoon, aap sunayein, aap kaise hain aur sab theek-thaak hai? R.A.W Group mein خوش آمدید، main aapki kya madad kar sakta hoon?`;
     }
     else if (query.includes('order') || query.includes('khareed') || query.includes('order kaise') || query.includes('bhejna')) {
       replyText = "Order karne ke liye product ke niche 'Order' button par click karein aur apna naam, mobile number aur pata likh kar confirm karein.";
