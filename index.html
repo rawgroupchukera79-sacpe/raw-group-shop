@@ -446,7 +446,6 @@ function renderProducts(products) {
   const savedUser = JSON.parse(localStorage.getItem('raw_logged_seller') || '{}');
 
   filtered.forEach((item) => {
-    // Ultimate image resolver: handles 'images' array, old 'img' string, or fallback
     let imagesList = item.images;
     if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
       imagesList = item.img ? [item.img] : ['logo.png'];
@@ -458,9 +457,10 @@ function renderProducts(products) {
     let verifiedBadge = item.isVerifiedSeller ? `<span style="color:#0a8a00; font-size:9px; font-weight:bold;"> ✓ Verified Seller</span>` : '';
     let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName} ${verifiedBadge}</div>` : '';
     
-    // Only show delete button if the logged-in user matches the seller mobile OR if it's admin (03334664227)
+    // Strict Delete Control: Only show delete button if current user is admin (03334664227) or the exact product owner
     let deleteBtnHTML = '';
-    if (savedUser.mobile && item.mobile && (savedUser.mobile === item.mobile || savedUser.mobile === '03334664227')) {
+    const adminMobile = '03334664227';
+    if (savedUser.mobile && (savedUser.mobile === adminMobile || (item.mobile && savedUser.mobile === item.mobile))) {
       deleteBtnHTML = `<button class="delete-product-btn" onclick="deleteMyProduct('${item.id}')">🗑️ Delete My Ad</button>`;
     }
 
@@ -469,7 +469,7 @@ function renderProducts(products) {
       let linkText = item.affiliateLink.includes('amazon') ? '🔗 Amazon Link' : item.affiliateLink.includes('daraz') ? '🔗 Daraz Link' : '🔗 Visit Link';
       actionButtonsHTML = `<a href="${item.affiliateLink}" target="_blank" class="affiliate-btn">${linkText}</a>`;
     } else {
-      let contactLink = `https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
+      let contactLink = `https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : adminMobile}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
       actionButtonsHTML = `
         <div class="btn-row">
           <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
@@ -518,7 +518,6 @@ window.openProductDetail = function(item) {
   const imgContainer = document.getElementById('detImagesContainer');
   imgContainer.innerHTML = "";
 
-  // Universal image retriever for both array and legacy single image fields
   let imagesList = item.images;
   if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
     imagesList = item.img ? [item.img] : ['logo.png'];
@@ -776,12 +775,6 @@ window.sendChatMessage = () => {
     } 
     else {
       let searchKey = query;
-      if (query.includes('mobile') || query.includes('phone') || query.ones('فون') || query.includes('موبائل')) {
-        searchKey = 'motorola'; 
-      } else if (query.includes('bed') || query.includes('sheet') || query.includes('چادر')) {
-        searchKey = 'bed sheet';
-      }
-
       let matches = allProductsCache.filter(p => (p.name || p.title || '').toLowerCase().includes(searchKey) || (p.category || '').toLowerCase().includes(searchKey));
       
       if(matches.length > 0) {
@@ -801,12 +794,11 @@ window.sendChatMessage = () => {
     }
 
     body.innerHTML += `
-      <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">
+      body.innerHTML += \`<div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">
         <span>${replyText}</span>
         ${actionLinkHTML}
         <span class="speak-icon" onclick="speakText('${replyText.replace(/'/g, "")}')" title="Sunen" style="float:right;">🔊</span>
-      </div>
-    `;
+      </div>\`;
     body.scrollTop = body.scrollHeight;
     speakText(replyText);
   }, 500);
