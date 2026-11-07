@@ -151,7 +151,6 @@ function googleTranslateElementInit() {
       <h3 id="detTitle" style="font-size:14px; color:#194376;">Product Details</h3>
       <span style="cursor:pointer;font-weight:bold; font-size:16px;" onclick="closeProductDetailModal()">✕</span>
     </div>
-    <!-- Multiple Images Container -->
     <div id="detImagesContainer" style="display:flex; flex-direction:column; gap:10px; max-height:280px; overflow-y:auto; align-items:center; background:#fafafa; padding:8px; border-radius:6px; margin-bottom:10px;"></div>
     <div id="detPrice" style="font-size:15px; font-weight:bold; color:#f57224; margin-bottom:6px;"></div>
     <div id="detCategory" style="font-size:11px; color:#194376; font-weight:bold; margin-bottom:4px;"></div>
@@ -444,6 +443,7 @@ function renderProducts(products) {
   }
 
   const savedUser = JSON.parse(localStorage.getItem('raw_logged_seller') || '{}');
+  const adminMobile = '03334664227';
 
   filtered.forEach((item) => {
     let imagesList = item.images;
@@ -457,9 +457,8 @@ function renderProducts(products) {
     let verifiedBadge = item.isVerifiedSeller ? `<span style="color:#0a8a00; font-size:9px; font-weight:bold;"> ✓ Verified Seller</span>` : '';
     let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName} ${verifiedBadge}</div>` : '';
     
-    // Strict Delete Control: Only show delete button if current user is admin (03334664227) or the exact product owner
+    // Only show delete button for Admin or exact product owner
     let deleteBtnHTML = '';
-    const adminMobile = '03334664227';
     if (savedUser.mobile && (savedUser.mobile === adminMobile || (item.mobile && savedUser.mobile === item.mobile))) {
       deleteBtnHTML = `<button class="delete-product-btn" onclick="deleteMyProduct('${item.id}')">🗑️ Delete My Ad</button>`;
     }
@@ -794,11 +793,12 @@ window.sendChatMessage = () => {
     }
 
     body.innerHTML += `
-      body.innerHTML += \`<div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">
+      <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">
         <span>${replyText}</span>
         ${actionLinkHTML}
         <span class="speak-icon" onclick="speakText('${replyText.replace(/'/g, "")}')" title="Sunen" style="float:right;">🔊</span>
-      </div>\`;
+      </div>
+    `;
     body.scrollTop = body.scrollHeight;
     speakText(replyText);
   }, 500);
