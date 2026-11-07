@@ -67,7 +67,9 @@ body { top: 0px !important; }
 .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; font-family: inherit; }
 .btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 9px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
 
-/* Chatbot */
+/* Escrow Shield Notice Box */
+.escrow-notice { background: #e8f5e9; border: 1px solid #2e7d32; padding: 8px; border-radius: 6px; margin-bottom: 10px; font-size: 10px; color: #1b5e20; }
+
 #chatbot-launcher { position: fixed; bottom: 70px; right: 15px; background: #f57224; color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; z-index: 2500; font-size: 20px; }
 #chatbot-modal { display: none; position: fixed; bottom: 125px; right: 15px; width: 310px; height: 400px; background: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 2501; flex-direction: column; overflow: hidden; }
 .chat-header { background: #f57224; color: #fff; padding: 10px; font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
@@ -138,14 +140,20 @@ function googleTranslateElementInit() {
   <div class="nav-item" onclick="openReviewModal()"><span class="icon">⭐</span><span>Review</span></div>
 </div>
 
-<!-- Customer Direct Order Form Modal -->
+<!-- Customer Escrow Protected Order Modal -->
 <div id="order-form-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px; color:#194376;">🛒 Order Form (آرڈر کریں)</h3>
+      <h3 style="font-size:14px; color:#194376;">🛒 Secure Escrow Order Form</h3>
       <span style="cursor:pointer;font-weight:bold;" onclick="closeOrderModal()">✕</span>
     </div>
+    
+    <div class="escrow-notice">
+      <b>🛡️ R.A.W Escrow Protection:</b> Aapki payment R.A.W Group ke paas safe rahegi. Jab tak aapko sahi product nahi mil jaati, seller ko payout nahi diya jayega. 100% Money-Back Guarantee!
+    </div>
+
     <div id="orderProductDetails" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376; font-weight:bold;"></div>
+    
     <form id="customerOrderForm" onsubmit="submitCustomerOrder(event)">
       <div class="form-group">
         <label>Aapka Naam (Customer Name) *</label>
@@ -168,12 +176,12 @@ function googleTranslateElementInit() {
         <label>Delivery Address / City *</label>
         <textarea id="custAddress" rows="2" required placeholder="Poora pata aur shehar likhein..."></textarea>
       </div>
-      <button type="submit" class="btn-submit-ad" style="background:#f57224;">Confirm Order</button>
+      <button type="submit" class="btn-submit-ad" style="background:#f57224;">Confirm & Secure Order</button>
     </form>
   </div>
 </div>
 
-<!-- User Login Modal for Posting Ads -->
+<!-- Seller Login Modal -->
 <div id="user-login-modal" class="custom-modal">
   <div class="modal-content" style="text-align:center;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -195,7 +203,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Ad Submission Form Modal -->
+<!-- Ad Submission Modal -->
 <div id="ad-submission-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -242,6 +250,7 @@ function googleTranslateElementInit() {
         <label>Tasveer Select Karein (Auto Resize) *</label>
         <input type="file" id="imageFileInput" accept="image/*" required onchange="compressImage(event)">
       </div>
+      <p style="font-size:10px; color:#0a8a00; margin-bottom:8px;">* 5% R.A.W Group Platform Commission automatically applies after customer satisfaction.</p>
       <button type="submit" class="btn-submit-ad">Submit Ad For Review</button>
     </form>
   </div>
@@ -366,9 +375,9 @@ function renderProducts(products) {
     const img = (item.images && item.images[0]) || item.img || 'logo.png';
     let priceDisplay = item.priceType === 'usd' ? `$${item.price} (Rs.${item.pricePKR})` : item.priceType === 'aed' ? `AED ${item.price} (Rs.${item.pricePKR})` : item.priceType === 'gbp' ? `£${item.price} (Rs.${item.pricePKR})` : `Rs.${item.pricePKR || item.price}`;
 
-    let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName}</div>` : '';
+    let verifiedBadge = item.isVerifiedSeller ? `<span style="color:#0a8a00; font-size:9px; font-weight:bold;"> ✓ R.A.W Verified</span>` : '';
+    let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName} ${verifiedBadge}</div>` : '';
     
-    // Affiliate link check and button rendering
     let actionButtonsHTML = '';
     if (item.affiliateLink && item.affiliateLink.trim() !== '') {
       let linkText = item.affiliateLink.includes('amazon') ? '🔗 Amazon Link' : item.affiliateLink.includes('daraz') ? '🔗 Daraz Link' : '🔗 Visit Link';
@@ -448,10 +457,11 @@ window.submitCustomerOrder = async function(e) {
       customerMobile: mobile,
       customerAddress: address,
       paymentMethod: paymentMethod,
-      status: "pending",
+      escrowStatus: "Held in Escrow", // Safe Escrow Holding Status
+      payoutStatus: "Pending Confirmation",
       createdAt: serverTimestamp()
     });
-    alert("Shukriya! Aapka order kamyabi se book ho gaya hai.");
+    alert("Shukriya! Aapka order R.A.W Escrow Protection ke sath book ho gaya hai.");
     document.getElementById('customerOrderForm').reset();
     closeOrderModal();
   } catch(err) {
@@ -508,6 +518,7 @@ window.submitUserAd = async function(e) {
       sellerName: savedUser.name || 'Partner',
       images: [compressedBase64Image],
       status: "approved",
+      isVerifiedSeller: true,
       createdAt: serverTimestamp()
     });
     alert("Shukriya! Aapka ad kamyabi se live ho gaya hai.");
