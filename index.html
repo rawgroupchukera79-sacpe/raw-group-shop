@@ -24,7 +24,7 @@ body { top: 0px !important; }
 
 .search-bar-row { display: flex; align-items: center; background: #194376; padding: 6px 15px 10px; }
 .search-container { flex: 1; position: relative; }
-.search-container input { width: 100%; padding: 8px 14px; border-radius: 20px; border: none; outline: none; font-size: 13px; font-family: inherit; }
+.search-container input { width: 100%; padding: 9px 14px; border-radius: 20px; border: none; outline: none; font-size: 13px; font-family: inherit; }
 
 .cat-scroll-row { display: flex; gap: 12px; overflow-x: auto; padding: 12px 15px; background: #fff; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 .cat-scroll-row::-webkit-scrollbar { display: none; }
@@ -43,9 +43,7 @@ body { top: 0px !important; }
 .banner-dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; }
 .banner-dot.active { background: #f57224; width: 18px; border-radius: 4px; }
 
-.controls-header { max-width: 1100px; width: 100%; margin: 10px auto 0; padding: 0 15px; display: flex; justify-content: space-between; align-items: center; }
-
-.products { max-width: 1100px; margin: 0 auto; padding: 10px 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
+.products { max-width: 1100px; margin: 10px auto 0; padding: 0 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
 @media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } }
 
 .card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.06); border: 1px solid #e5e5e5; display: flex; flex-direction: column; cursor: pointer; position: relative; }
@@ -87,16 +85,6 @@ body { top: 0px !important; }
 
 .escrow-notice { background: #e8f5e9; border: 1px solid #2e7d32; padding: 8px; border-radius: 6px; margin-bottom: 10px; font-size: 10px; color: #1b5e20; }
 
-/* Chatbot CSS */
-#chatbot-launcher { position: fixed; bottom: 70px; right: 15px; background: #f57224; color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; z-index: 2500; font-size: 20px; }
-#chatbot-modal { display: none; position: fixed; bottom: 125px; right: 15px; width: 320px; height: 430px; background: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 2501; flex-direction: column; overflow: hidden; }
-.chat-header { background: #f57224; color: #fff; padding: 10px; font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
-.chat-body { flex: 1; padding: 8px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; background: #fafafa; font-size: 11px; }
-.chat-footer { display: flex; align-items: center; padding: 6px; background: #fff; border-top: 1px solid #eee; gap: 4px; }
-.chat-footer input { flex: 1; border: 1px solid #f57224; padding: 5px 8px; border-radius: 12px; outline: none; font-size: 11px; }
-.mic-btn { background: #194376; color: #fff; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
-.send-btn { background: #f57224; color: #fff; border: none; padding: 5px 10px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 11px; }
-
 /* Seller Dashboard Panel */
 #seller-dashboard-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
 .dashboard-content { background: #fff; border-radius: 12px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; padding: 15px; }
@@ -120,9 +108,10 @@ function googleTranslateElementInit() {
     </div>
   </div>
 
+  <!-- Smart Universal Search Bar -->
   <div class="search-bar-row">
     <div class="search-container">
-      <input id="search" onkeyup="filterShop()" placeholder="🔍 تلاش کریں یا نام لکھیں... (Search Products)">
+      <input id="search" onkeyup="filterShop()" placeholder="🔍 پروڈکٹ کا نام، کیٹگری یا شہر تلاش کریں... (Search)">
     </div>
   </div>
 
@@ -169,9 +158,7 @@ function googleTranslateElementInit() {
     </div>
   </div>
 
-  <div class="controls-header">
-    <div id="catTitle" style="font-size:13px; font-weight:700; color:#222;">📦 تمام (All Products)</div>
-  </div>
+  <!-- Duplicate Title Header Removed Completely -->
 
   <div id="shopList" class="products">
     <p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">لوڈ ہو رہا ہے...</p>
@@ -212,6 +199,32 @@ function googleTranslateElementInit() {
   <button class="menu-action-btn" onclick="closePlusMenu()" style="background:#d9534f;">Close Menu</button>
 </div>
 
+<!-- Seller Login Modal with Password Security -->
+<div id="user-login-modal" class="custom-modal">
+  <div class="modal-content" style="text-align:center;">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
+      <h3 style="font-size:14px; color:#194376;">🤝 Seller Portal Login</h3>
+      <span style="cursor:pointer;font-weight:bold;" onclick="closeLoginModal()">✕</span>
+    </div>
+    <p style="font-size:11px; color:#555; margin-bottom:10px;">Apna naam, WhatsApp number aur Password درج کریں:</p>
+    <form id="userLoginForm" onsubmit="submitUserLogin(event)">
+      <div class="form-group" style="text-align:left;">
+        <label>Aapka Naam *</label>
+        <input type="text" id="loginName" required placeholder="Ali Ahmed">
+      </div>
+      <div class="form-group" style="text-align:left;">
+        <label>WhatsApp Number *</label>
+        <input type="text" id="loginMobile" required placeholder="03331234567">
+      </div>
+      <div class="form-group" style="text-align:left;">
+        <label>Password (Secret Pin) *</label>
+        <input type="password" id="loginPassword" required placeholder="Pasword likhein">
+      </div>
+      <button type="submit" class="btn-submit-ad" style="background:#194376;">Login & Continue</button>
+    </form>
+  </div>
+</div>
+
 <!-- Seller Dashboard Modal -->
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="dashboard-content">
@@ -224,69 +237,6 @@ function googleTranslateElementInit() {
       <p style="font-size:11px; color:#666;">Apne ads dekhne aur delete karne ke liye pehle login karein.</p>
     </div>
     <button onclick="closeSellerDashboard()" style="margin-top:12px; width:100%; background:#ddd; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
-  </div>
-</div>
-
-<!-- Customer Escrow Protected Order Modal -->
-<div id="order-form-modal" class="custom-modal">
-  <div class="modal-content">
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px; color:#194376;">🛒 Secure Escrow Order Form</h3>
-      <span style="cursor:pointer;font-weight:bold;" onclick="closeOrderModal()">✕</span>
-    </div>
-    <div class="escrow-notice">
-      <b>🛡️ R.A.W Escrow Protection:</b> Aapki payment safe rahegi.
-    </div>
-    <div id="orderProductDetails" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376; font-weight:bold;"></div>
-    <form id="customerOrderForm" onsubmit="submitCustomerOrder(event)">
-      <div class="form-group">
-        <label>Aapka Naam *</label>
-        <input type="text" id="custName" required placeholder="Muhammad Ali">
-      </div>
-      <div class="form-group">
-        <label>Mobile / WhatsApp Number *</label>
-        <input type="text" id="custMobile" required placeholder="03331234567">
-      </div>
-      <div class="form-group">
-        <label>Payment Method *</label>
-        <select id="custPaymentMethod" onchange="togglePaymentInstructions(this.value)" required>
-          <option value="Cash on Delivery">Cash on Delivery (COD)</option>
-          <option value="Meezan Bank Transfer">Meezan Bank Transfer</option>
-          <option value="Easypaisa / JazzCash / Raast">Easypaisa / JazzCash / Raast</option>
-        </select>
-      </div>
-      <div id="securePaymentInfo" style="display:none; background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px; color:#333;">
-        <b>🔒 Official R.A.W Group Account Details:</b><br>
-        • JazzCash / Easypaisa: <b>0333-4664227 (Ejaz Ahmad)</b>
-      </div>
-      <div class="form-group">
-        <label>Delivery Address / City *</label>
-        <textarea id="custAddress" rows="2" required placeholder="Poora pata likhein..."></textarea>
-      </div>
-      <button type="submit" class="btn-submit-ad" style="background:#f57224;">Confirm Order</button>
-    </form>
-  </div>
-</div>
-
-<!-- Seller Login Modal -->
-<div id="user-login-modal" class="custom-modal">
-  <div class="modal-content" style="text-align:center;">
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px; color:#194376;">🤝 Seller Portal Login</h3>
-      <span style="cursor:pointer;font-weight:bold;" onclick="closeLoginModal()">✕</span>
-    </div>
-    <p style="font-size:11px; color:#555; margin-bottom:10px;">Yahan apni cheezon ka ad lagane ke liye apna naam aur WhatsApp number likhein:</p>
-    <form id="userLoginForm" onsubmit="submitUserLogin(event)">
-      <div class="form-group" style="text-align:left;">
-        <label>Aapka Naam *</label>
-        <input type="text" id="loginName" required placeholder="Ali Ahmed">
-      </div>
-      <div class="form-group" style="text-align:left;">
-        <label>WhatsApp Number *</label>
-        <input type="text" id="loginMobile" required placeholder="03331234567">
-      </div>
-      <button type="submit" class="btn-submit-ad" style="background:#194376;">Login & Post Free Ad</button>
-    </form>
   </div>
 </div>
 
@@ -351,6 +301,47 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
+<!-- Customer Escrow Protected Order Modal -->
+<div id="order-form-modal" class="custom-modal">
+  <div class="modal-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
+      <h3 style="font-size:14px; color:#194376;">🛒 Secure Escrow Order Form</h3>
+      <span style="cursor:pointer;font-weight:bold;" onclick="closeOrderModal()">✕</span>
+    </div>
+    <div class="escrow-notice">
+      <b>🛡️ R.A.W Escrow Protection:</b> Aapki payment safe rahegi.
+    </div>
+    <div id="orderProductDetails" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376; font-weight:bold;"></div>
+    <form id="customerOrderForm" onsubmit="submitCustomerOrder(event)">
+      <div class="form-group">
+        <label>Aapka Naam *</label>
+        <input type="text" id="custName" required placeholder="Muhammad Ali">
+      </div>
+      <div class="form-group">
+        <label>Mobile / WhatsApp Number *</label>
+        <input type="text" id="custMobile" required placeholder="03331234567">
+      </div>
+      <div class="form-group">
+        <label>Payment Method *</label>
+        <select id="custPaymentMethod" onchange="togglePaymentInstructions(this.value)" required>
+          <option value="Cash on Delivery">Cash on Delivery (COD)</option>
+          <option value="Meezan Bank Transfer">Meezan Bank Transfer</option>
+          <option value="Easypaisa / JazzCash / Raast">Easypaisa / JazzCash / Raast</option>
+        </select>
+      </div>
+      <div id="securePaymentInfo" style="display:none; background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px; color:#333;">
+        <b>🔒 Official R.A.W Group Account Details:</b><br>
+        • JazzCash / Easypaisa: <b>0333-4664227 (Ejaz Ahmad)</b>
+      </div>
+      <div class="form-group">
+        <label>Delivery Address / City *</label>
+        <textarea id="custAddress" rows="2" required placeholder="Poora pata likhein..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit-ad" style="background:#f57224;">Confirm Order</button>
+    </form>
+  </div>
+</div>
+
 <!-- User Review Modal -->
 <div id="user-review-modal" class="custom-modal">
   <div class="modal-content" style="text-align:center;">
@@ -372,25 +363,6 @@ function googleTranslateElementInit() {
       <button onclick="submitUserReview()" style="flex:1; background:#f57224; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Submit</button>
       <button onclick="closeReviewModal()" style="background:#ddd; border:none; padding:7px 10px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
     </div>
-  </div>
-</div>
-
-<!-- Smart Voice & Multilingual AI Chatbot -->
-<div id="chatbot-launcher" onclick="toggleChatbot()">💬</div>
-<div id="chatbot-modal">
-  <div class="chat-header">
-    <span>🤖 R.A.W Voice Assist (Ejaz Ahmad)</span>
-    <span style="cursor:pointer;" onclick="toggleChatbot()">✕</span>
-  </div>
-  <div class="chat-body" id="chatBody">
-    <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">
-      اسلام علیکم! Mic (🎤) ka button daba kar bolen, ya product ka naam likhein.
-    </div>
-  </div>
-  <div class="chat-footer">
-    <button class="mic-btn" onclick="startVoiceInput()" title="Bol kar batayein">🎙️</button>
-    <input type="text" id="chatInput" placeholder="Sawal puchein..." onkeypress="if(event.key==='Enter') sendChatMessage()">
-    <button class="send-btn" onclick="sendChatMessage()">Send</button>
   </div>
 </div>
 
@@ -416,6 +388,7 @@ let selectedCategoryFilter = "All";
 let currentRatingScore = 5;
 let allProductsCache = [];
 let selectedOrderProduct = null;
+let pendingActionAfterLogin = null;
 
 window.togglePlusMenu = function() {
   const menu = document.getElementById('plus-action-menu');
@@ -586,7 +559,7 @@ function renderProducts(products) {
     }
 
     shopList.innerHTML += `
-      <div class="card">
+      <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}" data-desc="${(item.description || '').toLowerCase()}">
         <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='logo.png'"></div>
         <div class="card-body">
           <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
@@ -601,17 +574,80 @@ function renderProducts(products) {
   });
 }
 
+window.filterShop = function() {
+  const val = document.getElementById('search').value.toLowerCase().trim();
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const title = card.getAttribute('data-title') || '';
+    const cat = card.getAttribute('data-category') || '';
+    const city = card.getAttribute('data-city') || '';
+    const desc = card.getAttribute('data-desc') || '';
+
+    if (title.includes(val) || cat.includes(val) || city.includes(val) || desc.includes(val)) {
+      card.style.display = "flex";
+    } else {
+      card.style.display = "none";
+    }
+  });
+};
+
+window.checkUserLoginAndOpenAd = function(actionType) {
+  pendingActionAfterLogin = actionType;
+  const savedUser = localStorage.getItem('raw_logged_seller');
+  if(!savedUser) {
+    document.getElementById('user-login-modal').style.display = 'flex';
+  } else {
+    const user = JSON.parse(savedUser);
+    if(actionType === 'post') {
+      document.getElementById('loggedInUserTag').innerText = `👤 Seller: ${user.name} (${user.mobile})`;
+      document.getElementById('ad-submission-modal').style.display = 'flex';
+    } else {
+      openSellerDashboardModal(user);
+    }
+  }
+};
+
+window.closeLoginModal = () => document.getElementById('user-login-modal').style.display = 'none';
+window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
+
+window.submitUserLogin = function(e) {
+  e.preventDefault();
+  const name = document.getElementById('loginName').value.trim();
+  const mobile = document.getElementById('loginMobile').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+
+  if(!name || !mobile || !password) { alert("Tamam fields pur karna lazmi hai!"); return; }
+
+  // Secure Local Storage Session with Password Check
+  const existingUser = JSON.parse(localStorage.getItem('raw_logged_seller') || '{}');
+  if(existingUser.mobile && existingUser.mobile === mobile) {
+    if(existingUser.password && existingUser.password !== password) {
+      alert("Ghalat password! Baraye meharbani sahi password likhein.");
+      return;
+    }
+  }
+
+  const userData = { name, mobile, password, loginTime: new Date().toLocaleString() };
+  localStorage.setItem('raw_logged_seller', JSON.stringify(userData));
+  closeLoginModal();
+  document.getElementById('userLoginForm').reset();
+
+  if(pendingActionAfterLogin === 'post') {
+    document.getElementById('loggedInUserTag').innerText = `👤 Seller: ${name} (${mobile})`;
+    document.getElementById('ad-submission-modal').style.display = 'flex';
+  } else {
+    openSellerDashboardModal(userData);
+  }
+};
+
 window.openSellerDashboard = function() {
-  const savedUser = JSON.parse(localStorage.getItem('raw_logged_seller') || '{}');
+  window.checkUserLoginAndOpenAd('manage');
+};
+
+function openSellerDashboardModal(savedUser) {
   const dUser = document.getElementById('dashboardUserInfo');
   const dList = document.getElementById('myAdsList');
   dList.innerHTML = "";
-
-  if(!savedUser.mobile) {
-    dUser.innerHTML = `⚠️ Aap login nahi hain. Ad manage karne ke liye pehle login karein.`;
-    document.getElementById('user-login-modal').style.display = 'flex';
-    return;
-  }
 
   dUser.innerHTML = `👤 Logged in as: <b>${savedUser.name}</b> (${savedUser.mobile})`;
   document.getElementById('seller-dashboard-modal').style.display = 'flex';
@@ -637,7 +673,7 @@ window.openSellerDashboard = function() {
       </div>
     `;
   });
-};
+}
 
 window.closeSellerDashboard = () => document.getElementById('seller-dashboard-modal').style.display = 'none';
 
@@ -693,17 +729,7 @@ window.closeProductDetailModal = () => document.getElementById('product-detail-m
 
 window.filterByCategory = function(cat) {
   selectedCategoryFilter = cat;
-  document.getElementById('catTitle').innerText = `📦 Category: ${cat}`;
   renderProducts(allProductsCache);
-};
-
-window.filterShop = function() {
-  const val = document.getElementById('search').value.toLowerCase();
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card => {
-    const title = card.querySelector('.product-title').innerText.toLowerCase();
-    card.style.display = title.includes(val) ? "flex" : "none";
-  });
 };
 
 window.openOrderModal = function(item) {
@@ -759,33 +785,6 @@ window.submitCustomerOrder = async function(e) {
   } catch(err) {
     alert("Order submit karne mein masla hua.");
   }
-};
-
-window.checkUserLoginAndOpenAd = function() {
-  const savedUser = localStorage.getItem('raw_logged_seller');
-  if(!savedUser) {
-    document.getElementById('user-login-modal').style.display = 'flex';
-  } else {
-    const user = JSON.parse(savedUser);
-    document.getElementById('loggedInUserTag').innerText = `👤 Seller: ${user.name} (${user.mobile})`;
-    document.getElementById('ad-submission-modal').style.display = 'flex';
-  }
-};
-
-window.closeLoginModal = () => document.getElementById('user-login-modal').style.display = 'none';
-window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
-
-window.submitUserLogin = function(e) {
-  e.preventDefault();
-  const name = document.getElementById('loginName').value.trim();
-  const mobile = document.getElementById('loginMobile').value.trim();
-  if(!name || !mobile) { alert("Naam aur WhatsApp number lazmi likhein!"); return; }
-
-  const userData = { name, mobile, loginTime: new Date().toLocaleString() };
-  localStorage.setItem('raw_logged_seller', JSON.stringify(userData));
-  closeLoginModal();
-  document.getElementById('loggedInUserTag').innerText = `👤 Seller: ${name} (${mobile})`;
-  document.getElementById('ad-submission-modal').style.display = 'flex';
 };
 
 window.submitUserAd = async function(e) {
@@ -854,121 +853,6 @@ window.submitUserReview = async function() {
   } catch(err) {
     alert("Review submit karne mein masla hua.");
   }
-};
-
-window.toggleChatbot = () => {
-  const m = document.getElementById('chatbot-modal');
-  m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
-};
-
-window.startVoiceInput = function() {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) {
-    alert("Aapka browser voice recognition support nahi karta.");
-    return;
-  }
-  const recognition = new SpeechRecognition();
-  recognition.lang = 'ur-PK'; 
-  recognition.start();
-
-  const inputField = document.getElementById('chatInput');
-  inputField.placeholder = "Suni ja rahi hai...";
-
-  recognition.onresult = function(event) {
-    const speechText = event.results[0][0].transcript;
-    inputField.value = speechText;
-    inputField.placeholder = "Sawal puchein...";
-    sendChatMessage();
-  };
-};
-
-window.speakText = function(text) {
-  if (!window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = 'ur-PK';
-  utterance.rate = 1.0;
-  window.speechSynthesis.speak(utterance);
-};
-
-window.sendChatMessage = function() {
-  const input = document.getElementById('chatInput');
-  const body = document.getElementById('chatBody');
-  const query = input.value.trim().toLowerCase();
-  if(!query) return;
-
-  body.innerHTML += '<div style="background:#f57224; color:#fff; padding:6px; border-radius:8px; align-self:flex-end;">' + input.value + '</div>';
-  input.value = "";
-
-  setTimeout(function() {
-    let replyText = "";
-    let actionLinkHTML = "";
-    const hour = new Date().getHours();
-    let timeGreeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
-
-    let isGreeting = query.indexOf('salam') !== -1 || query.indexOf('سلام') !== -1 || query.indexOf('hi') !== -1 || query.indexOf('hello') !== -1;
-
-    if (isGreeting) {
-      replyText = "وعلیکم السلام! " + timeGreeting + "! Main bilkul theek hoon, aap sunayein, aap kaise hain? R.A.W Group mein خوش آمدید!";
-    } else if (query.indexOf('order') !== -1 || query.indexOf('khareed') !== -1) {
-      replyText = "Order karne ke liye product ke niche 'Order' button par click karein.";
-    } else if (query.indexOf('paisa') !== -1 || query.indexOf('escrow') !== -1 || query.indexOf('safe') !== -1) {
-      replyText = "R.A.W Group par aapka paisa Escrow Protection ke tehat 100% mehfooz rehta hai.";
-    } else if (query.indexOf('sell') !== -1 || query.indexOf('ad') !== -1 || query.indexOf('bech') !== -1) {
-      replyText = "Ad lagane ke liye niche wale gol plus (+) button par click karein.";
-    } else {
-      let foundMatch = null;
-      let cleanQuery = query.replace(/[^a-zA-Z0-9\u0600-\u06FF]/g, '').trim();
-
-      for (let i = 0; i < allProductsCache.length; i++) {
-        let p = allProductsCache[i];
-        let pName = (p.name || p.title || '').toLowerCase();
-        let pCat = (p.category || '').toLowerCase();
-        let pDesc = (p.description || '').toLowerCase();
-        
-        let cleanName = pName.replace(/[^a-zA-Z0-9\u0600-\u06FF]/g, '');
-
-        if (pName.includes(query) || query.includes(pName) || cleanName.includes(cleanQuery) || cleanQuery.includes(cleanName) || pCat.includes(query) || pDesc.includes(query)) {
-          foundMatch = p;
-          break;
-        }
-      }
-
-      if (!foundMatch && allProductsCache.length > 0) {
-        let queryWords = query.split(' ');
-        for (let i = 0; i < allProductsCache.length; i++) {
-          let p = allProductsCache[i];
-          let pName = (p.name || p.title || '').toLowerCase();
-          for (let w = 0; w < queryWords.length; w++) {
-            let word = queryWords[w];
-            if (word.length > 1 && pName.includes(word)) {
-              foundMatch = p;
-              break;
-            }
-          }
-          if (foundMatch) break;
-        }
-      }
-
-      if (foundMatch) {
-        let pPrice = foundMatch.pricePKR || foundMatch.price || 0;
-        replyText = 'Ji bilkul! Yeh rahi product: "' + (foundMatch.name || foundMatch.title) + '" — Qeemat: Rs. ' + pPrice + '.';
-        
-        if (foundMatch.affiliateLink && foundMatch.affiliateLink.trim() !== '') {
-          actionLinkHTML = '<div style="margin-top:6px;"><a href="' + foundMatch.affiliateLink + '" target="_blank" style="background:#ff9900; color:#000; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">🔗 Open Link</a></div>';
-        } else {
-          let whatsappLink = 'https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20' + encodeURIComponent(foundMatch.name || foundMatch.title);
-          actionLinkHTML = '<div style="margin-top:6px;"><a href="' + whatsappLink + '" target="_blank" style="background:#25d366; color:#fff; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">💬 Order via WhatsApp</a></div>';
-        }
-      } else {
-        replyText = "Maazrat, is naam ki product database mein nahi mili. Aap WhatsApp 03334664227 par rabta karein!";
-      }
-    }
-
-    body.innerHTML += '<div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;"><span>' + replyText + '</span>' + actionLinkHTML + '</div>';
-    body.scrollTop = body.scrollHeight;
-    speakText(replyText);
-  }, 500);
 };
 
 window.addEventListener('DOMContentLoaded', function() { loadApprovedProducts(); });
