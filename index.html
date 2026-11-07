@@ -93,7 +93,7 @@ function googleTranslateElementInit() {
 <div id="main-shop-view">
   <div class="top-bar">
     <div id="google_translate_element"></div>
-    <div class="owner-top"><img src="ejaz.jpg" onerror="this.src='logo.png'" title="R.A.W GROUP Owner"></div>
+    <div class="owner-top"><img src="ejaj.jpg" onerror="this.src='logo.png'" title="R.A.W GROUP Owner"></div>
   </div>
 
   <div class="search-bar-row">
@@ -355,7 +355,7 @@ window.loadApprovedProducts = async function() {
     renderProducts(allProductsCache);
   } catch (error) {
     console.error(error);
-    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:red;">Data load karne mein masla hua.</p>`;
+    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:red;">Data load karne mein masla hua.</p>`;
   }
 };
 
@@ -581,27 +581,30 @@ window.sendChatMessage = () => {
     const hour = new Date().getHours();
     let timeGreeting = hour < 12 ? "Good Morning! 🌅" : hour < 17 ? "Good Afternoon! ☀️" : "Good Evening! 🌙";
 
-    if (query.includes('salam') || query.includes('assalam') || query.includes('hi') || query.includes('hello') || query.includes('hey')) {
-      replyText = `Walaikum Assalam! ${timeGreeting} R.A.W Group mein خوش آمدید. Main aapki kya madad kar sakta hoon?`;
+    // Human-like Friendly Greeting, Well-being Check & Exact Answer Flow
+    let isGreeting = query.includes('salam') || query.includes('assalam') || query.includes('alaikum') || query.includes('salaam') || query.includes('hi') || query.includes('hello') || query.includes('hey') || query.includes('kaise') || query.includes('kya haal');
+
+    if (isGreeting) {
+      replyText = `Walaikum Assalam! ${timeGreeting} Main bilkul theek hoon, aap sunayein, aap kaise hain aur sab theek-thaak hai? R.A.W Group mein خوش آمدید، main aapki kya madad kar sakta hoon?`;
     }
-    else if (query.includes('order') || query.includes('khareed') || query.includes('order kaise')) {
+    else if (query.includes('order') || query.includes('khareed') || query.includes('order kaise') || query.includes('bhejna')) {
       replyText = "Order karne ke liye product ke niche 'Order' button par click karein aur apna naam, mobile number aur pata likh kar confirm karein.";
     } 
-    else if (query.includes('paisa') || query.includes('escrow') || query.includes('safe') || query.includes('trust')) {
+    else if (query.includes('paisa') || query.includes('escrow') || query.includes('safe') || query.includes('trust') || query.includes('pasay') || query.includes('amount')) {
       replyText = "R.A.W Group par aapka paisa Escrow Protection ke tehat 100% mehfooz rehta hai. Jab tak aapko theek product nahi milti, payout release nahi hota.";
     } 
-    else if (query.includes('sell') || query.includes('ad') || query.includes('bech') || query.includes('seller') || query.includes('account')) {
+    else if (query.includes('sell') || query.includes('ad') || query.includes('bech') || query.includes('seller') || query.includes('account') || query.includes('kam') || query.includes('kaam')) {
       replyText = "Ad lagane ke liye niche wale gol plus (+) button par click karein, login karein aur apni product ki tafseelaat aur tasveer upload karein.";
     } 
-    else if (query.includes('commission') || query.includes('cut')) {
+    else if (query.includes('commission') || query.includes('cut') || query.includes('fees') || query.includes('fee')) {
       replyText = "R.A.W Group sirf 5% platform commission charge karta hai, aur baqi 95% raqam seller ko milti hai.";
     } 
     else {
       let matches = allProductsCache.filter(p => (p.name || p.title || '').toLowerCase().includes(query) || (p.category || '').toLowerCase().includes(query));
       if(matches.length > 0) {
-        replyText = `Humein ${matches.length} products mili hain. Jese: ${matches[0].name || matches[0].title} - Rs. ${matches[0].pricePKR || matches[0].price}`;
+        replyText = `Ji bilkul! Humein ${matches.length} products mili hain. Jese: ${matches[0].name || matches[0].title} - Rs. ${matches[0].pricePKR || matches[0].price}`;
       } else {
-        replyText = "Maazrat, mujhe iska jawab nahi mila. Aap mazeed tafseel ke liye hamare WhatsApp number 03334664227 par rabta kar sakte hain.";
+        replyText = "Maazrat, mujhe iska exact jawab nahi mila. Aap mazeed tafseel ke liye hamare WhatsApp number 03334664227 par rabta kar sakte hain.";
       }
     }
 
