@@ -67,16 +67,18 @@ body { top: 0px !important; }
 .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; font-family: inherit; }
 .btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 9px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
 
-/* Escrow Shield Notice Box */
 .escrow-notice { background: #e8f5e9; border: 1px solid #2e7d32; padding: 8px; border-radius: 6px; margin-bottom: 10px; font-size: 10px; color: #1b5e20; }
 
+/* Voice & Multilingual Chatbot CSS */
 #chatbot-launcher { position: fixed; bottom: 70px; right: 15px; background: #f57224; color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; z-index: 2500; font-size: 20px; }
-#chatbot-modal { display: none; position: fixed; bottom: 125px; right: 15px; width: 310px; height: 400px; background: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 2501; flex-direction: column; overflow: hidden; }
+#chatbot-modal { display: none; position: fixed; bottom: 125px; right: 15px; width: 320px; height: 430px; background: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 2501; flex-direction: column; overflow: hidden; }
 .chat-header { background: #f57224; color: #fff; padding: 10px; font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
 .chat-body { flex: 1; padding: 8px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; background: #fafafa; font-size: 11px; }
 .chat-footer { display: flex; align-items: center; padding: 6px; background: #fff; border-top: 1px solid #eee; gap: 4px; }
 .chat-footer input { flex: 1; border: 1px solid #f57224; padding: 5px 8px; border-radius: 12px; outline: none; font-size: 11px; }
+.mic-btn { background: #194376; color: #fff; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
 .send-btn { background: #f57224; color: #fff; border: none; padding: 5px 10px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 11px; }
+.speak-icon { cursor: pointer; margin-left: 5px; font-size: 12px; color: #194376; }
 </style>
 
 <script type="text/javascript">
@@ -276,18 +278,21 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Smart AI Chatbot -->
+<!-- Smart Voice & Multilingual AI Chatbot -->
 <div id="chatbot-launcher" onclick="toggleChatbot()">💬</div>
 <div id="chatbot-modal">
   <div class="chat-header">
-    <span>🤖 R.A.W Support AI (Smart Search)</span>
+    <span>🤖 R.A.W Voice Assist (Multi-Language)</span>
     <span style="cursor:pointer;" onclick="toggleChatbot()">✕</span>
   </div>
   <div class="chat-body" id="chatBody">
-    <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">اسلام علیکم! R.A.W Assist mein khushamdeed. Aap jo cheez talaash karna chahte hain uska naam yahan likhein.</div>
+    <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">
+      اسلام علیکم! Mic (🎤) ka button daba kar bolen, ya sawal likhein. Main aapko jawab dunga aur parh kar bhi sunaunga!
+    </div>
   </div>
   <div class="chat-footer">
-    <input type="text" id="chatInput" placeholder="Puchein (e.g. shoes)..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+    <button class="mic-btn" onclick="startVoiceInput()" title="Bol kar batayein">🎙️</button>
+    <input type="text" id="chatInput" placeholder="Sawal puchein..." onkeypress="if(event.key==='Enter') sendChatMessage()">
     <button class="send-btn" onclick="sendChatMessage()">Send</button>
   </div>
 </div>
@@ -339,17 +344,14 @@ window.loadApprovedProducts = async function() {
   const shopList = document.getElementById('shopList');
   try {
     const querySnapshot = await getDocs(collection(db, "products"));
-    
     if (querySnapshot.empty) {
       shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Database mein abhi koi product mojood nahi hai.</p>`;
       return;
     }
-
     allProductsCache = [];
     querySnapshot.forEach((docSnap) => {
       allProductsCache.push({ id: docSnap.id, ...docSnap.data() });
     });
-
     renderProducts(allProductsCache);
   } catch (error) {
     console.error(error);
@@ -360,7 +362,6 @@ window.loadApprovedProducts = async function() {
 function renderProducts(products) {
   const shopList = document.getElementById('shopList');
   shopList.innerHTML = "";
-  
   let filtered = products.filter(item => {
     if (selectedCategoryFilter !== 'All' && item.category !== selectedCategoryFilter) return false;
     return true;
@@ -457,7 +458,7 @@ window.submitCustomerOrder = async function(e) {
       customerMobile: mobile,
       customerAddress: address,
       paymentMethod: paymentMethod,
-      escrowStatus: "Held in Escrow", // Safe Escrow Holding Status
+      escrowStatus: "Held in Escrow",
       payoutStatus: "Pending Confirmation",
       createdAt: serverTimestamp()
     });
@@ -490,7 +491,6 @@ window.submitUserLogin = function(e) {
 
   const userData = { name, mobile, loginTime: new Date().toLocaleString() };
   localStorage.setItem('raw_logged_seller', JSON.stringify(userData));
-  
   closeLoginModal();
   document.getElementById('loggedInUserTag').innerText = `👤 Logged in as: ${name} (${mobile})`;
   document.getElementById('ad-submission-modal').style.display = 'flex';
@@ -502,13 +502,9 @@ window.submitUserAd = async function(e) {
   const category = document.getElementById('adCategory').value;
   const price = document.getElementById('adPrice').value;
   const city = document.getElementById('adCity').value;
-  
   const savedUser = JSON.parse(localStorage.getItem('raw_logged_seller') || '{}');
 
-  if (!compressedBase64Image) {
-    alert("Brahrahem tasveer select karein!");
-    return;
-  }
+  if (!compressedBase64Image) { alert("Brahrahem tasveer select karein!"); return; }
 
   try {
     const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
@@ -531,11 +527,49 @@ window.submitUserAd = async function(e) {
   }
 };
 
+// ==================== VOICE & AI SMART ASSISTANT CHATBOT ====================
 window.toggleChatbot = () => {
   const m = document.getElementById('chatbot-modal');
   m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
 };
 
+// 1. Voice Input (Speech to Text - Mic Button)
+window.startVoiceInput = function() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    alert("Aapka browser voice recognition support nahi karta. Chrome browser use karein!");
+    return;
+  }
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'ur-PK'; // Urdu / English multi support
+  recognition.start();
+
+  const inputField = document.getElementById('chatInput');
+  inputField.placeholder = "Suni ja rahi hai... (Listening...)";
+
+  recognition.onresult = function(event) {
+    const speechText = event.results[0][0].transcript;
+    inputField.value = speechText;
+    inputField.placeholder = "Sawal puchein...";
+    sendChatMessage();
+  };
+
+  recognition.onerror = function() {
+    inputField.placeholder = "Aawaz samajh nahi aayi, dobara koshish karein.";
+  };
+};
+
+// 2. Text to Speech (Speaker - Read Aloud)
+window.speakText = function(text) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel(); // Stop previous speech
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'ur-PK'; // Urdu / English voice output
+  utterance.rate = 1.0;
+  window.speechSynthesis.speak(utterance);
+};
+
+// 3. Smart Chatbot Logic for Customers & Sellers
 window.sendChatMessage = () => {
   const input = document.getElementById('chatInput');
   const body = document.getElementById('chatBody');
@@ -546,19 +580,43 @@ window.sendChatMessage = () => {
   input.value = "";
 
   setTimeout(() => {
-    let matches = allProductsCache.filter(p => (p.name || p.title || '').toLowerCase().includes(query) || (p.category || '').toLowerCase().includes(query));
-    
-    if(matches.length > 0) {
-      let replyHTML = `<div style="background:#fff3ec; padding:6px; border-radius:8px; border:1px solid #ffd8cc;">Yeh lijiye products (${matches.length} mili hain):</div>`;
-      matches.slice(0, 3).forEach(m => {
-        let pPrice = m.pricePKR || m.price || 0;
-        replyHTML += `<div style="background:#fff; padding:4px; margin-top:4px; border:1px solid #ddd; border-radius:4px;"><b>${m.name || m.title}</b> - Rs. ${pPrice}</div>`;
-      });
-      body.innerHTML += replyHTML;
-    } else {
-      body.innerHTML += `<div style="background:#fff3ec; padding:6px; border-radius:8px; border:1px solid #ffd8cc;">Maazrat, is naam ki koi product nahi mili.</div>`;
+    let replyText = "";
+
+    // FAQ & Guidance Rules for Customers & Sellers
+    if (query.includes('order') || query.includes('khareed') || query.includes('order kaise')) {
+      replyText = "Order karne ke liye product ke niche 'Order' button par click karein aur apna naam, mobile number aur pata likh kar confirm karein.";
+    } 
+    else if (query.includes('paisa') || query.includes('escrow') || query.includes('safe') || query.includes('trust')) {
+      replyText = "R.A.W Group par aapka paisa Escrow Protection ke tehat 100% mehfooz rehta hai. Jab tak aapko theek product nahi milti, payout release nahi hota.";
+    } 
+    else if (query.includes('sell') || query.includes('ad') || query.includes('bech') || query.includes('seller')) {
+      replyText = "Ad lagane ke liye niche wale gol plus (+) button par click karein, login karein aur apni product ki tafseelaat aur tasveer upload karein.";
+    } 
+    else if (query.includes('commission') || query.includes('cut')) {
+      replyText = "R.A.W Group sirf 5% platform commission charge karta hai, aur baqi 95% raqam seller ko milti hai.";
+    } 
+    else {
+      // Product Search Match
+      let matches = allProductsCache.filter(p => (p.name || p.title || '').toLowerCase().includes(query) || (p.category || '').toLowerCase().includes(query));
+      if(matches.length > 0) {
+        replyText = `Humein ${matches.length} products mili hain. Jese: ${matches[0].name || matches[0].title} - Rs. ${matches[0].pricePKR || matches[0].price}`;
+      } else {
+        replyText = "Maazrat, mujhe iska jawab nahi mila. Aap mazeed tafseel ke liye hamare WhatsApp number 03334664227 par rabta kar sakte hain.";
+      }
     }
+
+    // Render chatbot reply with Speaker icon so it can talk
+    body.innerHTML += `
+      <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc; display:flex; justify-content:space-between; align-items:center;">
+        <span>${replyText}</span>
+        <span class="speak-icon" onclick="speakText('${replyText.replace(/'/g, "")}')" title="Sunen">🔊</span>
+      </div>
+    `;
     body.scrollTop = body.scrollHeight;
+
+    // Automatically speak out the response for users who cannot read
+    speakText(replyText);
+
   }, 500);
 };
 
