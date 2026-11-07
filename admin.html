@@ -41,6 +41,13 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
   <div class="logo-box"><img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'"></div>
   <h1>R.A.W GROUP ADMIN</h1>
 
+  <!-- Shop Dekhne ka Wapas Rasta -->
+  <a href="index.html" target="_blank" style="display:block; text-align:center; background:#194376; color:white; padding:10px; border-radius:8px; text-decoration:none; margin-bottom:10px; font-weight:bold;">🛍️ Shop Dekhen - دکان دیکھیں</a>
+
+  <!-- Live Multi-Currency Rate Status Bar -->
+  <button class="btn-add" id="liveRateBtn" type="button" style="background:#0a8a00; padding:10px; font-size:14px; margin-bottom:6px;">🔴 Global Live Rates لائیں (USD, AED, GBP)</button>
+  <div id="liveRateInfo" style="text-align:center; font-size:11px; color:green; font-weight:bold; margin-bottom:8px;">Rates load ho rahe hain...</div>
+
   <select id="category" style="width:100%; padding:12px; margin:8px 0; border:2px solid var(--orange); border-radius:8px; background:white; font-weight:bold;">
     <option value="">کیٹیگری منتخب کریں</option>
     <option value="Furniture & Decoration">Furniture & Decoration</option>
@@ -65,18 +72,29 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
   <input id="brand" placeholder="برانڈ یا شہر (e.g. Sargodha)">
   
   <select id="priceType">
-    <option value="pkr">🇵🇰 PKR قیمت</option>
-    <option value="usd">💲 USD + PKR</option>
+    <option value="pkr">🇵🇰 PKR قیمت (Direct)</option>
+    <option value="usd">💲 USD ($) + Live Rate</option>
+    <option value="aed">🇦🇪 AED (Dirham) + Live Rate</option>
+    <option value="gbp">💷 GBP (Pound) + Live Rate</option>
   </select>
-  <div id="pkrContainer"><input id="priceDirectPKR" type="number" placeholder="PKR قیمت لکھیں"></div>
-  <div id="usdContainer" style="display:none;"><div style="display:flex; gap:8px;"><input id="priceUSD" type="number" step="0.01" placeholder="$ قیمت" style="flex:1;"><input id="ratePKR" type="number" value="280" style="flex:1;"></div><div id="pkrPreview">Rs. 0</div></div>
 
-  <input id="affiliateLink" placeholder="WhatsApp / Contact Link">
-  <input id="companyTag" placeholder="Mobile Number (03334664227)" value="03334664227">
+  <div id="pkrContainer"><input id="priceDirectPKR" type="number" placeholder="PKR قیمت لکھیں"></div>
+  <div id="currContainer" style="display:none;">
+    <div style="display:flex; gap:8px;">
+      <input id="priceForeign" type="number" step="0.01" placeholder="Foreign Currency Amount" style="flex:1;">
+      <input id="rateCustom" type="number" value="280" style="flex:1;" placeholder="Exchange Rate">
+    </div>
+    <div id="pkrPreview">Rs. 0</div>
+  </div>
+
+  <input id="affiliateLink" placeholder="Amazon / Daraz / Alibaba / WhatsApp Link">
+  <input id="companyTag" placeholder="Tag (rawgroup79-20)" value="rawgroup79-20">
   <textarea id="desc" rows="2" placeholder="تفصیل لکھیں"></textarea>
+  
   <input id="imageFile" type="file" accept="image/*" multiple>
   <div id="preview-container"></div>
   <div id="status">تصاویر منتخب کریں</div>
+  
   <button class="btn-add" id="addBtn" type="button">سیو کریں</button>
   <button id="cancelEditBtn" type="button" style="display:none; background:#666; color:white; width:100%; padding:10px; border-radius:10px; margin-top:5px; border:none;">کینسل کریں</button>
   
@@ -117,21 +135,51 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 let editingId = null, existingImagesForEdit = [], selectedFiles = [];
+let rates = { USD: 278, AED: 75.6, GBP: 350 }; // Default fallback rates
 
-const priceType = document.getElementById('priceType'), pkrContainer = document.getElementById('pkrContainer'), usdContainer = document.getElementById('usdContainer');
+async function fetchLiveRates(){ 
+  try{ 
+    let r = await fetch('https://open.er-api.com/v6/latest/USD'); 
+    let d = await r.json(); 
+    let usdToPkr = d.rates.PKR;
+    let aedToPkr = usdToPkr / d.rates.AED;
+    let gbpToPkr = usdToPkr / d.rates.GBP;
+    
+    rates = { USD: usdToPkr, AED: aedToPkr, GBP: gbpToPkr };
+    document.getElementById('liveRateInfo').innerText = `Live Rates -> USD: Rs.${usdToPkr.toFixed(1)} | AED: Rs.${aedToPkr.toFixed(1)} | GBP: Rs.${gbpToPkr.toFixed(1)}`;
+    updateCurrencyRateInput();
+  }catch(e){ 
+    document.getElementById('liveRateInfo').innerText = 'Offline Rates Loaded (USD: 278, AED: 75.6, GBP: 350)';
+    updateCurrencyRateInput();
+  } 
+}
+document.getElementById('liveRateBtn').onclick = fetchLiveRates; 
+fetchLiveRates();
+
+const priceType = document.getElementById('priceType'), pkrContainer = document.getElementById('pkrContainer'), currContainer = document.getElementById('currContainer');
 priceType.onchange = () => { 
   pkrContainer.style.display = priceType.value === 'pkr' ? 'block' : 'none'; 
-  usdContainer.style.display = priceType.value === 'usd' ? 'block' : 'none'; 
+  currContainer.style.display = priceType.value !== 'pkr' ? 'block' : 'none'; 
+  updateCurrencyRateInput();
 };
 
-function updatePKR(){ 
-  let usd = parseFloat(document.getElementById('priceUSD').value) || 0; 
-  let rate = parseFloat(document.getElementById('ratePKR').value) || 280; 
-  let pkr = Math.round(usd * rate); 
-  document.getElementById('pkrPreview').innerText = `Rs. ${pkr.toLocaleString()} (Rate ${rate})`; 
+function updateCurrencyRateInput(){
+  let t = priceType.value;
+  let rateField = document.getElementById('rateCustom');
+  if(t === 'usd') rateField.value = rates.USD.toFixed(2);
+  else if(t === 'aed') rateField.value = rates.AED.toFixed(2);
+  else if(t === 'gbp') rateField.value = rates.GBP.toFixed(2);
+  updatePKR();
 }
-document.getElementById('priceUSD').oninput = updatePKR; 
-document.getElementById('ratePKR').oninput = updatePKR;
+
+function updatePKR(){ 
+  let val = parseFloat(document.getElementById('priceForeign').value) || 0; 
+  let rate = parseFloat(document.getElementById('rateCustom').value) || 280; 
+  let pkr = Math.round(val * rate); 
+  document.getElementById('pkrPreview').innerText = `Rs. ${pkr.toLocaleString()} (Rate: ${rate})`; 
+}
+document.getElementById('priceForeign').oninput = updatePKR; 
+document.getElementById('rateCustom').oninput = updatePKR;
 
 async function compressAndResize(f) {
   const size = 400;
@@ -191,20 +239,34 @@ addBtn.onclick = async () => {
     }
     if (compImgs.length === 0) { compImgs = existingImagesForEdit; }
 
-    status.innerText = 'ڈیٹا بیس میں Save ہو रहा ہے...';
+    status.innerText = 'ڈیٹا بیس میں Save ہو رہا ہے...';
     let pType = priceType.value;
-    let priceVal = pType === 'usd' ? (parseFloat(document.getElementById('priceUSD').value) || 0) : (parseFloat(document.getElementById('priceDirectPKR').value) || 0);
+    let rawLink = document.getElementById('affiliateLink').value.trim();
+    let tag = document.getElementById('companyTag').value.trim() || "rawgroup79-20";
+    let finalLink = rawLink;
+    if(rawLink.includes('amazon')){
+      finalLink = rawLink.includes('?') ? (rawLink.includes('tag=') ? rawLink : rawLink + '&tag=' + tag) : rawLink + '?tag=' + tag;
+    }
+
+    let foreignVal = parseFloat(document.getElementById('priceForeign').value) || 0;
+    let directPkr = parseFloat(document.getElementById('priceDirectPKR').value) || 0;
+    let rateUsed = parseFloat(document.getElementById('rateCustom').value) || 280;
+
+    let calculatedPKR = pType === 'pkr' ? directPkr : Math.round(foreignVal * rateUsed);
 
     let data = { 
       category: category, 
       name: name, 
       brand: document.getElementById('brand').value || 'Sargodha', 
-      mobile: document.getElementById('companyTag').value.trim() || '03334664227',
+      affiliateLink: finalLink,
+      mobile: '03334664227',
       desc: document.getElementById('desc').value || '', 
       images: compImgs, 
-      price: priceVal,
-      pricePKR: pType === 'usd' ? Math.round(priceVal * (parseFloat(document.getElementById('ratePKR').value) || 280)) : priceVal,
-      status: 'approved', // Admin khud save karega toh direct approved ho jayegi
+      priceType: pType,
+      price: pType === 'pkr' ? directPkr : foreignVal,
+      pricePKR: calculatedPKR,
+      rateUsed: rateUsed,
+      status: 'approved',
       createdAt: serverTimestamp() 
     }; 
     
@@ -231,8 +293,9 @@ function resetForm(){
   document.getElementById('imageFile').value = ''; 
   document.getElementById('name').value = ''; 
   document.getElementById('priceDirectPKR').value = ''; 
-  document.getElementById('priceUSD').value = ''; 
+  document.getElementById('priceForeign').value = ''; 
   document.getElementById('brand').value = ''; 
+  document.getElementById('affiliateLink').value = '';
   document.getElementById('desc').value = ''; 
   document.getElementById('category').value = '';
   previewContainer.innerHTML = ''; 
@@ -251,38 +314,43 @@ async function loadProducts(){
     snap.forEach(d => { 
       const p = d.data(); 
       let img = (p.images && p.images[0]) || 'logo.png'; 
-      let statusBadge = p.status === 'pending' ? '⏳ Pending (Approval chahiye)' : '✅ Live';
+      let priceDisplay = p.priceType === 'usd' ? `$${p.price} (Rs.${p.pricePKR})` : p.priceType === 'aed' ? `AED ${p.price} (Rs.${p.pricePKR})` : p.priceType === 'gbp' ? `£${p.price} (Rs.${p.pricePKR})` : `Rs.${p.pricePKR || p.price}`;
+      
       const div = document.createElement('div'); 
       div.className = 'product-item'; 
       div.innerHTML = `
         <img src="${img}">
         <div class="p-info">
           <b>${p.name}</b><br>
-          <span>Rs.${p.pricePKR || p.price} | ${p.category}</span><br>
-          <small style="color:${p.status==='pending'?'orange':'green'}; font-weight:bold;">${statusBadge}</small>
+          <span>${priceDisplay} | ${p.category}</span>
         </div>
         <div>
-          ${p.status === 'pending' ? `<button class="btn-approve">Approve</button>` : ''}
           <button class="btn-edit">ایڈٹ</button>
           <button class="btn-del">ڈیلیٹ</button>
         </div>
       `; 
 
-      if(p.status === 'pending'){
-        div.querySelector('.btn-approve').onclick = async () => {
-          await updateDoc(doc(db, 'products', d.id), { status: 'approved' });
-          alert('Ad Approve ho gayi aur ab live hai!');
-          loadProducts();
-        };
-      }
-      
       div.querySelector('.btn-edit').onclick = () => { 
         editingId = d.id; 
         document.getElementById('name').value = p.name || ''; 
         document.getElementById('brand').value = p.brand || ''; 
+        document.getElementById('affiliateLink').value = p.affiliateLink || '';
         document.getElementById('desc').value = p.desc || ''; 
         document.getElementById('category').value = p.category || ''; 
-        document.getElementById('priceDirectPKR').value = p.pricePKR || p.price || '';
+        
+        if(p.priceType && p.priceType !== 'pkr'){
+          priceType.value = p.priceType;
+          pkrContainer.style.display = 'none';
+          currContainer.style.display = 'block';
+          document.getElementById('priceForeign').value = p.price || '';
+          document.getElementById('rateCustom').value = p.rateUsed || 280;
+          updatePKR();
+        } else {
+          priceType.value = 'pkr';
+          pkrContainer.style.display = 'block';
+          currContainer.style.display = 'none';
+          document.getElementById('priceDirectPKR').value = p.pricePKR || p.price || '';
+        } 
         
         existingImagesForEdit = p.images || []; 
         previewContainer.innerHTML = ''; 
