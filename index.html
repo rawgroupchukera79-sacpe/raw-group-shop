@@ -16,7 +16,7 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 
 .top-bar { display: flex; justify-content: space-between; align-items: center; background: #194376; padding: 8px 15px; position: relative; z-index: 1000; }
 .owner-branding { display: flex; align-items: center; gap: 8px; }
-.owner-branding img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+.owner-branding img { width: 42px; height: 42px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
 
 #google_translate_element select { background: #fff; padding: 4px 8px; border-radius: 15px; border: 1px solid #ccc; font-size: 11px; outline: none; font-family: inherit; cursor: pointer; max-width: 150px; }
 .goog-te-banner-frame.skiptranslate { display: none !important; }
@@ -55,7 +55,7 @@ body { top: 0px !important; }
 .whatsapp-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #25d366; color: #fff; text-align: center; text-decoration: none; }
 .order-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #f57224; color: #fff; text-align: center; }
 .affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #000; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
-.delete-product-btn { background: #d9534f; color: #fff; border: none; width: 100%; padding: 4px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-top: 4px; cursor: pointer; }
+.delete-product-btn { background: #d9534f; color: #fff; border: none; width: 100%; padding: 5px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-top: 4px; cursor: pointer; }
 
 /* Product Detail Modal */
 #product-detail-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
@@ -446,7 +446,7 @@ function renderProducts(products) {
   const savedUser = JSON.parse(localStorage.getItem('raw_logged_seller') || '{}');
 
   filtered.forEach((item) => {
-    // Robust image handling for multiple images
+    // Ultimate image resolver: handles 'images' array, old 'img' string, or fallback
     let imagesList = item.images;
     if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
       imagesList = item.img ? [item.img] : ['logo.png'];
@@ -458,8 +458,9 @@ function renderProducts(products) {
     let verifiedBadge = item.isVerifiedSeller ? `<span style="color:#0a8a00; font-size:9px; font-weight:bold;"> ✓ Verified Seller</span>` : '';
     let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName} ${verifiedBadge}</div>` : '';
     
+    // Only show delete button if the logged-in user matches the seller mobile OR if it's admin (03334664227)
     let deleteBtnHTML = '';
-    if (savedUser.mobile && item.mobile && savedUser.mobile === item.mobile) {
+    if (savedUser.mobile && item.mobile && (savedUser.mobile === item.mobile || savedUser.mobile === '03334664227')) {
       deleteBtnHTML = `<button class="delete-product-btn" onclick="deleteMyProduct('${item.id}')">🗑️ Delete My Ad</button>`;
     }
 
@@ -517,13 +518,12 @@ window.openProductDetail = function(item) {
   const imgContainer = document.getElementById('detImagesContainer');
   imgContainer.innerHTML = "";
 
-  // Forcefully extract all images from array or fallback
+  // Universal image retriever for both array and legacy single image fields
   let imagesList = item.images;
   if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
     imagesList = item.img ? [item.img] : ['logo.png'];
   }
 
-  // Loop through all images and display them cleanly one by one
   imagesList.forEach((imgSrc, index) => {
     imgContainer.innerHTML += `
       <div style="width:100%; text-align:center; background:#fff; padding:4px; border-radius:6px; border:1px solid #e5e5e5;">
@@ -776,7 +776,7 @@ window.sendChatMessage = () => {
     } 
     else {
       let searchKey = query;
-      if (query.includes('mobile') || query.includes('phone') || query.includes('فون') || query.includes('موبائل')) {
+      if (query.includes('mobile') || query.includes('phone') || query.ones('فون') || query.includes('موبائل')) {
         searchKey = 'motorola'; 
       } else if (query.includes('bed') || query.includes('sheet') || query.includes('چادر')) {
         searchKey = 'bed sheet';
