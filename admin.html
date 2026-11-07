@@ -2,7 +2,7 @@
 <html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>R.A.W GROUP - Admin Panel & Profit Dashboard</title>
+<title>R.A.W GROUP - Admin & Escrow Payout Dashboard</title>
 <style>
 *{box-sizing:border-box;}
 :root{ --orange:#FF8C00; }
@@ -24,6 +24,7 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
 .btn-del{background:#ff1a1a; color:white; border:none; padding:6px 10px; border-radius:6px; margin:2px; cursor:pointer;}
 .order-card{border:2px solid #194376; background:#eef2f7; border-radius:10px; padding:10px; margin-bottom:10px; font-size:12px;}
 .profit-badge{background:#28a745; color:white; padding:3px 8px; border-radius:4px; font-weight:bold;}
+.btn-release{background:#28a745; color:white; border:none; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:6px;}
 </style>
 </head>
 <body>
@@ -39,11 +40,10 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
 <div class="box" id="adminPanel" style="display:none;">
   <button class="btn-logout" id="logoutBtn" type="button">لاگ آؤٹ</button>
   <div class="logo-box"><img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'"></div>
-  <h1>R.A.W GROUP ADMIN PANEL</h1>
+  <h1>R.A.W GROUP ADMIN & ESCROW DASHBOARD</h1>
 
   <a href="index.html" target="_blank" style="display:block; text-align:center; background:#194376; color:white; padding:10px; border-radius:8px; text-decoration:none; margin-bottom:12px; font-weight:bold;">🛍️ Shop Dekhen - دکان دیکھیں</a>
 
-  <!-- Product Add / Edit Form -->
   <select id="category" style="width:100%; padding:12px; margin:8px 0; border:2px solid var(--orange); border-radius:8px; background:white; font-weight:bold;">
     <option value="">کیٹیگری منتخب کریں</option>
     <option value="Furniture & Decoration">Furniture & Decoration</option>
@@ -79,9 +79,8 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
   
   <hr style="margin:15px 0; border:1px dashed #FF8C00;">
   
-  <!-- Orders & Profit Tracker Dashboard -->
   <div style="background:#fff3ec; border:2px dashed #f57224; padding:10px; border-radius:10px; margin-bottom:15px;">
-    <h3 style="color:#194376; font-size:14px; text-align:center; margin-bottom:8px;">📊 Customer Orders & Commission Tracker</h3>
+    <h3 style="color:#194376; font-size:14px; text-align:center; margin-bottom:8px;">🛡️ Escrow Orders & Seller Payout Manager</h3>
     <div id="ordersList" style="text-align:right;">لوڈ ہو رہا ہے...</div>
   </div>
 
@@ -116,7 +115,7 @@ if(sessionStorage.getItem('raw_logged_in')==='true'){loginBox.style.display='non
 </script>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = { apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE", authDomain: "raw-group-shop.firebaseapp.com", projectId: "raw-group-shop", storageBucket: "raw-group-shop.firebasestorage.app", messagingSenderId: "488689802066", appId: "1:488689802066:web:1437531e15df63e958388b" };
@@ -199,6 +198,7 @@ addBtn.onclick = async () => {
       pricePKR: Number(price),
       sellerName: 'Admin',
       status: 'approved',
+      isVerifiedSeller: true,
       createdAt: serverTimestamp() 
     }; 
     
@@ -306,19 +306,39 @@ window.loadOrders = async function() {
     container.innerHTML = "";
     snap.forEach((docSnap) => {
       const o = docSnap.data();
+      const orderId = docSnap.id;
+      let statusColor = o.payoutStatus === 'Payout Released' ? '#28a745' : '#ff9900';
+      
       container.innerHTML += `
         <div class="order-card">
           <h4>📦 Product: ${o.productName}</h4>
-          <p>💰 Price: Rs. ${o.productPrice} | <span class="profit-badge">Commission (5%): Rs. ${o.adminCommission || 0}</span></p>
+          <p>💰 Total Price: Rs. ${o.productPrice} | <span class="profit-badge">R.A.W Commission (5%): Rs. ${o.adminCommission || 0}</span></p>
+          <p>💵 Seller Payout: <b>Rs. ${o.sellerPayout || 0}</b></p>
           <p>👤 Customer: ${o.customerName} (${o.customerMobile})</p>
           <p>📍 Address: ${o.customerAddress}</p>
-          <p>💳 Payment: ${o.paymentMethod || 'COD'}</p>
-          <p>🏷️ Seller: ${o.sellerName || 'Admin'}</p>
+          <p>💳 Payment Method: ${o.paymentMethod || 'COD'}</p>
+          <p>🛡️ Escrow Status: <b style="color:${statusColor}">${o.escrowStatus || 'Held in Escrow'}</b></p>
+          <p>🏷️ Seller: ${o.sellerName || 'Admin'} (${o.sellerMobile || 'N/A'})</p>
+          ${o.payoutStatus !== 'Payout Released' ? `<button class="btn-release" onclick="releaseSellerPayout('${orderId}')">✅ Release Payout to Seller</button>` : `<span style="color:#28a745; font-weight:bold;">✓ Payout Transferred</span>`}
         </div>
       `;
     });
   } catch(e) {
     container.innerHTML = "Orders load karne mein masla hua.";
+  }
+};
+
+window.releaseSellerPayout = async function(orderId) {
+  if(!confirm("Kya customer ne product ki tasdeeq kar di hai? Confirm karne par payout status update ho jayega.")) return;
+  try {
+    await updateDoc(doc(db, "orders", orderId), {
+      escrowStatus: "Completed & Released",
+      payoutStatus: "Payout Released"
+    });
+    alert("Seller Payout Released successfully!");
+    loadOrders();
+  } catch(e) {
+    alert("Update karne mein masla hua.");
   }
 };
 
