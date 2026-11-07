@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>R.A.W GROUP CHOUKIRH 79 SHOP</title><meta name="google-site-verification" content="yeLNijbmqR4ERCkTu7OH9wZIw9081mm5aUR5Ku3V5JA" />
+<title>R.A.W GROUP CHOUKIRH 79 SHOP</title>
+<meta name="google-site-verification" content="yeLNijbmqR4ERCkTu7OH9wZIw9081mm5aUR5Ku3V5JA" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
@@ -18,13 +19,16 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .top-bar #google_translate_element { background: #fff; padding: 4px 8px; border-radius: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: inline-block; overflow: hidden; }
 .owner-top img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
 
-.header { display: flex; align-items: center; gap: 12px; background: #fff; padding: 10px 15px; }
+.header { display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 10px 15px; }
+.header-left { display: flex; align-items: center; gap: 12px; }
 .header img.logo { width: 52px; height: 52px; border-radius: 12px; border: 2px solid #f57224; object-fit: cover; box-shadow: 0 3px 8px rgba(245,114,36,0.25); }
 .header h2 { color: #f57224; font-size: 16px; font-weight: 700; line-height: 1.2; }
 .header p { font-size: 11px; color: #666; font-weight: 500; }
+.admin-trigger-btn { background: #212121; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
 
 .main-bar { position: sticky; top: 0; z-index: 100; display: flex; gap: 10px; align-items: center; background: #fff; padding: 10px 15px; border-bottom: 3px solid #f57224; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
-.menu-btn { display: flex; align-items: center; gap: 6px; flex-shrink: 0; background: #f57224; color: #fff; border: none; padding: 10px 14px; border-radius: 10px; font-weight: 600; font-size: 13px; cursor: pointer; font-family: inherit; box-shadow: 0 3px 8px rgba(245,114,36,0.35); }
+.menu-btn, .post-ad-btn { display: flex; align-items: center; gap: 6px; flex-shrink: 0; background: #f57224; color: #fff; border: none; padding: 10px 14px; border-radius: 10px; font-weight: 600; font-size: 13px; cursor: pointer; font-family: inherit; box-shadow: 0 3px 8px rgba(245,114,36,0.35); }
+.post-ad-btn { background: #28a745; box-shadow: 0 3px 8px rgba(40,167,69,0.35); }
 .menu-btn span { font-size: 18px; line-height: 1; }
 .search-box { flex: 1; min-width: 0; }
 .search-box input { width: 100%; padding: 10px 16px; border: 2px solid #f57224; border-radius: 10px; font-size: 13px; outline: none; background: #fff; font-family: inherit; }
@@ -80,7 +84,6 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .stars-display { color: #ffb400; font-weight: bold; }
 
 /* Buttons */
-.btn-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
 .whatsapp-btn, .store-btn { width: 100%; border: none; padding: 9px 8px; border-radius: 4px; font-weight: 700; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: background 0.2s ease; text-decoration: none; background: #f57224; color: #fff; font-family: inherit; }
 .whatsapp-btn:hover, .store-btn:hover { background: #d05b18; }
 
@@ -90,41 +93,33 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 .detail-header { display: flex; align-items: center; justify-content: space-between; background: #f57224; color: #fff; padding: 12px 18px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
 .back-btn { background: #fff; color: #f57224; border: none; padding: 6px 14px; border-radius: 20px; font-weight: 700; cursor: pointer; font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 .detail-container { max-width: 600px; margin: 0 auto; padding: 15px; display: flex; flex-direction: column; gap: 15px; }
-.gallery-wrapper { background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; padding: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-.gallery-main-container { position: relative; width: 100%; height: 320px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; }
-.gallery-main-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
-.nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(245,114,36,0.9); color: #fff; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.2); z-index: 5; }
-.nav-arrow.left { left: 8px; }
-.nav-arrow.right { right: 8px; }
-.thumbnails-bar { display: flex; gap: 10px; margin-top: 10px; overflow-x: auto; padding-bottom: 5px; }
-.thumbnails-bar::-webkit-scrollbar { height: 4px; }
-.thumbnails-bar::-webkit-scrollbar-thumb { background: #f57224; border-radius: 10px; }
-.thumb-img { width: 60px; height: 60px; border-radius: 6px; border: 2px solid #eee; object-fit: cover; cursor: pointer; flex-shrink: 0; transition: all 0.2s ease; }
-.thumb-img.active, .thumb-img:hover { border-color: #f57224; transform: scale(1.05); box-shadow: 0 2px 8px rgba(245,114,36,0.3); }
-.detail-info { background: #ffffff; border: 1px solid #e5e5e5; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
 
-.rate-action-row { display: flex; align-items: center; justify-content: space-between; background: #fff3ec; border: 1px solid #ffd8cc; padding: 10px; border-radius: 6px; margin-bottom: 12px; }
-.rate-now-btn { background: #f57224; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 12px; font-family: inherit; }
-.rate-now-btn:hover { background: #d05b18; }
+/* Modals General Style */
+.custom-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
+.modal-content { background: #fff; border-radius: 12px; width: 100%; max-width: 450px; max-height: 90vh; overflow-y: auto; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+.modal-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f57224; padding-bottom: 10px; margin-bottom: 15px; }
+.modal-head h3 { font-size: 16px; color: #212121; }
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; font-family: inherit; }
+.btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
+
+/* Admin Item Card */
+.admin-ad-card { border: 1px solid #ddd; padding: 12px; border-radius: 8px; margin-bottom: 12px; background: #fafafa; }
+.admin-ad-card h4 { color: #f57224; margin-bottom: 5px; }
+.admin-actions { display: flex; gap: 8px; margin-top: 10px; }
+.btn-approve { background: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+.btn-reject { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; }
 
 #chatbot-launcher { position: fixed; bottom: 25px; right: 25px; background: #f57224; color: #fff; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(245,114,36,0.4); cursor: move; z-index: 3000; font-size: 24px; user-select: none; touch-action: none; }
 #chatbot-modal { display: none; position: fixed; bottom: 90px; right: 25px; width: 320px; height: 420px; max-width: calc(100vw - 20px); background: #fff; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 3001; flex-direction: column; overflow: hidden; }
-.chat-header { background: #f57224; color: #fff; padding: 12px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center; cursor: move; }
+.chat-header { background: #f57224; color: #fff; padding: 12px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
 .chat-body { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; background: #fafafa; }
 .chat-msg { max-width: 92%; padding: 8px 12px; border-radius: 12px; font-size: 12px; line-height: 1.4; }
 .chat-msg.bot { background: #fff3ec; border: 1px solid #ffd8cc; color: #333; align-self: flex-start; }
 .chat-msg.user { background: #f57224; color: #fff; align-self: flex-end; }
-.chat-prod { margin-top: 8px; padding: 8px; background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; }
-.chat-prod .cp-name { font-weight: 600; color: #212121; }
-.chat-prod .cp-price { font-size: 11px; color: #f57224; margin-bottom: 4px; font-weight: bold; }
-.chat-msg .chat-link-btn { display: inline-block; margin: 4px 4px 0 0; background: #f57224; color: #fff; padding: 7px 10px; border: none; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 11px; font-family: inherit; cursor: pointer; text-align: center; }
-.chat-msg .chat-link-btn:hover { background: #d05b18; }
-.chat-msg .chat-link-btn.light { background: #fff; color: #f57224; border: 1px solid #f57224; }
 .chat-footer { display: flex; align-items: center; padding: 8px; background: #fff; border-top: 1px solid #eee; gap: 4px; }
 .chat-footer input { flex: 1; min-width: 0; border: 1px solid #f57224; padding: 6px 10px; border-radius: 15px; outline: none; font-size: 12px; }
-.mic-btn { background: #fff3ec; border: 1px solid #f57224; color: #f57224; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
-.mic-btn.recording { background: #ff4d4d; color: #fff; border-color: #ff4d4d; animation: pulse 1s infinite; }
-@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 .chat-footer button.send-btn { background: #f57224; color: #fff; border: none; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-weight: 600; font-size: 12px; }
 </style>
 </head>
@@ -137,15 +132,19 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
   </div>
 
   <div class="header">
-    <img class="logo" src="logo.png" onerror="this.src='https://via.placeholder.com/95'">
-    <div>
-      <h2>R.A.W GROUP CHOUKIRH 79</h2>
-      <p>Premium Quality Collection</p>
+    <div class="header-left">
+      <img class="logo" src="logo.png" onerror="this.src='https://via.placeholder.com/95'">
+      <div>
+        <h2>R.A.W GROUP CHOUKIRH 79</h2>
+        <p>Premium Quality Collection</p>
+      </div>
     </div>
+    <button class="admin-trigger-btn" onclick="openAdminPanel()">🔐 Admin</button>
   </div>
 
   <div class="main-bar">
     <button class="menu-btn" onclick="openDrawer()"><span>☰</span> Categories</button>
+    <button class="post-ad-btn" onclick="openAdModal()">➕ Sell Item</button>
     <div class="search-box">
       <input id="search" onkeyup="filterShop()" placeholder="تلاش کریں... نام یا برانڈ">
     </div>
@@ -160,13 +159,13 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
     <div class="dots" id="bannerDots"></div>
   </div>
 
-  <!-- Website Rating Header Box -->
+  <!-- Store Rating Card -->
   <div class="site-rating-card">
     <div class="site-rating-info">
       <span>⭐ Store Rating: <strong id="site-avg-rating">5.0</strong> / 5</span>
       <small>(<span id="site-total-reviews">0</span> Reviews)</small>
     </div>
-    <button class="site-rate-btn" onclick="rateOurWebsite()">Rate Our Website ⭐</button>
+    <button class="site-rate-btn" onclick="rateOurWebsite()">Rate Our Store ⭐</button>
   </div>
 
   <div class="sec-title" id="catTitle">📦 تمام (All)</div>
@@ -178,24 +177,93 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
   <div class="footer-bar">© 2026 R.A.W GROUP CHOUKIRH 79 | All Rights Reserved</div>
 </div>
 
+<!-- Drawer Categories -->
 <div id="drawer-overlay" onclick="closeDrawer()"></div>
 <div id="drawer">
   <div class="drawer-head"><span>☰ Categories</span><span class="x" onclick="closeDrawer()">✕</span></div>
   <div class="drawer-list" id="drawerList"></div>
 </div>
 
-<div id="product-detail-page">
-  <div class="detail-header">
-    <button class="back-btn" onclick="closeDetailPage()">← Wapas</button>
-    <h3 style="margin:0;font-size:15px;">Product Details</h3>
-    <div style="width: 45px;"></div>
+<!-- Ad Submission Modal (Users ke liye Ad Post karne ka Form) -->
+<div id="ad-submission-modal" class="custom-modal">
+  <div class="modal-content">
+    <div class="modal-head">
+      <h3>Apni Cheez Bechein (Post Ad)</h3>
+      <span style="cursor:pointer;font-weight:bold;" onclick="closeAdModal()">✕</span>
+    </div>
+    <form id="userAdForm" onsubmit="submitUserAd(event)">
+      <div class="form-group">
+        <label>Ad Title (Product Ka Naam) *</label>
+        <input type="text" id="adTitle" required placeholder="e.g. Samsung Galaxy A32">
+      </div>
+      <div class="form-group">
+        <label>Category *</label>
+        <select id="adCategory" required>
+          <option value="Mobiles">Mobiles</option>
+          <option value="Clothes">Clothes</option>
+          <option value="Shoes">Shoes</option>
+          <option value="Watches">Watches</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Price (PKR) *</label>
+        <input type="number" id="adPrice" required placeholder="e.g. 15000">
+      </div>
+      <div class="form-group">
+        <label>City / Area *</label>
+        <input type="text" id="adCity" required placeholder="e.g. Sargodha">
+      </div>
+      <div class="form-group">
+        <label>Mobile / WhatsApp Number *</label>
+        <input type="text" id="adMobile" value="03334664227" required>
+      </div>
+      <div class="form-group">
+        <label>Product Image Link (URL)</label>
+        <input type="url" id="adImg" placeholder="https://example.com/image.jpg">
+      </div>
+      <button type="submit" class="btn-submit-ad">Submit Ad For Review</button>
+    </form>
   </div>
-  <div class="detail-container" id="detailContent"></div>
 </div>
 
-<div id="chatbot-launcher">💬</div>
+<!-- Admin Panel Modal (Sirf Aapke Approval Ke Liye) -->
+<div id="admin-panel-modal" class="custom-modal">
+  <div class="modal-content" style="max-width:600px;">
+    <div class="modal-head">
+      <h3>🔐 Admin Panel - Pending Ads Approval</h3>
+      <span style="cursor:pointer;font-weight:bold;" onclick="closeAdminPanel()">✕</span>
+    </div>
+    <div id="admin-pending-list">
+      <p style="text-align:center; color:#666;">Loading pending ads...</p>
+    </div>
+  </div>
+</div>
+
+<!-- Website Rating Modal -->
+<div id="site-rating-modal" class="custom-modal">
+  <div class="modal-content" style="text-align:center;">
+    <h3 style="margin-bottom:8px;">Store ko Rating & Review Dein ⭐</h3>
+    <div id="star-container" style="font-size:32px; cursor:pointer; color:#ffb400; margin-bottom:12px; display:flex; justify-content:center; gap:8px;">
+      <span onclick="setRatingStars(1)">★</span>
+      <span onclick="setRatingStars(2)">★</span>
+      <span onclick="setRatingStars(3)">★</span>
+      <span onclick="setRatingStars(4)">★</span>
+      <span onclick="setRatingStars(5)">★</span>
+    </div>
+    <textarea id="review-msg-input" placeholder="Apna message yahan likhein..." style="width:100%; height:60px; padding:8px; border:1px solid #ccc; border-radius:6px; font-size:12px; margin-bottom:12px; font-family:inherit;"></textarea>
+    <div style="display:flex; gap:8px;">
+      <button onclick="submitReviewAndRating()" style="flex:1; background:#f57224; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; cursor:pointer;">Submit</button>
+      <button onclick="closeSiteRatingModal()" style="background:#ddd; border:none; padding:8px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Chatbot -->
+<div id="chatbot-launcher" onclick="toggleChatbot()">💬</div>
 <div id="chatbot-modal">
-  <div class="chat-header" id="chatHeader">
+  <div class="chat-header">
     <span>🤖 R.A.W Support AI</span>
     <span style="cursor:pointer;" onclick="toggleChatbot()">✕</span>
   </div>
@@ -204,39 +272,13 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
   </div>
   <div class="chat-footer">
     <input type="text" id="chatInput" placeholder="Aapna sawal likhein..." onkeypress="if(event.key==='Enter') sendChatMessage()">
-    <button class="mic-btn" id="micBtn" onclick="toggleVoiceInput()" title="Voice Input">🎤</button>
     <button class="send-btn" onclick="sendChatMessage()">Send</button>
   </div>
 </div>
 
-<!-- Website Rating & Review Modal -->
-<div id="site-rating-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:4000; align-items:center; justify-content:center;">
-  <div style="background:#fff; padding:20px; border-radius:12px; width:90%; max-width:320px; text-align:center; box-shadow:0 5px 20px rgba(0,0,0,0.2);">
-    <h3 style="margin-bottom:8px; color:#212121; font-size:16px;">Store ko Rating aur Review Dein ⭐</h3>
-    <p style="font-size:12px; color:#666; margin-bottom:12px;">Apna pasandeeda star select karein aur review likhein:</p>
-    
-    <!-- Clickable Stars -->
-    <div id="star-container" style="font-size:32px; cursor:pointer; color:#ffb400; margin-bottom:12px; display:flex; justify-content:center; gap:8px;">
-      <span onclick="setRatingStars(1)" id="st1">★</span>
-      <span onclick="setRatingStars(2)" id="st2">★</span>
-      <span onclick="setRatingStars(3)" id="st3">★</span>
-      <span onclick="setRatingStars(4)" id="st4">★</span>
-      <span onclick="setRatingStars(5)" id="st5">★</span>
-    </div>
-
-    <!-- Review Message Input -->
-    <textarea id="review-msg-input" placeholder="Apna message ya review yahan likhein..." style="width:100%; height:60px; padding:8px; border:1px solid #ccc; border-radius:6px; font-size:12px; margin-bottom:12px; outline:none; font-family:inherit; resize:none;"></textarea>
-    
-    <div style="display:flex; gap:8px;">
-      <button onclick="submitReviewAndRating()" style="flex:1; background:#f57224; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; cursor:pointer; font-size:12px;">Bhejen (Submit)</button>
-      <button onclick="closeSiteRatingModal()" style="background:#ddd; border:none; padding:8px 12px; border-radius:6px; font-weight:bold; cursor:pointer; font-size:12px;">Band</button>
-    </div>
-  </div>
-</div>
-
 <script type="module">
-const FIREBASE_APP_URL = "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-const FIREBASE_FS_URL  = "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE",
@@ -248,841 +290,157 @@ const firebaseConfig = {
   measurementId: "G-HNCH9V8MFF"
 };
 
-let db = null;
-let fs = null;
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 let allProducts = [];
-let currentCategory = 'All';
+let currentSelectedStars = 5;
 
-const CATEGORIES = [
-  {n: '📦 تمام (All)', v: 'All'},
-  {n: '👞 جوتے (Shoes)', v: 'Shoes'},
-  {n: '👕 کپڑے (Clothes)', v: 'Clothes'},
-  {n: '⌚ گھڑیاں (Watches)', v: 'Watches'},
-  {n: '💄 کاسمیٹکس (Cosmetics)', v: 'Cosmetics'},
-  {n: '📱 موبائیل (Mobiles)', v: 'Mobiles'},
-  {n: '🏠 ہوم (Home)', v: 'Home'},
-  {n: '🧸 کھلونے (Toys)', v: 'Toys'},
-  {n: '🎒 بیگز (Bags)', v: 'Bags'},
-  {n: '💍 جیولری (Jewellery)', v: 'Jewellery'},
-  {n: '🍳 کچن (Kitchen)', v: 'Kitchen'},
-  {n: '⚽ اسپورٹس (Sports)', v: 'Sports'},
-  {n: '🛒 گروکری (Grocery)', v: 'Grocery'},
-  {n: '🚗 آٹوموٹو (Automotive)', v: 'Automotive'},
-  {n: '📚 بکس (Books)', v: 'Books'},
-  {n: '🛠️ ٹولز (Tools)', v: 'Tools'},
-  {n: '🌐 سروسز (Other)', v: 'Other'}
-];
-
-function withTimeout(promise, ms, message) {
-  return Promise.race([
-    promise,
-    new Promise((_, reject) => setTimeout(() => reject(new Error(message)), ms))
-  ]);
-}
-
-function showShopMessage(text, color, withRetry) {
-  const shop = document.getElementById('shopList');
-  shop.innerHTML = '';
-  const box = document.createElement('div');
-  box.style.cssText = 'text-align:center;padding:20px;background:#fff;border-radius:10px;grid-column:1 / -1;color:' + color + ';';
-  const msg = document.createElement('p');
-  msg.textContent = text;
-  box.appendChild(msg);
-  if (withRetry) {
-    const btn = document.createElement('button');
-    btn.textContent = '🔄 دوبارہ کوشش کریں';
-    btn.style.cssText = 'margin-top:12px;padding:9px 18px;border:none;border-radius:8px;background:#f57224;color:#fff;font-weight:700;cursor:pointer;font-family:inherit;';
-    btn.onclick = () => loadProducts();
-    box.appendChild(btn);
-  }
-  shop.appendChild(box);
-}
-
-async function loadStoreRatings() {
+// Load Approved Products on Website
+async function loadApprovedProducts() {
+  const shopList = document.getElementById('shopList');
   try {
-    if (!db || !fs) return;
-    const snap = await fs.getDocs(fs.collection(db, "store_reviews"));
-    let totalRating = 0;
-    let count = snap.docs.length;
+    const q = query(collection(db, "ads"), where("status", "==", "approved"));
+    const querySnapshot = await getDocs(q);
     
-    snap.forEach(d => {
-      const data = d.data();
-      totalRating += Number(data.rating || 5);
-    });
+    if (querySnapshot.empty) {
+      shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px;">Filhal koi approved product live nahi hai.</p>`;
+      return;
+    }
 
-    let avgRating = count > 0 ? (totalRating / count).toFixed(1) : "5.0";
-    
-    const avgElem = document.getElementById("site-avg-rating");
-    const totalElem = document.getElementById("site-total-reviews");
-    
-    if (avgElem) avgElem.innerText = avgRating;
-    if (totalElem) totalElem.innerText = count;
-  } catch (err) {
-    console.error("Ratings load karne mein masla hai: ", err);
+    shopList.innerHTML = "";
+    querySnapshot.forEach((docSnap) => {
+      const item = docSnap.data();
+      const id = docSnap.id;
+      const img = item.img || 'logo.png';
+      
+      shopList.innerHTML += `
+        <div class="card">
+          <div class="product-img-container">
+            <img src="${img}" onerror="this.src='logo.png'">
+          </div>
+          <div class="card-body">
+            <h3 class="product-title">${item.title}</h3>
+            <span class="brand-name">📍 ${item.city || 'Sargodha'}</span>
+            <div class="price">PKR ${item.price}</div>
+            <div class="product-rating-box">
+              <span class="stars-display">⭐⭐⭐⭐⭐</span> (5.0)
+            </div>
+            <a href="https://wa.me/92${item.mobile.replace(/^0/,'')}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.title)}" target="_blank" class="whatsapp-btn">
+              💬 Contact Seller
+            </a>
+          </div>
+        </div>
+      `;
+    });
+  } catch (error) {
+    console.error("Error fetching products: ", error);
+    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:red;">Data load karne mein masla hua.</p>`;
   }
 }
 
-async function loadProducts(){
-  showShopMessage('لوڈ ہو رہا ہے...', '#666', false);
-  loadStoreRatings();
+// User Ad Submission
+window.submitUserAd = async function(e) {
+  e.preventDefault();
+  const title = document.getElementById('adTitle').value;
+  const category = document.getElementById('adCategory').value;
+  const price = document.getElementById('adPrice').value;
+  const city = document.getElementById('adCity').value;
+  const mobile = document.getElementById('adMobile').value;
+  const img = document.getElementById('adImg').value;
 
   try {
-    if (!db) {
-      const [appMod, fsMod] = await withTimeout(
-        Promise.all([import(FIREBASE_APP_URL), import(FIREBASE_FS_URL)]),
-        20000,
-        'Firebase ki files load nahi hui. Internet check karein.'
-      );
-      fs = fsMod;
-      const app = appMod.initializeApp(firebaseConfig);
-      db = fsMod.initializeFirestore(app, { experimentalAutoDetectLongPolling: true });
-    }
-    const snap = await withTimeout(
-      fs.getDocs(fs.collection(db, "products")),
-      20000,
-      'Products nahi aa rahe: internet slow hai ya Firebase jawab nahi de raha'
-    );
-    allProducts = [];
-    snap.forEach(d => { allProducts.push({id: d.id, ...d.data()}); });
-    window.allProductsData = allProducts;
-    render(allProducts);
-  } catch (err) {
-    console.error(err);
-    showShopMessage('ایرر تفصیل: ' + (err && err.message ? err.message : err), '#c00', true);
-  }
-}
-window.loadProducts = loadProducts;
-
-function formatPriceText(p) {
-  if (p.priceType === 'usd') {
-    let usd = p.priceUSD || p.price || 0;
-    let pkr = p.pricePKR || Math.round(usd * 280);
-    return `$${usd} (Rs. ${pkr.toLocaleString()})`;
-  } else if (p.priceType === 'live') {
-    return '00 On-Day Price';
-  } else {
-    let pkrVal = p.pricePKR || p.price || 0;
-    return `Rs. ${Number(pkrVal).toLocaleString()}`;
-  }
-}
-
-const STORES = {
-  daraz:   { label: '🛒 Buy on Daraz' },
-  amazon:  { label: '🛒 Buy on Amazon' },
-  alibaba: { label: '🛒 Buy on Alibaba' },
-  other:   { label: '🛒 Buy Now' }
-};
-const STORE_ORDER = ['daraz', 'amazon', 'alibaba', 'other'];
-
-function cleanLink(v) {
-  if (typeof v !== 'string') return '';
-  v = v.trim();
-  if (!v || v === 'undefined' || v === 'null') return '';
-  return v;
-}
-
-function detectStoreFromUrl(url) {
-  const u = (url || '').toLowerCase();
-  if (/daraz|hasoffers|go2cloud/.test(u)) return 'daraz';
-  if (/amazon\.|amzn\.|\/\/a\.co\//.test(u)) return 'amazon';
-  if (/alibaba|aliexpress|alicdn/.test(u)) return 'alibaba';
-  return null;
-}
-
-function detectStoreFromProduct(p) {
-  const s = String(p.store || p.source || p.platform || p.storeType || '').toLowerCase();
-  if (s.includes('daraz')) return 'daraz';
-  if (s.includes('amazon')) return 'amazon';
-  if (s.includes('alibaba') || s.includes('aliexpress')) return 'alibaba';
-  return null;
-}
-
-function getStoreLinks(p) {
-  const fields = [
-    ['darazLink', 'daraz'],
-    ['amazonLink', 'amazon'],
-    ['alibabaLink', 'alibaba'],
-    ['affiliateLink', null],
-    ['link', null],
-    ['productLink', null],
-    ['buyLink', null]
-  ];
-  const found = {};
-  fields.forEach(([field, hint]) => {
-    const url = cleanLink(p[field]);
-    if (!url) return;
-    const store = detectStoreFromUrl(url) || hint || detectStoreFromProduct(p) || 'other';
-    if (!found[store]) found[store] = url;
-  });
-  return STORE_ORDER.filter(s => found[s]).map(s => ({ store: s, url: found[s] }));
-}
-
-function openWhatsApp(p) {
-  let orderText = `اسلام علیکم مجھے یہ چاہیے: ${p.name || ''} - ${formatPriceText(p)}`;
-  window.open('https://wa.me/923334664227?text=' + encodeURIComponent(orderText));
-}
-
-function buildButtons(p, big) {
-  const group = document.createElement('div');
-  group.className = 'btn-group';
-  const links = getStoreLinks(p);
-
-  if (links.length === 0) {
-    const wa = document.createElement('button');
-    wa.className = 'whatsapp-btn';
-    wa.textContent = '💬 Order on WhatsApp';
-    wa.onclick = (e) => { e.stopPropagation(); openWhatsApp(p); };
-    group.appendChild(wa);
-  } else {
-    links.forEach(l => {
-      const b = document.createElement('button');
-      b.className = 'store-btn ' + l.store + '-btn';
-      b.textContent = STORES[l.store].label;
-      b.onclick = (e) => { e.stopPropagation(); window.open(l.url, '_blank', 'noopener'); };
-      group.appendChild(b);
+    await addDoc(collection(db, "ads"), {
+      title, category, price, city, mobile, img,
+      status: "pending",
+      createdAt: new Date()
     });
+    alert("Shukriya! Aapka ad review ke liye bhej diya gaya hai. Admin approval ke baad live hoga.");
+    document.getElementById('userAdForm').reset();
+    closeAdModal();
+  } catch (err) {
+    alert("Ad submit karne mein masla hua, dobara koshish karein.");
   }
-
-  if (big) {
-    group.querySelectorAll('button').forEach(b => { b.style.padding = '12px'; b.style.fontSize = '13px'; });
-  }
-  return group;
-}
-
-let selectedStarCount = 5;
-
-window.rateOurWebsite = function() {
-  selectedStarCount = 5;
-  highlightStars(5);
-  document.getElementById('review-msg-input').value = '';
-  document.getElementById('site-rating-modal').style.display = 'flex';
 };
 
-window.closeSiteRatingModal = function() {
-  document.getElementById('site-rating-modal').style.display = 'none';
-};
-
-window.setRatingStars = function(stars) {
-  selectedStarCount = stars;
-  highlightStars(stars);
-};
-
-function highlightStars(count) {
-  for (let i = 1; i <= 5; i++) {
-    let st = document.getElementById('st' + i);
-    if (st) {
-      st.style.color = i <= count ? '#ffb400' : '#ccc';
-    }
-  }
-}
-
-window.submitReviewAndRating = async function() {
-  let reviewText = document.getElementById('review-msg-input').value.trim();
-  let rating = selectedStarCount || 5;
-
-  if (rating < 5 && reviewText === "") {
-    alert("Kahin 5 se kam rating ki waja zaroor likhein taaki hum behtari la sakein!");
-    return;
-  }
-
-  if (!db || !fs) {
-    alert("Database connection masla hai.");
-    return;
-  }
+// Admin Panel Functions
+window.openAdminPanel = async function() {
+  document.getElementById('admin-panel-modal').style.display = 'flex';
+  const listContainer = document.getElementById('admin-pending-list');
+  listContainer.innerHTML = "Pending Ads load ho rahe hain...";
 
   try {
-    await fs.addDoc(fs.collection(db, "store_reviews"), {
-      rating: Number(rating),
-      review: reviewText,
-      createdAt: new Date().toISOString()
-    });
+    const q = query(collection(db, "ads"), where("status", "==", "pending"));
+    const snap = await getDocs(q);
 
-    alert("Shukria! Aapka review kamyabi se save ho gaya hai.");
-    document.getElementById('site-rating-modal').style.display = 'none';
-    
-    if (typeof loadStoreRatings === 'function') {
-      loadStoreRatings();
+    if (snap.empty) {
+      listContainer.innerHTML = "<p style='text-align:center; padding:10px;'>Koi pending ad nahi hai!</p>";
+      return;
     }
+
+    listContainer.innerHTML = "";
+    snap.forEach((docSnap) => {
+      const ad = docSnap.data();
+      const id = docSnap.id;
+      listContainer.innerHTML += `
+        <div class="admin-ad-card">
+          <h4>${ad.title} (PKR ${ad.price})</h4>
+          <p><strong>Category:</strong> ${ad.category} | <strong>City:</strong> ${ad.city}</p>
+          <p><strong>Mobile:</strong> ${ad.mobile}</p>
+          <div class="admin-actions">
+            <button class="btn-approve" onclick="approveAd('${id}')">✓ Approve (Make Live)</button>
+            <button class="btn-reject" onclick="rejectAd('${id}')">✕ Reject (Delete)</button>
+          </div>
+        </div>
+      `;
+    });
   } catch (err) {
-    console.error("Review save error: ", err);
-    alert("Review save karne mein masla aaya.");
+    listContainer.innerHTML = "Error loading pending ads.";
   }
 };
 
-function render(list) {
-  const shop = document.getElementById('shopList');
-  shop.innerHTML = '';
-  if(!list || list.length === 0) {
-    shop.innerHTML = '<p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">کوئی پروڈکٹ موجود نہیں ہے</p>';
-    return;
-  }
-
-  list.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.onclick = () => openDetailPage(p);
-
-    const imgContainer = document.createElement('div');
-    imgContainer.className = 'product-img-container';
-
-    let imgSrc = 'logo.png';
-    if (Array.isArray(p.images) && p.images.length > 0) imgSrc = p.images[0];
-    else if (typeof p.images === 'string' && p.images.trim() !== '') imgSrc = p.images;
-    else if (p.image) imgSrc = p.image;
-
-    const img = document.createElement('img');
-    img.src = imgSrc;
-    img.onerror = function() { this.src = 'logo.png'; };
-    imgContainer.appendChild(img);
-    card.appendChild(imgContainer);
-
-    const body = document.createElement('div');
-    body.className = 'card-body';
-
-    const title = document.createElement('h3');
-    title.className = 'product-title';
-    title.textContent = p.name || '';
-    body.appendChild(title);
-
-    if(p.brand){
-      const brand = document.createElement('span');
-      brand.className = 'brand-name';
-      brand.textContent = 'برانڈ: ' + p.brand;
-      body.appendChild(brand);
-    }
-
-    const price = document.createElement('div');
-    price.className = 'price';
-    price.textContent = formatPriceText(p);
-    body.appendChild(price);
-
-    const ratingBox = document.createElement('div');
-    ratingBox.className = 'product-rating-box';
-    let avg = p.averageRating ? Number(p.averageRating).toFixed(1) : '4.8';
-    let count = p.ratingCount || 12;
-    ratingBox.innerHTML = `
-      <div class="stars-display">⭐ ${avg}</div>
-      <div class="rating-count">(${count} جائزے)</div>
-    `;
-    body.appendChild(ratingBox);
-
-    body.appendChild(buildButtons(p, false));
-    card.appendChild(body);
-    shop.appendChild(card);
-  });
-}
-
-window.openDetailPage = function(p) {
-  let detailPage = document.getElementById('product-detail-page');
-  let detailContent = document.getElementById('detailContent');
-  detailContent.innerHTML = '';
-
-  let imgList = [];
-  if (Array.isArray(p.images) && p.images.length > 0) imgList = p.images;
-  else if (typeof p.images === 'string' && p.images.trim() !== '') imgList = [p.images];
-  else if (p.image) imgList = [p.image];
-  else imgList = ['logo.png'];
-
-  let activeIndex = 0;
-
-  let galleryWrapper = document.createElement('div');
-  galleryWrapper.className = 'gallery-wrapper';
-
-  let mainContainer = document.createElement('div');
-  mainContainer.className = 'gallery-main-container';
-
-  let mainImg = document.createElement('img');
-  mainImg.src = imgList[0];
-  mainImg.onerror = function() { this.src = 'logo.png'; };
-  mainContainer.appendChild(mainImg);
-
-  if(imgList.length > 1) {
-    let leftArrow = document.createElement('button');
-    leftArrow.className = 'nav-arrow left';
-    leftArrow.innerHTML = '&#10094;';
-    leftArrow.onclick = () => {
-      activeIndex = (activeIndex - 1 + imgList.length) % imgList.length;
-      mainImg.src = imgList[activeIndex];
-      updateThumbs();
-    };
-
-    let rightArrow = document.createElement('button');
-    rightArrow.className = 'nav-arrow right';
-    rightArrow.innerHTML = '&#10095;';
-    rightArrow.onclick = () => {
-      activeIndex = (activeIndex + 1) % imgList.length;
-      mainImg.src = imgList[activeIndex];
-      updateThumbs();
-    };
-
-    mainContainer.appendChild(leftArrow);
-    mainContainer.appendChild(rightArrow);
-  }
-
-  galleryWrapper.appendChild(mainContainer);
-
-  if(imgList.length > 1) {
-    let thumbsBar = document.createElement('div');
-    thumbsBar.className = 'thumbnails-bar';
-    imgList.forEach((src, idx) => {
-      let thumb = document.createElement('img');
-      thumb.className = 'thumb-img' + (idx === 0 ? ' active' : '');
-      thumb.src = src;
-      thumb.onclick = () => {
-        activeIndex = idx;
-        mainImg.src = src;
-        updateThumbs();
-      };
-      thumbsBar.appendChild(thumb);
-    });
-    galleryWrapper.appendChild(thumbsBar);
-  }
-
-  function updateThumbs() {
-    let thumbs = galleryWrapper.querySelectorAll('.thumb-img');
-    thumbs.forEach((t, idx) => {
-      if(idx === activeIndex) t.classList.add('active');
-      else t.classList.remove('active');
-    });
-  }
-
-  detailContent.appendChild(galleryWrapper);
-
-  let avg = p.averageRating ? Number(p.averageRating).toFixed(1) : '4.8';
-  let count = p.ratingCount || 12;
-
-  let infoDiv = document.createElement('div');
-  infoDiv.className = 'detail-info';
-  infoDiv.innerHTML = `
-    <h2 style="font-size:18px;color:#212121;margin-bottom:8px;">${p.name || ''}</h2>
-    ${p.brand ? `<p style="color:#757575;font-weight:600;font-size:13px;margin-bottom:8px;">برانڈ: ${p.brand}</p>` : ''}
-    <div style="font-size:18px;color:#f57224;font-weight:bold;margin-bottom:8px;">${formatPriceText(p)}</div>
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:13px;color:#555;">
-      <span>⭐ <b>${avg}</b> / 5 (${count} کسٹمر ریٹنگز)</span>
-    </div>
-    <p style="font-size:13px;color:#2b2b2b;line-height:1.5;margin-bottom:15px;">${p.description || 'Description not available.'}</p>
-  `;
-
-  infoDiv.appendChild(buildButtons(p, true));
-  detailContent.appendChild(infoDiv);
-
-  detailPage.style.display = 'block';
+window.approveAd = async function(id) {
+  await updateDoc(doc(db, "ads", id), { status: "approved" });
+  alert("Ad approve ho gaya aur live ho gaya!");
+  openAdminPanel();
+  loadApprovedProducts();
 };
 
-window.closeDetailPage = function() {
-  document.getElementById('product-detail-page').style.display = 'none';
-};
-
-function buildCategories() {
-  let listEl = document.getElementById('drawerList');
-  listEl.innerHTML = '';
-
-  CATEGORIES.forEach(cat => {
-    let row = document.createElement('div');
-    row.className = 'cat-row';
-    let btn = document.createElement('button');
-    btn.className = 'cat-btn' + (cat.v === 'All' ? ' active' : '');
-    btn.textContent = cat.n;
-    btn.onclick = () => filterByCategory(cat.v, cat.n);
-    row.appendChild(btn);
-    listEl.appendChild(row);
-  });
-}
-
-function matchesCategory(p, catValue) {
-  const c = String(p.category || '').toLowerCase();
-  if (!c) return false;
-  const v = catValue.toLowerCase();
-  if (c === v || c.includes(v)) return true;
-  const entry = CATEGORIES.find(x => x.v === catValue);
-  if (entry) {
-    const urdu = entry.n.split('(')[0].replace(/[^\u0600-\u06FF\s]/g, '').trim();
-    if (urdu && c.includes(urdu)) return true;
+window.rejectAd = async function(id) {
+  if (confirm("Kya aap waqai is ad ko reject karna chahte hain?")) {
+    await deleteDoc(doc(db, "ads", id));
+    alert("Ad delete kar diya gaya.");
+    openAdminPanel();
   }
-  return false;
-}
-
-window.filterByCategory = function(cat, titleText) {
-  currentCategory = cat;
-  document.getElementById('catTitle').textContent = titleText;
-  document.querySelectorAll('.cat-btn').forEach(b => {
-    b.classList.toggle('active', b.textContent === titleText);
-  });
-  closeDrawer();
-
-  let filtered = allProducts;
-  if(cat !== 'All') {
-    filtered = allProducts.filter(p => matchesCategory(p, cat));
-  }
-  render(filtered);
 };
 
-window.filterShop = function() {
-  let query = document.getElementById('search').value.toLowerCase();
-  let filtered = allProducts.filter(p => {
-    let nameMatch = (p.name || '').toLowerCase().includes(query);
-    let brandMatch = (p.brand || '').toLowerCase().includes(query);
-    let catMatch = (p.category || '').toLowerCase().includes(query);
-    return nameMatch || brandMatch || catMatch;
-  });
-  render(filtered);
+// UI Modals Handlers
+window.openAdModal = () => document.getElementById('ad-submission-modal').style.display = 'flex';
+window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
+window.closeAdminPanel = () => document.getElementById('admin-panel-modal').style.display = 'none';
+
+window.rateOurWebsite = () => document.getElementById('site-rating-modal').style.display = 'flex';
+window.closeSiteRatingModal = () => document.getElementById('site-rating-modal').style.display = 'none';
+
+window.setRatingStars = (num) => {
+  currentSelectedStars = num;
+  alert(`Aapne ${num} stars select kiye!`);
 };
 
-window.openDrawer = function() {
-  document.getElementById('drawer-overlay').style.display = 'block';
-  document.getElementById('drawer').classList.add('open');
+window.submitReviewAndRating = () => {
+  alert("Aapka review kamyabi se record ho gaya! Shukriya.");
+  closeSiteRatingModal();
 };
 
-window.closeDrawer = function() {
-  document.getElementById('drawer-overlay').style.display = 'none';
-  document.getElementById('drawer').classList.remove('open');
+window.toggleChatbot = () => {
+  const m = document.getElementById('chatbot-modal');
+  m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
 };
 
-let currentSlide = 0;
-const slides = document.querySelectorAll('.slide');
-const dotsContainer = document.getElementById('bannerDots');
-
-slides.forEach((_, i) => {
-  let dot = document.createElement('i');
-  if(i === 0) dot.className = 'on';
-  dot.onclick = () => setSlide(i);
-  dotsContainer.appendChild(dot);
+// Initialize Page
+window.addEventListener('DOMContentLoaded', () => {
+  loadApprovedProducts();
 });
-
-function setSlide(n) {
-  slides[currentSlide].classList.remove('show');
-  dotsContainer.children[currentSlide].classList.remove('on');
-  currentSlide = n;
-  slides[currentSlide].classList.add('show');
-  dotsContainer.children[currentSlide].classList.add('on');
-}
-
-setInterval(() => {
-  let next = (currentSlide + 1) % slides.length;
-  setSlide(next);
-}, 4000);
-
-window.toggleChatbot = function() {
-  let modal = document.getElementById('chatbot-modal');
-  modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
-};
-
-document.getElementById('chatbot-launcher').onclick = function(e) {
-  let modal = document.getElementById('chatbot-modal');
-  if (modal.style.display !== 'flex') {
-    modal.style.display = 'flex';
-  }
-};
-
-const CHAT_CATS = [
-  {v: 'Watches',    kw: ['ghadi', 'ghari', 'gharri', 'watch', 'watches', 'wristwatch', 'گھڑی', 'گھڑیاں']},
-  {v: 'Shoes',      kw: ['joota', 'jootay', 'juta', 'jooti', 'shoe', 'shoes', 'sandal', 'chappal', 'boots', 'sneakers', 'جوتے', 'جوتا']},
-  {v: 'Clothes',    kw: ['kapra', 'kapre', 'kapray', 'shirt', 'suit', 'dress', 'jeans', 'clothes', 'cloth', 'کپڑے', 'کپڑا']},
-  {v: 'Cosmetics',  kw: ['cosmetic', 'cosmetics', 'makeup', 'lipstick', 'cream', 'perfume', 'کاسمیٹکس']},
-  {v: 'Mobiles',    kw: ['mobile', 'mobiles', 'phone', 'smartphone', 'charger', 'earbuds', 'موبائیل', 'موبائل']},
-  {v: 'Home',       kw: ['furniture', 'decor', 'ghar', 'ہوم']},
-  {v: 'Toys',       kw: ['toy', 'toys', 'khilona', 'khilone', 'کھلونے']},
-  {v: 'Bags',       kw: ['bag', 'bags', 'purse', 'backpack', 'بیگ', 'بیگز']},
-  {v: 'Jewellery',  kw: ['jewellery', 'jewelry', 'zewar', 'ring', 'necklace', 'جیولری']},
-  {v: 'Kitchen',    kw: ['kitchen', 'bartan', 'cooker', 'کچن']},
-  {v: 'Sports',     kw: ['sport', 'sports', 'cricket', 'football', 'gym', 'اسپورٹس']},
-  {v: 'Grocery',    kw: ['grocery', 'ration', 'گروکری']},
-  {v: 'Automotive', kw: ['car', 'bike', 'automotive', 'helmet', 'آٹوموٹو']},
-  {v: 'Books',      kw: ['book', 'books', 'kitab', 'بکس', 'کتاب']},
-  {v: 'Tools',      kw: ['tool', 'tools', 'drill', 'ٹولز']}
-];
-
-const CHAT_STOP = new Set([
-  'mujhe', 'mujhay', 'chahiye', 'chahye', 'chahiyen', 'ka', 'ki', 'ke', 'ko', 'se', 'par', 'pe', 'mein', 'me',
-  'dikhao', 'dikhayen', 'dikhaen', 'dikhana', 'bhejo', 'bhej', 'do', 'dein', 'de', 'dena', 'hai', 'hain', 'ho',
-  'koi', 'aur', 'wali', 'wala', 'wale', 'kya', 'kuch', 'ek', 'acha', 'achi', 'achhi', 'best', 'price', 'rate',
-  'link', 'order', 'buy', 'product', 'products', 'for', 'the', 'a', 'i', 'need', 'want', 'show', 'me', 'please',
-  'plz', 'pls', 'mangwana', 'mangwani', 'mangwate', 'lena', 'leni', 'khareedna', 'chahta', 'chahti', 'hun', 'hoon',
-  'amazon', 'daraz', 'alibaba', 'مجھے', 'چاہیے', 'سے', 'کا', 'کی', 'کے', 'دکھائیں', 'دکھاؤ'
-]);
-
-const CHAT_GREET = ['salam', 'salaam', 'assalam', 'assalamualaikum', 'aoa', 'hello', 'hi', 'hey', 'سلام', 'اسلام', 'علیکم'];
-
-function chatTokens(txt) {
-  return (String(txt).toLowerCase().match(/[\p{L}\p{N}]+/gu) || []);
-}
-
-function tokenIsKeyword(token, kw) {
-  return token === kw || (kw.length > 4 && token.length > kw.length && token.startsWith(kw));
-}
-
-function detectChatCategory(tokens) {
-  for (const cat of CHAT_CATS) {
-    if (tokens.some(t => cat.kw.some(k => tokenIsKeyword(t, k)))) return cat;
-  }
-  return null;
-}
-
-function productHaystack(p) {
-  return [p.name, p.brand, p.category, p.description].map(x => String(x || '').toLowerCase()).join(' ');
-}
-
-function chatPriceLine(p) {
-  try { return formatPriceText(p); } catch (e) { return ''; }
-}
-
-function makeChatLink(label, url) {
-  const a = document.createElement('a');
-  a.className = 'chat-link-btn';
-  a.href = url;
-  a.target = '_blank';
-  a.rel = 'noopener';
-  a.textContent = label;
-  return a;
-}
-
-function makeChatButton(label, light, onClick) {
-  const b = document.createElement('button');
-  b.className = 'chat-link-btn' + (light ? ' light' : '');
-  b.textContent = label;
-  b.onclick = onClick;
-  return b;
-}
-
-function buildChatReply(txt, botDiv) {
-  const products = window.allProductsData || [];
-  const tokens = chatTokens(txt);
-  const storeWanted = ['amazon', 'daraz', 'alibaba'].find(s => tokens.includes(s)) || null;
-  const cat = detectChatCategory(tokens);
-
-  const terms = tokens.filter(t =>
-    t.length >= 2 &&
-    !CHAT_STOP.has(t) &&
-    !CHAT_GREET.includes(t) &&
-    !(cat && cat.kw.some(k => tokenIsKeyword(t, k)))
-  );
-
-  if (!cat && terms.length === 0) {
-    botDiv.textContent = storeWanted
-      ? 'Aap kaun si cheez ' + storeWanted.charAt(0).toUpperCase() + storeWanted.slice(1) + ' se chahte hain?'
-      : 'Walaikum assalam! Aap kaun si cheez dhoondh rahe hain? Jaise: "ghadi", "joote", "mobile".';
-    return;
-  }
-
-  let results = [];
-  if (cat) {
-    results = products.filter(p =>
-      matchesCategory(p, cat.v) ||
-      cat.kw.some(k => k.length >= 4 && /^[a-z]+$/.test(k) && String(p.name || '').toLowerCase().includes(k))
-    );
-    if (terms.length) {
-      const narrowed = results.filter(p => terms.some(t => productHaystack(p).includes(t)));
-      if (narrowed.length) results = narrowed;
-    }
-  } else {
-    results = products.filter(p => terms.some(t => t.length >= 3 && productHaystack(p).includes(t)));
-  }
-
-  if (storeWanted) {
-    results = results.filter(p => getStoreLinks(p).some(l => l.store === storeWanted));
-  }
-
-  if (results.length > 0) {
-    const intro = document.createElement('div');
-    const what = cat ? cat.v : terms.join(' ');
-    intro.textContent = (storeWanted ? storeWanted.toUpperCase() + ' par ' : '') + what + ' ke products mil gaye:';
-    botDiv.appendChild(intro);
-
-    results.slice(0, 4).forEach(p => {
-      const box = document.createElement('div');
-      box.className = 'chat-prod';
-
-      const nm = document.createElement('div');
-      nm.className = 'cp-name';
-      nm.textContent = p.name || '';
-      box.appendChild(nm);
-
-      const pr = document.createElement('div');
-      pr.className = 'cp-price';
-      pr.textContent = chatPriceLine(p);
-      box.appendChild(pr);
-
-      let links = getStoreLinks(p);
-      if (storeWanted) links = links.filter(l => l.store === storeWanted);
-
-      if (links.length === 0) {
-        box.appendChild(makeChatButton('💬 Order on WhatsApp', false, () => openWhatsApp(p)));
-      } else {
-        links.forEach(l => box.appendChild(makeChatLink(STORES[l.store].label, l.url)));
-      }
-      box.appendChild(makeChatButton('Tafseel', true, () => window.openDetailPage(p)));
-      botDiv.appendChild(box);
-    });
-    return;
-  }
-
-  const q = terms.join(' ') || (cat ? cat.v : '');
-  const msg = document.createElement('div');
-  msg.textContent = '"' + q + '" abhi hamari shop mein nahi mila. Aap WhatsApp par rabta kar sakte hain:';
-  botDiv.appendChild(msg);
-
-  botDiv.appendChild(makeChatButton('💬 WhatsApp par batayen', true, () => {
-    window.open('https://wa.me/923334664227?text=' + encodeURIComponent('اسلام علیکم مجھے یہ چاہیے: ' + q));
-  }));
-}
-
-window.sendChatMessage = function() {
-  let input = document.getElementById('chatInput');
-  let txt = input.value.trim();
-  if(!txt) return;
-
-  let chatBody = document.getElementById('chatBody');
-  let userDiv = document.createElement('div');
-  userDiv.className = 'chat-msg user';
-  userDiv.textContent = txt;
-  chatBody.appendChild(userDiv);
-  input.value = '';
-  chatBody.scrollTop = chatBody.scrollHeight;
-
-  setTimeout(function() {
-    let botDiv = document.createElement('div');
-    botDiv.className = 'chat-msg bot';
-    try {
-      buildChatReply(txt, botDiv);
-    } catch (e) {
-      console.error(e);
-      botDiv.textContent = 'Maaf kijiye, kuch masla aa gaya.';
-    }
-    chatBody.appendChild(botDiv);
-    chatBody.scrollTop = chatBody.scrollHeight;
-  }, 400);
-};
-
-let recognition = null;
-let isRecording = false;
-window.toggleVoiceInput = function() {
-  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-    alert('Browser Voice Search support nahi karta.');
-    return;
-  }
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!recognition) {
-    recognition = new SpeechRecognition();
-    recognition.lang = 'ur-PK';
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    recognition.onstart = function() {
-      isRecording = true;
-      document.getElementById('micBtn').classList.add('recording');
-    };
-    recognition.onresult = function(event) {
-      let speechResult = event.results[0][0].transcript;
-      document.getElementById('chatInput').value = speechResult;
-      sendChatMessage();
-    };
-    recognition.onerror = function() { stopVoiceInput(); };
-    recognition.onend = function() { stopVoiceInput(); };
-  }
-
-  if (isRecording) {
-    recognition.stop();
-  } else {
-    try { recognition.start(); } catch(e) { stopVoiceInput(); }
-  }
-};
-
-function stopVoiceInput() {
-  isRecording = false;
-  let micBtn = document.getElementById('micBtn');
-  if(micBtn) micBtn.classList.remove('recording');
-}
-
-(function() {
-  function makeDraggable(element, handle) {
-    if (!element || !handle) return;
-    let isDragging = false, startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
-    let hasMoved = false;
-
-    function onStart(clientX, clientY) {
-      isDragging = true;
-      hasMoved = false;
-      startX = clientX;
-      startY = clientY;
-      let rect = element.getBoundingClientRect();
-      initialLeft = rect.left;
-      initialTop = rect.top;
-      element.style.transition = 'none';
-    }
-
-    function onMove(clientX, clientY) {
-      if (!isDragging) return;
-      let dx = clientX - startX;
-      let dy = clientY - startY;
-      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
-        hasMoved = true;
-      }
-      let newLeft = initialLeft + dx;
-      let newTop = initialTop + dy;
-
-      newLeft = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newLeft));
-      newTop = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newTop));
-
-      element.style.left = newLeft + 'px';
-      element.style.top = newTop + 'px';
-      element.style.right = 'auto';
-      element.style.bottom = 'auto';
-      element.style.position = 'fixed';
-    }
-
-    function onEnd() {
-      isDragging = false;
-      element.style.transition = '';
-      setTimeout(function() { hasMoved = false; }, 150);
-    }
-
-    handle.addEventListener('mousedown', function(e) {
-      onStart(e.clientX, e.clientY);
-      let moveFn = function(ev) { onMove(ev.clientX, ev.clientY); };
-      let upFn = function() {
-        onEnd();
-        document.removeEventListener('mousemove', moveFn);
-        document.removeEventListener('mouseup', upFn);
-      };
-      document.addEventListener('mousemove', moveFn);
-      document.addEventListener('mouseup', upFn);
-    });
-
-    handle.addEventListener('touchstart', function(e) {
-      let touch = e.touches[0];
-      onStart(touch.clientX, touch.clientY);
-    }, {passive: true});
-
-    handle.addEventListener('touchmove', function(e) {
-      let touch = e.touches[0];
-      onMove(touch.clientX, touch.clientY);
-      if (hasMoved) { e.preventDefault(); }
-    }, {passive: false});
-
-    handle.addEventListener('touchend', onEnd);
-  }
-
-  let launcher = document.getElementById('chatbot-launcher');
-  let modal = document.getElementById('chatbot-modal');
-  let header = document.getElementById('chatHeader');
-
-  if (launcher) makeDraggable(launcher, launcher);
-  if (modal && header) makeDraggable(modal, header);
-})();
-
-buildCategories();
-loadProducts();
 </script>
-
-<script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'ur',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-      autoDisplay: false
-    }, 'google_translate_element');
-  }
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
