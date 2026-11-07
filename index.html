@@ -11,14 +11,12 @@
 
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif; background: #f5f5f5; color: #212121; padding-bottom: 60px; direction: ltr; }
+html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif; background: #f5f5f5; color: #212121; padding-bottom: 60px; }
 #main-shop-view { display: flex; flex-direction: column; min-height: 100vh; }
 
 .top-bar { display: flex; justify-content: space-between; align-items: center; background: #194376; padding: 8px 15px; position: relative; z-index: 1000; }
-.owner-branding { display: flex; align-items: center; gap: 8px; }
-/* First slot for Owner Image, Second slot for Website Logo */
-.owner-img-slot { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.3); background: #fff; }
-.logo-img-slot { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #f57224; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.3); background: #fff; }
+.owner-branding { display: flex; align-items: center; gap: 6px; }
+.owner-branding img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
 
 #google_translate_element select { background: #fff; padding: 4px 8px; border-radius: 15px; border: 1px solid #ccc; font-size: 11px; outline: none; font-family: inherit; cursor: pointer; max-width: 140px; }
 .goog-te-banner-frame.skiptranslate { display: none !important; }
@@ -38,6 +36,8 @@ body { top: 0px !important; }
 .banner-track { height: 140px; border-radius: 12px; background: linear-gradient(135deg, #194376, #f57224); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 .banner-track h3 { font-size: 18px; font-weight: bold; }
 .banner-track p { font-size: 12px; opacity: 0.9; }
+
+.sec-title { max-width: 1100px; width: 100%; margin: 10px auto 0; padding: 0 15px; font-size: 14px; font-weight: 700; color: #222; border-left: 4px solid #f57224; padding-left: 8px; }
 
 .products { max-width: 1100px; margin: 0 auto; padding: 10px 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
 @media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } }
@@ -74,16 +74,16 @@ body { top: 0px !important; }
 
 .escrow-notice { background: #e8f5e9; border: 1px solid #2e7d32; padding: 8px; border-radius: 6px; margin-bottom: 10px; font-size: 10px; color: #1b5e20; }
 
-/* Chatbot CSS fixed & polished */
+/* Chatbot CSS */
 #chatbot-launcher { position: fixed; bottom: 70px; right: 15px; background: #f57224; color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; z-index: 2500; font-size: 20px; }
 #chatbot-modal { display: none; position: fixed; bottom: 125px; right: 15px; width: 320px; height: 430px; background: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 2501; flex-direction: column; overflow: hidden; }
 .chat-header { background: #f57224; color: #fff; padding: 10px; font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
-.chat-body { flex: 1; padding: 8px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; background: #fafafa; font-size: 11px; direction: rtl; text-align: right; }
-.chat-footer { display: flex; align-items: center; padding: 6px; background: #fff; border-top: 1px solid #eee; gap: 4px; direction: ltr; }
-.chat-footer input { flex: 1; border: 1px solid #f57224; padding: 5px 8px; border-radius: 12px; outline: none; font-size: 11px; text-align: left; }
+.chat-body { flex: 1; padding: 8px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; background: #fafafa; font-size: 11px; }
+.chat-footer { display: flex; align-items: center; padding: 6px; background: #fff; border-top: 1px solid #eee; gap: 4px; }
+.chat-footer input { flex: 1; border: 1px solid #f57224; padding: 5px 8px; border-radius: 12px; outline: none; font-size: 11px; }
 .mic-btn { background: #194376; color: #fff; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
 .send-btn { background: #f57224; color: #fff; border: none; padding: 5px 10px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 11px; }
-.speak-icon { cursor: pointer; margin-right: 5px; font-size: 12px; color: #194376; }
+.speak-icon { cursor: pointer; margin-left: 5px; font-size: 12px; color: #194376; }
 
 /* Seller Dashboard Panel */
 #seller-dashboard-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
@@ -103,10 +103,9 @@ function googleTranslateElementInit() {
   <div class="top-bar">
     <div id="google_translate_element"></div>
     <div class="owner-branding">
-      <!-- Slot 1: Owner Profile Picture (ejaj.jpg) -->
-      <img src="ejaj.jpg" class="owner-img-slot" onerror="this.src='logo.png'" title="Ijaz Ahmad">
-      <!-- Slot 2: Website Brand Logo (logo.png) -->
-      <img src="logo.png" class="logo-img-slot" onerror="this.src='ejaj.jpg'" title="R.A.W Group Logo">
+      <!-- Universal Fallbacks for Owner Images (ijaz.jpg, ejaj.jpg & logo.png) -->
+      <img src="ijaz.jpg" onerror="this.src='ejaj.jpg'; this.onerror=function(){this.src='logo.png';}" title="Ijaz Ahmad">
+      <img src="ejaj.jpg" onerror="this.src='ijaz.jpg'; this.onerror=function(){this.src='logo.png';}" title="R.A.W Group">
     </div>
   </div>
 
@@ -144,8 +143,8 @@ function googleTranslateElementInit() {
   </div>
 
   <div style="max-width:1100px; margin: 0 auto; padding: 0 15px; display:flex; justify-content:space-between; align-items:center;">
-    <div style="font-size: 14px; font-weight: 700; color: #222; border-left: 4px solid #f57224; padding-left: 8px;" id="catTitle">📦 تمام (All Products)</div>
-    <button onclick="openSellerDashboard()" style="background:#194376; color:#fff; border:none; padding:5px 10px; border-radius:6px; font-size:11px; font-weight:bold; cursor:pointer;">⚙️ Seller Dashboard</button>
+    <div class="sec-title" id="catTitle" style="padding-left:0; margin:0;">📦 تمام (All Products)</div>
+    <button onclick="openSellerDashboard()" style="background:#194376; color:#fff; border:none; padding:5px 10px; border-radius:6px; font-size:11px; font-weight:bold; cursor:pointer;">⚙️ Manage My Ads</button>
   </div>
 
   <div id="shopList" class="products">
@@ -179,7 +178,7 @@ function googleTranslateElementInit() {
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="dashboard-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px; color:#194376;">⚙️ Seller Dashboard (Manage Your Ads)</h3>
+      <h3 style="font-size:14px; color:#194376;">⚙️ Seller Dashboard (Manage Ads)</h3>
       <span style="cursor:pointer;font-weight:bold;" onclick="closeSellerDashboard()">✕</span>
     </div>
     <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
@@ -346,9 +345,513 @@ function googleTranslateElementInit() {
     <span style="cursor:pointer;" onclick="toggleChatbot()">✕</span>
   </div>
   <div class="chat-body" id="chatBody">
-    <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc; text-align:right;">
+    <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">
       اسلام علیکم! Mic (🎤) ka button daba kar bolen, ya sawal likhein.
     </div>
   </div>
   <div class="chat-footer">
+    <button class="mic-btn" onclick="startVoiceInput()" title="Bol kar batayein">🎙️</button>
+    <input type="text" id="chatInput" placeholder="Sawal puchein..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+    <button class="send-btn" onclick="sendChatMessage()">Send</button>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE",
+  authDomain: "raw-group-shop.firebaseapp.com",
+  projectId: "raw-group-shop",
+  storageBucket: "raw-group-shop.firebasestorage.app",
+  messagingSenderId: "488689802066",
+  appId: "1:488689802066:web:1437531e15df63e958388b"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let uploadedImagesArray = [];
+let compressedReviewBase64 = "";
+let selectedCategoryFilter = "All";
+let currentRatingScore = 5;
+let allProductsCache = [];
+let selectedOrderProduct = null;
+
+window.handleMultipleImages = function(event) {
+  const files = event.target.files;
+  if (!files || files.length === 0) return;
+  uploadedImagesArray = [];
+  document.getElementById('imgCountNotice').innerText = `${files.length} tasveerein select ho gayi hain, optimize ho rahi hain...`;
+
+  let processedCount = 0;
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.src = e.target.result;
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 400;
+        const scaleSize = MAX_WIDTH / img.width;
+        canvas.width = MAX_WIDTH;
+        canvas.height = img.height * scaleSize;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        let base64 = canvas.toDataURL('image/jpeg', 0.7);
+        uploadedImagesArray.push(base64);
+        processedCount++;
+        if(processedCount === files.length) {
+          document.getElementById('imgCountNotice').innerText = `✓ ${uploadedImagesArray.length} tasveerein tayar hain!`;
+        }
+      }
+    }
+    reader.readAsDataURL(file);
+  }
+};
+
+window.compressReviewImage = function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.src = e.target.result;
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      const MAX_WIDTH = 300;
+      const scaleSize = MAX_WIDTH / img.width;
+      canvas.width = MAX_WIDTH;
+      canvas.height = img.height * scaleSize;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      compressedReviewBase64 = canvas.toDataURL('image/jpeg', 0.7);
+    }
+  }
+  reader.readAsDataURL(file);
+};
+
+window.loadApprovedProducts = async function() {
+  const shopList = document.getElementById('shopList');
+  try {
+    const querySnapshot = await getDocs(collection(db, "products"));
+    if (querySnapshot.empty) {
+      shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Database mein abhi koi product mojood nahi hai.</p>`;
+      return;
+    }
+    allProductsCache = [];
+    querySnapshot.forEach((docSnap) => {
+      allProductsCache.push({ id: docSnap.id, ...docSnap.data() });
+    });
+    renderProducts(allProductsCache);
+  } catch (error) {
+    console.error(error);
+    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:red;">Data load karne mein masla hua.</p>`;
+  }
+};
+
+function renderProducts(products) {
+  const shopList = document.getElementById('shopList');
+  shopList.innerHTML = "";
+  let filtered = products.filter(item => {
+    if (selectedCategoryFilter !== 'All' && item.category !== selectedCategoryFilter) return false;
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Is category mein koi product nahi hai.</p>`;
+    return;
+  }
+
+  filtered.forEach((item) => {
+    let imagesList = item.images;
+    if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
+      imagesList = item.img ? [item.img] : ['logo.png'];
+    }
+    const mainImg = imagesList[0];
+    let priceVal = item.pricePKR || item.price || 0;
+    let priceDisplay = `Rs. ${priceVal}`;
+
+    let verifiedBadge = item.isVerifiedSeller ? `<span style="color:#0a8a00; font-size:9px; font-weight:bold;"> ✓ Verified Seller</span>` : '';
+    let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName} ${verifiedBadge}</div>` : '';
     
+    let actionButtonsHTML = '';
+    if (item.affiliateLink && item.affiliateLink.trim() !== '') {
+      let linkText = item.affiliateLink.includes('amazon') ? '🔗 Amazon Link' : item.affiliateLink.includes('daraz') ? '🔗 Daraz Link' : '🔗 Visit Link';
+      actionButtonsHTML = `<a href="${item.affiliateLink}" target="_blank" class="affiliate-btn">${linkText}</a>`;
+    } else {
+      let contactLink = `https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
+      actionButtonsHTML = `
+        <div class="btn-row">
+          <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
+          <button class="order-btn" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 Order</button>
+        </div>
+      `;
+    }
+
+    shopList.innerHTML += `
+      <div class="card">
+        <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='logo.png'"></div>
+        <div class="card-body">
+          <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
+          <span class="category-tag">${item.category || 'General'}</span>
+          <div class="city-label">📍 ${item.brand || item.city || 'Sargodha'}</div>
+          ${sellerInfo}
+          <div class="price">${priceDisplay}</div>
+          ${actionButtonsHTML}
+        </div>
+      </div>
+    `;
+  });
+}
+
+window.openSellerDashboard = function() {
+  const savedUser = JSON.parse(localStorage.getItem('raw_logged_seller') || '{}');
+  const dUser = document.getElementById('dashboardUserInfo');
+  const dList = document.getElementById('myAdsList');
+  dList.innerHTML = "";
+
+  if(!savedUser.mobile) {
+    dUser.innerHTML = `⚠️ Aap login nahi hain. Ad manage karne ke liye pehle login karein.`;
+    document.getElementById('user-login-modal').style.display = 'flex';
+    return;
+  }
+
+  dUser.innerHTML = `👤 Logged in as: <b>${savedUser.name}</b> (${savedUser.mobile})`;
+  document.getElementById('seller-dashboard-modal').style.display = 'flex';
+
+  let myAds = allProductsCache.filter(item => savedUser.mobile === '03334664227' || item.mobile === savedUser.mobile);
+  if(myAds.length === 0) {
+    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center; padding:10px;">Aapka koi ad mojood nahi hai.</p>`;
+    return;
+  }
+
+  myAds.forEach(ad => {
+    let adImg = (ad.images && ad.images[0]) || ad.img || 'logo.png';
+    dList.innerHTML += `
+      <div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:6px; border-radius:6px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <img src="${adImg}" style="width:35px; height:35px; object-fit:contain; border-radius:4px;">
+          <div>
+            <div style="font-size:11px; font-weight:bold; color:#194376;">${ad.name || ad.title}</div>
+            <div style="font-size:10px; color:#f57224;">Rs. ${ad.pricePKR || ad.price || 0}</div>
+          </div>
+        </div>
+        <button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:5px 8px; border-radius:4px; font-size:10px; font-weight:bold; cursor:pointer;">🗑️ Delete</button>
+      </div>
+    `;
+  });
+};
+
+window.closeSellerDashboard = () => document.getElementById('seller-dashboard-modal').style.display = 'none';
+
+window.deleteMyProduct = async function(productId) {
+  if(confirm("Kya aap waqai is ad ko delete karna chahte hain?")) {
+    try {
+      await deleteDoc(doc(db, "products", productId));
+      alert("Aapka ad delete ho gaya hai.");
+      closeSellerDashboard();
+      loadApprovedProducts();
+    } catch(err) {
+      alert("Delete karne mein masla hua.");
+    }
+  }
+};
+
+window.openProductDetail = function(item) {
+  document.getElementById('detTitle').innerText = item.name || item.title;
+  let priceVal = item.pricePKR || item.price || 0;
+  document.getElementById('detPrice').innerText = `Price: Rs. ${priceVal}`;
+  document.getElementById('detCategory').innerText = `Category: ${item.category || 'General'}`;
+  document.getElementById('detCity').innerText = `Location: ${item.brand || item.city || 'Sargodha'}`;
+  document.getElementById('detDescription').innerText = item.description || item.desc || 'Mazeed tafseel mojood nahi hai.';
+
+  const imgContainer = document.getElementById('detImagesContainer');
+  imgContainer.innerHTML = "";
+
+  let imagesList = item.images;
+  if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
+    imagesList = item.img ? [item.img] : ['logo.png'];
+  }
+
+  imagesList.forEach((imgSrc, index) => {
+    imgContainer.innerHTML += `
+      <div style="width:100%; text-align:center; background:#fff; padding:4px; border-radius:6px; border:1px solid #e5e5e5;">
+        <img src="${imgSrc}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px;" onerror="this.src='logo.png'">
+        <div style="font-size:9px; color:#888; margin-top:2px;">Tasveer ${index + 1} of ${imagesList.length}</div>
+      </div>
+    `;
+  });
+
+  const actionDiv = document.getElementById('detActionBtn');
+  if (item.affiliateLink && item.affiliateLink.trim() !== '') {
+    actionDiv.innerHTML = `<a href="${item.affiliateLink}" target="_blank" style="background:#ff9900; color:#000; padding:8px 12px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none; display:block; text-align:center;">🔗 Open Link</a>`;
+  } else {
+    actionDiv.innerHTML = `<button onclick='closeProductDetailModal(); openOrderModal(${JSON.stringify(item).replace(/'/g, "&#39;")})' style="background:#f57224; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; font-size:12px; width:100%; cursor:pointer;">🛒 Secure Order Now</button>`;
+  }
+
+  document.getElementById('product-detail-modal').style.display = 'flex';
+};
+
+window.closeProductDetailModal = () => document.getElementById('product-detail-modal').style.display = 'none';
+
+window.filterByCategory = function(cat) {
+  selectedCategoryFilter = cat;
+  document.getElementById('catTitle').innerText = `📦 Category: ${cat}`;
+  renderProducts(allProductsCache);
+};
+
+window.filterShop = function() {
+  const val = document.getElementById('search').value.toLowerCase();
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const title = card.querySelector('.product-title').innerText.toLowerCase();
+    card.style.display = title.includes(val) ? "flex" : "none";
+  });
+};
+
+window.openOrderModal = function(item) {
+  selectedOrderProduct = item;
+  let priceText = item.pricePKR || item.price || '0';
+  document.getElementById('orderProductDetails').innerText = `Product: ${item.name || item.title} | Price: Rs. ${priceText}`;
+  document.getElementById('order-form-modal').style.display = 'flex';
+};
+window.closeOrderModal = () => document.getElementById('order-form-modal').style.display = 'none';
+
+window.togglePaymentInstructions = function(method) {
+  const infoBox = document.getElementById('securePaymentInfo');
+  if (method !== 'Cash on Delivery') {
+    infoBox.style.display = 'block';
+  } else {
+    infoBox.style.display = 'none';
+  }
+};
+
+window.submitCustomerOrder = async function(e) {
+  e.preventDefault();
+  const name = document.getElementById('custName').value.trim();
+  const mobile = document.getElementById('custMobile').value.trim();
+  const address = document.getElementById('custAddress').value.trim();
+  const paymentMethod = document.getElementById('custPaymentMethod').value;
+
+  if(!name || !mobile || !address) { alert("Tamam fields pur karein!"); return; }
+
+  let totalPrice = Number(selectedOrderProduct.pricePKR || selectedOrderProduct.price || 0);
+  let adminCommission = Math.round(totalPrice * 0.05);
+  let sellerPayout = totalPrice - adminCommission;
+
+  try {
+    const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+    await addDoc(collection(db, "orders"), {
+      productName: selectedOrderProduct.name || selectedOrderProduct.title,
+      productPrice: totalPrice,
+      adminCommission: adminCommission,
+      sellerPayout: sellerPayout,
+      sellerName: selectedOrderProduct.sellerName || 'Partner',
+      sellerMobile: selectedOrderProduct.mobile || '03334664227',
+      customerName: name,
+      customerMobile: mobile,
+      customerAddress: address,
+      paymentMethod: paymentMethod,
+      escrowStatus: "Held in Escrow",
+      payoutStatus: "Pending Confirmation",
+      createdAt: serverTimestamp()
+    });
+    alert("Shukriya! Aapka order book ho gaya hai.");
+    document.getElementById('customerOrderForm').reset();
+    closeOrderModal();
+  } catch(err) {
+    alert("Order submit karne mein masla hua.");
+  }
+};
+
+window.checkUserLoginAndOpenAd = function() {
+  const savedUser = localStorage.getItem('raw_logged_seller');
+  if(!savedUser) {
+    document.getElementById('user-login-modal').style.display = 'flex';
+  } else {
+    const user = JSON.parse(savedUser);
+    document.getElementById('loggedInUserTag').innerText = `👤 Seller: ${user.name} (${user.mobile})`;
+    document.getElementById('ad-submission-modal').style.display = 'flex';
+  }
+};
+
+window.closeLoginModal = () => document.getElementById('user-login-modal').style.display = 'none';
+window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
+
+window.submitUserLogin = function(e) {
+  e.preventDefault();
+  const name = document.getElementById('loginName').value.trim();
+  const mobile = document.getElementById('loginMobile').value.trim();
+  if(!name || !mobile) { alert("Naam aur WhatsApp number lazmi likhein!"); return; }
+
+  const userData = { name, mobile, loginTime: new Date().toLocaleString() };
+  localStorage.setItem('raw_logged_seller', JSON.stringify(userData));
+  closeLoginModal();
+  document.getElementById('loggedInUserTag').innerText = `👤 Seller: ${name} (${mobile})`;
+  document.getElementById('ad-submission-modal').style.display = 'flex';
+};
+
+window.submitUserAd = async function(e) {
+  e.preventDefault();
+  const category = document.getElementById('adCategory').value;
+  const name = document.getElementById('adTitle').value;
+  const city = document.getElementById('adCity').value;
+  const price = document.getElementById('adPrice').value;
+  const affiliateLink = document.getElementById('adAffiliateLink').value;
+  const description = document.getElementById('adDescription').value;
+  const savedUser = JSON.parse(localStorage.getItem('raw_logged_seller') || '{}');
+
+  if (uploadedImagesArray.length === 0) { alert("Kam az kam aik tasveer select karein!"); return; }
+
+  try {
+    const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+    await addDoc(collection(db, "products"), {
+      name, category, 
+      pricePKR: Number(price), 
+      price: Number(price), 
+      brand: city, 
+      affiliateLink: affiliateLink || "",
+      description: description,
+      mobile: savedUser.mobile || '03334664227',
+      sellerName: savedUser.name || 'Partner',
+      images: uploadedImagesArray,
+      status: "approved",
+      isVerifiedSeller: true,
+      createdAt: serverTimestamp()
+    });
+    alert("Shukriya! Aapka ad live ho gaya hai.");
+    document.getElementById('userAdForm').reset();
+    closeAdModal();
+    uploadedImagesArray = [];
+    document.getElementById('imgCountNotice').innerText = "";
+    loadApprovedProducts();
+  } catch (err) {
+    alert("Masla hua, dobara koshish karein.");
+  }
+};
+
+window.setStars = (score) => { currentRatingScore = score; };
+window.openReviewModal = () => document.getElementById('user-review-modal').style.display = 'flex';
+window.closeReviewModal = () => document.getElementById('user-review-modal').style.display = 'none';
+
+window.submitUserReview = async function() {
+  const name = document.getElementById('reviewerName').value.trim();
+  const msg = document.getElementById('reviewMsgInput').value.trim();
+  if(!name || !msg) { alert("Naam aur review message lazmi likhein!"); return; }
+
+  try {
+    const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+    await addDoc(collection(db, "reviews"), {
+      name: name,
+      rating: currentRatingScore,
+      message: msg,
+      image: compressedReviewBase64 || "",
+      createdAt: serverTimestamp()
+    });
+    alert("Shukriya! Review submit ho gaya hai.");
+    document.getElementById('reviewerName').value = "";
+    document.getElementById('reviewMsgInput').value = "";
+    document.getElementById('reviewImageInput').value = "";
+    compressedReviewBase64 = "";
+    closeReviewModal();
+  } catch(err) {
+    alert("Review submit karne mein masla hua.");
+  }
+};
+
+window.toggleChatbot = () => {
+  const m = document.getElementById('chatbot-modal');
+  m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+};
+
+window.startVoiceInput = function() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    alert("Aapka browser voice recognition support nahi karta.");
+    return;
+  }
+  const recognition = new SpeechRecognition();
+  recognition.lang = 'ur-PK'; 
+  recognition.start();
+
+  const inputField = document.getElementById('chatInput');
+  inputField.placeholder = "Suni ja rahi hai...";
+
+  recognition.onresult = function(event) {
+    const speechText = event.results[0][0].transcript;
+    inputField.value = speechText;
+    inputField.placeholder = "Sawal puchein...";
+    sendChatMessage();
+  };
+};
+
+window.speakText = function(text) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'ur-PK';
+  utterance.rate = 1.0;
+  window.speechSynthesis.speak(utterance);
+};
+
+window.sendChatMessage = function() {
+  const input = document.getElementById('chatInput');
+  const body = document.getElementById('chatBody');
+  const query = input.value.trim().toLowerCase();
+  if(!query) return;
+
+  body.innerHTML += '<div style="background:#f57224; color:#fff; padding:6px; border-radius:8px; align-self:flex-end;">' + input.value + '</div>';
+  input.value = "";
+
+  setTimeout(function() {
+    let replyText = "";
+    let actionLinkHTML = "";
+    const hour = new Date().getHours();
+    let timeGreeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
+
+    let isGreeting = query.indexOf('salam') !== -1 || query.indexOf('سلام') !== -1 || query.indexOf('hi') !== -1 || query.indexOf('hello') !== -1;
+
+    if (isGreeting) {
+      replyText = "وعلیکم السلام! " + timeGreeting + "! Main bilkul theek hoon, aap sunayein, aap kaise hain? R.A.W Group mein خوش آمدید!";
+    } else if (query.indexOf('order') !== -1 || query.indexOf('khareed') !== -1) {
+      replyText = "Order karne ke liye product ke niche 'Order' button par click karein.";
+    } else if (query.indexOf('paisa') !== -1 || query.indexOf('escrow') !== -1 || query.indexOf('safe') !== -1) {
+      replyText = "R.A.W Group par aapka paisa Escrow Protection ke tehat 100% mehfooz rehta hai.";
+    } else if (query.indexOf('sell') !== -1 || query.indexOf('ad') !== -1 || query.indexOf('bech') !== -1) {
+      replyText = "Ad lagane ke liye niche wale gol plus (+) button par click karein.";
+    } else {
+      let matches = allProductsCache.filter(function(p) {
+        let pName = (p.name || p.title || '').toLowerCase();
+        let pCat = (p.category || '').toLowerCase();
+        return pName.indexOf(query) !== -1 || pCat.indexOf(query) !== -1;
+      });
+      
+      if(matches.length > 0) {
+        let p = matches[0];
+        let pPrice = p.pricePKR || p.price || 0;
+        replyText = 'Ji bilkul! Yeh rahi product: "' + (p.name || p.title) + '" — Qeemat: Rs. ' + pPrice + '.';
+        
+        if (p.affiliateLink && p.affiliateLink.trim() !== '') {
+          actionLinkHTML = '<div style="margin-top:6px;"><a href="' + p.affiliateLink + '" target="_blank" style="background:#ff9900; color:#000; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">🔗 Open Link</a></div>';
+        } else {
+          let whatsappLink = 'https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20' + encodeURIComponent(p.name || p.title);
+          actionLinkHTML = '<div style="margin-top:6px;"><a href="' + whatsappLink + '" target="_blank" style="background:#25d366; color:#fff; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">💬 Order via WhatsApp</a></div>';
+        }
+      } else {
+        replyText = "Maazrat, is naam ki exact product mojood nahi hai. WhatsApp 03334664227 par rabta karein!";
+      }
+    }
+
+    body.innerHTML += '<div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;"><span>' + replyText + '</span>' + actionLinkHTML + '</div>';
+    body.scrollTop = body.scrollHeight;
+    speakText(replyText);
+  }, 500);
+};
+
+window.addEventListener('DOMContentLoaded', function() { loadApprovedProducts(); });
+</script>
+</body>
+</html>
