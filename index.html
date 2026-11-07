@@ -32,9 +32,10 @@ body { top: 0px !important; }
 .cat-item span { font-size: 11px; font-weight: 600; color: #333; }
 
 .banner { position: relative; max-width: 1100px; width: 100%; margin: 10px auto; padding: 0 15px; }
-.banner-track { height: 140px; border-radius: 12px; background: linear-gradient(135deg, #194376, #f57224); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-.banner-track h3 { font-size: 18px; font-weight: bold; }
-.banner-track p { font-size: 12px; opacity: 0.9; }
+.banner-track { height: 150px; border-radius: 12px; background: linear-gradient(135deg, #194376, #f57224); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); text-align: center; }
+.banner-track h3 { font-size: 16px; font-weight: bold; margin-bottom: 4px; }
+.banner-track p { font-size: 11px; opacity: 0.95; margin-bottom: 6px; }
+.banner-cta { background: #FFD700; color: #194376; padding: 5px 10px; border-radius: 15px; font-size: 11px; font-weight: bold; display: inline-block; margin: 0 auto; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
 
 .sec-title { max-width: 1100px; width: 100%; margin: 10px auto 0; padding: 0 15px; font-size: 14px; font-weight: 700; color: #222; border-left: 4px solid #f57224; padding-left: 8px; }
 
@@ -127,10 +128,12 @@ function googleTranslateElementInit() {
     <div class="cat-item" onclick="filterByCategory('Tools & Heavy Machinery')"><div class="cat-icon-circle">🛠️</div><span>Tools</span></div>
   </div>
 
+  <!-- Promotional Banner for Seller Registration / Ad Posting -->
   <div class="banner">
     <div class="banner-track">
       <h3>R.A.W GROUP CHOUKIRH 79</h3>
-      <p>Aapki Apni Online Marketplace</p>
+      <p>Aapki Apni Online Marketplace — Yahan apni cheezein khud bechein!</p>
+      <div class="banner-cta" onclick="checkUserLoginAndOpenAd()">✨ Niche (+) Button Daba Kar Ad Lagayein!</div>
     </div>
   </div>
 
@@ -235,7 +238,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Seller Ad Submission Modal (With Auto Image Resizing & Multiple Images) -->
+<!-- Seller Ad Submission Modal -->
 <div id="ad-submission-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -365,12 +368,11 @@ let currentRatingScore = 5;
 let allProductsCache = [];
 let selectedOrderProduct = null;
 
-// Automatic Smart Image Compressor to fit database limits without error
 window.handleMultipleImages = function(event) {
   const files = event.target.files;
   if (!files || files.length === 0) return;
   uploadedImagesArray = [];
-  document.getElementById('imgCountNotice').innerText = `${files.length} tasveerein select ho gayi hain, database size ke mutabiق optimize ho rahi hain...`;
+  document.getElementById('imgCountNotice').innerText = `${files.length} tasveerein select ho gayi hain, database size ke mutabiq optimize ho rahi hain...`;
 
   let processedCount = 0;
   for (let i = 0; i < files.length; i++) {
@@ -381,7 +383,7 @@ window.handleMultipleImages = function(event) {
       img.src = e.target.result;
       img.onload = function() {
         const canvas = document.createElement('canvas');
-        const MAX_WIDTH = 400; // Perfect width for database
+        const MAX_WIDTH = 400;
         const scaleSize = MAX_WIDTH / img.width;
         canvas.width = MAX_WIDTH;
         canvas.height = img.height * scaleSize;
@@ -461,9 +463,8 @@ function renderProducts(products) {
     let priceDisplay = `Rs. ${priceVal}`;
 
     let verifiedBadge = item.isVerifiedSeller ? `<span style="color:#0a8a00; font-size:9px; font-weight:bold;"> ✓ R.A.W Verified</span>` : '';
-    let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName} ${verifiedBadge}</div>` : '';
+    let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName}${verifiedBadge}</div>` : '';
     
-    // Allow the seller who posted it (or admin) to delete this product from shop
     let deleteBtnHTML = '';
     if (savedUser.mobile && item.mobile && savedUser.mobile === item.mobile) {
       deleteBtnHTML = `<button class="delete-product-btn" onclick="deleteMyProduct('${item.id}')">🗑️ Item Delete Karein</button>`;
@@ -474,7 +475,7 @@ function renderProducts(products) {
       let linkText = item.affiliateLink.includes('amazon') ? '🔗 Amazon Link' : item.affiliateLink.includes('daraz') ? '🔗 Daraz Link' : '🔗 Visit Link';
       actionButtonsHTML = `<a href="${item.affiliateLink}" target="_blank" class="affiliate-btn">${linkText}</a>`;
     } else {
-      let contactLink = `https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
+      let contactLink = `https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe\%20is\%20product\%20mein\%20interest\%20hai:\%20${encodeURIComponent(item.name || item.title)}`;
       actionButtonsHTML = `
         <div class="btn-row">
           <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
@@ -489,18 +490,15 @@ function renderProducts(products) {
         <div class="card-body">
           <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
           <span class="category-tag">${item.category || 'General'}</span>
-          <div class="city-label">📍 ${item.brand || item.city || 'Sargodha'}</div>
-          ${sellerInfo}
+          <div class="city-label">📍 ${item.brand \vert{}\vert{} item.city \vert{}\vert{} 'Sargodha'}</div>${sellerInfo}
           <div class="price">${priceDisplay}</div>
-          ${actionButtonsHTML}
-          ${deleteBtnHTML}
+          ${actionButtonsHTML}${deleteBtnHTML}
         </div>
       </div>
     `;
   });
 }
 
-// Delete Product Function for Sellers
 window.deleteMyProduct = async function(productId) {
   if(confirm("Kya aap waqai is item ko delete karna chahte hain?")) {
     try {
@@ -517,8 +515,7 @@ window.openProductDetail = function(item) {
   document.getElementById('detTitle').innerText = item.name || item.title;
   let priceVal = item.pricePKR || item.price || 0;
   document.getElementById('detPrice').innerText = `Price: Rs. ${priceVal}`;
-  document.getElementById('detCategory').innerText = `Category: ${item.category || 'General'}`;
-  document.getElementById('detCity').innerText = `Location: ${item.brand || item.city || 'Sargodha'}`;
+  document.getElementById('detCategory').innerText = `Category: ${item.category \vert{}\vert{} 'General'}`; document.getElementById('detCity').innerText = `Location: ${item.brand || item.city || 'Sargodha'}`;
   document.getElementById('detDescription').innerText = item.description || item.desc || 'Mazeed tafseel mojood nahi hai.';
 
   const imgContainer = document.getElementById('detImagesContainer');
@@ -563,7 +560,7 @@ window.filterShop = function() {
 window.openOrderModal = function(item) {
   selectedOrderProduct = item;
   let priceText = item.pricePKR || item.price || '0';
-  document.getElementById('orderProductDetails').innerText = `Product: ${item.name || item.title} | Price: Rs. ${priceText}`;
+  document.getElementById('orderProductDetails').innerText = `Product: ${item.name \vert{}\vert{} item.title} \vert{} Price: Rs.${priceText}`;
   document.getElementById('order-form-modal').style.display = 'flex';
 };
 window.closeOrderModal = () => document.getElementById('order-form-modal').style.display = 'none';
@@ -751,68 +748,4 @@ window.sendChatMessage = () => {
   const query = input.value.trim().toLowerCase();
   if(!query) return;
 
-  body.innerHTML += `<div style="background:#f57224; color:#fff; padding:6px; border-radius:8px; align-self:flex-end;">${input.value}</div>`;
-  input.value = "";
-
-  setTimeout(() => {
-    let replyText = "";
-    let actionLinkHTML = "";
-    const hour = new Date().getHours();
-    let timeGreeting = hour < 12 ? "Good Morning" : hour < 17 ? "Good Afternoon" : "Good Evening";
-
-    let isGreeting = query.includes('سلیم') || query.includes('السلام') || query.includes('سلام') || query.includes('salam') || query.includes('assalam') || query.includes('alaikum') || query.includes('salaam') || query.includes('hi') || query.includes('hello') || query.includes('hey') || query.includes('kaise') || query.includes('kya haal');
-
-    if (isGreeting) {
-      replyText = `وعلیکم السلام! ${timeGreeting}! Main bilkul theek hoon, aap sunayein, aap kaise hain aur sab theek-thaak hai? R.A.W Group mein خوش آمدید!`;
-    }
-    else if (query.includes('order') || query.includes('khareed')) {
-      replyText = "Order karne ke liye product ke niche 'Order' button par click karein aur form bharein.";
-    } 
-    else if (query.includes('paisa') || query.includes('escrow') || query.includes('safe')) {
-      replyText = "R.A.W Group par aapka paisa Escrow Protection ke tehat 100% mehfooz rehta hai.";
-    } 
-    else if (query.includes('sell') || query.includes('ad') || query.includes('bech')) {
-      replyText = "Ad lagane ke liye niche wale gol plus (+) button par click karein.";
-    } 
-    else {
-      let searchKey = query;
-      if (query.includes('mobile') || query.includes('phone') || query.includes('فون') || query.includes('موبائل')) {
-        searchKey = 'motorola'; 
-      } else if (query.includes('bed') || query.includes('sheet') || query.includes('چادر')) {
-        searchKey = 'bed sheet';
-      }
-
-      let matches = allProductsCache.filter(p => (p.name || p.title || '').toLowerCase().includes(searchKey) || (p.category || '').toLowerCase().includes(searchKey));
-      
-      if(matches.length > 0) {
-        let p = matches[0];
-        let pPrice = p.pricePKR || p.price || 0;
-        replyText = `Ji bilkul! Yeh rahi product: "${p.name || p.title}" — Qeemat: Rs. ${pPrice}.`;
-        
-        if (p.affiliateLink && p.affiliateLink.trim() !== '') {
-          actionLinkHTML = `<div style="margin-top:6px;"><a href="${p.affiliateLink}" target="_blank" style="background:#ff9900; color:#000; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">🔗 Open Link</a></div>`;
-        } else {
-          let whatsappLink = `https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(p.name || p.title)}`;
-          actionLinkHTML = `<div style="margin-top:6px;"><a href="${whatsappLink}" target="_blank" style="background:#25d366; color:#fff; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">💬 Order via WhatsApp</a></div>`;
-        }
-      } else {
-        replyText = `Maazrat, is naam ki exact product mojood nahi hai. Mazeed tafseel ke liye WhatsApp 03334664227 par rabta karein!`;
-      }
-    }
-
-    body.innerHTML += `
-      <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">
-        <span>${replyText}</span>
-        ${actionLinkHTML}
-        <span class="speak-icon" onclick="speakText('${replyText.replace(/'/g, "")}')" title="Sunen" style="float:right;">🔊</span>
-      </div>
-    `;
-    body.scrollTop = body.scrollHeight;
-    speakText(replyText);
-  }, 500);
-};
-
-window.addEventListener('DOMContentLoaded', () => { loadApprovedProducts(); });
-</script>
-</body>
-</html>
+  body.innerHTML += `<div style="background:#f57224; color:#fff; padding:6px; border-radius:8px; align-self:flex-
