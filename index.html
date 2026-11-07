@@ -103,9 +103,9 @@ function googleTranslateElementInit() {
   <div class="top-bar">
     <div id="google_translate_element"></div>
     <div class="owner-branding">
-      <!-- Mapped directly to ejaj.jpg and logo.png as present in your GitHub repository -->
-      <img src="ejaj.jpg" onerror="this.src='logo.png'" title="Ijaz Ahmad">
-      <img src="logo.png" title="R.A.W Group">
+      <!-- Universal Fallback: guaranteed display for Ejaz & Logo -->
+      <img src="ejaj.jpg" onerror="this.onerror=function(){this.src='logo.png';}; this.src='ejaj.jpg';" title="Ejaz Ahmad">
+      <img src="logo.png" onerror="this.style.display='none';" title="R.A.W Group">
     </div>
   </div>
 
@@ -341,12 +341,12 @@ function googleTranslateElementInit() {
 <div id="chatbot-launcher" onclick="toggleChatbot()">💬</div>
 <div id="chatbot-modal">
   <div class="chat-header">
-    <span>🤖 R.A.W Voice Assist (Multi-Language)</span>
+    <span>🤖 R.A.W Voice Assist (Ejaz Ahmad)</span>
     <span style="cursor:pointer;" onclick="toggleChatbot()">✕</span>
   </div>
   <div class="chat-body" id="chatBody">
     <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">
-      اسلام علیکم! Mic (🎤) ka button daba kar bolen, ya sawal likhein.
+      اسلام علیکم! Mic (🎤) ka button daba kar bolen, ya product ka naam likhein.
     </div>
   </div>
   <div class="chat-footer">
@@ -817,34 +817,47 @@ window.sendChatMessage = function() {
     if (isGreeting) {
       replyText = "وعلیکم السلام! " + timeGreeting + "! Main bilkul theek hoon, aap sunayein, aap kaise hain? R.A.W Group mein خوش آمدید!";
     } else if (query.indexOf('order') !== -1 || query.indexOf('khareed') !== -1) {
-      replyTest = "Order karne ke liye product ke niche 'Order' button par click karein.";
+      replyText = "Order karne ke liye product ke niche 'Order' button par click karein.";
     } else if (query.indexOf('paisa') !== -1 || query.indexOf('escrow') !== -1 || query.indexOf('safe') !== -1) {
       replyText = "R.A.W Group par aapka paisa Escrow Protection ke tehat 100% mehfooz rehta hai.";
     } else if (query.indexOf('sell') !== -1 || query.indexOf('ad') !== -1 || query.indexOf('bech') !== -1) {
       replyText = "Ad lagane ke liye niche wale gol plus (+) button par click karein.";
     } else {
-      let searchKeyWords = query.split(' ');
-      let matches = allProductsCache.filter(function(p) {
+      let foundMatch = null;
+      for (let i = 0; i < allProductsCache.length; i++) {
+        let p = allProductsCache[i];
         let pName = (p.name || p.title || '').toLowerCase();
         let pCat = (p.category || '').toLowerCase();
-        let pDesc = (p.description || '').toLowerCase();
-        for(let w of searchKeyWords) {
-          if(w.length > 1 && (pName.indexOf(w) !== -1 || pCat.indexOf(w) !== -1 || pDesc.indexOf(w) !== -1)) {
-            return true;
-          }
+        if (pName.indexOf(query) !== -1 || query.indexOf(pName) !== -1 || pCat.indexOf(query) !== -1) {
+          foundMatch = p;
+          break;
         }
-        return false;
-      });
-      
-      if(matches.length > 0) {
-        let p = matches[0];
-        let pPrice = p.pricePKR || p.price || 0;
-        replyText = 'Ji bilkul! Yeh rahi product: "' + (p.name || p.title) + '" — Qeemat: Rs. ' + pPrice + '.';
+      }
+
+      if (!foundMatch && allProductsCache.length > 0) {
+        let queryWords = query.split(' ');
+        for (let i = 0; i < allProductsCache.length; i++) {
+          let p = allProductsCache[i];
+          let pName = (p.name || p.title || '').toLowerCase();
+          for (let w = 0; w < queryWords.length; w++) {
+            let word = queryWords[w];
+            if (word.length > 2 && pName.indexOf(word) !== -1) {
+              foundMatch = p;
+              break;
+            }
+          }
+          if (foundMatch) break;
+        }
+      }
+
+      if (foundMatch) {
+        let pPrice = foundMatch.pricePKR || foundMatch.price || 0;
+        replyText = 'Ji bilkul! Yeh rahi product: "' + (foundMatch.name || foundMatch.title) + '" — Qeemat: Rs. ' + pPrice + '.';
         
-        if (p.affiliateLink && p.affiliateLink.trim() !== '') {
-          actionLinkHTML = '<div style="margin-top:6px;"><a href="' + p.affiliateLink + '" target="_blank" style="background:#ff9900; color:#000; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">🔗 Open Link</a></div>';
+        if (foundMatch.affiliateLink && foundMatch.affiliateLink.trim() !== '') {
+          actionLinkHTML = '<div style="margin-top:6px;"><a href="' + foundMatch.affiliateLink + '" target="_blank" style="background:#ff9900; color:#000; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">🔗 Open Link</a></div>';
         } else {
-          let whatsappLink = 'https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20' + encodeURIComponent(p.name || p.title);
+          let whatsappLink = 'https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20' + encodeURIComponent(foundMatch.name || foundMatch.title);
           actionLinkHTML = '<div style="margin-top:6px;"><a href="' + whatsappLink + '" target="_blank" style="background:#25d366; color:#fff; padding:5px 10px; border-radius:6px; font-weight:bold; font-size:10px; text-decoration:none; display:inline-block;">💬 Order via WhatsApp</a></div>';
         }
       } else {
