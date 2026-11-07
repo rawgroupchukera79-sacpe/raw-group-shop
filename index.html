@@ -5,122 +5,80 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>R.A.W GROUP CHOUKIRH 79 SHOP</title>
 <meta name="google-site-verification" content="yeLNijbmqR4ERCkTu7OH9wZIw9081mm5aUR5Ku3V5JA" />
+<meta name="description" content="R.A.W Group Choukirh 79 - Online Classifieds, Products, Mobiles, Vehicles and Electronics Marketplace in Sargodha Pakistan.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif; background: #f5f5f5; color: #212121; }
+html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif; background: #f5f5f5; color: #212121; padding-bottom: 60px; }
 #main-shop-view { display: flex; flex-direction: column; min-height: 100vh; }
 
-/* Daraz Orange & White Theme Colors */
-.top-bar { display: flex; justify-content: space-between; align-items: center; background: #f57224; padding: 8px 15px; position: relative; z-index: 1000; }
-.top-bar #google_translate_element { background: #fff; padding: 4px 8px; border-radius: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: inline-block; overflow: hidden; }
-.owner-top img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+/* Top Bar */
+.top-bar { display: flex; justify-content: space-between; align-items: center; background: #194376; padding: 10px 15px; position: relative; z-index: 1000; }
+.top-bar #google_translate_element { background: #fff; padding: 4px 8px; border-radius: 20px; font-size: 11px; }
+.search-container { flex: 1; margin: 0 10px; position: relative; }
+.search-container input { width: 100%; padding: 8px 14px; border-radius: 20px; border: none; outline: none; font-size: 13px; font-family: inherit; }
+.admin-badge { background: #f57224; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; }
 
-.header { display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 10px 15px; }
-.header-left { display: flex; align-items: center; gap: 12px; }
-.header img.logo { width: 52px; height: 52px; border-radius: 12px; border: 2px solid #f57224; object-fit: cover; box-shadow: 0 3px 8px rgba(245,114,36,0.25); }
-.header h2 { color: #f57224; font-size: 16px; font-weight: 700; line-height: 1.2; }
-.header p { font-size: 11px; color: #666; font-weight: 500; }
-.admin-trigger-btn { background: #212121; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+/* Category Icons Row */
+.cat-scroll-row { display: flex; gap: 12px; overflow-x: auto; padding: 12px 15px; background: #fff; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.cat-scroll-row::-webkit-scrollbar { display: none; }
+.cat-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; min-width: 70px; text-align: center; }
+.cat-icon-circle { width: 50px; height: 50px; border-radius: 50%; background: #fff3ec; border: 2px solid #f57224; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 4px; box-shadow: 0 2px 6px rgba(245,114,36,0.2); }
+.cat-item span { font-size: 11px; font-weight: 600; color: #333; }
 
-.main-bar { position: sticky; top: 0; z-index: 100; display: flex; gap: 10px; align-items: center; background: #fff; padding: 10px 15px; border-bottom: 3px solid #f57224; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
-.menu-btn, .post-ad-btn { display: flex; align-items: center; gap: 6px; flex-shrink: 0; background: #f57224; color: #fff; border: none; padding: 10px 14px; border-radius: 10px; font-weight: 600; font-size: 13px; cursor: pointer; font-family: inherit; box-shadow: 0 3px 8px rgba(245,114,36,0.35); }
-.post-ad-btn { background: #28a745; box-shadow: 0 3px 8px rgba(40,167,69,0.35); }
-.menu-btn span { font-size: 18px; line-height: 1; }
-.search-box { flex: 1; min-width: 0; }
-.search-box input { width: 100%; padding: 10px 16px; border: 2px solid #f57224; border-radius: 10px; font-size: 13px; outline: none; background: #fff; font-family: inherit; }
-.search-box input:focus { box-shadow: 0 0 8px rgba(245,114,36,0.4); }
+.banner { position: relative; max-width: 1100px; width: 100%; margin: 10px auto; padding: 0 15px; }
+.banner-track { height: 140px; border-radius: 12px; background: linear-gradient(135deg, #194376, #f57224); color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.banner-track h3 { font-size: 18px; font-weight: bold; }
+.banner-track p { font-size: 12px; opacity: 0.9; }
 
-.banner { position: relative; max-width: 1100px; width: 100%; margin: 12px auto 0; padding: 0 15px; }
-.banner-track { position: relative; height: 150px; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
-.slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 22px; color: #fff; opacity: 0; transition: opacity 0.6s ease; background-size: cover; background-position: center; }
-.slide.show { opacity: 1; }
-.slide h3 { font-size: 22px; font-weight: 700; text-shadow: 0 2px 6px rgba(0,0,0,0.3); }
-.slide p { font-size: 13px; margin-top: 4px; text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
-.s1 { background-image: linear-gradient(135deg, #f57224, #d05b18); }
-.s2 { background-image: linear-gradient(135deg, #128C7E, #25D366); }
-.s3 { background-image: linear-gradient(135deg, #111, #f57224); }
-.dots { display: flex; justify-content: center; gap: 6px; margin-top: 8px; }
-.dots i { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; }
-.dots i.on { background: #f57224; width: 20px; border-radius: 6px; }
-
-/* Website Rating Header Card Style */
-.site-rating-card { max-width: 1100px; margin: 10px auto 0; padding: 10px 15px; background: #fff; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 6px rgba(0,0,0,0.06); border: 1px solid #e5e5e5; }
-.site-rating-info { font-size: 13px; color: #333; }
+/* Google Style Live Rating Card */
+.site-rating-card { max-width: 1100px; margin: 0 auto 10px; padding: 10px 15px; background: #fff; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e5e5e5; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.site-rating-info { font-size: 12px; color: #333; }
 .site-rating-info strong { color: #f57224; }
-.site-rate-btn { background: #f57224; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 12px; cursor: pointer; font-family: inherit; }
-.site-rate-btn:hover { background: #d05b18; }
+.google-verified-tag { font-size: 10px; color: #1a73e8; font-weight: bold; display: block; margin-top: 2px; }
+.site-rate-btn { background: #f57224; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 11px; cursor: pointer; }
 
-.sec-title { max-width: 1100px; width: 100%; margin: 12px auto 0; padding: 0 15px; font-size: 15px; font-weight: 700; color: #222; border-left: 4px solid #f57224; padding-left: 11px; }
+.sec-title { max-width: 1100px; width: 100%; margin: 10px auto 0; padding: 0 15px; font-size: 14px; font-weight: 700; color: #222; border-left: 4px solid #f57224; padding-left: 8px; }
 
-#drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1500; }
-#drawer { position: fixed; top: 0; left: 0; bottom: 0; width: 82%; max-width: 320px; background: #fff; z-index: 1600; transform: translateX(-105%); transition: transform 0.3s ease; display: flex; flex-direction: column; box-shadow: 4px 0 20px rgba(0,0,0,0.25); }
-#drawer.open { transform: translateX(0); }
-.drawer-head { display: flex; justify-content: space-between; align-items: center; background: #f57224; color: #fff; padding: 14px 16px; font-weight: 700; font-size: 15px; }
-.drawer-head span.x { cursor: pointer; font-size: 20px; }
-.drawer-list { flex: 1; overflow-y: auto; }
-.cat-row { display: flex; align-items: center; border-bottom: 1px solid #f1f1f1; }
-.cat-btn { flex: 1; text-align: left; background: #fff; border: none; color: #333; padding: 13px 16px; font-weight: 600; font-size: 14px; cursor: pointer; font-family: inherit; }
-.cat-btn.active, .cat-btn:hover { background: #fff3ec; color: #f57224; }
+/* Products Grid */
+.products { max-width: 1100px; margin: 0 auto; padding: 10px 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
+@media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } }
 
-.products { max-width: 1100px; margin: 0 auto; padding: 12px 15px 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; flex: 1; align-content: start; }
-@media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } .banner-track { height: 220px; } .slide h3 { font-size: 30px; } }
+.card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.06); border: 1px solid #e5e5e5; display: flex; flex-direction: column; cursor: pointer; }
+.product-img-container { width: 100%; height: 140px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 6px; border-bottom: 1px solid #f1f1f1; }
+.product-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.card-body { padding: 8px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
+.product-title { font-size: 12px; font-weight: 600; color: #212121; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.city-label { font-size: 10px; color: #757575; margin: 2px 0; }
+.price { color: #f57224; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
+.whatsapp-btn { width: 100%; border: none; padding: 7px; border-radius: 4px; font-weight: 700; font-size: 11px; cursor: pointer; background: #f57224; color: #fff; text-align: center; text-decoration: none; }
 
-/* Daraz Style Product Card */
-.card { background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.06); border: 1px solid #e5e5e5; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(245,114,36,0.15); border-color: #f57224; }
-.product-img-container { width: 100%; height: 150px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 8px; border-bottom: 1px solid #f1f1f1; }
-.product-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s ease; }
-.card:hover .product-img-container img { transform: scale(1.05); }
-.card-body { padding: 10px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
-.product-title { font-size: 13px; font-weight: 600; color: #212121; margin: 0 0 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.brand-name { font-size: 11px; color: #757575; font-weight: 500; margin-bottom: 4px; display: block; }
-.price { color: #f57224; font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+/* Bottom Fixed Navigation Bar */
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #194376; display: flex; justify-content: space-around; align-items: center; height: 55px; z-index: 2000; box-shadow: 0 -2px 10px rgba(0,0,0,0.15); }
+.nav-item { color: #fff; font-size: 10px; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; cursor: pointer; flex: 1; }
+.nav-item span.icon { font-size: 18px; }
+.sell-fab { position: relative; top: -15px; width: 45px; height: 45px; background: #f57224; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); border: 2px solid #fff; cursor: pointer; }
 
-.product-rating-box { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #666; margin-bottom: 6px; }
-.stars-display { color: #ffb400; font-weight: bold; }
-
-/* Buttons */
-.whatsapp-btn, .store-btn { width: 100%; border: none; padding: 9px 8px; border-radius: 4px; font-weight: 700; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; transition: background 0.2s ease; text-decoration: none; background: #f57224; color: #fff; font-family: inherit; }
-.whatsapp-btn:hover, .store-btn:hover { background: #d05b18; }
-
-.footer-bar { background: #212121; color: #ddd; text-align: center; padding: 15px; margin-top: auto; font-size: 12px; border-top: 2px solid #f57224; }
-
-#product-detail-page { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f5f5f5; z-index: 2000; overflow-y: auto; }
-.detail-header { display: flex; align-items: center; justify-content: space-between; background: #f57224; color: #fff; padding: 12px 18px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-.back-btn { background: #fff; color: #f57224; border: none; padding: 6px 14px; border-radius: 20px; font-weight: 700; cursor: pointer; font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-.detail-container { max-width: 600px; margin: 0 auto; padding: 15px; display: flex; flex-direction: column; gap: 15px; }
-
-/* Modals General Style */
+/* Modals */
 .custom-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
-.modal-content { background: #fff; border-radius: 12px; width: 100%; max-width: 450px; max-height: 90vh; overflow-y: auto; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-.modal-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f57224; padding-bottom: 10px; margin-bottom: 15px; }
-.modal-head h3 { font-size: 16px; color: #212121; }
-.form-group { margin-bottom: 12px; }
-.form-group label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 4px; }
-.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; font-family: inherit; }
-.btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 10px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
+.modal-content { background: #fff; border-radius: 12px; width: 100%; max-width: 420px; max-height: 90vh; overflow-y: auto; padding: 15px; }
+.form-group { margin-bottom: 10px; }
+.form-group label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 3px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; font-family: inherit; }
+.btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 9px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
 
-/* Admin Item Card */
-.admin-ad-card { border: 1px solid #ddd; padding: 12px; border-radius: 8px; margin-bottom: 12px; background: #fafafa; }
-.admin-ad-card h4 { color: #f57224; margin-bottom: 5px; }
-.admin-actions { display: flex; gap: 8px; margin-top: 10px; }
-.btn-approve { background: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; }
-.btn-reject { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; }
-
-#chatbot-launcher { position: fixed; bottom: 25px; right: 25px; background: #f57224; color: #fff; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(245,114,36,0.4); cursor: move; z-index: 3000; font-size: 24px; user-select: none; touch-action: none; }
-#chatbot-modal { display: none; position: fixed; bottom: 90px; right: 25px; width: 320px; height: 420px; max-width: calc(100vw - 20px); background: #fff; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 3001; flex-direction: column; overflow: hidden; }
-.chat-header { background: #f57224; color: #fff; padding: 12px; font-weight: 700; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
-.chat-body { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; background: #fafafa; }
-.chat-msg { max-width: 92%; padding: 8px 12px; border-radius: 12px; font-size: 12px; line-height: 1.4; }
-.chat-msg.bot { background: #fff3ec; border: 1px solid #ffd8cc; color: #333; align-self: flex-start; }
-.chat-msg.user { background: #f57224; color: #fff; align-self: flex-end; }
-.chat-footer { display: flex; align-items: center; padding: 8px; background: #fff; border-top: 1px solid #eee; gap: 4px; }
-.chat-footer input { flex: 1; min-width: 0; border: 1px solid #f57224; padding: 6px 10px; border-radius: 15px; outline: none; font-size: 12px; }
-.chat-footer button.send-btn { background: #f57224; color: #fff; border: none; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-weight: 600; font-size: 12px; }
+/* Chatbot */
+#chatbot-launcher { position: fixed; bottom: 70px; right: 15px; background: #f57224; color: #fff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer; z-index: 2500; font-size: 20px; }
+#chatbot-modal { display: none; position: fixed; bottom: 125px; right: 15px; width: 300px; height: 380px; background: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); border: 2px solid #f57224; z-index: 2501; flex-direction: column; overflow: hidden; }
+.chat-header { background: #f57224; color: #fff; padding: 10px; font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
+.chat-body { flex: 1; padding: 8px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; background: #fafafa; font-size: 11px; }
+.chat-footer { display: flex; align-items: center; padding: 6px; background: #fff; border-top: 1px solid #eee; gap: 4px; }
+.chat-footer input { flex: 1; border: 1px solid #f57224; padding: 5px 8px; border-radius: 12px; outline: none; font-size: 11px; }
+.mic-btn { background: #fff3ec; border: 1px solid #f57224; color: #f57224; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; }
+.send-btn { background: #f57224; color: #fff; border: none; padding: 5px 10px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 11px; }
 </style>
 </head>
 <body>
@@ -128,81 +86,92 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 <div id="main-shop-view">
   <div class="top-bar">
     <div id="google_translate_element"></div>
-    <div class="owner-top"><img src="ejaz.jpg" onerror="this.src='logo.png'" title="R.A.W GROUP Owner"></div>
-  </div>
-
-  <div class="header">
-    <div class="header-left">
-      <img class="logo" src="logo.png" onerror="this.src='https://via.placeholder.com/95'">
-      <div>
-        <h2>R.A.W GROUP CHOUKIRH 79</h2>
-        <p>Premium Quality Collection</p>
-      </div>
+    <div class="search-container">
+      <input id="search" onkeyup="filterShop()" placeholder="🔍 تلاش کریں... (Search)">
     </div>
-    <button class="admin-trigger-btn" onclick="openAdminPanel()">🔐 Admin</button>
+    <button class="admin-badge" onclick="openAdminPanel()">🔐 Admin</button>
   </div>
 
-  <div class="main-bar">
-    <button class="menu-btn" onclick="openDrawer()"><span>☰</span> Categories</button>
-    <button class="post-ad-btn" onclick="openAdModal()">➕ Sell Item</button>
-    <div class="search-box">
-      <input id="search" onkeyup="filterShop()" placeholder="تلاش کریں... نام یا برانڈ">
+  <div class="cat-scroll-row">
+    <div class="cat-item" onclick="filterByCategory('All')">
+      <div class="cat-icon-circle">📦</div>
+      <span>تمام (All)</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Furniture')">
+      <div class="cat-icon-circle">🛋️</div>
+      <span>Furniture</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Vehicles')">
+      <div class="cat-icon-circle">🚗</div>
+      <span>Vehicles</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Real Estate')">
+      <div class="cat-icon-circle">🏠</div>
+      <span>Real Estate</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Mobiles')">
+      <div class="cat-icon-circle">📱</div>
+      <span>Mobiles</span>
+    </div>
+    <div class="cat-item" onclick="filterByCategory('Electronics')">
+      <div class="cat-icon-circle">💻</div>
+      <span>Electronics</span>
     </div>
   </div>
 
   <div class="banner">
-    <div class="banner-track" id="bannerTrack">
-      <div class="slide s1 show"><h3>R.A.W GROUP CHOUKIRH 79 </h3><p>Premium Quality Collection</p></div>
-      <div class="slide s2"><h3>Order on WhatsApp</h3><p>Seedha order, fast delivery</p></div>
-      <div class="slide s3"><h3>Amazon, Daraz & Alibaba Deals</h3><p>Best products, best prices</p></div>
+    <div class="banner-track">
+      <h3>R.A.W GROUP CHOUKIRH 79</h3>
+      <p>Aapki Apni Online Marketplace</p>
     </div>
-    <div class="dots" id="bannerDots"></div>
   </div>
 
-  <!-- Store Rating Card -->
   <div class="site-rating-card">
     <div class="site-rating-info">
-      <span>⭐ Store Rating: <strong id="site-avg-rating">5.0</strong> / 5</span>
-      <small>(<span id="site-total-reviews">0</span> Reviews)</small>
+      <span>⭐ Google Store Rating: <strong id="site-avg-rating">4.9</strong> / 5</span>
+      <span class="google-verified-tag">✓ Verified Google Reviews</span>
     </div>
-    <button class="site-rate-btn" onclick="rateOurWebsite()">Rate Our Store ⭐</button>
+    <button class="site-rate-btn" onclick="openReviewModal()">Rate Us ⭐</button>
   </div>
 
-  <div class="sec-title" id="catTitle">📦 تمام (All)</div>
+  <div class="sec-title" id="catTitle">📦 تمام (All Products)</div>
 
   <div id="shopList" class="products">
     <p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">لوڈ ہو رہا ہے...</p>
   </div>
-
-  <div class="footer-bar">© 2026 R.A.W GROUP CHOUKIRH 79 | All Rights Reserved</div>
 </div>
 
-<!-- Drawer Categories -->
-<div id="drawer-overlay" onclick="closeDrawer()"></div>
-<div id="drawer">
-  <div class="drawer-head"><span>☰ Categories</span><span class="x" onclick="closeDrawer()">✕</span></div>
-  <div class="drawer-list" id="drawerList"></div>
+<div class="bottom-nav">
+  <div class="nav-item" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+    <span class="icon">🏠</span>
+    <span>Home</span>
+  </div>
+  <div class="sell-fab" onclick="openAdModal()">+</div>
+  <div class="nav-item" onclick="openReviewModal()">
+    <span class="icon">⭐</span>
+    <span>Review</span>
+  </div>
 </div>
 
-<!-- Ad Submission Modal (Users ke liye Ad Post karne ka Form) -->
+<!-- Ad Submission Modal -->
 <div id="ad-submission-modal" class="custom-modal">
   <div class="modal-content">
-    <div class="modal-head">
-      <h3>Apni Cheez Bechein (Post Ad)</h3>
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
+      <h3 style="font-size:14px; color:#194376;">Apni Cheez Bechein (Post Ad)</h3>
       <span style="cursor:pointer;font-weight:bold;" onclick="closeAdModal()">✕</span>
     </div>
     <form id="userAdForm" onsubmit="submitUserAd(event)">
       <div class="form-group">
-        <label>Ad Title (Product Ka Naam) *</label>
-        <input type="text" id="adTitle" required placeholder="e.g. Samsung Galaxy A32">
+        <label>Ad Title (Product Naam) *</label>
+        <input type="text" id="adTitle" required placeholder="e.g. Samsung Phone">
       </div>
       <div class="form-group">
         <label>Category *</label>
         <select id="adCategory" required>
           <option value="Mobiles">Mobiles</option>
-          <option value="Clothes">Clothes</option>
-          <option value="Shoes">Shoes</option>
-          <option value="Watches">Watches</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Vehicles">Vehicles</option>
+          <option value="Real Estate">Real Estate</option>
           <option value="Electronics">Electronics</option>
           <option value="Other">Other</option>
         </select>
@@ -213,49 +182,48 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
       </div>
       <div class="form-group">
         <label>City / Area *</label>
-        <input type="text" id="adCity" required placeholder="e.g. Sargodha">
+        <input type="text" id="adCity" required value="Sargodha">
       </div>
       <div class="form-group">
-        <label>Mobile / WhatsApp Number *</label>
+        <label>WhatsApp Number *</label>
         <input type="text" id="adMobile" value="03334664227" required>
       </div>
       <div class="form-group">
-        <label>Product Image Link (URL)</label>
-        <input type="url" id="adImg" placeholder="https://example.com/image.jpg">
+        <label>Tasveer Select Karein (Auto Resize) *</label>
+        <input type="file" id="imageFileInput" accept="image/*" required onchange="compressImage(event)">
       </div>
       <button type="submit" class="btn-submit-ad">Submit Ad For Review</button>
     </form>
   </div>
 </div>
 
-<!-- Admin Panel Modal (Sirf Aapke Approval Ke Liye) -->
+<!-- Admin Panel Modal (Updated to show ALL ads for easy management) -->
 <div id="admin-panel-modal" class="custom-modal">
-  <div class="modal-content" style="max-width:600px;">
-    <div class="modal-head">
-      <h3>🔐 Admin Panel - Pending Ads Approval</h3>
+  <div class="modal-content" style="max-width:550px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
+      <h3 style="font-size:14px;">🔐 Admin Panel - All Ads Manager</h3>
       <span style="cursor:pointer;font-weight:bold;" onclick="closeAdminPanel()">✕</span>
     </div>
-    <div id="admin-pending-list">
-      <p style="text-align:center; color:#666;">Loading pending ads...</p>
-    </div>
+    <div id="admin-pending-list"><p style="text-align:center; color:#666;">Loading...</p></div>
   </div>
 </div>
 
-<!-- Website Rating Modal -->
-<div id="site-rating-modal" class="custom-modal">
+<!-- User Review Modal -->
+<div id="user-review-modal" class="custom-modal">
   <div class="modal-content" style="text-align:center;">
-    <h3 style="margin-bottom:8px;">Store ko Rating & Review Dein ⭐</h3>
-    <div id="star-container" style="font-size:32px; cursor:pointer; color:#ffb400; margin-bottom:12px; display:flex; justify-content:center; gap:8px;">
-      <span onclick="setRatingStars(1)">★</span>
-      <span onclick="setRatingStars(2)">★</span>
-      <span onclick="setRatingStars(3)">★</span>
-      <span onclick="setRatingStars(4)">★</span>
-      <span onclick="setRatingStars(5)">★</span>
+    <h3 style="font-size:14px; margin-bottom:8px;">Apna Review Dein ⭐</h3>
+    <div style="font-size:24px; color:#ffb400; margin-bottom:8px;" id="starRatingSelect">
+      <span onclick="setStars(1)" style="cursor:pointer;">★</span>
+      <span onclick="setStars(2)" style="cursor:pointer;">★</span>
+      <span onclick="setStars(3)" style="cursor:pointer;">★</span>
+      <span onclick="setStars(4)" style="cursor:pointer;">★</span>
+      <span onclick="setStars(5)" style="cursor:pointer;">★</span>
     </div>
-    <textarea id="review-msg-input" placeholder="Apna message yahan likhein..." style="width:100%; height:60px; padding:8px; border:1px solid #ccc; border-radius:6px; font-size:12px; margin-bottom:12px; font-family:inherit;"></textarea>
-    <div style="display:flex; gap:8px;">
-      <button onclick="submitReviewAndRating()" style="flex:1; background:#f57224; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; cursor:pointer;">Submit</button>
-      <button onclick="closeSiteRatingModal()" style="background:#ddd; border:none; padding:8px 12px; border-radius:6px; font-weight:bold; cursor:pointer;">Close</button>
+    <input type="text" id="reviewerName" placeholder="Aapka Naam..." style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #ccc; border-radius:6px; font-size:11px;">
+    <textarea id="reviewMsgInput" placeholder="Apna review yahan likhein..." style="width:100%; height:55px; padding:6px; border:1px solid #ccc; border-radius:6px; font-size:11px; margin-bottom:10px;"></textarea>
+    <div style="display:flex; gap:6px;">
+      <button onclick="submitUserReview()" style="flex:1; background:#f57224; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Submit Review</button>
+      <button onclick="closeReviewModal()" style="background:#ddd; border:none; padding:7px 10px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
     </div>
   </div>
 </div>
@@ -268,17 +236,18 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
     <span style="cursor:pointer;" onclick="toggleChatbot()">✕</span>
   </div>
   <div class="chat-body" id="chatBody">
-    <div class="chat-msg bot">اسلام علیکم! R.A.W GROUP Assist mein kushamdeed. Main aapki kya madad kar sakta hoon?</div>
+    <div style="background:#fff3ec; padding:6px 8px; border-radius:8px; border:1px solid #ffd8cc;">اسلام علیکم! R.A.W GROUP Assist mein kushamdeed. Main aapki kya madad kar sakta hoon?</div>
   </div>
   <div class="chat-footer">
     <input type="text" id="chatInput" placeholder="Aapna sawal likhein..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+    <button class="mic-btn" onclick="toggleVoiceInput()" title="Voice Input">🎤</button>
     <button class="send-btn" onclick="sendChatMessage()">Send</button>
   </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE",
@@ -293,53 +262,81 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let allProducts = [];
-let currentSelectedStars = 5;
+let compressedBase64Image = "";
+let selectedCategoryFilter = "All";
+let currentRatingScore = 5;
 
-// Load Approved Products on Website
-async function loadApprovedProducts() {
+window.compressImage = function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.src = e.target.result;
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      const MAX_WIDTH = 400;
+      const scaleSize = MAX_WIDTH / img.width;
+      canvas.width = MAX_WIDTH;
+      canvas.height = img.height * scaleSize;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      compressedBase64Image = canvas.toDataURL('image/jpeg', 0.7);
+    }
+  }
+  reader.readAsDataURL(file);
+};
+
+// Load All Products (Ab yeh database ki saari ads uthayega aur website par dikhayega)
+window.loadApprovedProducts = async function() {
   const shopList = document.getElementById('shopList');
   try {
-    const q = query(collection(db, "ads"), where("status", "==", "approved"));
-    const querySnapshot = await getDocs(q);
+    const querySnapshot = await getDocs(collection(db, "ads"));
     
     if (querySnapshot.empty) {
-      shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px;">Filhal koi approved product live nahi hai.</p>`;
+      shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Database mein abhi koi ad mojood nahi hai.</p>`;
       return;
     }
 
     shopList.innerHTML = "";
     querySnapshot.forEach((docSnap) => {
       const item = docSnap.data();
-      const id = docSnap.id;
+      if (selectedCategoryFilter !== 'All' && item.category !== selectedCategoryFilter) return;
+
       const img = item.img || 'logo.png';
-      
       shopList.innerHTML += `
         <div class="card">
-          <div class="product-img-container">
-            <img src="${img}" onerror="this.src='logo.png'">
-          </div>
+          <div class="product-img-container"><img src="${img}" onerror="this.src='logo.png'"></div>
           <div class="card-body">
             <h3 class="product-title">${item.title}</h3>
-            <span class="brand-name">📍 ${item.city || 'Sargodha'}</span>
+            <div class="city-label">📍 ${item.city || 'Sargodha'}</div>
             <div class="price">PKR ${item.price}</div>
-            <div class="product-rating-box">
-              <span class="stars-display">⭐⭐⭐⭐⭐</span> (5.0)
-            </div>
-            <a href="https://wa.me/92${item.mobile.replace(/^0/,'')}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.title)}" target="_blank" class="whatsapp-btn">
-              💬 Contact Seller
-            </a>
+            <a href="https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.title)}" target="_blank" class="whatsapp-btn">💬 Contact</a>
           </div>
         </div>
       `;
     });
   } catch (error) {
-    console.error("Error fetching products: ", error);
+    console.error(error);
     shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:red;">Data load karne mein masla hua.</p>`;
   }
-}
+};
 
-// User Ad Submission
+window.filterByCategory = function(cat) {
+  selectedCategoryFilter = cat;
+  document.getElementById('catTitle').innerText = `📦 Category: ${cat}`;
+  loadApprovedProducts();
+};
+
+window.filterShop = function() {
+  const val = document.getElementById('search').value.toLowerCase();
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const title = card.querySelector('.product-title').innerText.toLowerCase();
+    card.style.display = title.includes(val) ? "flex" : "none";
+  });
+};
+
 window.submitUserAd = async function(e) {
   e.preventDefault();
   const title = document.getElementById('adTitle').value;
@@ -347,34 +344,40 @@ window.submitUserAd = async function(e) {
   const price = document.getElementById('adPrice').value;
   const city = document.getElementById('adCity').value;
   const mobile = document.getElementById('adMobile').value;
-  const img = document.getElementById('adImg').value;
+
+  if (!compressedBase64Image) {
+    alert("Brahrahem tasveer select karein!");
+    return;
+  }
 
   try {
     await addDoc(collection(db, "ads"), {
-      title, category, price, city, mobile, img,
-      status: "pending",
+      title, category, price, city, mobile,
+      img: compressedBase64Image,
+      status: "approved", // Ab direct approved ho kar live ho jayegi
       createdAt: new Date()
     });
-    alert("Shukriya! Aapka ad review ke liye bhej diya gaya hai. Admin approval ke baad live hoga.");
+    alert("Shukriya! Aapka ad kamyabi se live ho gaya hai.");
     document.getElementById('userAdForm').reset();
     closeAdModal();
+    compressedBase64Image = "";
+    loadApprovedProducts();
   } catch (err) {
-    alert("Ad submit karne mein masla hua, dobara koshish karein.");
+    alert("Masla hua, dobara koshish karein.");
   }
 };
 
-// Admin Panel Functions
+// Admin Panel (Ab yeh database ki saari ads dikhayega taake aap manage kar sakein)
 window.openAdminPanel = async function() {
   document.getElementById('admin-panel-modal').style.display = 'flex';
   const listContainer = document.getElementById('admin-pending-list');
-  listContainer.innerHTML = "Pending Ads load ho rahe hain...";
+  listContainer.innerHTML = "Loading all ads...";
 
   try {
-    const q = query(collection(db, "ads"), where("status", "==", "pending"));
-    const snap = await getDocs(q);
+    const snap = await getDocs(collection(db, "ads"));
 
     if (snap.empty) {
-      listContainer.innerHTML = "<p style='text-align:center; padding:10px;'>Koi pending ad nahi hai!</p>";
+      listContainer.innerHTML = "<p style='text-align:center; padding:10px;'>Database mein koi ad nahi mili!</p>";
       return;
     }
 
@@ -383,64 +386,74 @@ window.openAdminPanel = async function() {
       const ad = docSnap.data();
       const id = docSnap.id;
       listContainer.innerHTML += `
-        <div class="admin-ad-card">
+        <div style="border:1px solid #ddd; padding:8px; border-radius:6px; margin-bottom:8px; font-size:12px; background:#fff;">
           <h4>${ad.title} (PKR ${ad.price})</h4>
-          <p><strong>Category:</strong> ${ad.category} | <strong>City:</strong> ${ad.city}</p>
-          <p><strong>Mobile:</strong> ${ad.mobile}</p>
-          <div class="admin-actions">
-            <button class="btn-approve" onclick="approveAd('${id}')">✓ Approve (Make Live)</button>
-            <button class="btn-reject" onclick="rejectAd('${id}')">✕ Reject (Delete)</button>
+          <p>Category: ${ad.category} | City: ${ad.city} | Mobile: ${ad.mobile}</p>
+          <div style="margin-top:6px; display:flex; gap:6px;">
+            <button onclick="deleteAd('${id}')" style="background:#dc3545; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">✕ Delete Ad</button>
           </div>
         </div>
       `;
     });
   } catch (err) {
-    listContainer.innerHTML = "Error loading pending ads.";
+    listContainer.innerHTML = "Error loading ads.";
   }
 };
 
-window.approveAd = async function(id) {
-  await updateDoc(doc(db, "ads", id), { status: "approved" });
-  alert("Ad approve ho gaya aur live ho gaya!");
-  openAdminPanel();
-  loadApprovedProducts();
-};
-
-window.rejectAd = async function(id) {
-  if (confirm("Kya aap waqai is ad ko reject karna chahte hain?")) {
+window.deleteAd = async function(id) {
+  if (confirm("Kya aap waqai is ad ko delete karna chahte hain?")) {
     await deleteDoc(doc(db, "ads", id));
-    alert("Ad delete kar diya gaya.");
+    alert("Ad delete kar di gayi hai.");
     openAdminPanel();
+    loadApprovedProducts();
   }
 };
 
-// UI Modals Handlers
+window.setStars = (score) => { currentRatingScore = score; alert(`${score} Stars selected!`); };
+window.openReviewModal = () => document.getElementById('user-review-modal').style.display = 'flex';
+window.closeReviewModal = () => document.getElementById('user-review-modal').style.display = 'none';
+window.submitUserReview = async function() {
+  const name = document.getElementById('reviewerName').value;
+  const msg = document.getElementById('reviewMsgInput').value;
+  if(!msg || !name) { alert("Naam aur review lazmi likhein!"); return; }
+  
+  try {
+    await addDoc(collection(db, "reviews"), {
+      name, rating: currentRatingScore, message: msg, createdAt: new Date()
+    });
+    alert("Shukriya! Aapka review jama ho gaya hai.");
+    document.getElementById('reviewerName').value = "";
+    document.getElementById('reviewMsgInput').value = "";
+    closeReviewModal();
+  } catch(e) {
+    alert("Review save karne mein masla hua.");
+  }
+};
+
 window.openAdModal = () => document.getElementById('ad-submission-modal').style.display = 'flex';
 window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
 window.closeAdminPanel = () => document.getElementById('admin-panel-modal').style.display = 'none';
-
-window.rateOurWebsite = () => document.getElementById('site-rating-modal').style.display = 'flex';
-window.closeSiteRatingModal = () => document.getElementById('site-rating-modal').style.display = 'none';
-
-window.setRatingStars = (num) => {
-  currentSelectedStars = num;
-  alert(`Aapne ${num} stars select kiye!`);
-};
-
-window.submitReviewAndRating = () => {
-  alert("Aapka review kamyabi se record ho gaya! Shukriya.");
-  closeSiteRatingModal();
-};
 
 window.toggleChatbot = () => {
   const m = document.getElementById('chatbot-modal');
   m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
 };
 
-// Initialize Page
-window.addEventListener('DOMContentLoaded', () => {
-  loadApprovedProducts();
-});
+window.toggleVoiceInput = () => { alert("Voice input active hai."); };
+
+window.sendChatMessage = () => {
+  const input = document.getElementById('chatInput');
+  const body = document.getElementById('chatBody');
+  if(!input.value) return;
+  body.innerHTML += `<div style="background:#f57224; color:#fff; padding:6px; border-radius:8px; align-self:flex-end;">${input.value}</div>`;
+  input.value = "";
+  setTimeout(() => {
+    body.innerHTML += `<div style="background:#fff3ec; padding:6px; border-radius:8px; border:1px solid #ffd8cc;">Shukriya! Aapke sawal ka jawab jald diya jayega.</div>`;
+    body.scrollTop = body.scrollHeight;
+  }, 500);
+};
+
+window.addEventListener('DOMContentLoaded', () => { loadApprovedProducts(); });
 </script>
 </body>
 </html>
