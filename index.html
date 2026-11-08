@@ -99,7 +99,7 @@ function googleTranslateElementInit() {
   <div class="top-bar">
     <div id="google_translate_element"></div>
     <div class="owner-branding">
-      <img src="./ejaj.jpg" onerror="this.onerror=function(){this.src='./logo.png';}; this.src='./logo.png';" title="Ejaz Ahmad">
+      <img src="./ejaz.jpg" onerror="this.onerror=function(){this.src='./logo.png';}; this.src='./logo.png';" title="Ejaz Ahmad">
       <img src="./logo.png" onerror="this.style.display='none';" title="R.A.W Group">
     </div>
   </div>
@@ -155,8 +155,6 @@ function googleTranslateElementInit() {
   <div id="shopList" class="products">
     <p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">لوڈ ہو رہا ہے...</p>
   </div>
-  
-  <div id="loadMoreIndicator" style="text-align:center; padding:15px; font-size:12px; color:#666; display:none;">مزید لوڈ ہو رہا ہے...</div>
 </div>
 
 <!-- Product Detail Modal -->
@@ -215,4 +213,347 @@ function googleTranslateElementInit() {
       </div>
       <div class="form-group">
         <label>Payment Method *</label>
-        <select id="custPaymentMethod" onchange="togglePaymentInstructions(this.value
+        <select id="custPaymentMethod" onchange="togglePaymentInstructions(this.value)" required>
+          <option value="Cash on Delivery">Cash on Delivery (COD)</option>
+          <option value="Meezan Bank Transfer">Meezan Bank Transfer</option>
+          <option value="Easypaisa / JazzCash / Raast">Easypaisa / JazzCash / Raast</option>
+          <option value="International Card Transfer">Elevate Pay / International Transfer</option>
+        </select>
+      </div>
+      <div id="securePaymentInfo" style="display:none; background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px; color:#333;">
+        <b>🔒 Official R.A.W Group Account Details:</b><br>
+        • JazzCash / Easypaisa: <b>0333-4664227 (Ejaz Ahmad)</b>
+      </div>
+      <div class="form-group">
+        <label>Delivery Address / Country & City *</label>
+        <textarea id="custAddress" rows="2" required placeholder="Poora pata likhein..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit-ad" style="background:#f57224;">Confirm Order</button>
+    </form>
+  </div>
+</div>
+
+<!-- User Review Modal -->
+<div id="user-review-modal" class="custom-modal">
+  <div class="modal-content" style="text-align:center;">
+    <h3 style="font-size:14px; margin-bottom:8px;">Apna Review Dein ⭐</h3>
+    <div style="font-size:24px; color:#ffb400; margin-bottom:8px;" id="starRatingSelect">
+      <span onclick="setStars(1)" style="cursor:pointer;">★</span>
+      <span onclick="setStars(2)" style="cursor:pointer;">★</span>
+      <span onclick="setStars(3)" style="cursor:pointer;">★</span>
+      <span onclick="setStars(4)" style="cursor:pointer;">★</span>
+      <span onclick="setStars(5)" style="cursor:pointer;">★</span>
+    </div>
+    <input type="text" id="reviewerName" placeholder="Aapka Naam..." style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #ccc; border-radius:6px; font-size:11px;">
+    <textarea id="reviewMsgInput" placeholder="Review likhein..." style="width:100%; height:50px; padding:6px; border:1px solid #ccc; border-radius:6px; font-size:11px; margin-bottom:6px;"></textarea>
+    <div class="form-group" style="text-align:left; margin-bottom:8px;">
+      <label style="font-size:10px;">Tasveer (Optional)</label>
+      <input type="file" id="reviewImageInput" accept="image/*" onchange="compressReviewImage(event)" style="font-size:10px; padding:4px;">
+    </div>
+    <div style="display:flex; gap:6px;">
+      <button onclick="submitUserReview()" style="flex:1; background:#f57224; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Submit</button>
+      <button onclick="closeReviewModal()" style="background:#ddd; border:none; padding:7px 10px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE",
+  authDomain: "raw-group-shop.firebaseapp.com",
+  projectId: "raw-group-shop",
+  storageBucket: "raw-group-shop.firebasestorage.app",
+  messagingSenderId: "488689802066",
+  appId: "1:488689802066:web:1437531e15df63e958388b"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let uploadedImagesArray = [];
+let compressedReviewBase64 = "";
+let selectedCategoryFilter = "All";
+let currentRatingScore = 5;
+let allProductsCache = [];
+let selectedOrderProduct = null;
+
+window.togglePlusMenu = function() {
+  const menu = document.getElementById('plus-action-menu');
+  menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+};
+
+window.closePlusMenu = function() {
+  document.getElementById('plus-action-menu').style.display = 'none';
+};
+
+/* 3-Page Sliding Banner Logic */
+let slideIndex = 0;
+const bannerColors = [
+  "linear-gradient(135deg, #194376, #f57224)",
+  "linear-gradient(135deg, #2e7d32, #ff9900)",
+  "linear-gradient(135deg, #8e24aa, #194376)"
+];
+
+function showSlides() {
+  const slides = document.getElementsByClassName("banner-slide");
+  const dots = document.getElementsByClassName("banner-dot");
+  const track = document.getElementById("bannerTrack");
+  
+  if (!slides || slides.length === 0) return;
+
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].classList.remove("active");
+    if(dots[i]) dots[i].classList.remove("active");
+  }
+  
+  slideIndex++;
+  if (slideIndex > slides.length) { slideIndex = 1; }
+  
+  if(slides[slideIndex - 1]) slides[slideIndex - 1].classList.add("active");
+  if(dots[slideIndex - 1]) dots[slideIndex - 1].classList.add("active");
+  if(track) track.style.background = bannerColors[slideIndex - 1];
+  
+  setTimeout(showSlides, 4000);
+}
+
+window.currentSlide = function(n) {
+  slideIndex = n;
+  const slides = document.getElementsByClassName("banner-slide");
+  const dots = document.getElementsByClassName("banner-dot");
+  const track = document.getElementById("bannerTrack");
+
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].classList.remove("active");
+    if(dots[i]) dots[i].classList.remove("active");
+  }
+  if(slides[slideIndex]) slides[slideIndex].classList.add("active");
+  if(dots[slideIndex]) dots[slideIndex].classList.add("active");
+  if(track) track.style.background = bannerColors[slideIndex];
+};
+
+setTimeout(showSlides, 4000);
+
+window.loadApprovedProducts = async function() {
+  const shopList = document.getElementById('shopList');
+  try {
+    const querySnapshot = await getDocs(collection(db, "products"));
+    if (querySnapshot.empty) {
+      shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Database mein abhi koi product mojood nahi hai.</p>`;
+      return;
+    }
+    allProductsCache = [];
+    querySnapshot.forEach((docSnap) => {
+      allProductsCache.push({ id: docSnap.id, ...docSnap.data() });
+    });
+    renderProducts(allProductsCache);
+  } catch (error) {
+    console.error(error);
+    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:red;">Data load karne mein masla hua.</p>`;
+  }
+};
+
+function renderProducts(products) {
+  const shopList = document.getElementById('shopList');
+  shopList.innerHTML = "";
+  let filtered = products.filter(item => {
+    if (selectedCategoryFilter !== 'All' && item.category !== selectedCategoryFilter) return false;
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Is category mein koi product nahi hai.</p>`;
+    return;
+  }
+
+  filtered.forEach((item) => {
+    let imagesList = item.images;
+    if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
+      imagesList = item.img ? [item.img] : ['logo.png'];
+    }
+    const mainImg = imagesList[0];
+    let currencySymbol = item.currency || 'Rs.';
+    let priceVal = item.pricePKR || item.price || 0;
+    let priceDisplay = `${currencySymbol} ${priceVal}`;
+
+    let verifiedBadge = item.isVerifiedSeller ? `<span style="color:#0a8a00; font-size:9px; font-weight:bold;"> ✓ Verified Seller</span>` : '';
+    let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName} ${verifiedBadge}</div>` : '';
+    
+    let actionButtonsHTML = '';
+    if (item.affiliateLink && item.affiliateLink.trim() !== '') {
+      let linkText = item.affiliateLink.includes('amazon') ? '🔗 Amazon Link' : item.affiliateLink.includes('daraz') ? '🔗 Daraz Link' : '🔗 Visit Link';
+      actionButtonsHTML = `<a href="${item.affiliateLink}" target="_blank" class="affiliate-btn">${linkText}</a>`;
+    } else {
+      let contactLink = `https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
+      actionButtonsHTML = `
+        <div class="btn-row">
+          <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
+          <button class="order-btn" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 Order</button>
+        </div>
+      `;
+    }
+
+    shopList.innerHTML += `
+      <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}" data-desc="${(item.description || '').toLowerCase()}">
+        <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='logo.png'"></div>
+        <div class="card-body">
+          <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
+          <span class="category-tag">${item.category || 'General'}</span>
+          <div class="city-label">📍 ${item.brand || item.city || 'Sargodha'}</div>
+          ${sellerInfo}
+          <div class="price">${priceDisplay}</div>
+          ${actionButtonsHTML}
+        </div>
+      </div>
+    `;
+  });
+}
+
+window.filterShop = function() {
+  const val = document.getElementById('search').value.toLowerCase().trim();
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const title = card.getAttribute('data-title') || '';
+    const cat = card.getAttribute('data-category') || '';
+    const city = card.getAttribute('data-city') || '';
+    const desc = card.getAttribute('data-desc') || '';
+
+    if (title.includes(val) || cat.includes(val) || city.includes(val) || desc.includes(val)) {
+      card.style.display = "flex";
+    } else {
+      card.style.display = "none";
+    }
+  });
+};
+
+window.filterByCategory = function(cat) {
+  selectedCategoryFilter = cat;
+  renderProducts(allProductsCache);
+};
+
+window.openProductDetail = function(item) {
+  document.getElementById('detTitle').innerText = item.name || item.title;
+  let currencySymbol = item.currency || 'Rs.';
+  let priceVal = item.pricePKR || item.price || 0;
+  document.getElementById('detPrice').innerText = `Price: ${currencySymbol} ${priceVal}`;
+  document.getElementById('detCategory').innerText = `Category: ${item.category || 'General'}`;
+  document.getElementById('detCity').innerText = `Location: ${item.brand || item.city || 'Sargodha'}`;
+  document.getElementById('detDescription').innerText = item.description || item.desc || 'Mazeed tafseel mojood nahi hai.';
+
+  const imgContainer = document.getElementById('detImagesContainer');
+  imgContainer.innerHTML = "";
+
+  let imagesList = item.images;
+  if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
+    imagesList = item.img ? [item.img] : ['logo.png'];
+  }
+
+  imagesList.forEach((imgSrc, index) => {
+    imgContainer.innerHTML += `
+      <div style="width:100%; text-align:center; background:#fff; padding:4px; border-radius:6px; border:1px solid #e5e5e5;">
+        <img src="${imgSrc}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px;" onerror="this.src='logo.png'">
+      </div>
+    `;
+  });
+
+  const actionDiv = document.getElementById('detActionBtn');
+  if (item.affiliateLink && item.affiliateLink.trim() !== '') {
+    actionDiv.innerHTML = `<a href="${item.affiliateLink}" target="_blank" style="background:#ff9900; color:#000; padding:8px 12px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none; display:block; text-align:center;">🔗 Open Link</a>`;
+  } else {
+    actionDiv.innerHTML = `<button onclick='closeProductDetailModal(); openOrderModal(${JSON.stringify(item).replace(/'/g, "&#39;")})' style="background:#f57224; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; font-size:12px; width:100%; cursor:pointer;">🛒 Secure Order Now</button>`;
+  }
+
+  document.getElementById('product-detail-modal').style.display = 'flex';
+};
+
+window.closeProductDetailModal = () => document.getElementById('product-detail-modal').style.display = 'none';
+
+window.openOrderModal = function(item) {
+  selectedOrderProduct = item;
+  let currencySymbol = item.currency || 'Rs.';
+  let priceText = item.pricePKR || item.price || '0';
+  document.getElementById('orderProductDetails').innerText = `Product: ${item.name || item.title} | Price: ${currencySymbol} ${priceText}`;
+  document.getElementById('order-form-modal').style.display = 'flex';
+};
+window.closeOrderModal = () => document.getElementById('order-form-modal').style.display = 'none';
+
+window.togglePaymentInstructions = function(method) {
+  const infoBox = document.getElementById('securePaymentInfo');
+  if (method !== 'Cash on Delivery') {
+    infoBox.style.display = 'block';
+  } else {
+    infoBox.style.display = 'none';
+  }
+};
+
+window.submitCustomerOrder = async function(e) {
+  e.preventDefault();
+  const name = document.getElementById('custName').value.trim();
+  const mobile = document.getElementById('custMobile').value.trim();
+  const address = document.getElementById('custAddress').value.trim();
+  const paymentMethod = document.getElementById('custPaymentMethod').value;
+
+  if(!name || !mobile || !address) { alert("Tamam fields pur karein!"); return; }
+
+  let totalPrice = Number(selectedOrderProduct.pricePKR || selectedOrderProduct.price || 0);
+  let adminCommission = Math.round(totalPrice * 0.05);
+  let sellerPayout = totalPrice - adminCommission;
+
+  try {
+    const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+    await addDoc(collection(db, "orders"), {
+      productName: selectedOrderProduct.name || selectedOrderProduct.title,
+      productPrice: totalPrice,
+      currency: selectedOrderProduct.currency || 'Rs.',
+      adminCommission: adminCommission,
+      sellerPayout: sellerPayout,
+      sellerName: selectedOrderProduct.sellerName || 'Partner',
+      sellerMobile: selectedOrderProduct.mobile || '03334664227',
+      customerName: name,
+      customerMobile: mobile,
+      customerAddress: address,
+      paymentMethod: paymentMethod,
+      escrowStatus: "Held in Escrow",
+      payoutStatus: "Pending Confirmation",
+      createdAt: serverTimestamp()
+    });
+    alert("Shukriya! Aapka order book ho gaya hai.");
+    document.getElementById('customerOrderForm').reset();
+    closeOrderModal();
+  } catch(err) {
+    alert("Order submit karne mein masla hua.");
+  }
+};
+
+window.setStars = (score) => { currentRatingScore = score; };
+window.openReviewModal = () => document.getElementById('user-review-modal').style.display = 'flex';
+window.closeReviewModal = () => document.getElementById('user-review-modal').style.display = 'none';
+
+window.submitUserReview = async function() {
+  const name = document.getElementById('reviewerName').value.trim();
+  const msg = document.getElementById('reviewMsgInput').value.trim();
+  if(!name || !msg) { alert("Naam aur review message lazmi likhein!"); return; }
+
+  try {
+    const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+    await addDoc(collection(db, "reviews"), {
+      name: name,
+      rating: currentRatingScore,
+      message: msg,
+      createdAt: serverTimestamp()
+    });
+    alert("Shukriya! Review submit ho gaya hai.");
+    document.getElementById('reviewerName').value = "";
+    document.getElementById('reviewMsgInput').value = "";
+    closeReviewModal();
+  } catch(err) {
+    alert("Review submit karne mein masla hua.");
+  }
+};
+
+window.addEventListener('DOMContentLoaded', function() { loadApprovedProducts(); });
+</script>
+</body>
+</html>
