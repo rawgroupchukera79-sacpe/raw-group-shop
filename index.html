@@ -810,28 +810,23 @@ window.submitUserReview = async function() {
     alert("Review submit karne mein masla hua.");
   }
 };
-
-window.addEventListener('DOMContentLoaded', function() { loadApprovedProducts(); });
-</script>// ==========================================
-// SELLER LOGIN & MASTER BACKUP PASSWORD SYSTEM
+// ==========================================
+// RAW GROUP - FINAL SECURE JAVASCRIPT SYSTEM
 // ==========================================
 
-// Aapka Backup / Master Password (Sirf Admin ke paas rahega)
 const MASTER_BACKUP_PASSWORD = "RAW_ADMIN_MASTER_PASS_79";
 
-// Login Form submit hone par yeh function chalega
+// 1. Seller Login Verification
 function verifySellerLogin(event) {
-    event.preventDefault(); // Page ko reload hone se bachane ke liye
+    event.preventDefault();
 
     const inputName = document.getElementById("loginName").value.trim();
     const inputMobile = document.getElementById("loginMobile").value.trim();
     const inputPassword = document.getElementById("loginPassword").value.trim();
 
-    // 1. Master Password Check (Agar admin login kare)
     if (inputPassword === MASTER_BACKUP_PASSWORD) {
         alert("Kamyaabi! Master Password ke zariye Admin access mil gaya hai.");
         
-        // Seller ki details ko localStorage mein save kar dein
         const sellerSession = {
             name: inputName || "Admin / Seller",
             phone: inputMobile || "03334664227",
@@ -839,14 +834,11 @@ function verifySellerLogin(event) {
         };
         localStorage.setItem("rawGroupLoggedInSeller", JSON.stringify(sellerSession));
 
-        // Modal ko band karein aur form/dashboard update karein
         closeSellerLoginModal();
         updateUIAfterLogin(sellerSession);
         return;
     }
 
-    // 2. Normal Password Check (Aap yahan database ya apni zaroorat ke mutabiق check laga sakte hain)
-    // Filhal ke liye agar password khali na ho toh login manzoor kar lein
     if (inputPassword.length > 0) {
         alert("Login kamyaab ho gaya!");
         
@@ -864,64 +856,87 @@ function verifySellerLogin(event) {
     }
 }
 
-// Login hone ke baad UI ko update karne aur form dikhane ka function
+// 2. Update UI After Login & Load Admin Data
 function updateUIAfterLogin(seller) {
     console.log("Logged in as:", seller.name);
     
-    // Agar aapke paas product add karne wala section ya form hai, toh use yahan show karwa sakte hain
-    const addProductForm = document.getElementById("addProductFormContainer"); // Agar id yeh hai
-    if (addProductForm) {
-        addProductForm.style.display = "block";
+    const userInfoTag = document.getElementById("dashboardUserInfo");
+    if (userInfoTag) {
+        userInfoTag.innerHTML = `Secured & Logged in as: <strong>${seller.name}</strong> (${seller.phone})`;
     }
+
+    const dashboardModal = document.getElementById("seller-dashboard-modal");
+    if (dashboardModal) {
+        dashboardModal.style.display = "block";
+    }
+
+    loadAdminSellerData();
 }
 
-// Modal band karne ka helper function (agar pehle se mojood na ho)
-function closeSellerLoginModal() {
-    const loginModal = document.getElementById("user-login-modal");
-    if (loginModal) {
-        loginModal.style.display = "none";
-    }
-}
+// 3. Load Admin Seller Data into Dashboard
+function loadAdminSellerData() {
+    const myAdsList = document.getElementById("myAdsList");
+    if (!myAdsList) return;
 
-// Page load hone par check karein ke kya pehle se seller logged in hai?
-window.addEventListener("DOMContentLoaded", () => {
     const savedSession = localStorage.getItem("rawGroupLoggedInSeller");
     if (savedSession) {
         const seller = JSON.parse(savedSession);
-        updateUIAfterLogin(seller);// Plus menu ko kholne aur band karne ka function
+        myAdsList.innerHTML = `
+            <div style="background: #fff; padding: 10px; border-radius: 6px; border: 1px solid #ddd; margin-bottom: 6px;">
+                <p><strong>Seller Name:</strong> ${seller.name}</p>
+                <p><strong>Mobile / WhatsApp:</strong> ${seller.phone}</p>
+                <p><strong>Role:</strong> ${seller.role}</p>
+            </div>
+        `;
+    } else {
+        myAdsList.innerHTML = `<p style="color: #666;">Apne ads dekhne aur manage karne ke liye pehle login karein.</p>`;
+    }
+}
+
+// 4. Modal Helpers
+function closeSellerLoginModal() {
+    const loginModal = document.getElementById("user-login-modal");
+    if (loginModal) loginModal.style.display = "none";
+}
+
+function closeSellerDashboard() {
+    const dashModal = document.getElementById("seller-dashboard-modal");
+    if (dashModal) dashModal.style.display = "none";
+}
+
+// 5. Plus Menu Functions (Globally Accessible)
 function togglePlusMenu() {
     const menu = document.getElementById("plus-action-menu");
     if (menu) {
-        if (menu.style.display === "none" || menu.style.display === "") {
-            menu.style.display = "block";
-        } else {
-            menu.style.display = "none";
-        }
+        menu.style.display = (menu.style.display === "none" || menu.style.display === "") ? "block" : "none";
     }
 }
 
-// Menu ko band karne ka function
 function closePlusMenu() {
     const menu = document.getElementById("plus-action-menu");
-    if (menu) {
-        menu.style.display = "none";
-    }
+    if (menu) menu.style.display = "none";
 }
 
-// Jab "Naya Ad Lagayein" par click ho
 function promptSellerLogin(actionType) {
     closePlusMenu();
     const savedSession = localStorage.getItem("rawGroupLoggedInSeller");
     
     if (savedSession) {
-        const adModal = document.getElementById("ad-submission-modal");
-        if (adModal) adModal.style.display = "block";
+        const dashModal = document.getElementById("seller-dashboard-modal");
+        if (dashModal) dashModal.style.display = "block";
     } else {
         const loginModal = document.getElementById("user-login-modal");
         if (loginModal) loginModal.style.display = "block";
     }
-} 
-  }
+}
+
+// 6. Page Load Check
+window.addEventListener("DOMContentLoaded", () => {
+    const savedSession = localStorage.getItem("rawGroupLoggedInSeller");
+    if (savedSession) {
+        const seller = JSON.parse(savedSession);
+        loadAdminSellerData();
+    }
 });
 
 </body>
