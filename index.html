@@ -68,12 +68,12 @@ body { top: 0px !important; }
 .nav-item { color: #fff; font-size: 10px; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; cursor: pointer; flex: 1; }
 .nav-item span.icon { font-size: 18px; }
 
-/* Plus FAB with Action Menu */
+/* Plus FAB with Action Menu - Fixed Position */
 .sell-fab-container { position: relative; flex: 1; display: flex; justify-content: center; }
 .sell-fab { position: absolute; top: -20px; width: 48px; height: 48px; background: #f57224; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 26px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); border: 2px solid #fff; cursor: pointer; z-index: 2010; }
 
-#plus-action-menu { display: none; position: fixed; bottom: 65px; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); border: 2px solid #f57224; z-index: 3000; width: 220px; padding: 8px; flex-direction: column; gap: 6px; }
-.menu-action-btn { background: #194376; color: #fff; border: none; padding: 8px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; text-align: center; width: 100%; }
+#plus-action-menu { display: none; position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 10px; box-shadow: 0 5px 25px rgba(0,0,0,0.4); border: 2px solid #f57224; z-index: 3000; width: 240px; padding: 10px; flex-direction: column; gap: 8px; }
+.menu-action-btn { background: #194376; color: #fff; border: none; padding: 10px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; text-align: center; width: 100%; }
 .menu-action-btn.manage { background: #2e7d32; }
 
 .custom-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
@@ -84,6 +84,10 @@ body { top: 0px !important; }
 .btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 9px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
 
 .escrow-notice { background: #e8f5e9; border: 1px solid #2e7d32; padding: 8px; border-radius: 6px; margin-bottom: 10px; font-size: 10px; color: #1b5e20; }
+
+/* Seller Dashboard Panel */
+#seller-dashboard-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
+.dashboard-content { background: #fff; border-radius: 12px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; padding: 15px; }
 </style>
 
 <script type="text/javascript">
@@ -186,9 +190,120 @@ function googleTranslateElementInit() {
 
 <!-- Plus Menu Popup -->
 <div id="plus-action-menu">
-  <button class="menu-action-btn" onclick="closePlusMenu(); checkUserLoginAndOpenAd()">📦 Naya Ad Lagayein (Post Ad)</button>
-  <button class="menu-action-btn manage" onclick="closePlusMenu(); openSellerDashboard()">⚙️ Manage My Ads</button>
+  <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('post')">📦 Naya Ad Lagayein (Post Ad)</button>
+  <button class="menu-action-btn manage" onclick="closePlusMenu(); promptSellerLogin('manage')">⚙️ Manage My Ads</button>
   <button class="menu-action-btn" onclick="closePlusMenu()" style="background:#d9534f;">Close Menu</button>
+</div>
+
+<!-- Mandatory Password Locked Seller Login Modal -->
+<div id="user-login-modal" class="custom-modal">
+  <div class="modal-content" style="text-align:center;">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
+      <h3 style="font-size:14px; color:#194376;">🔒 Seller Security Login</h3>
+      <span style="cursor:pointer;font-weight:bold;" onclick="closeLoginModal()">✕</span>
+    </div>
+    <p style="font-size:11px; color:#555; margin-bottom:10px;">Apna WhatsApp number aur Password درج کریں:</p>
+    <form id="userLoginForm" onsubmit="verifySellerLogin(event)">
+      <div class="form-group" style="text-align:left;">
+        <label>Aapka Naam *</label>
+        <input type="text" id="loginName" required placeholder="Ali Ahmed">
+      </div>
+      <div class="form-group" style="text-align:left;">
+        <label>WhatsApp Number *</label>
+        <input type="text" id="loginMobile" required placeholder="03331234567">
+      </div>
+      <div class="form-group" style="text-align:left;">
+        <label>Secret Password *</label>
+        <input type="password" id="loginPassword" required placeholder="Password likhein">
+      </div>
+      <button type="submit" class="btn-submit-ad" style="background:#194376;">Unlock & Continue</button>
+    </form>
+  </div>
+</div>
+
+<!-- Seller Dashboard Modal -->
+<div id="seller-dashboard-modal" class="custom-modal">
+  <div class="dashboard-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
+      <h3 style="font-size:14px; color:#194376;">⚙️ Seller Dashboard (Manage Ads)</h3>
+      <span style="cursor:pointer;font-weight:bold;" onclick="closeSellerDashboard()">✕</span>
+    </div>
+    <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
+    <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px;">
+      <p style="font-size:11px; color:#666;">Apne ads dekhne aur delete karne ke liye pehle login karein.</p>
+    </div>
+    <button onclick="closeSellerDashboard()" style="margin-top:12px; width:100%; background:#ddd; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
+  </div>
+</div>
+
+<!-- Multi-Currency Ad Submission Modal -->
+<div id="ad-submission-modal" class="custom-modal">
+  <div class="modal-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
+      <h3 style="font-size:14px; color:#194376;">📦 Naya Ad Lagayein (Multi-Currency)</h3>
+      <span style="cursor:pointer;font-weight:bold;" onclick="closeAdModal()">✕</span>
+    </div>
+    <div id="loggedInUserTag" style="font-size:11px; background:#eef2f7; padding:5px; border-radius:4px; margin-bottom:8px; color:#194376; font-weight:bold;"></div>
+    <form id="userAdForm" onsubmit="submitUserAd(event)">
+      <div class="form-group">
+        <label>Category *</label>
+        <select id="adCategory" required>
+          <option value="">Select Category</option>
+          <option value="Furniture & Decoration">Furniture & Decoration</option>
+          <option value="Car & Motorcycle">Car & Motorcycle</option>
+          <option value="Real Estate">Real Estate</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Home & Kitchen Appliances">Home & Kitchen Appliances</option>
+          <option value="Fashion & Beauty">Fashion & Beauty</option>
+          <option value="Job offers">Job offers</option>
+          <option value="Kids & Baby-Shop">Kids & Baby-Shop</option>
+          <option value="Education / BookShop">Education / BookShop</option>
+          <option value="General store Food Delivery">General store Food Delivery</option>
+          <option value="Services & offers">Services & offers</option>
+          <option value="Health & Care">Health & Care</option>
+          <option value="Animals & Accessories">Animals & Accessories</option>
+          <option value="Sports & Hobbies">Sports & Hobbies</option>
+          <option value="Antique Coins Gemstone">Antique Coins Gemstone</option>
+          <option value="Tools & Heavy Machinery">Tools & Heavy Machinery</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Ad Title (Product Naam) *</label>
+        <input type="text" id="adTitle" required placeholder="Product Name">
+      </div>
+      <div class="form-group">
+        <label>Brand / Country / City *</label>
+        <input type="text" id="adCity" required value="Sargodha">
+      </div>
+      <div class="form-group">
+        <label>Price & Currency (قیمت اور کرنسی) *</label>
+        <div style="display:flex; gap:6px;">
+          <select id="adCurrency" required style="width:110px;">
+            <option value="Rs.">PKR (Rs.)</option>
+            <option value="$">USD ($)</option>
+            <option value="AED">AED (درہم)</option>
+            <option value="£">GBP (£)</option>
+            <option value="€">EUR (€)</option>
+          </select>
+          <input type="number" id="adPrice" required placeholder="1500" style="flex:1;">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>WhatsApp / Contact Link (Optional)</label>
+        <input type="text" id="adAffiliateLink" placeholder="https://...">
+      </div>
+      <div class="form-group">
+        <label>Tafseel Likhein *</label>
+        <textarea id="adDescription" rows="3" required placeholder="Mukammal tafseel..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Tasveerein Select Karein (Multiple Allowed) *</label>
+        <input type="file" id="imageFileInput" accept="image/*" multiple required onchange="handleMultipleImages(event)">
+      </div>
+      <p id="imgCountNotice" style="font-size:10px; color:#0a8a00; margin-bottom:8px; font-weight:bold;"></p>
+      <button type="submit" class="btn-submit-ad">Publish Ad Live</button>
+    </form>
+  </div>
 </div>
 
 <!-- Customer Escrow Protected Order Modal -->
@@ -279,6 +394,7 @@ let selectedCategoryFilter = "All";
 let currentRatingScore = 5;
 let allProductsCache = [];
 let selectedOrderProduct = null;
+let pendingTargetAction = null;
 
 window.togglePlusMenu = function() {
   const menu = document.getElementById('plus-action-menu');
@@ -336,14 +452,43 @@ window.currentSlide = function(n) {
 
 setTimeout(showSlides, 4000);
 
+window.handleMultipleImages = function(event) {
+  const files = event.target.files;
+  if (!files || files.length === 0) return;
+  uploadedImagesArray = [];
+  document.getElementById('imgCountNotice').innerText = `${files.length} tasveerein select ho gayi hain, optimize ho rahi hain...`;
+
+  let processedCount = 0;
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.src = e.target.result;
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const MAX_WIDTH = 400;
+        const scaleSize = MAX_WIDTH / img.width;
+        canvas.width = MAX_WIDTH;
+        canvas.height = img.height * scaleSize;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        let base64 = canvas.toDataURL('image/jpeg', 0.7);
+        uploadedImagesArray.push(base64);
+        processedCount++;
+        if(processedCount === files.length) {
+          document.getElementById('imgCountNotice').innerText = `✓ ${uploadedImagesArray.length} tasveerein tayar hain!`;
+        }
+      }
+    }
+    reader.readAsDataURL(file);
+  }
+};
+
 window.loadApprovedProducts = async function() {
   const shopList = document.getElementById('shopList');
   try {
     const querySnapshot = await getDocs(collection(db, "products"));
-    if (querySnapshot.empty) {
-      shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Database mein abhi koi product mojood nahi hai.</p>`;
-      return;
-    }
     allProductsCache = [];
     querySnapshot.forEach((docSnap) => {
       allProductsCache.push({ id: docSnap.id, ...docSnap.data() });
@@ -428,9 +573,83 @@ window.filterShop = function() {
   });
 };
 
-window.filterByCategory = function(cat) {
-  selectedCategoryFilter = cat;
-  renderProducts(allProductsCache);
+window.promptSellerLogin = function(actionType) {
+  pendingTargetAction = actionType;
+  document.getElementById('userLoginForm').reset();
+  document.getElementById('user-login-modal').style.display = 'flex';
+};
+
+window.closeLoginModal = () => document.getElementById('user-login-modal').style.display = 'none';
+window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
+
+window.verifySellerLogin = function(e) {
+  e.preventDefault();
+  const name = document.getElementById('loginName').value.trim();
+  const mobile = document.getElementById('loginMobile').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+
+  if(!name || !mobile || !password) {
+    alert("Tamam fields (Naam, Number, Password) pur karna lazmi hai!");
+    return;
+  }
+
+  const authData = { name, mobile, password, verifiedAt: new Date().toLocaleString() };
+  localStorage.setItem('raw_locked_seller_auth', JSON.stringify(authData));
+  closeLoginModal();
+
+  if(pendingTargetAction === 'post') {
+    document.getElementById('loggedInUserTag').innerText = `👤 Verified Seller: ${name} (${mobile})`;
+    document.getElementById('ad-submission-modal').style.display = 'flex';
+  } else {
+    openSecureDashboard(authData);
+  }
+};
+
+function openSecureDashboard(authData) {
+  const dUser = document.getElementById('dashboardUserInfo');
+  const dList = document.getElementById('myAdsList');
+  dList.innerHTML = "";
+
+  dUser.innerHTML = `🛡️ Secured & Logged in as: <b>${authData.name}</b> (${authData.mobile})`;
+  document.getElementById('seller-dashboard-modal').style.display = 'flex';
+
+  let myAds = allProductsCache.filter(item => authData.mobile === '03334664227' || item.mobile === authData.mobile);
+  if(myAds.length === 0) {
+    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center; padding:10px;">Aapka koi ad mojood nahi hai.</p>`;
+    return;
+  }
+
+  myAds.forEach(ad => {
+    let adImg = (ad.images && ad.images[0]) || ad.img || 'logo.png';
+    let currencySymbol = ad.currency || 'Rs.';
+    dList.innerHTML += `
+      <div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:6px; border-radius:6px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <img src="${adImg}" style="width:35px; height:35px; object-fit:contain; border-radius:4px;">
+          <div>
+            <div style="font-size:11px; font-weight:bold; color:#194376;">${ad.name || ad.title}</div>
+            <div style="font-size:10px; color:#f57224;">${currencySymbol} ${ad.pricePKR || ad.price || 0}</div>
+          </div>
+        </div>
+        <button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:5px 8px; border-radius:4px; font-size:10px; font-weight:bold; cursor:pointer;">🗑️ Delete</button>
+      </div>
+    `;
+  });
+}
+
+window.closeSellerDashboard = () => document.getElementById('seller-dashboard-modal').style.display = 'none';
+
+window.deleteMyProduct = async function(productId) {
+  if(confirm("Kya aap waqai is ad ko delete karna chahte hain?")) {
+    try {
+      await deleteDoc(doc(db, "products", productId));
+      alert("Aapka ad delete ho gaya hai.");
+      closeSellerDashboard();
+      loadApprovedProducts();
+    } catch(err) {
+      alert("Delete karne mein masla hua.");
+    }
+  }
 };
 
 window.openProductDetail = function(item) {
@@ -469,6 +688,11 @@ window.openProductDetail = function(item) {
 };
 
 window.closeProductDetailModal = () => document.getElementById('product-detail-modal').style.display = 'none';
+
+window.filterByCategory = function(cat) {
+  selectedCategoryFilter = cat;
+  renderProducts(allProductsCache);
+};
 
 window.openOrderModal = function(item) {
   selectedOrderProduct = item;
@@ -524,6 +748,47 @@ window.submitCustomerOrder = async function(e) {
     closeOrderModal();
   } catch(err) {
     alert("Order submit karne mein masla hua.");
+  }
+};
+
+window.submitUserAd = async function(e) {
+  e.preventDefault();
+  const category = document.getElementById('adCategory').value;
+  const name = document.getElementById('adTitle').value;
+  const city = document.getElementById('adCity').value;
+  const currency = document.getElementById('adCurrency').value;
+  const price = document.getElementById('adPrice').value;
+  const affiliateLink = document.getElementById('adAffiliateLink').value;
+  const description = document.getElementById('adDescription').value;
+  const authData = JSON.parse(localStorage.getItem('raw_locked_seller_auth') || '{}');
+
+  if (uploadedImagesArray.length === 0) { alert("Kam az kam aik tasveer select karein!"); return; }
+
+  try {
+    const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+    await addDoc(collection(db, "products"), {
+      name, category, 
+      pricePKR: Number(price), 
+      price: Number(price), 
+      currency: currency,
+      brand: city, 
+      affiliateLink: affiliateLink || "",
+      description: description,
+      mobile: authData.mobile || '03334664227',
+      sellerName: authData.name || 'Partner',
+      images: uploadedImagesArray,
+      status: "approved",
+      isVerifiedSeller: true,
+      createdAt: serverTimestamp()
+    });
+    alert("Shukriya! Aapka ad live ہو gaya hai.");
+    document.getElementById('userAdForm').reset();
+    closeAdModal();
+    uploadedImagesArray = [];
+    document.getElementById('imgCountNotice').innerText = "";
+    loadApprovedProducts();
+  } catch (err) {
+    alert("Masla hua, dobara koshish karein.");
   }
 };
 
