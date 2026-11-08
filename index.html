@@ -888,8 +888,40 @@ window.addEventListener("DOMContentLoaded", () => {
     const savedSession = localStorage.getItem("rawGroupLoggedInSeller");
     if (savedSession) {
         const seller = JSON.parse(savedSession);
-        updateUIAfterLogin(seller);
+        updateUIAfterLogin(seller);// Plus menu ko kholne aur band karne ka function
+function togglePlusMenu() {
+    const menu = document.getElementById("plus-action-menu");
+    if (menu) {
+        if (menu.style.display === "none" || menu.style.display === "") {
+            menu.style.display = "block";
+        } else {
+            menu.style.display = "none";
+        }
     }
+}
+
+// Menu ko band karne ka function
+function closePlusMenu() {
+    const menu = document.getElementById("plus-action-menu");
+    if (menu) {
+        menu.style.display = "none";
+    }
+}
+
+// Jab "Naya Ad Lagayein" par click ho
+function promptSellerLogin(actionType) {
+    closePlusMenu();
+    const savedSession = localStorage.getItem("rawGroupLoggedInSeller");
+    
+    if (savedSession) {
+        const adModal = document.getElementById("ad-submission-modal");
+        if (adModal) adModal.style.display = "block";
+    } else {
+        const loginModal = document.getElementById("user-login-modal");
+        if (loginModal) loginModal.style.display = "block";
+    }
+} 
+  }
 });
 
 </body>
