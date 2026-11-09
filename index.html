@@ -103,7 +103,7 @@ function googleTranslateElementInit() {
   <div class="top-bar">
     <div id="google_translate_element"></div>
     <div class="owner-branding">
-      <img src="./ejaz.jpg" onerror="this.onerror=function(){this.src='./logo.png';}; this.src='./logo.png';" title="Ejaz Ahmad">
+      <img src="./ejaz.png" onerror="this.onerror=function(){this.src='./logo.png';}; this.src='./logo.png';" title="Ejaz Ahmad">
       <img src="./logo.png" onerror="this.style.display='none';" title="R.A.W Group">
     </div>
   </div>
@@ -159,6 +159,12 @@ function googleTranslateElementInit() {
   <div id="shopList" class="products">
     <p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">لوڈ ہو رہا ہے...</p>
   </div>
+
+  <!-- Footer Privacy Policy Link -->
+  <div style="text-align:center; padding: 20px 10px 10px; font-size:11px; color:#555;">
+    <p>© R.A.W GROUP CHOUKIRH 79. All Rights Reserved.</p>
+    <p style="margin-top:5px;"><span onclick="openPrivacyModal()" style="color:#194376; text-decoration:underline; cursor:pointer; font-weight:bold;">🔒 Privacy Policy (پرائیویسی پالیسی)</span></p>
+  </div>
 </div>
 
 <!-- Product Detail Modal -->
@@ -187,6 +193,35 @@ function googleTranslateElementInit() {
 
   <div class="nav-item" onclick="openReviewModal()"><span class="icon">⭐</span><span>Review</span></div>
 </div>
+
+<!-- Plus Action Menu -->
+<div id="plus-action-menu">
+  <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('post')">📦 Naya Ad Lagayein</button>
+  <button class="menu-action-btn manage" onclick="closePlusMenu(); promptSellerLogin('dashboard')">⚙️ Seller Dashboard</button>
+</div>
+
+<!-- Privacy Policy Modal -->
+<div id="privacy-policy-modal" class="custom-modal">
+  <div class="modal-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
+      <h3 style="font-size:14px; color:#194376;">🔒 R.A.W Group Privacy Policy</h3>
+      <span style="cursor:pointer;font-weight:bold;" onclick="closePrivacyModal()">✕</span>
+    </div>
+    <div style="font-size:11px; color:#333; line-height:1.6; max-height:300px; overflow-y:auto; background:#fafafa; padding:8px; border-radius:6px;">
+      <p><b>1. Introduction:</b> R.A.W GROUP CHOUKIRH 79 ("Hum") aapki privacy aur data ki hifazat ke liye pur-azam hain. Yeh policy wazeh karti hai ke hum aapka data kaisay istamal karte hain.</p>
+      <br>
+      <p><b>2. Information Collection:</b> Jab aap hamari marketplace par ad lagate hain ya order book karte hain, toh hum aapka naam, mobile number, aur pata mehfooz karte hain taake aapka transaction behtar ho sakay.</p>
+      <br>
+      <p><b>3. Escrow & Secure Payments:</b> Hamara Escrow protection system aapki payments ko mehfooz rakhta hai. Admin commission ke baad seller ka payout release kiya jata hai.</p>
+      <br>
+      <p><b>4. Data Security:</b> Aapka koi bhi personal data kisi third party ko nahi becha jata. Tamam maloomat sirf order fulfillment aur seller management ke liye use hoti hain.</p>
+      <br>
+      <p><b>5. Contact Us:</b> Kisi bhi sawal ya maslay ki soorat mein aap hamare official WhatsApp number (0333-4664227) par rabta kar sakte hain.</p>
+    </div>
+    <button onclick="closePrivacyModal()" style="margin-top:10px; width:100%; background:#194376; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
+  </div>
+</div>
+
 <!-- Mandatory Password Locked Seller Login Modal -->
 <div id="user-login-modal" class="custom-modal">
   <div class="modal-content" style="text-align:center;">
@@ -196,7 +231,6 @@ function googleTranslateElementInit() {
     </div>
     <p style="font-size:11px; color:#555; margin-bottom:10px;">Apna WhatsApp number aur Password درج کریں:</p>
     <form id="userLoginForm" onsubmit="verifySellerLogin(event)">
-
       <div class="form-group" style="text-align:left;">
         <label>Aapka Naam *</label>
         <input type="text" id="loginName" required placeholder="Ali Ahmed">
@@ -398,6 +432,14 @@ window.closePlusMenu = function() {
   document.getElementById('plus-action-menu').style.display = 'none';
 };
 
+window.openPrivacyModal = function() {
+  document.getElementById('privacy-policy-modal').style.display = 'flex';
+};
+
+window.closePrivacyModal = function() {
+  document.getElementById('privacy-policy-modal').style.display = 'none';
+};
+
 /* 3-Page Sliding Banner Logic */
 let slideIndex = 0;
 const bannerColors = [
@@ -509,7 +551,7 @@ function renderProducts(products) {
   filtered.forEach((item) => {
     let imagesList = item.images;
     if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
-      imagesList = item.img ? [item.img] : ['logo.png'];
+      imagesList = item.img ? [item.img] : ['ejaz.png'];
     }
     const mainImg = imagesList[0];
     let currencySymbol = item.currency || 'Rs.';
@@ -535,7 +577,7 @@ function renderProducts(products) {
 
     shopList.innerHTML += `
       <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}" data-desc="${(item.description || '').toLowerCase()}">
-        <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='logo.png'"></div>
+        <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='ejaz.png'"></div>
         <div class="card-body">
           <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
           <span class="category-tag">${item.category || 'General'}</span>
@@ -613,7 +655,7 @@ function openSecureDashboard(authData) {
   }
 
   myAds.forEach(ad => {
-    let adImg = (ad.images && ad.images[0]) || ad.img || 'logo.png';
+    let adImg = (ad.images && ad.images[0]) || ad.img || 'ejaz.png';
     let currencySymbol = ad.currency || 'Rs.';
     dList.innerHTML += `
       <div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:6px; border-radius:6px;">
@@ -659,13 +701,13 @@ window.openProductDetail = function(item) {
 
   let imagesList = item.images;
   if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
-    imagesList = item.img ? [item.img] : ['logo.png'];
+    imagesList = item.img ? [item.img] : ['ejaz.png'];
   }
 
   imagesList.forEach((imgSrc, index) => {
     imgContainer.innerHTML += `
       <div style="width:100%; text-align:center; background:#fff; padding:4px; border-radius:6px; border:1px solid #e5e5e5;">
-        <img src="${imgSrc}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px;" onerror="this.src='logo.png'">
+        <img src="${imgSrc}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px;" onerror="this.src='ejaz.png'">
       </div>
     `;
   });
@@ -783,6 +825,7 @@ window.submitUserAd = async function(e) {
     alert("Masla hua, dobara koshish karein.");
   }
 };
+
 window.setStars = (score) => { currentRatingScore = score; };
 window.openReviewModal = () => document.getElementById('user-review-modal').style.display = 'flex';
 window.closeReviewModal = () => document.getElementById('user-review-modal').style.display = 'none';
@@ -807,13 +850,11 @@ window.submitUserReview = async function() {
   } catch(err) {
     alert("Review submit karne mein masla hua.");
   }
-});window.addEventListener('DOMContentLoaded', () => {
-    const savedSession = localStorage.getItem('rawGroupLoggedInSeller');
-    if (savedSession) {
-        const seller = JSON.parse(savedSession);
-        loadAdminSellerData();
-    }
+};
+
+window.addEventListener('DOMContentLoaded', () => {
     loadApprovedProducts();
 });
-  /body>
+</script>
+</body>
 </html>
