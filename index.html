@@ -11,7 +11,7 @@
 
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif; background: #f5f5f5; color: #212121; padding-bottom: 60px; }
+html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif; background: #f5f5f5; color: #212121; padding-bottom: 70px; }
 #main-shop-view { display: flex; flex-direction: column; min-height: 100vh; }
 
 .top-bar { display: flex; justify-content: space-between; align-items: center; background: #194376; padding: 8px 15px; position: relative; z-index: 1000; }
@@ -64,6 +64,7 @@ body { top: 0px !important; }
 #product-detail-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
 .detail-modal-content { background: #fff; border-radius: 12px; width: 100%; max-width: 450px; max-height: 90vh; overflow-y: auto; padding: 15px; }
 
+/* Bottom Navigation */
 .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #194376; display: flex; justify-content: space-around; align-items: center; height: 55px; z-index: 2000; box-shadow: 0 -2px 10px rgba(0,0,0,0.15); }
 .nav-item { color: #fff; font-size: 10px; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; cursor: pointer; flex: 1; }
 .nav-item span.icon { font-size: 18px; }
@@ -160,10 +161,9 @@ function googleTranslateElementInit() {
     <p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">لوڈ ہو رہا ہے...</p>
   </div>
 
-  <!-- Footer Privacy Policy Link -->
-  <div style="text-align:center; padding: 20px 10px 10px; font-size:11px; color:#555;">
+  <!-- Footer Copyright -->
+  <div style="text-align:center; padding: 25px 10px 15px; font-size:11px; color:#555; background:#fff; margin-top:20px; border-top:1px solid #ddd;">
     <p>© R.A.W GROUP CHOUKIRH 79. All Rights Reserved.</p>
-    <p style="margin-top:5px;"><span onclick="openPrivacyModal()" style="color:#194376; text-decoration:underline; cursor:pointer; font-weight:bold;">🔒 Privacy Policy (پرائیویسی پالیسی)</span></p>
   </div>
 </div>
 
@@ -183,9 +183,9 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Bottom Navigation with Plus Menu -->
+<!-- Bottom Navigation: Privacy Policy (Left), Plus FAB (Center), Review (Right) -->
 <div class="bottom-nav">
-  <div class="nav-item" onclick="window.scrollTo({top:0, behavior:'smooth'})"><span class="icon">🏠</span><span>Home</span></div>
+  <div class="nav-item" onclick="openPrivacyModal()"><span class="icon">🔒</span><span>Policy</span></div>
   
   <div class="sell-fab-container">
     <div class="sell-fab" onclick="togglePlusMenu()">+</div>
@@ -200,7 +200,7 @@ function googleTranslateElementInit() {
   <button class="menu-action-btn manage" onclick="closePlusMenu(); promptSellerLogin('dashboard')">⚙️ Seller Dashboard</button>
 </div>
 
-<!-- Privacy Policy Modal -->
+<!-- Privacy Policy Modal (Updated: General & Secure Data Rules) -->
 <div id="privacy-policy-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -208,15 +208,13 @@ function googleTranslateElementInit() {
       <span style="cursor:pointer;font-weight:bold;" onclick="closePrivacyModal()">✕</span>
     </div>
     <div style="font-size:11px; color:#333; line-height:1.6; max-height:300px; overflow-y:auto; background:#fafafa; padding:8px; border-radius:6px;">
-      <p><b>1. Introduction:</b> R.A.W GROUP CHOUKIRH 79 ("Hum") aapki privacy aur data ki hifazat ke liye pur-azam hain. Yeh policy wazeh karti hai ke hum aapka data kaisay istamal karte hain.</p>
+      <p><b>1. Introduction:</b> R.A.W GROUP CHOUKIRH 79 marketplace aapki data security aur privacy ko ahmiyat deti hai.</p>
       <br>
-      <p><b>2. Information Collection:</b> Jab aap hamari marketplace par ad lagate hain ya order book karte hain, toh hum aapka naam, mobile number, aur pata mehfooz karte hain taake aapka transaction behtar ho sakay.</p>
+      <p><b>2. Safe Transactions:</b> Hamara platform kharidaron aur farokhtkaron (sellers) ke darmiyan behtareen aur mehfooz rabta faraham karta hai.</p>
       <br>
-      <p><b>3. Escrow & Secure Payments:</b> Hamara Escrow protection system aapki payments ko mehfooz rakhta hai. Admin commission ke baad seller ka payout release kiya jata hai.</p>
+      <p><b>3. Seller Commission Policy:</b> Har kamyab deal ya order par company ka <b>5% admin commission</b> laagu hota hai, jis ki tafseel seller dashboard mein mojood hoti hai.</p>
       <br>
-      <p><b>4. Data Security:</b> Aapka koi bhi personal data kisi third party ko nahi becha jata. Tamam maloomat sirf order fulfillment aur seller management ke liye use hoti hain.</p>
-      <br>
-      <p><b>5. Contact Us:</b> Kisi bhi sawal ya maslay ki soorat mein aap hamare official WhatsApp number (0333-4664227) par rabta kar sakte hain.</p>
+      <p><b>4. Contact Us:</b> Kisi bhi sawal ke liye official WhatsApp number (0333-4664227) par rabta karein.</p>
     </div>
     <button onclick="closePrivacyModal()" style="margin-top:10px; width:100%; background:#194376; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
   </div>
@@ -248,16 +246,27 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Seller Dashboard Modal -->
+<!-- Seller & Admin Dashboard Modal (Includes 5% Commission Notice & Numbered Sellers List) -->
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="dashboard-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px; color:#194376;">⚙️ Seller Dashboard (Manage Ads)</h3>
+      <h3 style="font-size:14px; color:#194376;">⚙️ Dashboard & Registered Sellers</h3>
       <span style="cursor:pointer;font-weight:bold;" onclick="closeSellerDashboard()">✕</span>
     </div>
+    
+    <!-- 5% Commission Policy Notice for Sellers -->
+    <div style="background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:10px; color:#b25000; font-weight:bold;">
+      💡 <b>Admin Rule Notice:</b> Har order/sale par <b>5% Admin Commission</b> deduct hota hai, baaki payout seller ka hota hai.
+    </div>
+
     <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
-    <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px;">
-      <p style="font-size:11px; color:#666;">Apne ads dekhne aur delete karne ke liye pehle login karein.</p>
+    
+    <div style="margin-bottom:10px; font-weight:bold; font-size:12px; color:#194376;">📋 Registered Sellers List (نمبروار سیلرز لسٹ):</div>
+    <div id="registeredSellersList" style="display:flex; flex-direction:column; gap:6px; max-height:150px; overflow-y:auto; margin-bottom:12px; border:1px solid #ddd; padding:6px; border-radius:6px; background:#fafafa;"></div>
+
+    <div style="margin-bottom:6px; font-weight:bold; font-size:12px; color:#194376;">📦 Aapke Ads / Products:</div>
+    <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:160px; overflow-y:auto;">
+      <p style="font-size:11px; color:#666;">Ads load ho rahe hain...</p>
     </div>
     <button onclick="closeSellerDashboard()" style="margin-top:12px; width:100%; background:#ddd; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
   </div>
@@ -643,18 +652,46 @@ window.verifySellerLogin = function(e) {
 function openSecureDashboard(authData) {
   const dUser = document.getElementById('dashboardUserInfo');
   const dList = document.getElementById('myAdsList');
+  const sList = document.getElementById('registeredSellersList');
   dList.innerHTML = "";
+  sList.innerHTML = "";
 
-  dUser.innerHTML = `🛡️ Secured & Logged in as: <b>${authData.name}</b> (${authData.mobile})`;
+  dUser.innerHTML = `🛡️ Logged in as: <b>${authData.name}</b> (${authData.mobile})`;
   document.getElementById('seller-dashboard-modal').style.display = 'flex';
 
+  // 1. Extract Unique Sellers / Friends from allProductsCache
+  let uniqueSellersMap = {};
+  allProductsCache.forEach(item => {
+    if(item.mobile && item.sellerName) {
+      if(!uniqueSellersMap[item.mobile]) {
+        uniqueSellersMap[item.mobile] = { name: item.sellerName, mobile: item.mobile, count: 0 };
+      }
+      uniqueSellersMap[item.mobile].count++;
+    }
+  });
+
+  let sellersArray = Object.values(uniqueSellersMap);
+  if(sellersArray.length === 0) {
+    sList.innerHTML = `<div style="font-size:10px; color:#666; text-align:center;">Abhi koi doosra seller mojood nahi hai.</div>`;
+  } else {
+    sellersArray.forEach((seller, idx) => {
+      sList.innerHTML += `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; padding:5px 8px; border-radius:4px; border:1px solid #e5e5e5; font-size:11px;">
+          <div><b>${idx + 1}. ${seller.name}</b> (${seller.mobile})</div>
+          <div style="color:#f57224; font-weight:bold;">${seller.count} Ads</div>
+        </div>
+      `;
+    });
+  }
+
+  // 2. Filter Ads for Logged In User
   let myAds = allProductsCache.filter(item => authData.mobile === '03334664227' || item.mobile === authData.mobile);
   if(myAds.length === 0) {
     dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center; padding:10px;">Aapka koi ad mojood nahi hai.</p>`;
     return;
   }
 
-  myAds.forEach(ad => {
+  myAds.forEach((ad, i) => {
     let adImg = (ad.images && ad.images[0]) || ad.img || 'ejaz.png';
     let currencySymbol = ad.currency || 'Rs.';
     dList.innerHTML += `
@@ -662,8 +699,8 @@ function openSecureDashboard(authData) {
         <div style="display:flex; align-items:center; gap:8px;">
           <img src="${adImg}" style="width:35px; height:35px; object-fit:contain; border-radius:4px;">
           <div>
-            <div style="font-size:11px; font-weight:bold; color:#194376;">${ad.name || ad.title}</div>
-            <div style="font-size:10px; color:#f57224;">${currencySymbol} ${ad.pricePKR || ad.price || 0}</div>
+            <div style="font-size:11px; font-weight:bold; color:#194376;">${i+1}. ${ad.name || ad.title}</div>
+            <div style="font-size:10px; color:#f57224;">Seller: ${ad.sellerName || 'Partner'} | ${currencySymbol} ${ad.pricePKR || ad.price || 0}</div>
           </div>
         </div>
         <button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:5px 8px; border-radius:4px; font-size:10px; font-weight:bold; cursor:pointer;">🗑️ Delete</button>
