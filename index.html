@@ -104,7 +104,8 @@ function googleTranslateElementInit() {
   <div class="top-bar">
     <div id="google_translate_element"></div>
     <div class="owner-branding">
-      <img src="./ejaz.jpg" onerror="this.onerror=function(){this.src='./logo.png';}; this.src='./logo.png';" title="Ejaz Ahmad">
+      <!-- Admin Photo (JPG support) & Logo (PNG support) -->
+      <img src="./ejaz.jpg" onerror="this.onerror=function(){this.src='./ejaz.png';}; this.src='./ejaz.png';" title="Ejaz Ahmad">
       <img src="./logo.png" onerror="this.style.display='none';" title="R.A.W Group">
     </div>
   </div>
@@ -147,7 +148,7 @@ function googleTranslateElementInit() {
       </div>
       <div class="banner-slide">
         <h3>💬 24/7 Customer Support & Orders</h3>
-        <p>Direct WhatsApp Chat & Secure Escrow Protected Payments</p>
+        <p>WhatsApp Admin: 0333-4664227 | Secure Escrow Payments</p>
       </div>
     </div>
     <div class="banner-dots">
@@ -183,7 +184,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Bottom Navigation: Privacy Policy (Left), Plus FAB (Center), Review (Right) -->
+<!-- Bottom Navigation -->
 <div class="bottom-nav">
   <div class="nav-item" onclick="openPrivacyModal()"><span class="icon">🔒</span><span>Policy</span></div>
   
@@ -200,7 +201,7 @@ function googleTranslateElementInit() {
   <button class="menu-action-btn manage" onclick="closePlusMenu(); promptSellerLogin('dashboard')">⚙️ Seller Dashboard</button>
 </div>
 
-<!-- Privacy Policy Modal (Updated: General & Secure Data Rules) -->
+<!-- Privacy Policy Modal -->
 <div id="privacy-policy-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -244,7 +245,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Seller & Admin Dashboard Modal (Includes 5% Commission Notice & Numbered Sellers List) -->
+<!-- Seller & Admin Dashboard Modal -->
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="dashboard-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -252,14 +253,13 @@ function googleTranslateElementInit() {
       <span style="cursor:pointer;font-weight:bold;" onclick="closeSellerDashboard()">✕</span>
     </div>
     
-    <!-- 5% Commission Policy Notice for Sellers -->
     <div style="background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:10px; color:#b25000; font-weight:bold;">
       💡 <b>Admin Rule Notice:</b> Har order/sale par <b>5% Admin Commission</b> deduct hota hai, baaki payout seller ka hota hai.
     </div>
 
     <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
     
-    <div style="margin-bottom:10px; font-weight:bold; font-size:12px; color:#194376;">📋 Registered Sellers List (نمبروار سیلرز لسٹ):</div>
+    <div style="margin-bottom:10px; font-weight:bold; font-size:12px; color:#194376;">📋 Registered Sellers List (RAW Seller IDs):</div>
     <div id="registeredSellersList" style="display:flex; flex-direction:column; gap:6px; max-height:150px; overflow-y:auto; margin-bottom:12px; border:1px solid #ddd; padding:6px; border-radius:6px; background:#fafafa;"></div>
 
     <div style="margin-bottom:6px; font-weight:bold; font-size:12px; color:#194376;">📦 Aapke Ads / Products:</div>
@@ -270,7 +270,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Multi-Currency Ad Submission Modal -->
+<!-- Seller Ad Submission Modal -->
 <div id="ad-submission-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -321,10 +321,6 @@ function googleTranslateElementInit() {
           </select>
           <input type="number" id="adPrice" required placeholder="1500" style="flex:1;">
         </div>
-      </div>
-      <div class="form-group">
-        <label>WhatsApp / Contact Link (Optional)</label>
-        <input type="text" id="adAffiliateLink" placeholder="https://...">
       </div>
       <div class="form-group">
         <label>Tafseel Likhein *</label>
@@ -429,6 +425,13 @@ let currentRatingScore = 5;
 let allProductsCache = [];
 let selectedOrderProduct = null;
 let pendingTargetAction = null;
+
+// Helper: Generate RAW Seller ID from mobile number
+function getSellerId(mobile) {
+  if (!mobile) return "RAW-79-ADMIN";
+  let cleanMob = mobile.replace(/[^0-9]/g, '');
+  return `RAW-79-${cleanMob.slice(-7)}`;
+}
 
 window.togglePlusMenu = function() {
   const menu = document.getElementById('plus-action-menu');
@@ -558,33 +561,28 @@ function renderProducts(products) {
   filtered.forEach((item) => {
     let imagesList = item.images;
     if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
-      imagesList = item.img ? [item.img] : ['ejaz.png'];
+      imagesList = item.img ? [item.img] : ['ejaz.jpg'];
     }
     const mainImg = imagesList[0];
     let currencySymbol = item.currency || 'Rs.';
     let priceVal = item.pricePKR || item.price || 0;
     let priceDisplay = `${currencySymbol} ${priceVal}`;
 
-    let verifiedBadge = item.isVerifiedSeller ? `<span style="color:#0a8a00; font-size:9px; font-weight:bold;"> ✓ Verified Seller</span>` : '';
-    let sellerInfo = item.sellerName ? `<div style="font-size:9px; color:#0a8a00;">👤 Seller: ${item.sellerName} ${verifiedBadge}</div>` : '';
+    let sellerIdCode = getSellerId(item.mobile);
+    let sellerInfo = `<div style="font-size:9px; color:#0a8a00; font-weight:bold;">👤 Seller ID: ${sellerIdCode}</div>`;
     
     let actionButtonsHTML = '';
-    if (item.affiliateLink && item.affiliateLink.trim() !== '') {
-      let linkText = item.affiliateLink.includes('amazon') ? '🔗 Amazon Link' : item.affiliateLink.includes('daraz') ? '🔗 Daraz Link' : '🔗 Visit Link';
-      actionButtonsHTML = `<a href="${item.affiliateLink}" target="_blank" class="affiliate-btn">${linkText}</a>`;
-    } else {
-      let contactLink = `https://wa.me/92${item.mobile ? item.mobile.replace(/^0/,'') : '3334664227'}?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
-      actionButtonsHTML = `
-        <div class="btn-row">
-          <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
-          <button class="order-btn" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 Order</button>
-        </div>
-      `;
-    }
+    let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}%20(Seller%20ID:%20${sellerIdCode})`;
+    actionButtonsHTML = `
+      <div class="btn-row">
+        <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
+        <button class="order-btn" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 Order</button>
+      </div>
+    `;
 
     shopList.innerHTML += `
       <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}" data-desc="${(item.description || '').toLowerCase()}">
-        <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='ejaz.png'"></div>
+        <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='ejaz.jpg'"></div>
         <div class="card-body">
           <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
           <span class="category-tag">${item.category || 'General'}</span>
@@ -635,12 +633,12 @@ window.verifySellerLogin = function(e) {
     return;
   }
 
-  const authData = { name, mobile, password, verifiedAt: new Date().toLocaleString() };
+  const authData = { name, mobile, password, sellerId: getSellerId(mobile), verifiedAt: new Date().toLocaleString() };
   localStorage.setItem('raw_locked_seller_auth', JSON.stringify(authData));
   closeLoginModal();
 
   if(pendingTargetAction === 'post') {
-    document.getElementById('loggedInUserTag').innerText = `👤 Verified Seller: ${name} (${mobile})`;
+    document.getElementById('loggedInUserTag').innerText = `👤 Logged in: ${name} | Seller ID: ${authData.sellerId}`;
     document.getElementById('ad-submission-modal').style.display = 'flex';
   } else {
     openSecureDashboard(authData);
@@ -654,17 +652,17 @@ function openSecureDashboard(authData) {
   dList.innerHTML = "";
   sList.innerHTML = "";
 
-  dUser.innerHTML = `🛡️ Logged in as: <b>${authData.name}</b> (${authData.mobile})`;
+  dUser.innerHTML = `🛡️ Logged in as: <b>${authData.name}</b> | Your ID: <b style="color:#f57224;">${authData.sellerId}</b>`;
   document.getElementById('seller-dashboard-modal').style.display = 'flex';
 
-  // 1. Extract Unique Sellers / Friends from allProductsCache
   let uniqueSellersMap = {};
   allProductsCache.forEach(item => {
-    if(item.mobile && item.sellerName) {
-      if(!uniqueSellersMap[item.mobile]) {
-        uniqueSellersMap[item.mobile] = { name: item.sellerName, mobile: item.mobile, count: 0 };
+    if(item.mobile) {
+      let sId = getSellerId(item.mobile);
+      if(!uniqueSellersMap[sId]) {
+        uniqueSellersMap[sId] = { name: item.sellerName || 'Partner', sellerId: sId, mobile: item.mobile, count: 0 };
       }
-      uniqueSellersMap[item.mobile].count++;
+      uniqueSellersMap[sId].count++;
     }
   });
 
@@ -675,14 +673,13 @@ function openSecureDashboard(authData) {
     sellersArray.forEach((seller, idx) => {
       sList.innerHTML += `
         <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; padding:5px 8px; border-radius:4px; border:1px solid #e5e5e5; font-size:11px;">
-          <div><b>${idx + 1}. ${seller.name}</b> (${seller.mobile})</div>
+          <div><b>${idx + 1}. ${seller.name}</b> <span style="color:#194376; font-weight:bold;">[${seller.sellerId}]</span></div>
           <div style="color:#f57224; font-weight:bold;">${seller.count} Ads</div>
         </div>
       `;
     });
   }
 
-  // 2. Filter Ads for Logged In User
   let myAds = allProductsCache.filter(item => authData.mobile === '03334664227' || item.mobile === authData.mobile);
   if(myAds.length === 0) {
     dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center; padding:10px;">Aapka koi ad mojood nahi hai.</p>`;
@@ -690,7 +687,7 @@ function openSecureDashboard(authData) {
   }
 
   myAds.forEach((ad, i) => {
-    let adImg = (ad.images && ad.images[0]) || ad.img || 'ejaz.png';
+    let adImg = (ad.images && ad.images[0]) || ad.img || 'ejaz.jpg';
     let currencySymbol = ad.currency || 'Rs.';
     dList.innerHTML += `
       <div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:6px; border-radius:6px;">
@@ -698,7 +695,7 @@ function openSecureDashboard(authData) {
           <img src="${adImg}" style="width:35px; height:35px; object-fit:contain; border-radius:4px;">
           <div>
             <div style="font-size:11px; font-weight:bold; color:#194376;">${i+1}. ${ad.name || ad.title}</div>
-            <div style="font-size:10px; color:#f57224;">Seller: ${ad.sellerName || 'Partner'} | ${currencySymbol} ${ad.pricePKR || ad.price || 0}</div>
+            <div style="font-size:10px; color:#f57224;">ID: ${getSellerId(ad.mobile)} | ${currencySymbol} ${ad.pricePKR || ad.price || 0}</div>
           </div>
         </div>
         <button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:5px 8px; border-radius:4px; font-size:10px; font-weight:bold; cursor:pointer;">🗑️ Delete</button>
@@ -713,8 +710,19 @@ window.deleteMyProduct = async function(productId) {
   if(confirm("Kya aap waqai is ad ko delete karna chahte hain?")) {
     try {
       await deleteDoc(doc(db, "products", productId));
-      alert("Aapka ad delete ho gaya hai.")
-      loadApprovedProducts();
+      alert("Aapka ad delete ho gaya hai.");
+      
+      const querySnapshot = await getDocs(collection(db, "products"));
+      allProductsCache = [];
+      querySnapshot.forEach((docSnap) => {
+        allProductsCache.push({ id: docSnap.id, ...docSnap.data() });
+      });
+      renderProducts(allProductsCache);
+
+      const savedAuth = JSON.parse(localStorage.getItem('raw_locked_seller_auth') || '{}');
+      if(savedAuth.mobile) {
+        openSecureDashboard(savedAuth);
+      }
     } catch(err) {
       alert("Delete karne mein masla hua.");
     }
@@ -725,170 +733,4 @@ window.openProductDetail = function(item) {
   document.getElementById('detTitle').innerText = item.name || item.title;
   let currencySymbol = item.currency || 'Rs.';
   let priceVal = item.pricePKR || item.price || 0;
-  document.getElementById('detPrice').innerText = `Price: ${currencySymbol} ${priceVal}`;
-  document.getElementById('detCategory').innerText = `Category: ${item.category || 'General'}`;
-  document.getElementById('detCity').innerText = `Location: ${item.brand || item.city || 'Sargodha'}`;
-  document.getElementById('detDescription').innerText = item.description || item.desc || 'Mazeed tafseel mojood nahi hai.';
-
-  const imgContainer = document.getElementById('detImagesContainer');
-  imgContainer.innerHTML = "";
-
-  let imagesList = item.images;
-  if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
-    imagesList = item.img ? [item.img] : ['ejaz.png'];
-  }
-
-  imagesList.forEach((imgSrc, index) => {
-    imgContainer.innerHTML += `
-      <div style="width:100%; text-align:center; background:#fff; padding:4px; border-radius:6px; border:1px solid #e5e5e5;">
-        <img src="${imgSrc}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px;" onerror="this.src='ejaz.png'">
-      </div>
-    `;
-  });
-
-  const actionDiv = document.getElementById('detActionBtn');
-  if (item.affiliateLink && item.affiliateLink.trim() !== '') {
-    actionDiv.innerHTML = `<a href="${item.affiliateLink}" target="_blank" style="background:#ff9900; color:#000; padding:8px 12px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none; display:block; text-align:center;">🔗 Open Link</a>`;
-  } else {
-    actionDiv.innerHTML = `<button onclick='closeProductDetailModal(); openOrderModal(${JSON.stringify(item).replace(/'/g, "&#39;")})' style="background:#f57224; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; font-size:12px; width:100%; cursor:pointer;">🛒 Secure Order Now</button>`;
-  }
-
-  document.getElementById('product-detail-modal').style.display = 'flex';
-};
-
-window.closeProductDetailModal = () => document.getElementById('product-detail-modal').style.display = 'none';
-
-window.filterByCategory = function(cat) {
-  selectedCategoryFilter = cat;
-  renderProducts(allProductsCache);
-};
-
-window.openOrderModal = function(item) {
-  selectedOrderProduct = item;
-  let currencySymbol = item.currency || 'Rs.';
-  let priceText = item.pricePKR || item.price || '0';
-  document.getElementById('orderProductDetails').innerText = `Product: ${item.name || item.title} | Price: ${currencySymbol} ${priceText}`;
-  document.getElementById('order-form-modal').style.display = 'flex';
-};
-window.closeOrderModal = () => document.getElementById('order-form-modal').style.display = 'none';
-
-window.togglePaymentInstructions = function(method) {
-  const infoBox = document.getElementById('securePaymentInfo');
-  if (method !== 'Cash on Delivery') {
-    infoBox.style.display = 'block';
-  } else {
-    infoBox.style.display = 'none';
-  }
-};
-
-window.submitCustomerOrder = async function(e) {
-  e.preventDefault();
-  const name = document.getElementById('custName').value.trim();
-  const mobile = document.getElementById('custMobile').value.trim();
-  const address = document.getElementById('custAddress').value.trim();
-  const paymentMethod = document.getElementById('custPaymentMethod').value;
-
-  if(!name || !mobile || !address) { alert("Tamam fields pur karein!"); return; }
-
-  let totalPrice = Number(selectedOrderProduct.pricePKR || selectedOrderProduct.price || 0);
-  let adminCommission = Math.round(totalPrice * 0.05);
-  let sellerPayout = totalPrice - adminCommission;
-
-  try {
-    const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
-    await addDoc(collection(db, "orders"), {
-      productName: selectedOrderProduct.name || selectedOrderProduct.title,
-      productPrice: totalPrice,
-      currency: selectedOrderProduct.currency || 'Rs.',
-      adminCommission: adminCommission,
-      sellerPayout: sellerPayout,
-      sellerName: selectedOrderProduct.sellerName || 'Partner',
-      sellerMobile: selectedOrderProduct.mobile || '03334664227',
-      customerName: name,
-      customerMobile: mobile,
-      customerAddress: address,
-      paymentMethod: paymentMethod,
-      escrowStatus: "Held in Escrow",
-      payoutStatus: "Pending Confirmation",
-      createdAt: serverTimestamp()
-    });
-    alert("Shukriya! Aapka order book ho gaya hai.");
-    document.getElementById('customerOrderForm').reset();
-    closeOrderModal();
-  } catch(err) {
-    alert("Order submit karne mein masla hua.");
-  }
-};
-
-window.submitUserAd = async function(e) {
-  e.preventDefault();
-  const category = document.getElementById('adCategory').value;
-  const name = document.getElementById('adTitle').value;
-  const city = document.getElementById('adCity').value;
-  const currency = document.getElementById('adCurrency').value;
-  const price = document.getElementById('adPrice').value;
-  const affiliateLink = document.getElementById('adAffiliateLink').value;
-  const description = document.getElementById('adDescription').value;
-  const authData = JSON.parse(localStorage.getItem('raw_locked_seller_auth') || '{}');
-
-  if (uploadedImagesArray.length === 0) { alert("Kam az kam aik tasveer select karein!"); return; }
-
-  try {
-    const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
-    await addDoc(collection(db, "products"), {
-      name, category, 
-      pricePKR: Number(price), 
-      price: Number(price), 
-      currency: currency,
-      brand: city, 
-      affiliateLink: affiliateLink || "",
-      description: description,
-      mobile: authData.mobile || '03334664227',
-      sellerName: authData.name || 'Partner',
-      images: uploadedImagesArray,
-      status: "approved",
-      isVerifiedSeller: true,
-      createdAt: serverTimestamp()
-    });
-    alert("Shukriya! Aapka ad live ہو gaya hai.");
-    document.getElementById('userAdForm').reset();
-    closeAdModal();
-    uploadedImagesArray = [];
-    document.getElementById('imgCountNotice').innerText = "";
-  } catch (err) {
-    alert("Masla hua, dobara koshish karein.");
-  }
-};
-
-window.setStars = (score) => { currentRatingScore = score; };
-window.openReviewModal = () => document.getElementById('user-review-modal').style.display = 'flex';
-window.closeReviewModal = () => document.getElementById('user-review-modal').style.display = 'none';
-
-window.submitUserReview = async function() {
-  const name = document.getElementById('reviewerName').value.trim();
-  const msg = document.getElementById('reviewMsgInput').value.trim();
-  if(!name || !msg) { alert("Naam aur review message lazmi likhein!"); return; }
-
-  try {
-    const { addDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
-    await addDoc(collection(db, "reviews"), {
-      name: name,
-      rating: currentRatingScore,
-      message: msg,
-      createdAt: serverTimestamp()
-    });
-    alert("Shukriya! Review submit ho gaya hai.");
-    document.getElementById('reviewerName').value = "";
-    document.getElementById('reviewMsgInput').value = "";
-    closeReviewModal();
-  } catch(err) {
-    alert("Review submit karne mein masla hua.");
-  }
-};
-
-window.addEventListener('DOMContentLoaded', () => {
-    loadApprovedProducts();
-});
-</script>
-</body>
-</html>
+  document.getElementById('detPrice').
