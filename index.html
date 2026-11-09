@@ -713,8 +713,7 @@ window.deleteMyProduct = async function(productId) {
   if(confirm("Kya aap waqai is ad ko delete karna chahte hain?")) {
     try {
       await deleteDoc(doc(db, "products", productId));
-      alert("Aapka ad delete ho gaya hai.");
-      closeSellerDashboard();
+      alert("Aapka ad delete ho gaya hai.")
       loadApprovedProducts();
     } catch(err) {
       alert("Delete karne mein masla hua.");
