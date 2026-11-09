@@ -808,6 +808,9 @@ window.submitUserReview = async function() {
   } catch(err) {
     alert("Review submit karne mein masla hua.");
   }
-};
-</body>
+});
+window.addEventListener('DOMContentLoaded', () => {
+    loadApprovedProducts();
+});
+/body>
 </html>
