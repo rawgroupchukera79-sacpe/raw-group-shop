@@ -603,16 +603,7 @@ function renderProducts(products) {
     }
 
     shopList.innerHTML += `
-      <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}" data-desc="${(item.description || '').toLowerCase()}">
-        <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='ejaz.jpg'"></div>
-        <div class="card-body">
-          <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
-          <span class="category-tag">${item.category || 'General'}</span>
-          <div class="city-label">📍 ${item.brand || item.city || 'Sargodha'}</div>
-          ${sellerInfo}
-          <div class="price">${priceDisplay}</div>
-          ${actionButtonsHTML}
-        </div>
+      
       </div>
     `;
   });
