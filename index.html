@@ -735,10 +735,216 @@ window.deleteMyProduct = async function(productId) {
       alert("Delete karne mein masla hua.");
     }
   }
-};
-
-window.openProductDetail = function(item) {
+};window.openProductDetail = function(item) {
   document.getElementById('detTitle').innerText = item.name || item.title;
   let currencySymbol = item.currency || 'Rs.';
   let priceVal = item.pricePKR || item.price || 0;
-  document.getElementById('detPrice').
+  document.getElementById('detPrice').innerText = `${currencySymbol} ${priceVal}`;
+  document.getElementById('detCategory').innerText = `Category: ${item.category || 'General'}`;
+  document.getElementById('detCity').innerText = `Location / Brand: ${item.brand || item.city || 'Sargodha'} | Seller ID: ${getSellerId(item.mobile)}`;
+  document.getElementById('detDescription').innerText = item.description || 'Tafseel mojood nahi hai.';
+
+  const imgContainer = document.getElementById('detImagesContainer');
+  imgContainer.innerHTML = "";
+  let imagesList = item.images;
+  if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
+    imagesList = item.img ? [item.img] : ['ejaz.jpg'];
+  }
+
+  imagesList.forEach(imgUrl => {
+    imgContainer.innerHTML += `<img src="${imgUrl}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px; border:1px solid #ddd;" onerror="this.src='ejaz.jpg'">`;
+  });
+
+  selectedOrderProduct = item;
+  let sellerIdCode = getSellerId(item.mobile);
+  let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}%20(Seller%20ID:%20${sellerIdCode})`;
+  
+  document.getElementById('detActionBtn').innerHTML = `
+    <div style="display:flex; gap:8px;">
+      <a href="${contactLink}" target="_blank" style="flex:1; background:#25d366; color:#fff; text-align:center; padding:9px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none;">💬 WhatsApp Chat</a>
+      <button onclick="openOrderModalFromDetail()" style="flex:1; background:#f57224; color:#fff; border:none; padding:9px; border-radius:6px; font-weight:bold; font-size:12px; cursor:pointer;">🛒 Secure Order</button>
+    </div>
+  `;
+
+  document.getElementById('product-detail-modal').style.display = 'flex';
+};
+
+window.closeProductDetailModal = function() {
+  document.getElementById('product-detail-modal').style.display = 'none';
+};
+
+window.openOrderModalFromDetail = function() {
+  closeProductDetailModal();
+  if(!selectedOrderProduct) return;
+  let currencySymbol = selectedOrderProduct.currency || 'Rs.';
+  let priceVal = selectedOrderProduct.pricePKR || selectedOrderProduct.price || 0;
+  
+  document.getElementById('orderProductDetails').innerHTML = `Product: <b>${selectedOrderProduct.name || selectedOrderProduct.title}</b> | Price: <b>${currencySymbol} ${priceVal}</b>`;
+  document.getElementById('customerOrderForm').reset();
+  document.getElementById('order-form-modal').style.display = 'flex';
+};
+
+window.closeOrderModal = function() {
+  document.getElementById('order-form-modal').style.display = 'none';
+};
+
+window.togglePaymentInstructions = function(val) {
+  const infoBox = document.getElementById('securePaymentInfo');
+  if(val !== 'Cash on Delivery') {
+    infoBox.style.display = 'block';
+  } else {
+    infoBox.style.display = 'none';
+  }
+};
+
+window.submitCustomerOrder = function(e) {
+  e.preventDefault();
+  const name = document.getElementById('custName').value.trim();
+  const mobile = document.getElementById('custMobile').value.trim();
+  const payMethod = document.getElementById('custPaymentMethod').value;
+  const address = document.getElementById('custAddress').value.trim();
+
+  if(!name || !mobile || !address) {
+    alert("Tamam fields pur karna lazmi hai!");
+    return;
+  }
+
+  let currencySymbol = selectedOrderProduct.currency || 'Rs.';
+  let priceVal = selectedOrderProduct.pricePKR || selectedOrderProduct.price || 0;
+  let sellerIdCode = getSellerId(selectedOrderProduct.mobile);
+
+  let orderText = `*🛒 New Secure Escrow Order - R.A.W Group*%0A%0A` +
+                  `• *Product:* ${selectedOrderProduct.name || selectedOrderProduct.title}%0A` +
+                  `• *Price:* ${currencySymbol} ${priceVal}%0A` +
+                  `• *Seller ID:* ${sellerIdCode}%0A%0A` +
+                  `*Customer Details:*%0A` +
+                  `• *Name:* ${name}%0A` +
+                  `• *Mobile:* ${mobile}%0A` +
+                  `• *Payment Method:* ${payMethod}%0A` +
+                  `• *Delivery Address:* ${address}`;
+
+  let whatsappUrl = `https://wa.me/923334664227?text=${orderText}`;
+  window.open(whatsappUrl, '_blank');
+  closeOrderModal();
+  alert("Aapka order successfully place ho gaya hai! WhatsApp par admin ko confirm karein.");
+};
+
+window.submitUserAd = async function(e) {
+  e.preventDefault();
+  const category = document.getElementById('adCategory').value;
+  const title = document.getElementById('adTitle').value.trim();
+  const city = document.getElementById('adCity').value.trim();
+  const currency = document.getElementById('adCurrency').value;
+  const price = document.getElementById('adPrice').value.trim();
+  const description = document.getElementById('adDescription').value.trim();
+
+  if(!category || !title || !city || !price || !description) {
+    alert("Tamam fields pur karna lazmi hai!");
+    return;
+  }
+
+  if(uploadedImagesArray.length === 0) {
+    alert("Kam az kam aik tasveer select karna lazmi hai.");
+    return;
+  }
+
+  const savedAuth = JSON.parse(localStorage.getItem('raw_locked_seller_auth') || '{}');
+  const newProductData = {
+    category: category,
+    name: title,
+    title: title,
+    brand: city,
+    city: city,
+    currency: currency,
+    pricePKR: Number(price),
+    price: Number(price),
+    description: description,
+    images: uploadedImagesArray,
+    mobile: savedAuth.mobile || '03334664227',
+    sellerName: savedAuth.name || 'Ejaz Ahmad',
+    createdAt: new Date().toISOString()
+  };
+
+  try {
+    await addDoc(collection(db, "products"), newProductData);
+    alert("Mubarak ho! Aapka ad live publish ho gaya hai.");
+    closeAdModal();
+    document.getElementById('userAdForm').reset();
+    uploadedImagesArray = [];
+    document.getElementById('imgCountNotice').innerText = "";
+    loadApprovedProducts();
+  } catch (err) {
+    console.error(err);
+    alert("Ad publish karne mein masla hua. Dobara koshish karein.");
+  }
+};
+
+window.openReviewModal = () => document.getElementById('user-review-modal').style.display = 'flex';
+window.closeReviewModal = () => document.getElementById('user-review-modal').style.display = 'none';
+
+window.setStars = function(n) {
+  currentRatingScore = n;
+  const stars = document.querySelectorAll('#starRatingSelect span');
+  stars.forEach((s, idx) => {
+    s.style.color = (idx < n) ? '#ffb400' : '#ccc';
+  });
+};
+
+window.compressReviewImage = function(e) {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    const img = new Image();
+    img.src = evt.target.result;
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      const MAX_WIDTH = 300;
+      const scale = MAX_WIDTH / img.width;
+      canvas.width = MAX_WIDTH;
+      canvas.height = img.height * scale;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      compressedReviewBase64 = canvas.toDataURL('image/jpeg', 0.6);
+    }
+  }
+  reader.readAsDataURL(file);
+};
+
+window.submitUserReview = async function() {
+  const name = document.getElementById('reviewerName').value.trim() || 'Anonymous';
+  const msg = document.getElementById('reviewMsgInput').value.trim();
+
+  if(!msg) {
+    alert("Barah-e-karam review likhein!");
+    return;
+  }
+
+  const reviewData = {
+    name: name,
+    rating: currentRatingScore,
+    message: msg,
+    image: compressedReviewBase64,
+  };
+
+  try {
+    await addDoc(collection(db, "reviews"), reviewData);
+    alert("Aapka review submit ho gaya hai. Shukriya!");
+    closeReviewModal();
+  } catch(err) {
+    alert("Review submit karne mein masla hua.");
+  }
+};
+
+window.filterByCategory = function(cat) {
+  selectedCategoryFilter = cat;
+  renderProducts(allProductsCache);
+};
+
+window.onload = function() {
+  loadApprovedProducts();
+};
+</script>
+
+</body>
+</html>
