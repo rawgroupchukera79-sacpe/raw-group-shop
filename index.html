@@ -535,11 +535,7 @@ window.handleMultipleImages = function(event) {
       }
     }
     reader.readAsDataURL(file);
-  }
-};
-
-window.loadApprovedProducts = async function() {
-  const shopList = document.getElementById('shopList');
+   const shopList = document.getElementById('shopList');
   try {
     const querySnapshot = await getDocs(collection(db, "products"));
     allProductsCache = [];
@@ -551,8 +547,8 @@ window.loadApprovedProducts = async function() {
     console.error(error);
     shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:red;">Data load karne mein masla hua.</p>`;
   }
-};
-
+ };
+}
 function renderProducts(products) {
   const shopList = document.getElementById('shopList');
   shopList.innerHTML = "";
@@ -579,7 +575,20 @@ function renderProducts(products) {
     let sellerIdCode = getSellerId(item.mobile);
     let sellerInfo = `<div style="font-size:9px; color:#0a8a00; font-weight:bold;">👤 Seller ID: ${sellerIdCode}</div>`;
     
-    
+    let actionButtonsHTML = '';
+    let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}%20(Seller%20ID:%20${sellerIdCode})`;
+
+    if (item.affiliateLink || (item.category && item.category.includes('Affiliate')) || (item.name && (item.name.toLowerCase().includes('alibaba') || item.name.toLowerCase().includes('amazon') || item.name.toLowerCase().includes('daraz')))) {
+      let affLink = item.affiliateLink || contactLink;
+      actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn">🔗 Visit Store / Buy</a>`;
+    } else {
+      actionButtonsHTML = `
+        <div class="btn-row">
+          <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
+          <button class="order-btn" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 Order</button>
+        </div>
+      `;
+    }
 
     shopList.innerHTML += `
       <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}" data-desc="${(item.description || '').toLowerCase()}">
@@ -596,6 +605,7 @@ function renderProducts(products) {
     `;
   });
 }
+
     let actionButtonsHTML = '';
     let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}%20(Seller%20ID:%20${sellerIdCode})`;
 
