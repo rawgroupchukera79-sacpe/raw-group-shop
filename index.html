@@ -530,22 +530,8 @@ window.handleMultipleImages = function(event) {
           document.getElementById('imgCountNotice').innerText = `✓ ${uploadedImagesArray.length} tasveerein tayar hain!`;
         }
       }
-    }
+    };
     reader.readAsDataURL(file);
-  }
-};
-window.loadApprovedProducts = async function() {
-  const shopList = document.getElementById('shopList');
-  try {
-    const querySnapshot = await getDocs(collection(db, "products"));
-    allProductsCache = [];
-    querySnapshot.forEach((docSnap) => {
-      allProductsCache.push({ id: docSnap.id, ...docSnap.data() });
-    });
-    renderProducts(allProductsCache);
-  } catch (error) {
-    console.error(error);
-    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:red;">Data load karne mein masla hua.</p>`;
   }
 };
 
@@ -561,8 +547,7 @@ function renderProducts(products) {
     shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Is category mein koi product nahi hai.</p>`;
     return;
   }
-
-  filtered.forEach((item) => {
+    filtered.forEach((item) => {
     let imagesList = item.images;
     if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
       imagesList = item.img ? [item.img] : ['ejaz.jpg'];
