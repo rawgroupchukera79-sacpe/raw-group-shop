@@ -578,11 +578,22 @@ function renderProducts(products) {
     
     let actionButtonsHTML = '';
     let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}%20(Seller%20ID:%20${sellerIdCode})`;
+    let isAlibaba = (item.name && item.name.toLowerCase().includes('alibaba')) || (item.category && item.category.toLowerCase().includes('alibaba'));
+    let isAmazon = (item.name && item.name.toLowerCase().includes('amazon')) || (item.category && item.category.toLowerCase().includes('amazon'));
+    let isDaraz = (item.name && item.name.toLowerCase().includes('daraz')) || (item.category && item.category.toLowerCase().includes('daraz'));
 
-    if (item.affiliateLink || (item.category && item.category.includes('Affiliate')) || (item.name && (item.name.toLowerCase().includes('alibaba') || item.name.toLowerCase().includes('amazon') || item.name.toLowerCase().includes('daraz')))) {
+    if (item.affiliateLink || isAlibaba || isAmazon || isDaraz) {
       let affLink = item.affiliateLink || contactLink;
-      actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn">🔗 Visit Store / Buy</a>`;
+      let storeName = "Store";
+      let btnBg = "#ff9900";
+      
+      if (isAlibaba) { storeName = "Alibaba Store"; btnBg = "#ff6600"; }
+      else if (isAmazon) { storeName = "Amazon Store"; btnBg = "#FF9900"; }
+      else if (isDaraz) { storeName = "Daraz Store"; btnBg = "#f57224"; }
+
+      actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn" style="background:${btnBg}; color:#fff;">🔗 Open ${storeName}</a>`;
     } else {
+
       actionButtonsHTML = `
         <div class="btn-row">
           <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
