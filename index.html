@@ -112,7 +112,6 @@ function googleTranslateElementInit() {
   <div class="top-bar">
     <div id="google_translate_element"></div>
     <div class="owner-branding">
-      <!-- Admin Photo (JPG support) & Logo (PNG support) -->
       <img src="./ejaz.jpg" onerror="this.onerror=function(){this.src='./ejaz.png';}; this.src='./ejaz.png';" title="Ejaz Ahmad">
       <img src="./logo.png" onerror="this.style.display='none';" title="R.A.W Group">
     </div>
@@ -170,7 +169,6 @@ function googleTranslateElementInit() {
     <p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">لوڈ ہو رہا ہے...</p>
   </div>
 
-  <!-- Footer Copyright -->
   <div style="text-align:center; padding: 25px 10px 15px; font-size:11px; color:#555; background:#fff; margin-top:20px; border-top:1px solid #ddd;">
     <p>© R.A.W GROUP CHOUKIRH 79. All Rights Reserved.</p>
   </div>
@@ -434,7 +432,6 @@ let allProductsCache = [];
 let selectedOrderProduct = null;
 let pendingTargetAction = null;
 
-// Helper: Generate RAW Seller ID from mobile number
 function getSellerId(mobile) {
   if (!mobile) return "RAW-79-ADMIN";
   let cleanMob = mobile.replace(/[^0-9]/g, '');
@@ -535,8 +532,11 @@ window.handleMultipleImages = function(event) {
       }
     }
     reader.readAsDataURL(file);
-    window.loadApprovedProducts = async function() {
-   const shopList = document.getElementById('shopList');
+  }
+};
+
+window.loadApprovedProducts = async function() {
+  const shopList = document.getElementById('shopList');
   try {
     const querySnapshot = await getDocs(collection(db, "products"));
     allProductsCache = [];
@@ -548,8 +548,8 @@ window.handleMultipleImages = function(event) {
     console.error(error);
     shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:red;">Data load karne mein masla hua.</p>`;
   }
- };
-}
+};
+
 function renderProducts(products) {
   const shopList = document.getElementById('shopList');
   shopList.innerHTML = "";
@@ -607,22 +607,7 @@ function renderProducts(products) {
   });
 }
 
-    let actionButtonsHTML = '';
-    let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}%20(Seller%20ID:%20${sellerIdCode})`;
-
-    if (item.affiliateLink || (item.category && item.category.includes('Affiliate')) || (item.name && (item.name.toLowerCase().includes('alibaba') || item.name.toLowerCase().includes('amazon') || item.name.toLowerCase().includes('daraz')))) {
-      let affLink = item.affiliateLink || contactLink;
-      actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn">🔗 Visit Store / Buy</a>`;
-    } else {
-      actionButtonsHTML = `
-        <div class="btn-row">
-          <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
-          <button class="order-btn" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 Order</button>
-        </div>
-      `;
-    }
-
-  window.filterShop = function() {
+window.filterShop = function() {
   const val = document.getElementById('search').value.toLowerCase().trim();
   const cards = document.querySelectorAll('.card');
   cards.forEach(card => {
@@ -753,7 +738,9 @@ window.deleteMyProduct = async function(productId) {
       alert("Delete karne mein masla hua.");
     }
   }
-};window.openProductDetail = function(item) {
+};
+
+window.openProductDetail = function(item) {
   document.getElementById('detTitle').innerText = item.name || item.title;
   let currencySymbol = item.currency || 'Rs.';
   let priceVal = item.pricePKR || item.price || 0;
