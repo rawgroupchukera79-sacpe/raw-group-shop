@@ -534,10 +534,18 @@ window.handleMultipleImages = function(event) {
     reader.readAsDataURL(file);
   }
 };
+
 function renderProducts(products) {
   const shopList = document.getElementById('shopList');
   shopList.innerHTML = "";
+  
+  if (!products || products.length === 0) {
+    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Koi product mojood nahi hai.</p>`;
+    return;
+  }
+
   let filtered = products.filter(item => {
+    if (!item) return false;
     if (selectedCategoryFilter !== 'All' && item.category !== selectedCategoryFilter) return false;
     return true;
   });
