@@ -535,6 +535,35 @@ window.handleMultipleImages = function(event) {
   }
 };
 
+window.loadApprovedProducts = async function() {
+  const shopList = document.getElementById('shopList');
+  if (!shopList) return;
+  
+  shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">لوڈ ہو رہا ہے...</p>`;
+  
+  try {
+    const querySnapshot = await getDocs(collection(db, "products"));
+    allProductsCache = [];
+    
+    querySnapshot.forEach((docSnap) => {
+      let prodData = docSnap.data();
+      allProductsCache.push({ id: docSnap.id, ...prodData });
+    });
+
+    console.log("Database se aane wali products:", allProductsCache);
+
+    if (allProductsCache.length === 0) {
+      shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Abhi koi product mojood nahi hai.</p>`;
+      return;
+    }
+
+    renderProducts(allProductsCache);
+  } catch (error) {
+    console.error("Data load error:", error);
+    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:red;">Data load karne mein masla hua.</p>`;
+  }
+};
+
 function renderProducts(products) {
   const shopList = document.getElementById('shopList');
   shopList.innerHTML = "";
@@ -612,7 +641,6 @@ function renderProducts(products) {
     `;
   });
 }
-
 
 window.filterShop = function() {
   const val = document.getElementById('search').value.toLowerCase().trim();
