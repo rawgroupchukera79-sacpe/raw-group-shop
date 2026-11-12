@@ -534,7 +534,6 @@ window.handleMultipleImages = function(event) {
     reader.readAsDataURL(file);
   }
 };
-
 function renderProducts(products) {
   const shopList = document.getElementById('shopList');
   shopList.innerHTML = "";
@@ -547,24 +546,28 @@ function renderProducts(products) {
     shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Is category mein koi product nahi hai.</p>`;
     return;
   }
-    filtered.forEach((item) => {
+
+  filtered.forEach((item) => {
     let imagesList = item.images;
     if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
       imagesList = item.img ? [item.img] : ['ejaz.jpg'];
     }
-    const mainImg = imagesList[0];
+    let mainImg = imagesList[0];
     let currencySymbol = item.currency || 'Rs.';
     let priceVal = item.pricePKR || item.price || 0;
     let priceDisplay = `${currencySymbol} ${priceVal}`;
 
     let sellerIdCode = getSellerId(item.mobile);
-    let sellerInfo = `<div style="font-size:9px; color:#0a8a00; font-weight:bold;">👤 Seller ID: ${sellerIdCode}</div>`;
-    
     let actionButtonsHTML = '';
-    let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}%20(Seller%20ID:%20${sellerIdCode})`;
-    let isAlibaba = (item.name && item.name.toLowerCase().includes('alibaba')) || (item.category && item.category.toLowerCase().includes('alibaba'));
-    let isAmazon = (item.name && item.name.toLowerCase().includes('amazon')) || (item.category && item.category.toLowerCase().includes('amazon'));
-    let isDaraz = (item.name && item.name.toLowerCase().includes('daraz')) || (item.category && item.category.toLowerCase().includes('daraz'));
+    let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
+
+    let itemName = (item.name || "").toLowerCase();
+    let itemCat = (item.category || "").toLowerCase();
+    let itemBrand = (item.brand || item.city || "").toLowerCase();
+
+    let isAlibaba = itemName.includes('alibaba') || itemCat.includes('alibaba') || itemBrand.includes('alibaba');
+    let isAmazon = itemName.includes('amazon') || itemCat.includes('amazon') || itemBrand.includes('amazon');
+    let isDaraz = itemName.includes('daraz') || itemCat.includes('daraz') || itemBrand.includes('daraz');
 
     if (item.affiliateLink || isAlibaba || isAmazon || isDaraz) {
       let affLink = item.affiliateLink || contactLink;
@@ -586,11 +589,22 @@ function renderProducts(products) {
     }
 
     shopList.innerHTML += `
-      
+      <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}" data-desc="${(item.description || '').toLowerCase()}">
+        <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>
+          <img src="${mainImg}" alt="${item.name || 'Product'}" loading="lazy">
+          <span class="category-tag">${item.category || 'General'}</span>
+        </div>
+        <div class="card-body">
+          <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title || 'Product'}</h3>
+          <div class="city-label">📍 ${item.brand || item.city || 'Sargodha'}</div>
+          <div class="price">${priceDisplay}</div>
+          ${actionButtonsHTML}
+        </div>
       </div>
     `;
   });
 }
+
 
 window.filterShop = function() {
   const val = document.getElementById('search').value.toLowerCase().trim();
