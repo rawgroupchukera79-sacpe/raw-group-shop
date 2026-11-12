@@ -66,7 +66,7 @@ body { top: 0px !important; }
 .btn-row { display: flex; gap: 4px; }
 .whatsapp-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #25d366; color: #fff; text-align: center; text-decoration: none; }
 .order-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #f57224; color: #fff; text-align: center; }
-.affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #000; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
+.affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #fff; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
 
 /* Product Detail Modal */
 #product-detail-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
@@ -550,8 +550,6 @@ window.loadApprovedProducts = async function() {
       allProductsCache.push({ id: docSnap.id, ...prodData });
     });
 
-    console.log("Database se aane wali products:", allProductsCache);
-
     if (allProductsCache.length === 0) {
       shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Abhi koi product mojood nahi hai.</p>`;
       return;
@@ -594,8 +592,6 @@ function renderProducts(products) {
     let priceVal = item.pricePKR || item.price || 0;
     let priceDisplay = `${currencySymbol} ${priceVal}`;
 
-    let sellerIdCode = getSellerId(item.mobile);
-    let actionButtonsHTML = '';
     let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
 
     let itemName = (item.name || "").toLowerCase();
@@ -606,14 +602,16 @@ function renderProducts(products) {
     let isAmazon = itemName.includes('amazon') || itemCat.includes('amazon') || itemBrand.includes('amazon');
     let isDaraz = itemName.includes('daraz') || itemCat.includes('daraz') || itemBrand.includes('daraz');
 
+    let actionButtonsHTML = '';
+
     if (item.affiliateLink || isAlibaba || isAmazon || isDaraz) {
       let affLink = item.affiliateLink || contactLink;
       let storeName = "Store";
       let btnBg = "#ff9900";
       
-      if (isAlibaba) { storeName = "Alibaba Store"; btnBg = "#ff6600"; }
-      else if (isAmazon) { storeName = "Amazon Store"; btnBg = "#FF9900"; }
-      else if (isDaraz) { storeName = "Daraz Store"; btnBg = "#f57224"; }
+      if (isAlibaba) { storeName = "Alibaba"; btnBg = "#ff6600"; }
+      else if (isAmazon) { storeName = "Amazon"; btnBg = "#FF9900"; }
+      else if (isDaraz) { storeName = "Daraz"; btnBg = "#f57224"; }
 
       actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn" style="background:${btnBg}; color:#fff;">🔗 Open ${storeName}</a>`;
     } else {
@@ -626,7 +624,7 @@ function renderProducts(products) {
     }
 
     shopList.innerHTML += `
-      <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}" data-desc="${(item.description || '').toLowerCase()}">
+      <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}" data-desc="${(item.description || item.tafseel || '').toLowerCase()}">
         <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>
           <img src="${mainImg}" alt="${item.name || 'Product'}" loading="lazy">
           <span class="category-tag">${item.category || 'General'}</span>
@@ -782,7 +780,7 @@ window.openProductDetail = function(item) {
   document.getElementById('detPrice').innerText = `${currencySymbol} ${priceVal}`;
   document.getElementById('detCategory').innerText = `Category: ${item.category || 'General'}`;
   document.getElementById('detCity').innerText = `Location / Brand: ${item.brand || item.city || 'Sargodha'} | Seller ID: ${getSellerId(item.mobile)}`;
-  document.getElementById('detDescription').innerText = item.description || 'Tafseel mojood nahi hai.';
+  document.getElementById('detDescription').innerText = item.description || item.tafseel || 'Tafseel mojood nahi hai.';
 
   const imgContainer = document.getElementById('detImagesContainer');
   imgContainer.innerHTML = "";
@@ -899,6 +897,7 @@ window.submitUserAd = async function(e) {
     pricePKR: Number(price),
     price: Number(price),
     description: description,
+    tafseel: description,
     images: uploadedImagesArray,
     mobile: savedAuth.mobile || '03334664227',
     sellerName: savedAuth.name || 'Ejaz Ahmad',
