@@ -158,7 +158,6 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Product Detail Modal (Completely Clean - No Category, No Seller ID) -->
 <div id="product-detail-modal">
   <div class="detail-modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -194,8 +193,6 @@ function googleTranslateElementInit() {
     </div>
     <div style="font-size:11px; color:#333; line-height:1.6; max-height:300px; overflow-y:auto; background:#fafafa; padding:8px; border-radius:6px;">
       <p><b>1. Introduction:</b> R.A.W GROUP CHOUKIRH 79 marketplace aapki data security aur privacy ko ahmiyat deti hai.</p>
-      <br>
-      <p><b>2. Safe Transactions:</b> Hamara platform kharidaron aur farokhtkaron (sellers) ke darmiyan behtareen aur mehfooz rabta faraham karta hai.</p>
     </div>
     <button onclick="closePrivacyModal()" style="margin-top:10px; width:100%; background:#194376; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
   </div>
@@ -226,7 +223,6 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Seller & Admin Secret Dashboard with Block/Delete Option -->
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="dashboard-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -235,12 +231,11 @@ function googleTranslateElementInit() {
     </div>
     
     <div style="background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:10px; color:#b25000; font-weight:bold;">
-      💡 <b>Notice:</b> Main Admin (0333-4664227) ke pas kisi bhi ghalat ad ko BLOCK / DELETE karne ka mukammal ikhtiyar hai[span_3](start_span)[span_3](end_span).
+      💡 <b>Notice:</b> Main Admin (0333-4664227) ke pas kisi bhi ghalat ad ko BLOCK / DELETE karne ka mukammal ikhtiyar hai[span_4](start_span)[span_4](end_span).
     </div>
 
     <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
     
-    <!-- Admin Master Control Panel -->
     <div id="adminControlSection" style="display:none; margin-bottom:12px;">
       <div style="margin-bottom:6px; font-weight:bold; font-size:12px; color:#d9534f;">👑 Admin Master Control (All Ads Block/Delete):</div>
       <div id="adminAllAdsList" style="display:flex; flex-direction:column; gap:6px; max-height:220px; overflow-y:auto; border:1px solid #d9534f; padding:6px; border-radius:6px; background:#fff5f5;"></div>
@@ -304,6 +299,10 @@ function googleTranslateElementInit() {
           </select>
           <input type="number" id="adPrice" required placeholder="1500" style="flex:1;">
         </div>
+      </div>
+      <div class="form-group">
+        <label>Affiliate Link (Optional - Agar Alibaba/Amazon/Daraz ka link ho)</label>
+        <input type="text" id="adAffiliateLink" placeholder="https://s.daraz.pk/... ya khali chhor dein">
       </div>
       <div class="form-group">
         <label>Tafseel Likhein *</label>
@@ -526,10 +525,29 @@ function renderProducts(products) {
     let priceVal = item.pricePKR || item.price || 0;
     let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
 
+    let itemName = (item.name || "").toLowerCase();
+    let itemCat = (item.category || "").toLowerCase();
+    let itemBrand = (item.brand || item.city || "").toLowerCase();
+    let itemDesc = (item.description || item.tafseel || "").toLowerCase();
+
+    let isAlibaba = itemName.includes('alibaba') || itemCat.includes('alibaba') || itemBrand.includes('alibaba');
+    let isAmazon = itemName.includes('amazon') || itemCat.includes('amazon') || itemBrand.includes('amazon');
+    let isDaraz = itemName.includes('daraz') || itemCat.includes('daraz') || itemBrand.includes('daraz');
+
     let actionButtonsHTML = '';
-    if (item.affiliateLink && item.affiliateLink.trim() !== "") {
-      actionButtonsHTML = `<a href="${item.affiliateLink}" target="_blank" class="affiliate-btn" style="background:#ff9900; color:#fff;">🔗 Open Store</a>`;
+    
+    // اگر پروڈکٹ کے پاس ایفلیئیٹ لنک موجود ہے یا نام/برانڈ میں ایمازون/علی بابا/دراز ہے تو صرف سنگل ایفلیئیٹ بٹن آئے گا
+    if ((item.affiliateLink && item.affiliateLink.trim() !== "") || isAlibaba || isAmazon || isDaraz) {
+      let affLink = item.affiliateLink || "https://wa.me/923334664227";
+      let storeName = "Open Store";
+      let btnBg = "#ff9900";
+      if (isAlibaba) { storeName = "Open Alibaba"; btnBg = "#ff6600"; }
+      else if (isAmazon) { storeName = "Open Amazon"; btnBg = "#FF9900"; }
+      else if (isDaraz) { storeName = "Open Daraz"; btnBg = "#f57224"; }
+
+      actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn" style="background:${btnBg}; color:#fff;">🔗 ${storeName}</a>`;
     } else {
+      // نارمل یا لوکل پروڈکٹس کے لیے چیٹ اور آرڈر کے دو الگ بٹن آئेंगे
       actionButtonsHTML = `
         <div class="btn-row">
           <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
@@ -538,9 +556,8 @@ function renderProducts(products) {
       `;
     }
 
-    // یہاں سے کیٹگری کا ٹیگ ہمیشہ کے لیے ہٹا دیا گیا ہے تاکہ کارڈ بالکل پلین اور صاف ہو
     shopList.innerHTML += `
-      <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}">
+      <div class="card" data-title="${itemName}" data-category="${itemCat}" data-city="${itemBrand}">
         <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>
           <img src="${mainImg}" alt="Product" loading="lazy">
         </div>
@@ -689,8 +706,6 @@ window.deleteMyProduct = async function(productId) {
 window.openProductDetail = function(item) {
   document.getElementById('detTitle').innerText = item.name || item.title;
   document.getElementById('detPrice').innerText = `${item.currency || 'Rs.'} ${item.pricePKR || item.price || 0}`;
-  
-  // یہاں سے بھی سیلر آئی ڈی اور کیٹگری ہمیشہ کے لیے ہٹا دی گئی ہے
   document.getElementById('detCity').innerText = `Location / Brand: ${item.brand || item.city || 'Sargodha'}`;
   document.getElementById('detDescription').innerText = item.description || item.tafseel || 'Tafseel mojood nahi hai.';
 
@@ -704,12 +719,30 @@ window.openProductDetail = function(item) {
   selectedOrderProduct = item;
   let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
   
-  document.getElementById('detActionBtn').innerHTML = `
-    <div style="display:flex; gap:8px;">
-      <a href="${contactLink}" target="_blank" style="flex:1; background:#25d366; color:#fff; text-align:center; padding:9px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none;">💬 WhatsApp Chat</a>
-      <button onclick="openOrderModalFromDetail()" style="flex:1; background:#f57224; color:#fff; border:none; padding:9px; border-radius:6px; font-weight:bold; font-size:12px; cursor:pointer;">🛒 Secure Order</button>
-    </div>
-  `;
+  let itemName = (item.name || "").toLowerCase();
+  let itemCat = (item.category || "").toLowerCase();
+  let itemBrand = (item.brand || item.city || "").toLowerCase();
+  let isAlibaba = itemName.includes('alibaba') || itemCat.includes('alibaba') || itemBrand.includes('alibaba');
+  let isAmazon = itemName.includes('amazon') || itemCat.includes('amazon') || itemBrand.includes('amazon');
+  let isDaraz = itemName.includes('daraz') || itemCat.includes('daraz') || itemBrand.includes('daraz');
+
+  if ((item.affiliateLink && item.affiliateLink.trim() !== "") || isAlibaba || isAmazon || isDaraz) {
+    let affLink = item.affiliateLink || "https://wa.me/923334664227";
+    let storeName = "Open Store";
+    let btnBg = "#ff9900";
+    if (isAlibaba) { storeName = "Open Alibaba"; btnBg = "#ff6600"; }
+    else if (isAmazon) { storeName = "Open Amazon"; btnBg = "#FF9900"; }
+    else if (isDaraz) { storeName = "Open Daraz"; btnBg = "#f57224"; }
+
+    document.getElementById('detActionBtn').innerHTML = `<a href="${affLink}" target="_blank" style="width:100%; display:block; background:${btnBg}; color:#fff; text-align:center; padding:10px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none;">🔗 ${storeName}</a>`;
+  } else {
+    document.getElementById('detActionBtn').innerHTML = `
+      <div style="display:flex; gap:8px;">
+        <a href="${contactLink}" target="_blank" style="flex:1; background:#25d366; color:#fff; text-align:center; padding:9px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none;">💬 WhatsApp Chat</a>
+        <button onclick="openOrderModalFromDetail()" style="flex:1; background:#f57224; color:#fff; border:none; padding:9px; border-radius:6px; font-weight:bold; font-size:12px; cursor:pointer;">🛒 Secure Order</button>
+      </div>
+    `;
+  }
 
   document.getElementById('product-detail-modal').style.display = 'flex';
 };
@@ -751,6 +784,7 @@ window.submitUserAd = async function(e) {
   const city = document.getElementById('adCity').value.trim();
   const currency = document.getElementById('adCurrency').value;
   const price = document.getElementById('adPrice').value.trim();
+  const affiliateLink = document.getElementById('adAffiliateLink').value.trim();
   const description = document.getElementById('adDescription').value.trim();
 
   if(!category || !title || !city || !price || !description) return alert("Tamam fields pur karein!");
@@ -760,6 +794,7 @@ window.submitUserAd = async function(e) {
   const newProductData = {
     category, name: title, title, brand: city, city, currency,
     pricePKR: Number(price), price: Number(price),
+    affiliateLink: affiliateLink,
     description, tafseel: description, images: uploadedImagesArray,
     mobile: savedAuth.mobile || ADMIN_MOBILE,
     sellerName: savedAuth.name || 'Ejaz Ahmad',
