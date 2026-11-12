@@ -66,7 +66,7 @@ body { top: 0px !important; }
 .btn-row { display: flex; gap: 4px; }
 .whatsapp-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #25d366; color: #fff; text-align: center; text-decoration: none; }
 .order-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #f57224; color: #fff; text-align: center; }
-.affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #fff; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
+.affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #000; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
 
 /* Product Detail Modal */
 #product-detail-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
@@ -174,7 +174,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Product Detail Modal (Clean for Customers) -->
+<!-- Product Detail Modal -->
 <div id="product-detail-modal">
   <div class="detail-modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -204,7 +204,7 @@ function googleTranslateElementInit() {
 <!-- Plus Action Menu -->
 <div id="plus-action-menu">
   <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('post')">📦 Naya Ad Lagayein</button>
-  <button class="menu-action-btn manage" onclick="closePlusMenu(); promptSellerLogin('dashboard')">⚙️ Seller / Admin Dashboard</button>
+  <button class="menu-action-btn manage" onclick="closePlusMenu(); promptSellerLogin('dashboard')">⚙️ Seller Dashboard</button>
 </div>
 
 <!-- Privacy Policy Modal -->
@@ -251,27 +251,24 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Seller & Admin Secret Dashboard Modal -->
+<!-- Seller & Admin Dashboard Modal -->
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="dashboard-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px; color:#194376;">⚙️ Secure Dashboard & Admin Controls</h3>
+      <h3 style="font-size:14px; color:#194376;">⚙️ Dashboard & Registered Sellers</h3>
       <span style="cursor:pointer;font-weight:bold;" onclick="closeSellerDashboard()">✕</span>
     </div>
     
     <div style="background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:10px; color:#b25000; font-weight:bold;">
-      💡 <b>Notice:</b> Main Admin (0333-4664227) ke pas kisi bhi ghalat ad ko BLOCK / DELETE karne ka mukammal ikhtiyar hai[span_2](start_span)[span_2](end_span).
+      💡 <b>Admin Rule Notice:</b> Har order/sale par <b>5% Admin Commission</b> deduct hota hai, baaki payout seller ka hota hai.
     </div>
 
     <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
     
-    <!-- Admin Master Control Panel (Hidden from normal public & sellers) -->
-    <div id="adminControlSection" style="display:none; margin-bottom:12px;">
-      <div style="margin-bottom:6px; font-weight:bold; font-size:12px; color:#d9534f;">👑 Admin Master Control (All Sellers Ads Management):</div>
-      <div id="adminAllAdsList" style="display:flex; flex-direction:column; gap:6px; max-height:200px; overflow-y:auto; border:1px solid #d9534f; padding:6px; border-radius:6px; background:#fff5f5;"></div>
-    </div>
+    <div style="margin-bottom:10px; font-weight:bold; font-size:12px; color:#194376;">📋 Registered Sellers List (RAW Seller IDs):</div>
+    <div id="registeredSellersList" style="display:flex; flex-direction:column; gap:6px; max-height:150px; overflow-y:auto; margin-bottom:12px; border:1px solid #ddd; padding:6px; border-radius:6px; background:#fafafa;"></div>
 
-    <div style="margin-bottom:6px; font-weight:bold; font-size:12px; color:#194376;">📦 Aapke Apne Ads / Products:</div>
+    <div style="margin-bottom:6px; font-weight:bold; font-size:12px; color:#194376;">📦 Aapke Ads / Products:</div>
     <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:160px; overflow-y:auto;">
       <p style="font-size:11px; color:#666;">Ads load ho rahe hain...</p>
     </div>
@@ -435,8 +432,6 @@ let allProductsCache = [];
 let selectedOrderProduct = null;
 let pendingTargetAction = null;
 
-const ADMIN_MOBILE = "03334664227";
-
 function getSellerId(mobile) {
   if (!mobile) return "RAW-79-ADMIN";
   let cleanMob = mobile.replace(/[^0-9]/g, '');
@@ -555,6 +550,8 @@ window.loadApprovedProducts = async function() {
       allProductsCache.push({ id: docSnap.id, ...prodData });
     });
 
+    console.log("Database se aane wali products:", allProductsCache);
+
     if (allProductsCache.length === 0) {
       shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Abhi koi product mojood nahi hai.</p>`;
       return;
@@ -597,6 +594,8 @@ function renderProducts(products) {
     let priceVal = item.pricePKR || item.price || 0;
     let priceDisplay = `${currencySymbol} ${priceVal}`;
 
+    let sellerIdCode = getSellerId(item.mobile);
+    let actionButtonsHTML = '';
     let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
 
     let itemName = (item.name || "").toLowerCase();
@@ -607,16 +606,14 @@ function renderProducts(products) {
     let isAmazon = itemName.includes('amazon') || itemCat.includes('amazon') || itemBrand.includes('amazon');
     let isDaraz = itemName.includes('daraz') || itemCat.includes('daraz') || itemBrand.includes('daraz');
 
-    let actionButtonsHTML = '';
-
-    if (item.affiliateLink && item.affiliateLink.trim() !== "") {
-      let affLink = item.affiliateLink;
+    if (item.affiliateLink || isAlibaba || isAmazon || isDaraz) {
+      let affLink = item.affiliateLink || contactLink;
       let storeName = "Store";
       let btnBg = "#ff9900";
       
-      if (isAlibaba) { storeName = "Alibaba"; btnBg = "#ff6600"; }
-      else if (isAmazon) { storeName = "Amazon"; btnBg = "#FF9900"; }
-      else if (isDaraz) { storeName = "Daraz"; btnBg = "#f57224"; }
+      if (isAlibaba) { storeName = "Alibaba Store"; btnBg = "#ff6600"; }
+      else if (isAmazon) { storeName = "Amazon Store"; btnBg = "#FF9900"; }
+      else if (isDaraz) { storeName = "Daraz Store"; btnBg = "#f57224"; }
 
       actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn" style="background:${btnBg}; color:#fff;">🔗 Open ${storeName}</a>`;
     } else {
@@ -628,9 +625,8 @@ function renderProducts(products) {
       `;
     }
 
-    /* خریدار کے لیے ویب سائٹ بالکل سادہ اور صاف ستھری رکھی گئی ہے (کوئی ایڈمن بٹن باہر نہیں ہے) */
     shopList.innerHTML += `
-      <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}" data-desc="${(item.description || item.tafseel || '').toLowerCase()}">
+      <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}" data-desc="${(item.description || '').toLowerCase()}">
         <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>
           <img src="${mainImg}" alt="${item.name || 'Product'}" loading="lazy">
           <span class="category-tag">${item.category || 'General'}</span>
@@ -698,46 +694,41 @@ window.verifySellerLogin = function(e) {
 function openSecureDashboard(authData) {
   const dUser = document.getElementById('dashboardUserInfo');
   const dList = document.getElementById('myAdsList');
-  const adminSec = document.getElementById('adminControlSection');
-  const adminList = document.getElementById('adminAllAdsList');
+  const sList = document.getElementById('registeredSellersList');
   dList.innerHTML = "";
-  adminList.innerHTML = "";
+  sList.innerHTML = "";
 
   dUser.innerHTML = `🛡️ Logged in as: <b>${authData.name}</b> | Your ID: <b style="color:#f57224;">${authData.sellerId}</b>`;
   document.getElementById('seller-dashboard-modal').style.display = 'flex';
 
-  let cleanLoginMob = authData.mobile.replace(/[^0-9]/g, '');
-  let cleanAdminMob = ADMIN_MOBILE.replace(/[^0-9]/g, '');
-
-  /* صرف مین ایڈمن (`03334664227`) کو یہ خفیہ کنٹرول پینل نظر آئے گا */
-  if(cleanLoginMob.includes(cleanAdminMob) || cleanAdminMob.includes(cleanLoginMob)) {
-    adminSec.style.display = 'block';
-    if(allProductsCache.length === 0) {
-      adminList.innerHTML = `<div style="font-size:10px; color:#666; text-align:center;">Koi ad mojood nahi hai.</div>`;
-    } else {
-      allProductsCache.forEach((prod, idx) => {
-        let pImg = (prod.images && prod.images[0]) || prod.img || 'ejaz.jpg';
-        adminList.innerHTML += `
-          <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; padding:6px; border-radius:4px; border:1px solid #ddd; font-size:11px;">
-            <div style="display:flex; align-items:center; gap:6px;">
-              <img src="${pImg}" style="width:30px; height:30px; object-fit:contain;">
-              <div>
-                <b>${idx+1}. ${prod.name || prod.title}</b><br>
-                <span style="color:#d9534f; font-weight:bold;">Seller: ${prod.sellerName || 'Partner'} [${getSellerId(prod.mobile)}]</span>
-              </div>
-            </div>
-            <button onclick="adminBlockOrDeleteProduct('${prod.id}', '${prod.name || prod.title}')" style="background:#d9534f; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; font-weight:bold; cursor:pointer;">🚫 Block / Delete</button>
-          </div>
-        `;
-      });
+  let uniqueSellersMap = {};
+  allProductsCache.forEach(item => {
+    if(item.mobile) {
+      let sId = getSellerId(item.mobile);
+      if(!uniqueSellersMap[sId]) {
+        uniqueSellersMap[sId] = { name: item.sellerName || 'Partner', sellerId: sId, mobile: item.mobile, count: 0 };
+      }
+      uniqueSellersMap[sId].count++;
     }
+  });
+
+  let sellersArray = Object.values(uniqueSellersMap);
+  if(sellersArray.length === 0) {
+    sList.innerHTML = `<div style="font-size:10px; color:#666; text-align:center;">Abhi koi doosra seller mojood nahi hai.</div>`;
   } else {
-    adminSec.style.display = 'none';
+    sellersArray.forEach((seller, idx) => {
+      sList.innerHTML += `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; padding:5px 8px; border-radius:4px; border:1px solid #e5e5e5; font-size:11px;">
+          <div><b>${idx + 1}. ${seller.name}</b> <span style="color:#194376; font-weight:bold;">[${seller.sellerId}]</span></div>
+          <div style="color:#f57224; font-weight:bold;">${seller.count} Ads</div>
+        </div>
+      `;
+    });
   }
 
-  let myAds = allProductsCache.filter(item => item.mobile === authData.mobile);
+  let myAds = allProductsCache.filter(item => authData.mobile === '03334664227' || item.mobile === authData.mobile);
   if(myAds.length === 0) {
-    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center; padding:10px;">Aapka apna koi ad mojood nahi hai.</p>`;
+    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center; padding:10px;">Aapka koi ad mojood nahi hai.</p>`;
     return;
   }
 
@@ -760,30 +751,6 @@ function openSecureDashboard(authData) {
 }
 
 window.closeSellerDashboard = () => document.getElementById('seller-dashboard-modal').style.display = 'none';
-
-window.adminBlockOrDeleteProduct = async function(productId, prodTitle) {
-  let reason = prompt(`⚠️ ADMIN WARNING:\nAap "${prodTitle}" ko q block/delete kar رہے ہیں؟\nBarah-e-karam wajah (Reason) likhein taqy record rahe:`, "Khilaf-e-Qanoon ya Ghalat Mawad (Violation of Policy)");
-  if(reason === null) return;
-
-  try {
-    await deleteDoc(doc(db, "products", productId));
-    alert(`✓ Ad successfully block/delete kar diya gaya hai.\nReason: ${reason}`);
-    
-    const querySnapshot = await getDocs(collection(db, "products"));
-    allProductsCache = [];
-    querySnapshot.forEach((docSnap) => {
-      allProductsCache.push({ id: docSnap.id, ...docSnap.data() });
-    });
-    renderProducts(allProductsCache);
-
-    const savedAuth = JSON.parse(localStorage.getItem('raw_locked_seller_auth') || '{}');
-    if(savedAuth.mobile) {
-      openSecureDashboard(savedAuth);
-    }
-  } catch(err) {
-    alert("Ad block karne mein masla hua.");
-  }
-};
 
 window.deleteMyProduct = async function(productId) {
   if(confirm("Kya aap waqai is ad ko delete karna chahte hain?")) {
@@ -815,12 +782,7 @@ window.openProductDetail = function(item) {
   document.getElementById('detPrice').innerText = `${currencySymbol} ${priceVal}`;
   document.getElementById('detCategory').innerText = `Category: ${item.category || 'General'}`;
   document.getElementById('detCity').innerText = `Location / Brand: ${item.brand || item.city || 'Sargodha'} | Seller ID: ${getSellerId(item.mobile)}`;
-  
-  let fullDesc = item.description || item.tafseel;
-  if (!fullDesc || fullDesc.trim() === "") {
-    fullDesc = item.name || item.title || 'Tafseel mojood nahi hai.';
-  }
-  document.getElementById('detDescription').innerText = fullDesc;
+  document.getElementById('detDescription').innerText = item.description || 'Tafseel mojood nahi hai.';
 
   const imgContainer = document.getElementById('detImagesContainer');
   imgContainer.innerHTML = "";
@@ -937,9 +899,8 @@ window.submitUserAd = async function(e) {
     pricePKR: Number(price),
     price: Number(price),
     description: description,
-    tafseel: description,
     images: uploadedImagesArray,
-    mobile: savedAuth.mobile || ADMIN_MOBILE,
+    mobile: savedAuth.mobile || '03334664227',
     sellerName: savedAuth.name || 'Ejaz Ahmad',
     createdAt: new Date().toISOString()
   };
