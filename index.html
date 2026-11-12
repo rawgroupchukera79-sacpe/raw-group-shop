@@ -58,7 +58,7 @@ body { top: 0px !important; }
 .btn-row { display: flex; gap: 4px; }
 .whatsapp-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #25d366; color: #fff; text-align: center; text-decoration: none; }
 .order-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #f57224; color: #fff; text-align: center; }
-.affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #000; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
+.affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #fff; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
 
 /* Product Detail Modal */
 #product-detail-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
@@ -183,14 +183,12 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Bottom Navigation: Privacy Policy (Left), Plus FAB (Center), Review (Right) -->
+<!-- Bottom Navigation -->
 <div class="bottom-nav">
   <div class="nav-item" onclick="openPrivacyModal()"><span class="icon">🔒</span><span>Policy</span></div>
-  
   <div class="sell-fab-container">
     <div class="sell-fab" onclick="togglePlusMenu()">+</div>
   </div>
-
   <div class="nav-item" onclick="openReviewModal()"><span class="icon">⭐</span><span>Review</span></div>
 </div>
 
@@ -209,16 +207,12 @@ function googleTranslateElementInit() {
     </div>
     <div style="font-size:11px; color:#333; line-height:1.6; max-height:300px; overflow-y:auto; background:#fafafa; padding:8px; border-radius:6px;">
       <p><b>1. Introduction:</b> R.A.W GROUP CHOUKIRH 79 marketplace aapki data security aur privacy ko ahmiyat deti hai.</p>
-      <br>
-      <p><b>2. Safe Transactions:</b> Hamara platform kharidaron aur farokhtkaron (sellers) ke darmiyan behtareen aur mehfooz rabta faraham karta hai.</p>
-      <br>
-      <p><b>3. Contact Us:</b> Kisi bhi sawal ke liye official WhatsApp number (0333-4664227) par rabta karein.</p>
     </div>
     <button onclick="closePrivacyModal()" style="margin-top:10px; width:100%; background:#194376; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
   </div>
 </div>
 
-<!-- Mandatory Password Locked Seller Login Modal -->
+<!-- Seller Login Modal -->
 <div id="user-login-modal" class="custom-modal">
   <div class="modal-content" style="text-align:center;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -244,7 +238,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Seller & Admin Dashboard Modal (Includes Admin Master Control & Block/Delete Feature) -->
+<!-- Seller / Admin Dashboard Modal -->
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="dashboard-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -253,12 +247,11 @@ function googleTranslateElementInit() {
     </div>
     
     <div style="background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:10px; color:#b25000; font-weight:bold;">
-      💡 <b>Admin Rule Notice:</b> Main Admin (0333-4664227) ke pas kisi bhi ghalat ad ko BLOCK / DELETE karne ka mukammal ikhtiyar hai[span_1](start_span)[span_1](end_span).
+      💡 <b>Admin Rule Notice:</b> Main Admin (0333-4664227) ke pas kisi bhi ghalat ad ko BLOCK / DELETE karne ka mukammal ikhtiyar hai[span_0](start_span)[span_0](end_span).
     </div>
 
     <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
     
-    <!-- Admin Master Control Panel (Hidden from normal sellers, visible only to Main Admin 03334664227) -->
     <div id="adminControlSection" style="display:none; margin-bottom:12px;">
       <div style="margin-bottom:6px; font-weight:bold; font-size:12px; color:#d9534f;">👑 Admin Master Control (All Sellers Ads Management):</div>
       <div id="adminAllAdsList" style="display:flex; flex-direction:column; gap:6px; max-height:200px; overflow-y:auto; border:1px solid #d9534f; padding:6px; border-radius:6px; background:#fff5f5;"></div>
@@ -275,7 +268,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Multi-Currency Ad Submission Modal -->
+<!-- Ad Submission Modal -->
 <div id="ad-submission-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -328,7 +321,7 @@ function googleTranslateElementInit() {
         </div>
       </div>
       <div class="form-group">
-        <label>Affiliate Link (Optional - Amazon/Daraz/Alibaba)</label>
+        <label>Affiliate Link (Optional - Amazon/Daraz/Alibaba link)</label>
         <input type="text" id="adAffiliateLink" placeholder="https://...">
       </div>
       <div class="form-group">
@@ -345,7 +338,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Customer Escrow Protected Order Modal -->
+<!-- Escrow Order Modal -->
 <div id="order-form-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -400,10 +393,6 @@ function googleTranslateElementInit() {
     </div>
     <input type="text" id="reviewerName" placeholder="Aapka Naam..." style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #ccc; border-radius:6px; font-size:11px;">
     <textarea id="reviewMsgInput" placeholder="Review likhein..." style="width:100%; height:50px; padding:6px; border:1px solid #ccc; border-radius:6px; font-size:11px; margin-bottom:6px;"></textarea>
-    <div class="form-group" style="text-align:left; margin-bottom:8px;">
-      <label style="font-size:10px;">Tasveer (Optional)</label>
-      <input type="file" id="reviewImageInput" accept="image/*" onchange="compressReviewImage(event)" style="font-size:10px; padding:4px;">
-    </div>
     <div style="display:flex; gap:6px;">
       <button onclick="submitUserReview()" style="flex:1; background:#f57224; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Submit</button>
       <button onclick="closeReviewModal()" style="background:#ddd; border:none; padding:7px 10px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
@@ -428,7 +417,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 let uploadedImagesArray = [];
-let compressedReviewBase64 = "";
 let selectedCategoryFilter = "All";
 let currentRatingScore = 5;
 let allProductsCache = [];
@@ -585,13 +573,13 @@ function renderProducts(products) {
     let actionButtonsHTML = '';
     if ((item.affiliateLink && item.affiliateLink.trim() !== '') || isAlibaba || isAmazon || isDaraz) {
       let affLink = item.affiliateLink || "https://wa.me/923334664227";
-      let storeName = "Open Store";
+      let storeName = "Buy on Store";
       let btnBg = "#ff9900";
-      if (isAlibaba) { storeName = "Open Alibaba"; btnBg = "#ff6600"; }
-      else if (isAmazon) { storeName = "Open Amazon"; btnBg = "#FF9900"; }
-      else if (isDaraz) { storeName = "Open Daraz"; btnBg = "#f57224"; }
+      if (isAlibaba) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
+      else if (isAmazon) { storeName = "Buy on Amazon"; btnBg = "#FF9900"; }
+      else if (isDaraz) { storeName = "Buy on Daraz"; btnBg = "#f57224"; }
 
-      actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn" style="background:${btnBg}; color:#fff;">🔗 ${storeName}</a>`;
+      actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn" style="background:${btnBg}; color:#fff;">🛒 ${storeName}</a>`;
     } else {
       let contactLink = `https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
       actionButtonsHTML = `
@@ -682,7 +670,6 @@ function openSecureDashboard(authData) {
   let cleanLoginMob = authData.mobile.replace(/[^0-9]/g, '');
   let cleanAdminMob = ADMIN_MOBILE.replace(/[^0-9]/g, '');
 
-  /* ایڈمن ماسٹر کنٹرول (صرف مین ایڈمن 03334664227 کے لیے) */
   if(cleanLoginMob.includes(cleanAdminMob) || cleanAdminMob.includes(cleanLoginMob)) {
     adminSec.style.display = 'block';
     if(allProductsCache.length === 0) {
@@ -819,13 +806,13 @@ window.openProductDetail = function(item) {
 
   if ((item.affiliateLink && item.affiliateLink.trim() !== '') || isAlibaba || isAmazon || isDaraz) {
     let affLink = item.affiliateLink || "https://wa.me/923334664227";
-    let storeName = "Open Store";
+    let storeName = "Buy on Store";
     let btnBg = "#ff9900";
-    if (isAlibaba) { storeName = "Open Alibaba"; btnBg = "#ff6600"; }
-    else if (isAmazon) { storeName = "Open Amazon"; btnBg = "#FF9900"; }
-    else if (isDaraz) { storeName = "Open Daraz"; btnBg = "#f57224"; }
+    if (isAlibaba) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
+    else if (isAmazon) { storeName = "Buy on Amazon"; btnBg = "#FF9900"; }
+    else if (isDaraz) { storeName = "Buy on Daraz"; btnBg = "#f57224"; }
 
-    actionDiv.innerHTML = `<a href="${affLink}" target="_blank" style="background:${btnBg}; color:#fff; padding:8px 12px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none; display:block; text-align:center;">🔗 ${storeName}</a>`;
+    actionDiv.innerHTML = `<a href="${affLink}" target="_blank" style="background:${btnBg}; color:#fff; padding:8px 12px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none; display:block; text-align:center;">🛒 ${storeName}</a>`;
   } else {
     let contactLink = `https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
     actionDiv.innerHTML = `
