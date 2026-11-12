@@ -1,18 +1,9 @@
 <!DOCTYPE html>
 <html lang="ur">
-<head><!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HNCH9V8MFF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-HNCH9V8MFF');
-</script>
-<!-- End Google Analytics -->
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>R.A.W GROUP CHOUKIRH 79 SHOP</title>
-<meta name="google-site-verification" content="yeLNijbmqR4ERCkTu7OH9wZIw9081mm5aUR5Ku3V5JA" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
@@ -40,7 +31,6 @@ body { top: 0px !important; }
 .cat-icon-circle { width: 50px; height: 50px; border-radius: 50%; background: #fff3ec; border: 2px solid #f57224; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 4px; box-shadow: 0 2px 6px rgba(245,114,36,0.2); }
 .cat-item span { font-size: 11px; font-weight: 600; color: #333; }
 
-/* Banner CSS */
 .banner { position: relative; max-width: 1100px; width: 100%; margin: 10px auto; padding: 0 15px; }
 .banner-track { height: 140px; border-radius: 12px; color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, #194376, #f57224); position: relative; overflow: hidden; }
 .banner-slide { display: none; flex-direction: column; justify-content: center; height: 100%; }
@@ -59,25 +49,21 @@ body { top: 0px !important; }
 .product-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .card-body { padding: 8px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
 .product-title { font-size: 12px; font-weight: 600; color: #212121; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
-.category-tag { font-size: 9px; color: #194376; background: #eef2f7; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 3px; font-weight: bold; }
 .city-label { font-size: 10px; color: #757575; margin: 2px 0; }
 .price { color: #f57224; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
 
 .btn-row { display: flex; gap: 4px; }
 .whatsapp-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #25d366; color: #fff; text-align: center; text-decoration: none; }
 .order-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #f57224; color: #fff; text-align: center; }
-.affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #000; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
+.affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #fff; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
 
-/* Product Detail Modal */
 #product-detail-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
 .detail-modal-content { background: #fff; border-radius: 12px; width: 100%; max-width: 450px; max-height: 90vh; overflow-y: auto; padding: 15px; }
 
-/* Bottom Navigation */
 .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #194376; display: flex; justify-content: space-around; align-items: center; height: 55px; z-index: 2000; box-shadow: 0 -2px 10px rgba(0,0,0,0.15); }
 .nav-item { color: #fff; font-size: 10px; text-align: center; text-decoration: none; display: flex; flex-direction: column; align-items: center; cursor: pointer; flex: 1; }
 .nav-item span.icon { font-size: 18px; }
 
-/* Plus FAB with Action Menu - Fixed Position */
 .sell-fab-container { position: relative; flex: 1; display: flex; justify-content: center; }
 .sell-fab { position: absolute; top: -20px; width: 48px; height: 48px; background: #f57224; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 26px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); border: 2px solid #fff; cursor: pointer; z-index: 2010; }
 
@@ -93,8 +79,6 @@ body { top: 0px !important; }
 .btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 9px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
 
 .escrow-notice { background: #e8f5e9; border: 1px solid #2e7d32; padding: 8px; border-radius: 6px; margin-bottom: 10px; font-size: 10px; color: #1b5e20; }
-
-/* Seller Dashboard Panel */
 #seller-dashboard-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
 .dashboard-content { background: #fff; border-radius: 12px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; padding: 15px; }
 </style>
@@ -119,7 +103,7 @@ function googleTranslateElementInit() {
 
   <div class="search-bar-row">
     <div class="search-container">
-      <input id="search" onkeyup="filterShop()" placeholder="🔍 پروڈکٹ کا نام، کیٹگری یا شہر تلاش کریں... (Search)">
+      <input id="search" onkeyup="filterShop()" placeholder="🔍 پروڈکٹ کا نام یا شہر تلاش کریں... (Search)">
     </div>
   </div>
 
@@ -174,7 +158,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Product Detail Modal -->
+<!-- Product Detail Modal (Completely Clean - No Category, No Seller ID) -->
 <div id="product-detail-modal">
   <div class="detail-modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -183,31 +167,25 @@ function googleTranslateElementInit() {
     </div>
     <div id="detImagesContainer" style="display:flex; flex-direction:column; gap:10px; max-height:280px; overflow-y:auto; align-items:center; background:#fafafa; padding:8px; border-radius:6px; margin-bottom:10px;"></div>
     <div id="detPrice" style="font-size:15px; font-weight:bold; color:#f57224; margin-bottom:6px;"></div>
-    <div id="detCategory" style="font-size:11px; color:#194376; font-weight:bold; margin-bottom:4px;"></div>
     <div id="detCity" style="font-size:11px; color:#757575; margin-bottom:6px;"></div>
     <div id="detDescription" style="font-size:12px; color:#333; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:12px; white-space:pre-wrap;"></div>
     <div id="detActionBtn"></div>
   </div>
 </div>
 
-<!-- Bottom Navigation -->
 <div class="bottom-nav">
   <div class="nav-item" onclick="openPrivacyModal()"><span class="icon">🔒</span><span>Policy</span></div>
-  
   <div class="sell-fab-container">
     <div class="sell-fab" onclick="togglePlusMenu()">+</div>
   </div>
-
   <div class="nav-item" onclick="openReviewModal()"><span class="icon">⭐</span><span>Review</span></div>
 </div>
 
-<!-- Plus Action Menu -->
 <div id="plus-action-menu">
   <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('post')">📦 Naya Ad Lagayein</button>
-  <button class="menu-action-btn manage" onclick="closePlusMenu(); promptSellerLogin('dashboard')">⚙️ Seller Dashboard</button>
+  <button class="menu-action-btn manage" onclick="closePlusMenu(); promptSellerLogin('dashboard')">⚙️ Seller / Admin Dashboard</button>
 </div>
 
-<!-- Privacy Policy Modal -->
 <div id="privacy-policy-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -218,14 +196,11 @@ function googleTranslateElementInit() {
       <p><b>1. Introduction:</b> R.A.W GROUP CHOUKIRH 79 marketplace aapki data security aur privacy ko ahmiyat deti hai.</p>
       <br>
       <p><b>2. Safe Transactions:</b> Hamara platform kharidaron aur farokhtkaron (sellers) ke darmiyan behtareen aur mehfooz rabta faraham karta hai.</p>
-      <br>
-      <p><b>3. Contact Us:</b> Kisi bhi sawal ke liye official WhatsApp number (0333-4664227) par rabta karein.</p>
     </div>
     <button onclick="closePrivacyModal()" style="margin-top:10px; width:100%; background:#194376; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
   </div>
 </div>
 
-<!-- Mandatory Password Locked Seller Login Modal -->
 <div id="user-login-modal" class="custom-modal">
   <div class="modal-content" style="text-align:center;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -251,24 +226,27 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Seller & Admin Dashboard Modal -->
+<!-- Seller & Admin Secret Dashboard with Block/Delete Option -->
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="dashboard-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px; color:#194376;">⚙️ Dashboard & Registered Sellers</h3>
+      <h3 style="font-size:14px; color:#194376;">⚙️ Secure Dashboard & Admin Controls</h3>
       <span style="cursor:pointer;font-weight:bold;" onclick="closeSellerDashboard()">✕</span>
     </div>
     
     <div style="background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:10px; color:#b25000; font-weight:bold;">
-      💡 <b>Admin Rule Notice:</b> Har order/sale par <b>5% Admin Commission</b> deduct hota hai, baaki payout seller ka hota hai.
+      💡 <b>Notice:</b> Main Admin (0333-4664227) ke pas kisi bhi ghalat ad ko BLOCK / DELETE karne ka mukammal ikhtiyar hai[span_3](start_span)[span_3](end_span).
     </div>
 
     <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
     
-    <div style="margin-bottom:10px; font-weight:bold; font-size:12px; color:#194376;">📋 Registered Sellers List (RAW Seller IDs):</div>
-    <div id="registeredSellersList" style="display:flex; flex-direction:column; gap:6px; max-height:150px; overflow-y:auto; margin-bottom:12px; border:1px solid #ddd; padding:6px; border-radius:6px; background:#fafafa;"></div>
+    <!-- Admin Master Control Panel -->
+    <div id="adminControlSection" style="display:none; margin-bottom:12px;">
+      <div style="margin-bottom:6px; font-weight:bold; font-size:12px; color:#d9534f;">👑 Admin Master Control (All Ads Block/Delete):</div>
+      <div id="adminAllAdsList" style="display:flex; flex-direction:column; gap:6px; max-height:220px; overflow-y:auto; border:1px solid #d9534f; padding:6px; border-radius:6px; background:#fff5f5;"></div>
+    </div>
 
-    <div style="margin-bottom:6px; font-weight:bold; font-size:12px; color:#194376;">📦 Aapke Ads / Products:</div>
+    <div style="margin-bottom:6px; font-weight:bold; font-size:12px; color:#194376;">📦 Aapke Apne Ads / Products:</div>
     <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:160px; overflow-y:auto;">
       <p style="font-size:11px; color:#666;">Ads load ho rahe hain...</p>
     </div>
@@ -276,7 +254,6 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Seller Ad Submission Modal -->
 <div id="ad-submission-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -342,7 +319,6 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Customer Escrow Protected Order Modal -->
 <div id="order-form-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -384,7 +360,6 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- User Review Modal -->
 <div id="user-review-modal" class="custom-modal">
   <div class="modal-content" style="text-align:center;">
     <h3 style="font-size:14px; margin-bottom:8px;">Apna Review Dein ⭐</h3>
@@ -397,10 +372,6 @@ function googleTranslateElementInit() {
     </div>
     <input type="text" id="reviewerName" placeholder="Aapka Naam..." style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #ccc; border-radius:6px; font-size:11px;">
     <textarea id="reviewMsgInput" placeholder="Review likhein..." style="width:100%; height:50px; padding:6px; border:1px solid #ccc; border-radius:6px; font-size:11px; margin-bottom:6px;"></textarea>
-    <div class="form-group" style="text-align:left; margin-bottom:8px;">
-      <label style="font-size:10px;">Tasveer (Optional)</label>
-      <input type="file" id="reviewImageInput" accept="image/*" onchange="compressReviewImage(event)" style="font-size:10px; padding:4px;">
-    </div>
     <div style="display:flex; gap:6px;">
       <button onclick="submitUserReview()" style="flex:1; background:#f57224; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Submit</button>
       <button onclick="closeReviewModal()" style="background:#ddd; border:none; padding:7px 10px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
@@ -425,12 +396,12 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 let uploadedImagesArray = [];
-let compressedReviewBase64 = "";
 let selectedCategoryFilter = "All";
 let currentRatingScore = 5;
 let allProductsCache = [];
 let selectedOrderProduct = null;
 let pendingTargetAction = null;
+const ADMIN_MOBILE = "03334664227";
 
 function getSellerId(mobile) {
   if (!mobile) return "RAW-79-ADMIN";
@@ -438,24 +409,14 @@ function getSellerId(mobile) {
   return `RAW-79-${cleanMob.slice(-7)}`;
 }
 
-window.togglePlusMenu = function() {
+window.togglePlusMenu = () => {
   const menu = document.getElementById('plus-action-menu');
   menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
 };
+window.closePlusMenu = () => document.getElementById('plus-action-menu').style.display = 'none';
+window.openPrivacyModal = () => document.getElementById('privacy-policy-modal').style.display = 'flex';
+window.closePrivacyModal = () => document.getElementById('privacy-policy-modal').style.display = 'none';
 
-window.closePlusMenu = function() {
-  document.getElementById('plus-action-menu').style.display = 'none';
-};
-
-window.openPrivacyModal = function() {
-  document.getElementById('privacy-policy-modal').style.display = 'flex';
-};
-
-window.closePrivacyModal = function() {
-  document.getElementById('privacy-policy-modal').style.display = 'none';
-};
-
-/* 3-Page Sliding Banner Logic */
 let slideIndex = 0;
 const bannerColors = [
   "linear-gradient(135deg, #194376, #f57224)",
@@ -467,30 +428,25 @@ function showSlides() {
   const slides = document.getElementsByClassName("banner-slide");
   const dots = document.getElementsByClassName("banner-dot");
   const track = document.getElementById("bannerTrack");
-  
   if (!slides || slides.length === 0) return;
-
   for (let i = 0; i < slides.length; i++) {
     slides[i].classList.remove("active");
     if(dots[i]) dots[i].classList.remove("active");
   }
-  
   slideIndex++;
   if (slideIndex > slides.length) { slideIndex = 1; }
-  
   if(slides[slideIndex - 1]) slides[slideIndex - 1].classList.add("active");
   if(dots[slideIndex - 1]) dots[slideIndex - 1].classList.add("active");
   if(track) track.style.background = bannerColors[slideIndex - 1];
-  
   setTimeout(showSlides, 4000);
 }
+setTimeout(showSlides, 4000);
 
 window.currentSlide = function(n) {
   slideIndex = n;
   const slides = document.getElementsByClassName("banner-slide");
   const dots = document.getElementsByClassName("banner-dot");
   const track = document.getElementById("bannerTrack");
-
   for (let i = 0; i < slides.length; i++) {
     slides[i].classList.remove("active");
     if(dots[i]) dots[i].classList.remove("active");
@@ -500,14 +456,11 @@ window.currentSlide = function(n) {
   if(track) track.style.background = bannerColors[slideIndex];
 };
 
-setTimeout(showSlides, 4000);
-
 window.handleMultipleImages = function(event) {
   const files = event.target.files;
   if (!files || files.length === 0) return;
   uploadedImagesArray = [];
   document.getElementById('imgCountNotice').innerText = `${files.length} tasveerein select ho gayi hain, optimize ho rahi hain...`;
-
   let processedCount = 0;
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
@@ -523,8 +476,7 @@ window.handleMultipleImages = function(event) {
         canvas.height = img.height * scaleSize;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        let base64 = canvas.toDataURL('image/jpeg', 0.7);
-        uploadedImagesArray.push(base64);
+        uploadedImagesArray.push(canvas.toDataURL('image/jpeg', 0.7));
         processedCount++;
         if(processedCount === files.length) {
           document.getElementById('imgCountNotice').innerText = `✓ ${uploadedImagesArray.length} tasveerein tayar hain!`;
@@ -538,28 +490,15 @@ window.handleMultipleImages = function(event) {
 window.loadApprovedProducts = async function() {
   const shopList = document.getElementById('shopList');
   if (!shopList) return;
-  
   shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">لوڈ ہو رہا ہے...</p>`;
-  
   try {
     const querySnapshot = await getDocs(collection(db, "products"));
     allProductsCache = [];
-    
     querySnapshot.forEach((docSnap) => {
-      let prodData = docSnap.data();
-      allProductsCache.push({ id: docSnap.id, ...prodData });
+      allProductsCache.push({ id: docSnap.id, ...docSnap.data() });
     });
-
-    console.log("Database se aane wali products:", allProductsCache);
-
-    if (allProductsCache.length === 0) {
-      shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Abhi koi product mojood nahi hai.</p>`;
-      return;
-    }
-
     renderProducts(allProductsCache);
   } catch (error) {
-    console.error("Data load error:", error);
     shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:red;">Data load karne mein masla hua.</p>`;
   }
 };
@@ -567,55 +506,29 @@ window.loadApprovedProducts = async function() {
 function renderProducts(products) {
   const shopList = document.getElementById('shopList');
   shopList.innerHTML = "";
-  
   if (!products || products.length === 0) {
     shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Koi product mojood nahi hai.</p>`;
     return;
   }
-
   let filtered = products.filter(item => {
     if (!item) return false;
     if (selectedCategoryFilter !== 'All' && item.category !== selectedCategoryFilter) return false;
     return true;
   });
-
   if (filtered.length === 0) {
     shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Is category mein koi product nahi hai.</p>`;
     return;
   }
-
   filtered.forEach((item) => {
-    let imagesList = item.images;
-    if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
-      imagesList = item.img ? [item.img] : ['ejaz.jpg'];
-    }
+    let imagesList = item.images || (item.img ? [item.img] : ['ejaz.jpg']);
     let mainImg = imagesList[0];
     let currencySymbol = item.currency || 'Rs.';
     let priceVal = item.pricePKR || item.price || 0;
-    let priceDisplay = `${currencySymbol} ${priceVal}`;
-
-    let sellerIdCode = getSellerId(item.mobile);
-    let actionButtonsHTML = '';
     let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
 
-    let itemName = (item.name || "").toLowerCase();
-    let itemCat = (item.category || "").toLowerCase();
-    let itemBrand = (item.brand || item.city || "").toLowerCase();
-
-    let isAlibaba = itemName.includes('alibaba') || itemCat.includes('alibaba') || itemBrand.includes('alibaba');
-    let isAmazon = itemName.includes('amazon') || itemCat.includes('amazon') || itemBrand.includes('amazon');
-    let isDaraz = itemName.includes('daraz') || itemCat.includes('daraz') || itemBrand.includes('daraz');
-
-    if (item.affiliateLink || isAlibaba || isAmazon || isDaraz) {
-      let affLink = item.affiliateLink || contactLink;
-      let storeName = "Store";
-      let btnBg = "#ff9900";
-      
-      if (isAlibaba) { storeName = "Alibaba Store"; btnBg = "#ff6600"; }
-      else if (isAmazon) { storeName = "Amazon Store"; btnBg = "#FF9900"; }
-      else if (isDaraz) { storeName = "Daraz Store"; btnBg = "#f57224"; }
-
-      actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn" style="background:${btnBg}; color:#fff;">🔗 Open ${storeName}</a>`;
+    let actionButtonsHTML = '';
+    if (item.affiliateLink && item.affiliateLink.trim() !== "") {
+      actionButtonsHTML = `<a href="${item.affiliateLink}" target="_blank" class="affiliate-btn" style="background:#ff9900; color:#fff;">🔗 Open Store</a>`;
     } else {
       actionButtonsHTML = `
         <div class="btn-row">
@@ -625,16 +538,16 @@ function renderProducts(products) {
       `;
     }
 
+    // یہاں سے کیٹگری کا ٹیگ ہمیشہ کے لیے ہٹا دیا گیا ہے تاکہ کارڈ بالکل پلین اور صاف ہو
     shopList.innerHTML += `
-      <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}" data-desc="${(item.description || '').toLowerCase()}">
+      <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}">
         <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>
-          <img src="${mainImg}" alt="${item.name || 'Product'}" loading="lazy">
-          <span class="category-tag">${item.category || 'General'}</span>
+          <img src="${mainImg}" alt="Product" loading="lazy">
         </div>
         <div class="card-body">
           <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title || 'Product'}</h3>
           <div class="city-label">📍 ${item.brand || item.city || 'Sargodha'}</div>
-          <div class="price">${priceDisplay}</div>
+          <div class="price">${currencySymbol} ${priceVal}</div>
           ${actionButtonsHTML}
         </div>
       </div>
@@ -644,14 +557,11 @@ function renderProducts(products) {
 
 window.filterShop = function() {
   const val = document.getElementById('search').value.toLowerCase().trim();
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card => {
+  document.querySelectorAll('.card').forEach(card => {
     const title = card.getAttribute('data-title') || '';
     const cat = card.getAttribute('data-category') || '';
     const city = card.getAttribute('data-city') || '';
-    const desc = card.getAttribute('data-desc') || '';
-
-    if (title.includes(val) || cat.includes(val) || city.includes(val) || desc.includes(val)) {
+    if (title.includes(val) || cat.includes(val) || city.includes(val)) {
       card.style.display = "flex";
     } else {
       card.style.display = "none";
@@ -659,12 +569,11 @@ window.filterShop = function() {
   });
 };
 
-window.promptSellerLogin = function(actionType) {
+window.promptSellerLogin = (actionType) => {
   pendingTargetAction = actionType;
   document.getElementById('userLoginForm').reset();
   document.getElementById('user-login-modal').style.display = 'flex';
 };
-
 window.closeLoginModal = () => document.getElementById('user-login-modal').style.display = 'none';
 window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
 
@@ -673,18 +582,14 @@ window.verifySellerLogin = function(e) {
   const name = document.getElementById('loginName').value.trim();
   const mobile = document.getElementById('loginMobile').value.trim();
   const password = document.getElementById('loginPassword').value.trim();
+  if(!name || !mobile || !password) return alert("Tamam fields pur karna lazmi hai!");
 
-  if(!name || !mobile || !password) {
-    alert("Tamam fields (Naam, Number, Password) pur karna lazmi hai!");
-    return;
-  }
-
-  const authData = { name, mobile, password, sellerId: getSellerId(mobile), verifiedAt: new Date().toLocaleString() };
+  const authData = { name, mobile, password, sellerId: getSellerId(mobile) };
   localStorage.setItem('raw_locked_seller_auth', JSON.stringify(authData));
   closeLoginModal();
 
   if(pendingTargetAction === 'post') {
-    document.getElementById('loggedInUserTag').innerText = `👤 Logged in: ${name} | Seller ID: ${authData.sellerId}`;
+    document.getElementById('loggedInUserTag').innerText = `👤 Logged in: ${name}`;
     document.getElementById('ad-submission-modal').style.display = 'flex';
   } else {
     openSecureDashboard(authData);
@@ -694,54 +599,57 @@ window.verifySellerLogin = function(e) {
 function openSecureDashboard(authData) {
   const dUser = document.getElementById('dashboardUserInfo');
   const dList = document.getElementById('myAdsList');
-  const sList = document.getElementById('registeredSellersList');
+  const adminSec = document.getElementById('adminControlSection');
+  const adminList = document.getElementById('adminAllAdsList');
   dList.innerHTML = "";
-  sList.innerHTML = "";
+  adminList.innerHTML = "";
 
-  dUser.innerHTML = `🛡️ Logged in as: <b>${authData.name}</b> | Your ID: <b style="color:#f57224;">${authData.sellerId}</b>`;
+  dUser.innerHTML = `🛡️ Logged in as: <b>${authData.name}</b>`;
   document.getElementById('seller-dashboard-modal').style.display = 'flex';
 
-  let uniqueSellersMap = {};
-  allProductsCache.forEach(item => {
-    if(item.mobile) {
-      let sId = getSellerId(item.mobile);
-      if(!uniqueSellersMap[sId]) {
-        uniqueSellersMap[sId] = { name: item.sellerName || 'Partner', sellerId: sId, mobile: item.mobile, count: 0 };
-      }
-      uniqueSellersMap[sId].count++;
-    }
-  });
+  let cleanLoginMob = authData.mobile.replace(/[^0-9]/g, '');
+  let cleanAdminMob = ADMIN_MOBILE.replace(/[^0-9]/g, '');
 
-  let sellersArray = Object.values(uniqueSellersMap);
-  if(sellersArray.length === 0) {
-    sList.innerHTML = `<div style="font-size:10px; color:#666; text-align:center;">Abhi koi doosra seller mojood nahi hai.</div>`;
+  if(cleanLoginMob.includes(cleanAdminMob) || cleanAdminMob.includes(cleanLoginMob)) {
+    adminSec.style.display = 'block';
+    if(allProductsCache.length === 0) {
+      adminList.innerHTML = `<div style="font-size:10px; color:#666; text-align:center;">Koi ad mojood nahi hai.</div>`;
+    } else {
+      allProductsCache.forEach((prod, idx) => {
+        let pImg = (prod.images && prod.images[0]) || prod.img || 'ejaz.jpg';
+        adminList.innerHTML += `
+          <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; padding:6px; border-radius:4px; border:1px solid #ddd; font-size:11px; margin-bottom:4px;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <img src="${pImg}" style="width:30px; height:30px; object-fit:contain;">
+              <div>
+                <b>${idx+1}. ${prod.name || prod.title}</b><br>
+                <span style="color:#d9534f; font-weight:bold;">Seller: ${prod.sellerName || 'Partner'}</span>
+              </div>
+            </div>
+            <button onclick="adminBlockOrDeleteProduct('${prod.id}', '${prod.name || prod.title}')" style="background:#d9534f; color:#fff; border:none; padding:5px 10px; border-radius:4px; font-size:10px; font-weight:bold; cursor:pointer;">🚫 Block / Delete</button>
+          </div>
+        `;
+      });
+    }
   } else {
-    sellersArray.forEach((seller, idx) => {
-      sList.innerHTML += `
-        <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; padding:5px 8px; border-radius:4px; border:1px solid #e5e5e5; font-size:11px;">
-          <div><b>${idx + 1}. ${seller.name}</b> <span style="color:#194376; font-weight:bold;">[${seller.sellerId}]</span></div>
-          <div style="color:#f57224; font-weight:bold;">${seller.count} Ads</div>
-        </div>
-      `;
-    });
+    adminSec.style.display = 'none';
   }
 
-  let myAds = allProductsCache.filter(item => authData.mobile === '03334664227' || item.mobile === authData.mobile);
+  let myAds = allProductsCache.filter(item => item.mobile === authData.mobile);
   if(myAds.length === 0) {
-    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center; padding:10px;">Aapka koi ad mojood nahi hai.</p>`;
+    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center; padding:10px;">Aapka apna koi ad mojood nahi hai.</p>`;
     return;
   }
 
   myAds.forEach((ad, i) => {
     let adImg = (ad.images && ad.images[0]) || ad.img || 'ejaz.jpg';
-    let currencySymbol = ad.currency || 'Rs.';
     dList.innerHTML += `
-      <div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:6px; border-radius:6px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:6px; border-radius:6px; margin-bottom:4px;">
         <div style="display:flex; align-items:center; gap:8px;">
           <img src="${adImg}" style="width:35px; height:35px; object-fit:contain; border-radius:4px;">
           <div>
             <div style="font-size:11px; font-weight:bold; color:#194376;">${i+1}. ${ad.name || ad.title}</div>
-            <div style="font-size:10px; color:#f57224;">ID: ${getSellerId(ad.mobile)} | ${currencySymbol} ${ad.pricePKR || ad.price || 0}</div>
+            <div style="font-size:10px; color:#f57224;">${ad.currency || 'Rs.'} ${ad.pricePKR || ad.price || 0}</div>
           </div>
         </div>
         <button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:5px 8px; border-radius:4px; font-size:10px; font-weight:bold; cursor:pointer;">🗑️ Delete</button>
@@ -752,52 +660,49 @@ function openSecureDashboard(authData) {
 
 window.closeSellerDashboard = () => document.getElementById('seller-dashboard-modal').style.display = 'none';
 
+window.adminBlockOrDeleteProduct = async function(productId, prodTitle) {
+  if(confirm(`⚠️ Kya aap waqai "${prodTitle}" ko block/delete karna chahte hain?`)) {
+    try {
+      await deleteDoc(doc(db, "products", productId));
+      alert("✓ Ad successfully block/delete kar diya gaya hai.");
+      loadApprovedProducts();
+      closeSellerDashboard();
+    } catch(err) {
+      alert("Masla hua.");
+    }
+  }
+};
+
 window.deleteMyProduct = async function(productId) {
   if(confirm("Kya aap waqai is ad ko delete karna chahte hain?")) {
     try {
       await deleteDoc(doc(db, "products", productId));
       alert("Aapka ad delete ho gaya hai.");
-      
-      const querySnapshot = await getDocs(collection(db, "products"));
-      allProductsCache = [];
-      querySnapshot.forEach((docSnap) => {
-        allProductsCache.push({ id: docSnap.id, ...docSnap.data() });
-      });
-      renderProducts(allProductsCache);
-
-      const savedAuth = JSON.parse(localStorage.getItem('raw_locked_seller_auth') || '{}');
-      if(savedAuth.mobile) {
-        openSecureDashboard(savedAuth);
-      }
+      loadApprovedProducts();
+      closeSellerDashboard();
     } catch(err) {
-      alert("Delete karne mein masla hua.");
+      alert("Masla hua.");
     }
   }
 };
 
 window.openProductDetail = function(item) {
   document.getElementById('detTitle').innerText = item.name || item.title;
-  let currencySymbol = item.currency || 'Rs.';
-  let priceVal = item.pricePKR || item.price || 0;
-  document.getElementById('detPrice').innerText = `${currencySymbol} ${priceVal}`;
-  document.getElementById('detCategory').innerText = `Category: ${item.category || 'General'}`;
-  document.getElementById('detCity').innerText = `Location / Brand: ${item.brand || item.city || 'Sargodha'} | Seller ID: ${getSellerId(item.mobile)}`;
-  document.getElementById('detDescription').innerText = item.description || 'Tafseel mojood nahi hai.';
+  document.getElementById('detPrice').innerText = `${item.currency || 'Rs.'} ${item.pricePKR || item.price || 0}`;
+  
+  // یہاں سے بھی سیلر آئی ڈی اور کیٹگری ہمیشہ کے لیے ہٹا دی گئی ہے
+  document.getElementById('detCity').innerText = `Location / Brand: ${item.brand || item.city || 'Sargodha'}`;
+  document.getElementById('detDescription').innerText = item.description || item.tafseel || 'Tafseel mojood nahi hai.';
 
   const imgContainer = document.getElementById('detImagesContainer');
   imgContainer.innerHTML = "";
-  let imagesList = item.images;
-  if (!imagesList || !Array.isArray(imagesList) || imagesList.length === 0) {
-    imagesList = item.img ? [item.img] : ['ejaz.jpg'];
-  }
-
+  let imagesList = item.images || (item.img ? [item.img] : ['ejaz.jpg']);
   imagesList.forEach(imgUrl => {
     imgContainer.innerHTML += `<img src="${imgUrl}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px; border:1px solid #ddd;" onerror="this.src='ejaz.jpg'">`;
   });
 
   selectedOrderProduct = item;
-  let sellerIdCode = getSellerId(item.mobile);
-  let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}%20(Seller%20ID:%20${sellerIdCode})`;
+  let contactLink = `https://wa.me/923334664227?text=Assalam-o-Alaikum,%20mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
   
   document.getElementById('detActionBtn').innerHTML = `
     <div style="display:flex; gap:8px;">
@@ -809,32 +714,20 @@ window.openProductDetail = function(item) {
   document.getElementById('product-detail-modal').style.display = 'flex';
 };
 
-window.closeProductDetailModal = function() {
-  document.getElementById('product-detail-modal').style.display = 'none';
-};
+window.closeProductDetailModal = () => document.getElementById('product-detail-modal').style.display = 'none';
 
 window.openOrderModalFromDetail = function() {
   closeProductDetailModal();
   if(!selectedOrderProduct) return;
-  let currencySymbol = selectedOrderProduct.currency || 'Rs.';
-  let priceVal = selectedOrderProduct.pricePKR || selectedOrderProduct.price || 0;
-  
-  document.getElementById('orderProductDetails').innerHTML = `Product: <b>${selectedOrderProduct.name || selectedOrderProduct.title}</b> | Price: <b>${currencySymbol} ${priceVal}</b>`;
+  document.getElementById('orderProductDetails').innerHTML = `Product: <b>${selectedOrderProduct.name || selectedOrderProduct.title}</b>`;
   document.getElementById('customerOrderForm').reset();
   document.getElementById('order-form-modal').style.display = 'flex';
 };
 
-window.closeOrderModal = function() {
-  document.getElementById('order-form-modal').style.display = 'none';
-};
+window.closeOrderModal = () => document.getElementById('order-form-modal').style.display = 'none';
 
 window.togglePaymentInstructions = function(val) {
-  const infoBox = document.getElementById('securePaymentInfo');
-  if(val !== 'Cash on Delivery') {
-    infoBox.style.display = 'block';
-  } else {
-    infoBox.style.display = 'none';
-  }
+  document.getElementById('securePaymentInfo').style.display = (val !== 'Cash on Delivery') ? 'block' : 'none';
 };
 
 window.submitCustomerOrder = function(e) {
@@ -843,30 +736,12 @@ window.submitCustomerOrder = function(e) {
   const mobile = document.getElementById('custMobile').value.trim();
   const payMethod = document.getElementById('custPaymentMethod').value;
   const address = document.getElementById('custAddress').value.trim();
+  if(!name || !mobile || !address) return alert("Tamam fields pur karein!");
 
-  if(!name || !mobile || !address) {
-    alert("Tamam fields pur karna lazmi hai!");
-    return;
-  }
-
-  let currencySymbol = selectedOrderProduct.currency || 'Rs.';
-  let priceVal = selectedOrderProduct.pricePKR || selectedOrderProduct.price || 0;
-  let sellerIdCode = getSellerId(selectedOrderProduct.mobile);
-
-  let orderText = `*🛒 New Secure Escrow Order - R.A.W Group*%0A%0A` +
-                  `• *Product:* ${selectedOrderProduct.name || selectedOrderProduct.title}%0A` +
-                  `• *Price:* ${currencySymbol} ${priceVal}%0A` +
-                  `• *Seller ID:* ${sellerIdCode}%0A%0A` +
-                  `*Customer Details:*%0A` +
-                  `• *Name:* ${name}%0A` +
-                  `• *Mobile:* ${mobile}%0A` +
-                  `• *Payment Method:* ${payMethod}%0A` +
-                  `• *Delivery Address:* ${address}`;
-
-  let whatsappUrl = `https://wa.me/923334664227?text=${orderText}`;
-  window.open(whatsappUrl, '_blank');
+  let orderText = `*🛒 New Secure Escrow Order*%0A• *Product:* ${selectedOrderProduct.name || selectedOrderProduct.title}%0A• *Name:* ${name}%0A• *Mobile:* ${mobile}%0A• *Payment:* ${payMethod}%0A• *Address:* ${address}`;
+  window.open(`https://wa.me/923334664227?text=${orderText}`, '_blank');
   closeOrderModal();
-  alert("Aapka order successfully place ho gaya hai! WhatsApp par admin ko confirm karein.");
+  alert("Order place ho gaya!");
 };
 
 window.submitUserAd = async function(e) {
@@ -878,44 +753,29 @@ window.submitUserAd = async function(e) {
   const price = document.getElementById('adPrice').value.trim();
   const description = document.getElementById('adDescription').value.trim();
 
-  if(!category || !title || !city || !price || !description) {
-    alert("Tamam fields pur karna lazmi hai!");
-    return;
-  }
-
-  if(uploadedImagesArray.length === 0) {
-    alert("Kam az kam aik tasveer select karna lazmi hai.");
-    return;
-  }
+  if(!category || !title || !city || !price || !description) return alert("Tamam fields pur karein!");
+  if(uploadedImagesArray.length === 0) return alert("Tasveer select karein.");
 
   const savedAuth = JSON.parse(localStorage.getItem('raw_locked_seller_auth') || '{}');
   const newProductData = {
-    category: category,
-    name: title,
-    title: title,
-    brand: city,
-    city: city,
-    currency: currency,
-    pricePKR: Number(price),
-    price: Number(price),
-    description: description,
-    images: uploadedImagesArray,
-    mobile: savedAuth.mobile || '03334664227',
+    category, name: title, title, brand: city, city, currency,
+    pricePKR: Number(price), price: Number(price),
+    description, tafseel: description, images: uploadedImagesArray,
+    mobile: savedAuth.mobile || ADMIN_MOBILE,
     sellerName: savedAuth.name || 'Ejaz Ahmad',
     createdAt: new Date().toISOString()
   };
 
   try {
     await addDoc(collection(db, "products"), newProductData);
-    alert("Mubarak ho! Aapka ad live publish ho gaya hai.");
+    alert("Ad live publish ho gaya hai!");
     closeAdModal();
     document.getElementById('userAdForm').reset();
     uploadedImagesArray = [];
     document.getElementById('imgCountNotice').innerText = "";
     loadApprovedProducts();
   } catch (err) {
-    console.error(err);
-    alert("Ad publish karne mein masla hua. Dobara koshish karein.");
+    alert("Masla hua.");
   }
 };
 
@@ -924,55 +784,21 @@ window.closeReviewModal = () => document.getElementById('user-review-modal').sty
 
 window.setStars = function(n) {
   currentRatingScore = n;
-  const stars = document.querySelectorAll('#starRatingSelect span');
-  stars.forEach((s, idx) => {
+  document.querySelectorAll('#starRatingSelect span').forEach((s, idx) => {
     s.style.color = (idx < n) ? '#ffb400' : '#ccc';
   });
-};
-
-window.compressReviewImage = function(e) {
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = function(evt) {
-    const img = new Image();
-    img.src = evt.target.result;
-    img.onload = function() {
-      const canvas = document.createElement('canvas');
-      const MAX_WIDTH = 300;
-      const scale = MAX_WIDTH / img.width;
-      canvas.width = MAX_WIDTH;
-      canvas.height = img.height * scale;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      compressedReviewBase64 = canvas.toDataURL('image/jpeg', 0.6);
-    }
-  }
-  reader.readAsDataURL(file);
 };
 
 window.submitUserReview = async function() {
   const name = document.getElementById('reviewerName').value.trim() || 'Anonymous';
   const msg = document.getElementById('reviewMsgInput').value.trim();
-
-  if(!msg) {
-    alert("Barah-e-karam review likhein!");
-    return;
-  }
-
-  const reviewData = {
-    name: name,
-    rating: currentRatingScore,
-    message: msg,
-    image: compressedReviewBase64,
-  };
-
+  if(!msg) return alert("Review likhein!");
   try {
-    await addDoc(collection(db, "reviews"), reviewData);
-    alert("Aapka review submit ho gaya hai. Shukriya!");
+    await addDoc(collection(db, "reviews"), { name, rating: currentRatingScore, message: msg });
+    alert("Review submit ho gaya!");
     closeReviewModal();
   } catch(err) {
-    alert("Review submit karne mein masla hua.");
+    alert("Masla hua.");
   }
 };
 
@@ -981,9 +807,7 @@ window.filterByCategory = function(cat) {
   renderProducts(allProductsCache);
 };
 
-window.onload = function() {
-  loadApprovedProducts();
-};
+window.onload = () => loadApprovedProducts();
 </script>
 
 </body>
