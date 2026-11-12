@@ -573,7 +573,7 @@ function renderProducts(products) {
     let actionButtonsHTML = '';
     if ((item.affiliateLink && item.affiliateLink.trim() !== '') || isAlibaba || isAmazon || isDaraz) {
       let affLink = item.affiliateLink || "https://wa.me/923334664227";
-      let storeName = "Buy on Store";
+      let storeName = "Buy on Amazon";
       let btnBg = "#ff9900";
       if (isAlibaba) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
       else if (isAmazon) { storeName = "Buy on Amazon"; btnBg = "#FF9900"; }
