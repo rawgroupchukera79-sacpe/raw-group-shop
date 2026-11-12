@@ -410,7 +410,8 @@ function googleTranslateElementInit() {
       <span onclick="setStars(4)" style="cursor:pointer;">★</span>
       <span onclick="setStars(5)" style="cursor:pointer;">★</span>
     </div>
-    <input type="text" id="reviewerName" placeholder="Aapka Naam..." style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #ccc; border-radius:6px; font-size:11px;">
+    <input type="text" id="reviewerName" placeholder="Aapka Naam..." style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #ccc; border-radius:6px; font-size:11px;"><input type="file" id="reviewImageInput" accept="image/*" style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #ccc; border-radius:6px; font-size:11px; background:#fff;">
+
     <textarea id="reviewMsgInput" placeholder="Review likhein..." style="width:100%; height:50px; padding:6px; border:1px solid #ccc; border-radius:6px; font-size:11px; margin-bottom:6px;"></textarea>
     <div style="display:flex; gap:6px;">
       <button onclick="submitUserReview()" style="flex:1; background:#f57224; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Submit</button>
