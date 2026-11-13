@@ -359,6 +359,73 @@ function googleTranslateElementInit() {
 
   </div>
 </div>
+<!-- Clean Minimalist White Cart Modal -->
+<div id="cart-modal" class="custom-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; justify-content: center; align-items: center;">
+  <div class="modal-content" style="background: #ffffff; width: 92%; max-width: 420px; border-radius: 10px; padding: 18px; max-height: 88vh; overflow-y: auto; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+    
+    <!-- Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; margin-bottom: 15px;">
+      <h3 style="margin: 0; font-size: 16px; color: #222222; font-weight: 600;">🛒 Shopping Cart (آپ کی شاپنگ کارٹ)</h3>
+      <span onclick="closeCartModal()" style="cursor: pointer; font-size: 18px; color: #555555; font-weight: bold;">✕</span>
+    </div>
+
+    <!-- Cart Items List Container -->
+    <div id="cartItemsContainer" style="margin-bottom: 15px; min-height: 100px; max-height: 250px; overflow-y: auto;">
+      <!-- Dynamic cart items will appear here -->
+      <p style="text-align: center; color: #777; font-size: 13px; margin-top: 30px;">آپ کی کارٹ فی الحال خالی ہے۔</p>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #eeeeee; margin: 15px 0;">
+
+    <!-- Order Summary / Total -->
+    <div style="margin-bottom: 15px; font-size: 13px; color: #333;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+        <span>Total Items:</span>
+        <span id="cartTotalCount">0</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 14px; color: #111;">
+        <span>Estimated Total:</span>
+        <span id="cartTotalPrice">Rs. 0</span>
+      </div>
+    </div>
+
+    <!-- Plain White Checkout Button -->
+    <button onclick="proceedToCheckout()" style="width: 100%; padding: 11px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center;">
+      Proceed to Checkout (آرڈر فائنل کریں)
+    </button>
+
+  </div>
+</div>
+
+<script>
+  function openCartModal() {
+    document.getElementById('cart-modal').style.display = 'flex';
+    loadCartItems();
+  }
+
+  function closeCartModal() {
+    document.getElementById('cart-modal').style.display = 'none';
+  }
+
+  function loadCartItems() {
+    // Yahan cart ka data local storage ya array se load hoga
+    let container = document.getElementById('cartItemsContainer');
+    // Filhal ke liye simple layout
+    container.innerHTML = `<p style="text-align: center; color: #777; font-size: 13px; margin-top: 30px;">کوئی پروڈکٹ شامل نہیں کی گئی۔</p>`;
+    document.getElementById('cartTotalCount').innerText = "0";
+    document.getElementById('cartTotalPrice').innerText = "Rs. 0";
+  }
+
+  function proceedToCheckout() {
+    closeCartModal();
+    // Account modal khol dein taake customer apna address aur payment method check kar sake
+    if(typeof openCustomerAccountModal === 'function') {
+      openCustomerAccountModal();
+    } else {
+      alert("Baraye meharbani pehle apna account aur address mukammal karein.");
+    }
+  }
+</script>
 
 <script>
   let base64ProfilePic = "";
