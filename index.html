@@ -66,7 +66,14 @@
             font-size: 14px;
         }
 
-        /* Search Bar */
+        /* Search Bar with Automatic Color Changing Animation */
+        @keyframes colorChange {
+            0% { border-color: #ff9900; box-shadow: 0 0 10px #ff9900; }
+            33% { border-color: #00ffcc; box-shadow: 0 0 10px #00ffcc; }
+            66% { border-color: #ff00ff; box-shadow: 0 0 10px #ff00ff; }
+            100% { border-color: #ff9900; box-shadow: 0 0 10px #ff9900; }
+        }
+
         .header-search {
             display: flex;
             flex: 1;
@@ -76,6 +83,8 @@
             border-radius: 4px;
             overflow: hidden;
             background-color: #fff;
+            border: 3px solid #ff9900;
+            animation: colorChange 6s infinite;
         }
 
         .search-dropdown {
@@ -124,7 +133,7 @@
             justify-content: center;
         }
 
-        /* Right Profile Section */
+        /* Right Profile Section (Original Placement) */
         .header-right {
             display: flex;
             align-items: center;
@@ -139,7 +148,6 @@
             padding: 5px;
             text-decoration: none;
             color: #fff;
-            position: relative;
         }
 
         .user-avatar {
@@ -160,35 +168,6 @@
             color: #fff;
         }
 
-        /* Dropdown Box for Account Menu (Like Video) */
-        .dropdown-menu-content {
-            display: none;
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background-color: #fff;
-            color: #111;
-            min-width: 250px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
-            border-radius: 4px;
-            z-index: 1005;
-            padding: 10px;
-        }
-        .dropdown-menu-content.show {
-            display: block;
-        }
-        .dropdown-menu-content a {
-            color: #333;
-            padding: 8px 12px;
-            text-decoration: none;
-            display: block;
-            font-size: 13px;
-        }
-        .dropdown-menu-content a:hover {
-            background-color: #f1f1f1;
-            color: #ff9900;
-        }
-
         .header-cart {
             display: flex;
             align-items: center;
@@ -202,7 +181,7 @@
             color: #ff9900;
         }
 
-        /* Sub Navigation Bar (Only Names, No Ugly Boxes) */
+        /* Sub Navigation Clean Text List directly under search */
         .header-bottom {
             background-color: #232f3e;
             display: flex;
@@ -213,78 +192,125 @@
             white-space: nowrap;
         }
 
-        .nav-item {
+        .nav-list-item {
             color: #fff;
             text-decoration: none;
             font-size: 14px;
-            padding: 5px 4px;
+            padding: 5px 8px;
             cursor: pointer;
-            position: relative;
+            border: 1px solid transparent;
         }
-        .nav-item:hover {
-            color: #ff9900;
+        .nav-list-item:hover {
+            border: 1px solid #fff;
         }
-
-        /* Dropdown for Categories & Reviews in Sub-menu */
-        .sub-dropdown {
-            display: none;
-            position: absolute;
-            top: 30px;
-            left: 0;
-            background-color: #fff;
-            color: #111;
-            min-width: 200px;
-            box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
-            border-radius: 4px;
-            z-index: 1000;
-        }
-        .sub-dropdown.show {
-            display: block;
-        }
-        .sub-dropdown a {
-            color: #333;
-            padding: 8px 12px;
-            text-decoration: none;
-            display: block;
-            font-size: 13px;
-        }
-        .sub-dropdown a:hover {
-            background-color: #f3f3f3;
-            color: #ff9900;
+        .nav-list-item.all-menu {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        /* Main Content Container */
+        /* Main Container */
         .main-container {
             max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #fff;
+        }
+
+        /* Banner */
+        .store-banner {
+            background: linear-gradient(to bottom, #232f3e, #131921);
+            color: #fff;
+            padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .store-banner h1 {
+            color: #ff9900;
+            font-size: 26px;
+            margin-bottom: 10px;
         }
 
-        .content-section {
-            display: none;
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
             margin-top: 20px;
-            padding: 20px;
-            background: #fafafa;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .content-section.active {
-            display: block;
+            margin-bottom: 30px;
         }
 
-        .review-card {
+        .product-card {
             background: #fff;
-            border: 1px solid #e7e7e7;
-            padding: 10px;
-            border-radius: 5px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .product-card h3 {
+            font-size: 16px;
+            color: #111;
             margin-bottom: 8px;
         }
-        .review-card .stars { color: #ffa41c; font-size: 13px; }
-        .review-card .author { font-weight: bold; font-size: 13px; color: #333; }
-        .review-card .comment { font-size: 13px; color: #555; margin-top: 4px; }
+
+        .product-card .price {
+            color: #B12704;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .buy-btn {
+            background-color: #ffd814;
+            border: 1px solid #fcd200;
+            border-radius: 20px;
+            padding: 8px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+        .buy-btn:hover {
+            background-color: #f7ca00;
+        }
+
+        /* Original 5 Bottom Buttons / System */
+        .bottom-buttons-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .action-btn {
+            background-color: #febd69;
+            color: #111;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .action-btn:hover {
+            background-color: #f3a847;
+        }
 
         /* Footer */
         footer {
@@ -295,7 +321,6 @@
             margin-top: 40px;
             font-size: 14px;
         }
-        footer a { color: #ff9900; text-decoration: none; margin: 0 10px; }
     </style>
 </head>
 <body>
@@ -315,7 +340,7 @@
                 </div>
             </div>
 
-            <!-- Search Bar with Camera -->
+            <!-- Search Bar with Automatic Color Changing Animation -->
             <div class="header-search">
                 <select class="search-dropdown">
                     <option>All</option>
@@ -333,24 +358,15 @@
                 <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
 
-            <!-- Right Side Profile with Clickable Account Dropdown (Like Video) -->
+            <!-- Right Side Profile (Original Position) -->
             <div class="header-right">
-                <div class="user-profile-menu" onclick="toggleAccountDropdown(event)">
+                <a href="#" class="user-profile-menu">
                     <img src="your-image.jpg" alt="Aejaz Ahmad" class="user-avatar">
                     <div class="user-text">
                         <span>Hello, Aejaz Ahmad</span>
-                        <b>Account & Lists <i class="fa-solid fa-caret-down" style="font-size: 10px;"></i></b>
+                        <b>Account & Lists</b>
                     </div>
-
-                    <!-- Account History & Details Dropdown -->
-                    <div id="accountDropdown" class="dropdown-menu-content">
-                        <b style="padding: 5px 12px; display: block; color: #131921; font-size: 14px;">آپ کا اکاؤنٹ ڈیش بورڈ</b>
-                        <a href="#" onclick="showSection('historySection')">براؤزنگ ہسٹری (Browsing History)</a>
-                        <a href="#" onclick="showSection('ordersSection')">میرے آرڈرز (Your Orders)</a>
-                        <a href="#" onclick="showSection('policySection')">پرائیویسی پالیسی (Privacy Policy)</a>
-                        <a href="#" onclick="showSection('reviewsSection')">ریویوز اور ریٹنگز (Reviews)</a>
-                    </div>
-                </div>
+                </a>
 
                 <a href="#" class="header-cart">
                     <i class="fa-solid fa-cart-shopping"></i>
@@ -359,81 +375,70 @@
             </div>
         </div>
 
-        <!-- Sub Navigation Bar (Only Names with Dropdown Lists) -->
+        <!-- Sub Navigation Clean Text List directly under search bar -->
         <div class="header-bottom">
-            <!-- Categories Dropdown -->
-            <div class="nav-item" onclick="toggleSubDropdown(event, 'catDropdown')">
-                <i class="fa-solid fa-bars"></i> All Categories <i class="fa-solid fa-caret-down" style="font-size: 10px;"></i>
-                <div id="catDropdown" class="sub-dropdown">
-                    <a href="#">Electronics & Gadgets</a>
-                    <a href="#">Jewelry & Beads</a>
-                    <a href="#">Home Furniture</a>
-                    <a href="#">Today's Deals</a>
-                </div>
-            </div>
-
-            <a href="#" class="nav-item">Electronics</a>
-            <a href="#" class="nav-item">Jewelry</a>
-            <a href="#" class="nav-item">Home Furniture</a>
-            
-            <!-- Reviews Name in Sub-menu -->
-            <div class="nav-item" onclick="showSection('reviewsSection')">
-                <i class="fa-solid fa-star" style="color: #ff9900;"></i> Reviews & Ratings
-            </div>
-
-            <!-- Privacy Policy Name in Sub-menu -->
-            <div class="nav-item" onclick="showSection('policySection')">
-                <i class="fa-solid fa-shield-halved"></i> Privacy Policy
-            </div>
-
-            <a href="#" class="nav-item" onclick="showSection('historySection')">Browsing History</a>
-            <a href="#" class="nav-item">Meezan / Payoneer Pay</a>
+            <a href="#" class="nav-list-item all-menu"><i class="fa-solid fa-bars"></i> All</a>
+            <a href="#" class="nav-list-item">Today's Deals</a>
+            <a href="#" class="nav-list-item">Customer Service</a>
+            <a href="#" class="nav-list-item">Registry</a>
+            <a href="#" class="nav-list-item">Gift Cards</a>
+            <a href="#" class="nav-list-item">Sell</a>
+            <a href="#" class="nav-list-item">Browsing History</a>
         </div>
     </header>
 
-    <!-- Main Content Area where pages/lists open -->
+    <!-- Main Content -->
     <main class="main-container">
-        <h2 id="pageTitle">خوش آمدید! R.A.W GROUP CHOUKIRH 79 پر</h2>
-        <p id="pageDesc" style="margin-top: 10px; color: #555;">اوپر ناموں پر کلک کرنے سے ان کی پوری فہرست اور پیج یہاں کھل جائے گا، بالکل ویسے جیسے آپ نے ویڈیو میں دیکھا ہے۔</p>
+        <!-- Banner Section -->
+        <div class="store-banner">
+            <h1>R.A.W GROUP CHOUKIRH 79 میں خوش آمدید</h1>
+            <p>بہترین پروڈکٹس، ایئر بڈز، جیولری اور ہوم فرنیچر 79 S Chukera، Sargodha سے براہ راست!</p>
+        </div>
 
-        <!-- 1. Reviews Section -->
-        <div id="reviewsSection" class="content-section">
-            <h2>کسٹمرز کے ریویوز اور ریٹنگز</h2>
-            <div style="background: #fff; padding: 15px; border-radius: 5px; border: 1px solid #ddd; margin-bottom: 15px;">
-                <h3>اپنا ریویو درج کریں</h3>
-                <input type="text" id="reviewerName" placeholder="آپ کا نام" style="width:100%; padding:8px; margin-top:5px; margin-bottom:10px; border:1px solid #ccc;">
-                <select id="reviewRating" style="width:100%; padding:8px; margin-bottom:10px; border:1px solid #ccc;">
-                    <option value="5">⭐⭐⭐⭐⭐ (5 Stars - بہترین)</option>
-                    <option value="4">⭐⭐⭐⭐ (4 Stars - اچھا)</option>
-                </select>
-                <textarea id="reviewComment" rows="3" placeholder="اپنی رائے یہاں لکھیں..." style="width:100%; padding:8px; margin-bottom:10px; border:1px solid #ccc;"></textarea>
-                <button onclick="submitReview()" style="background-color: #febd69; border: none; padding: 8px 15px; font-weight: bold; cursor: pointer;">جمع کروائیں</button>
+        <h2>تازہ ترین پروڈکٹس اور آئٹمز (Live Inventory)</h2>
+
+        <!-- Products Grid (Always Open & Visible) -->
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/61SUj2aKoEL._AC_SL1500_.jpg" alt="TOZO Earbuds">
+                <h3>TOZO Wireless Earbuds</h3>
+                <div class="price">Rs. 4,500</div>
+                <button class="buy-btn">کارٹ میں شامل کریں</button>
             </div>
-            <div id="reviewsList">
-                <div class="review-card">
-                    <div class="author">محمد عثمان (79 S Chukera)</div>
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <div class="comment">بہت زبردست سروس ہے اور پروڈکٹ بالکل اصل مل گئی!</div>
-                </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/71w3r6sW3-L._AC_SL1500_.jpg" alt="Smart Watch">
+                <h3>Smart Fitness Watch</h3>
+                <div class="price">Rs. 6,200</div>
+                <button class="buy-btn">کارٹ میں شامل کریں</button>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/61WwE23bVFL._AC_SL1500_.jpg" alt="Jewelry Kit">
+                <h3>Sterling Silver Jewelry Kit</h3>
+                <div class="price">Rs. 3,100</div>
+                <button class="buy-btn">کارٹ میں شامل کریں</button>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/71Ww23-K1bL._AC_SL1500_.jpg" alt="Glass Table">
+                <h3>Modern Glass Dining Table</h3>
+                <div class="price">Rs. 25,000</div>
+                <button class="buy-btn">کارٹ میں شامل کریں</button>
             </div>
         </div>
 
-        <!-- 2. Privacy Policy Section -->
-        <div id="policySection" class="content-section">
-            <h2>R.A.W GROUP CHOUKIRH 79 - پرائیویسی اور سیکیورٹی پالیسی</h2>
-            <p style="margin-top: 10px;">ہماری ترجیح آپ کے اعتماد، رازداری اور سیکیورٹی کو یقینی بنانا ہے۔ آپ کا آرڈر 79 S Chukera, Sargodha اور پاکستان بھر میں محفوظ طریقے سے پہنچایا جاتا ہے۔ Meezan Bank اور Payoneer کے ذریعے تمام ادائیگیاں انکرپٹڈ رہتی ہیں۔ پاکستانی قوانین یا مذہبی اصولوں کے خلاف پروڈکٹ ڈالنے پر سسٹم خود بخود بلاک کر دے گا۔</p>
-        </div>
-
-        <!-- 3. Browsing History Section -->
-        <div id="historySection" class="content-section">
-            <h2>آپ کی براؤزنگ ہسٹری (Browsing History)</h2>
-            <p style="margin-top: 10px;">آپ کی حال ہی میں دیکھی گئی پروڈکٹس (جیسے TOZO ایئربڈز اور دیگر آئٹمز) یہاں شو ہوں گی۔</p>
-        </div>
-
-        <!-- 4. Orders Section -->
-        <div id="ordersSection" class="content-section">
-            <h2>آپ کے آرڈرز (Your Orders)</h2>
-            <p style="margin-top: 10px;">آپ کے تمام جاری اور مکمل ہونے والے آرڈرز کا ریکارڈ یہاں موجود ہے۔</p>
+        <!-- Original 5 Buttons Section at Bottom with their working system -->
+        <div class="bottom-buttons-section">
+            <button class="action-btn" onclick="alert('تمام کیٹیگریز کا سیکشن کھل رہا ہے!')">تمام کیٹیگریز</button>
+            <button class="action-btn" onclick="alert('آج کی بہترین ڈیلز (Today Deals) چیک کی جا رہی ہیں!')">آج کی ڈیلز</button>
+            <button class="action-btn" onclick="alert('کسٹمر سپورٹ سے رابطہ قائم کیا جا رہا ہے!')">کسٹمر سپورٹ</button>
+            <button class="action-btn" onclick="alert('آپ کی براؤزنگ ہسٹری اوپن ہو رہی ہے!')">براؤزنگ ہسٹری</button>
+            <button class="action-btn" onclick="alert('میزان بینک / پےونیر پیمنٹ گیٹ وے پر منتقلی جاری ہے!')">میزان / پےونیر پے</button>
         </div>
     </main>
 
@@ -443,66 +448,6 @@
     </footer>
 
     <script>
-        // Toggle Account Dropdown on click
-        function toggleAccountDropdown(event) {
-            event.stopPropagation();
-            let drop = document.getElementById("accountDropdown");
-            let catDrop = document.getElementById("catDropdown");
-            catDrop.classList.remove("show");
-            drop.classList.toggle("show");
-        }
-
-        // Toggle Sub-menu Dropdown on click
-        function toggleSubDropdown(event, id) {
-            event.stopPropagation();
-            let drop = document.getElementById(id);
-            let accDrop = document.getElementById("accountDropdown");
-            accDrop.classList.remove("show");
-            drop.classList.toggle("show");
-        }
-
-        // Close dropdowns when clicking anywhere outside
-        window.onclick = function(event) {
-            document.getElementById("accountDropdown").classList.remove("show");
-            document.getElementById("catDropdown").classList.remove("show");
-        }
-
-        // Show selected section content
-        function showSection(sectionId) {
-            let sections = document.querySelectorAll('.content-section');
-            sections.forEach(sec => sec.classList.remove('active'));
-
-            let target = document.getElementById(sectionId);
-            if(target) {
-                target.classList.add('active');
-                document.getElementById("pageTitle").style.display = "none";
-                document.getElementById("pageDesc").style.display = "none";
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        // Submit review
-        function submitReview() {
-            let name = document.getElementById("reviewerName").value;
-            let rating = document.getElementById("reviewRating").value;
-            let comment = document.getElementById("reviewComment").value;
-
-            if(name.trim() === "" || comment.trim() === "") {
-                alert("براہ کرم نام اور کمنٹ درج کریں!");
-                return;
-            }
-
-            let starsHTML = "⭐".repeat(parseInt(rating));
-            let card = document.createElement("div");
-            card.className = "review-card";
-            card.innerHTML = `<div class="author">${name}</div><div class="stars">${starsHTML}</div><div class="comment">${comment}</div>`;
-            
-            document.getElementById("reviewsList").prepend(card);
-            document.getElementById("reviewerName").value = "";
-            document.getElementById("reviewComment").value = "";
-            alert("ریویو کامیابی سے شامل ہو گیا!");
-        }
-
         function handleImageSearch(input) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
