@@ -1,463 +1,128 @@
 <!DOCTYPE html>
-<html lang="ur" dir="ltr">
+<html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R.A.W GROUP CHOUKIRH 79 - Store</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>R.A.W GROUP CHOUKIRH 79 SHOP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif; background: #f5f5f5; color: #212121; padding-bottom: 70px; }
+        #main-shop-view { display: flex; flex-direction: column; min-height: 100vh; }
+        
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: #194376; padding: 8px 15px; position: relative; z-index: 1000; }
+        .owner-branding { display: flex; align-items: center; gap: 6px; }
+        .owner-branding img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #ffd700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.3); background: #fff3ec; }
+        .owner-branding .brand-text { display: flex; flex-direction: column; }
+        .owner-branding .brand-title { font-size: 11px; font-weight: 700; color: #ffd700; line-height: 1.2; }
+        .owner-branding .brand-sub { font-size: 8px; color: #ffffff; opacity: 0.9; }
 
-        body {
-            background-color: #eaeded;
-            color: #111;
-        }
+        .header-search { display: flex; flex: 1; margin: 0 10px; border-radius: 4px; overflow: hidden; background: #fff; border: 2px solid #ff9900; }
+        .header-search input { flex: 1; padding: 6px 10px; border: none; outline: none; font-size: 12px; }
+        .header-search button { background: #febd69; border: none; padding: 0 12px; cursor: pointer; font-size: 14px; }
 
-        /* Amazon Style Header */
-        header {
-            background-color: #131921;
-            color: #fff;
-            width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+        .header-right { display: flex; align-items: center; gap: 10px; color: #fff; font-size: 11px; cursor: pointer; position: relative; }
+        .user-avatar { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid #ffd700; object-fit: cover; }
+        
+        .nav-belt { display: flex; background: #232f3e; padding: 6px 10px; gap: 15px; font-size: 11px; color: #fff; overflow-x: auto; white-space: nowrap; align-items: center; }
+        .nav-belt div { cursor: pointer; opacity: 0.9; }
+        .nav-belt div:hover { opacity: 1; text-decoration: underline; }
 
-        .header-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 15px;
-            color: #fff;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+        .banner-container { background: linear-gradient(135deg, #232f3e, #131921); padding: 15px; text-align: center; color: #fff; border-bottom: 3px solid #ff9900; }
+        .banner-container h1 { font-size: 16px; color: #ffd700; margin-bottom: 4px; font-weight: 700; }
+        .banner-container p { font-size: 10px; color: #e0e0e0; }
 
-        .header-logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+        .section-title { padding: 12px 15px 6px; font-size: 14px; font-weight: 700; color: #111; }
+        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
+        .product-card { background: #fff; border-radius: 6px; padding: 10px; text-align: center; border: 1px solid #e0e0e0; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-card img { width: 100%; height: 110px; object-fit: contain; margin-bottom: 8px; }
+        .product-card h3 { font-size: 11px; margin-bottom: 4px; font-weight: 600; }
+        .product-card .price { color: #b12704; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+        .product-card button { background: #ffd814; border: 1px solid #fcd200; border-radius: 12px; padding: 5px 10px; font-size: 10px; font-weight: 600; cursor: pointer; width: 100%; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .product-card button:hover { background: #f7ca00; }
 
-        .logo {
-            font-size: 20px;
-            font-weight: bold;
-            color: #ff9900;
-            text-decoration: none;
-            padding: 5px;
-        }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; display: flex; justify-content: space-around; padding: 8px 5px; border-top: 1px solid #ddd; z-index: 1000; box-shadow: 0 -2px 5px rgba(0,0,0,0.05); }
+        .bottom-nav button { background: #ffa41c; border: none; border-radius: 4px; padding: 6px 8px; font-size: 10px; font-weight: 600; color: #111; cursor: pointer; flex: 1; margin: 0 3px; text-align: center; }
+        .bottom-nav button:hover { background: #fa9500; }
 
-        .delivery-location {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            color: #ccc;
-            cursor: pointer;
-            padding: 5px;
-        }
-        .delivery-location b {
-            color: #fff;
-            font-size: 14px;
-        }
-
-        /* Search Bar with Automatic Color Changing Animation */
-        @keyframes colorChange {
-            0% { border-color: #ff9900; box-shadow: 0 0 10px #ff9900; }
-            33% { border-color: #00ffcc; box-shadow: 0 0 10px #00ffcc; }
-            66% { border-color: #ff00ff; box-shadow: 0 0 10px #ff00ff; }
-            100% { border-color: #ff9900; box-shadow: 0 0 10px #ff9900; }
-        }
-
-        .header-search {
-            display: flex;
-            flex: 1;
-            max-width: 650px;
-            min-width: 280px;
-            height: 40px;
-            border-radius: 4px;
-            overflow: hidden;
-            background-color: #fff;
-            border: 3px solid #ff9900;
-            animation: colorChange 6s infinite;
-        }
-
-        .search-dropdown {
-            background-color: #f3f3f3;
-            border: none;
-            padding: 0 10px;
-            font-size: 12px;
-            color: #555;
-            cursor: pointer;
-            border-right: 1px solid #cdcdcd;
-        }
-
-        .search-input {
-            flex: 1;
-            border: none;
-            padding: 0 10px;
-            font-size: 15px;
-            outline: none;
-        }
-
-        .camera-upload-btn {
-            background-color: #fff;
-            border: none;
-            width: 40px;
-            font-size: 18px;
-            color: #555;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-left: 1px solid #eee;
-        }
-        .camera-upload-btn:hover {
-            color: #ff9900;
-        }
-
-        .search-btn {
-            background-color: #febd69;
-            border: none;
-            width: 45px;
-            font-size: 18px;
-            color: #111;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Right Profile Section (Original Placement) */
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .user-profile-menu {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            padding: 5px;
-            text-decoration: none;
-            color: #fff;
-        }
-
-        .user-avatar {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #ff9900;
-        }
-
-        .user-text span {
-            display: block;
-            font-size: 11px;
-            color: #ccc;
-        }
-        .user-text b {
-            font-size: 13px;
-            color: #fff;
-        }
-
-        .header-cart {
-            display: flex;
-            align-items: center;
-            color: #fff;
-            text-decoration: none;
-            padding: 5px;
-            font-weight: bold;
-        }
-        .header-cart i {
-            font-size: 24px;
-            color: #ff9900;
-        }
-
-        /* Sub Navigation Clean Text List directly under search */
-        .header-bottom {
-            background-color: #232f3e;
-            display: flex;
-            align-items: center;
-            padding: 8px 15px;
-            gap: 20px;
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-
-        .nav-list-item {
-            color: #fff;
-            text-decoration: none;
-            font-size: 14px;
-            padding: 5px 8px;
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-        .nav-list-item:hover {
-            border: 1px solid #fff;
-        }
-        .nav-list-item.all-menu {
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* Main Container */
-        .main-container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-
-        /* Banner */
-        .store-banner {
-            background: linear-gradient(to bottom, #232f3e, #131921);
-            color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .store-banner h1 {
-            color: #ff9900;
-            font-size: 26px;
-            margin-bottom: 10px;
-        }
-
-        /* Products Grid */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-            margin-bottom: 30px;
-        }
-
-        .product-card {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .product-card img {
-            max-width: 100%;
-            height: 180px;
-            object-fit: contain;
-            margin-bottom: 10px;
-        }
-
-        .product-card h3 {
-            font-size: 16px;
-            color: #111;
-            margin-bottom: 8px;
-        }
-
-        .product-card .price {
-            color: #B12704;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .buy-btn {
-            background-color: #ffd814;
-            border: 1px solid #fcd200;
-            border-radius: 20px;
-            padding: 8px 20px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-        }
-        .buy-btn:hover {
-            background-color: #f7ca00;
-        }
-
-        /* Original 5 Bottom Buttons / System */
-        .bottom-buttons-section {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .action-btn {
-            background-color: #febd69;
-            color: #111;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 14px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .action-btn:hover {
-            background-color: #f3a847;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #131921;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            font-size: 14px;
-        }
+        .site-footer { text-align: center; padding: 15px; font-size: 9px; color: #555; background: #eaeded; margin-top: 20px; }
     </style>
 </head>
 <body>
-
-    <!-- Header Section -->
-    <header>
-        <div class="header-top">
-            <div class="header-logo-section">
-                <a href="#" class="logo">R.A.W GROUP 79</a>
-                
-                <div class="delivery-location">
-                    <i class="fa-solid fa-location-dot" style="color: #fff;"></i>
-                    <div>
-                        <span>Deliver to Aejaz</span>
-                        <b>79 S Chukera</b>
-                    </div>
+    <div id="main-shop-view">
+        <div class="top-bar">
+            <div class="owner-branding">
+                <img src="ejaz.jpg" alt="Aejaz Ahmad">
+                <div class="brand-text">
+                    <span class="brand-title">R.A.W GROUP 79</span>
+                    <span class="brand-sub">Deliver to Aejaz 79 S Chukera</span>
                 </div>
             </div>
-
-            <!-- Search Bar with Automatic Color Changing Animation -->
             <div class="header-search">
-                <select class="search-dropdown">
-                    <option>All</option>
-                    <option>Electronics</option>
-                    <option>Jewelry</option>
-                    <option>Home Furniture</option>
-                </select>
-                <input type="text" class="search-input" placeholder="Search R.A.W GROUP 79 products...">
-                
-                <input type="file" id="visualSearchInput" accept="image/*" capture="environment" style="display: none;" onchange="handleImageSearch(this)">
-                <button type="button" class="camera-upload-btn" onclick="document.getElementById('visualSearchInput').click();" title="Search by image or camera">
-                    <i class="fa-solid fa-camera"></i>
-                </button>
-
-                <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <input type="text" placeholder="Search R.A.W GROUP 79">
+                <button>🔍</button>
             </div>
-
-            <!-- Right Side Profile (Original Position) -->
             <div class="header-right">
-                <a href="#" class="user-profile-menu">
-                    <img src="your-image.jpg" alt="Aejaz Ahmad" class="user-avatar">
-                    <div class="user-text">
-                        <span>Hello, Aejaz Ahmad</span>
-                        <b>Account & Lists</b>
-                    </div>
-                </a>
-
-                <a href="#" class="header-cart">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span style="margin-left: 5px;">Cart</span>
-                </a>
+                <img src="ejaz.jpg" class="user-avatar" alt="User">
+                <span>Account & Lists</span>
             </div>
         </div>
 
-        <!-- Sub Navigation Clean Text List directly under search bar -->
-        <div class="header-bottom">
-            <a href="#" class="nav-list-item all-menu"><i class="fa-solid fa-bars"></i> All</a>
-            <a href="#" class="nav-list-item">Today's Deals</a>
-            <a href="#" class="nav-list-item">Customer Service</a>
-            <a href="#" class="nav-list-item">Registry</a>
-            <a href="#" class="nav-list-item">Gift Cards</a>
-            <a href="#" class="nav-list-item">Sell</a>
-            <a href="#" class="nav-list-item">Browsing History</a>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-container">
-        <!-- Banner Section -->
-        <div class="store-banner">
-            <h1>R.A.W GROUP CHOUKIRH 79 میں خوش آمدید</h1>
-            <p>بہترین پروڈکٹس، ایئر بڈز، جیولری اور ہوم فرنیچر 79 S Chukera، Sargodha سے براہ راست!</p>
+        <div class="nav-belt">
+            <div>☰ All</div>
+            <div>Today's Deals</div>
+            <div>Customer Service</div>
+            <div>Registry</div>
+            <div>Gift Cards</div>
+            <div>Sell</div>
+            <div>Browsing History</div>
         </div>
 
-        <h2>تازہ ترین پروڈکٹس اور آئٹمز (Live Inventory)</h2>
+        <div class="banner-container">
+            <h1>میں خوش آمدید R.A.W GROUP CHOUKIRH 79</h1>
+            <p>اپنے براہ راست 79 S Chukera, Sargodha سے بہترین پروڈکٹس، آرڈر بٹن، جیولری اور ہوم فرنیچر 79</p>
+        </div>
 
-        <!-- Products Grid (Always Open & Visible) -->
+        <div class="section-title">تازہ ترین پروڈکٹس اور آئٹمز (Live Inventory)</div>
+
         <div class="products-grid">
-            <!-- Product 1 -->
             <div class="product-card">
-                <img src="https://m.media-amazon.com/images/I/61SUj2aKoEL._AC_SL1500_.jpg" alt="TOZO Earbuds">
+                <img src="logo.png" alt="Wireless Earbuds">
                 <h3>TOZO Wireless Earbuds</h3>
                 <div class="price">Rs. 4,500</div>
-                <button class="buy-btn">کارٹ میں شامل کریں</button>
+                <button>کارٹ میں شامل کریں</button>
             </div>
-
-            <!-- Product 2 -->
             <div class="product-card">
-                <img src="https://m.media-amazon.com/images/I/71w3r6sW3-L._AC_SL1500_.jpg" alt="Smart Watch">
+                <img src="ejaz.jpg" alt="Smart Watch">
                 <h3>Smart Fitness Watch</h3>
                 <div class="price">Rs. 6,200</div>
-                <button class="buy-btn">کارٹ میں شامل کریں</button>
+                <button>کارٹ میں شامل کریں</button>
             </div>
-
-            <!-- Product 3 -->
             <div class="product-card">
-                <img src="https://m.media-amazon.com/images/I/61WwE23bVFL._AC_SL1500_.jpg" alt="Jewelry Kit">
+                <img src="logo.png" alt="Jewelry Kit">
                 <h3>Sterling Silver Jewelry Kit</h3>
                 <div class="price">Rs. 3,100</div>
-                <button class="buy-btn">کارٹ میں شامل کریں</button>
+                <button>کارٹ میں شامل کریں</button>
             </div>
-
-            <!-- Product 4 -->
             <div class="product-card">
-                <img src="https://m.media-amazon.com/images/I/71Ww23-K1bL._AC_SL1500_.jpg" alt="Glass Table">
+                <img src="logo.png" alt="Glass Table">
                 <h3>Modern Glass Dining Table</h3>
                 <div class="price">Rs. 25,000</div>
-                <button class="buy-btn">کارٹ میں شامل کریں</button>
+                <button>کارٹ میں شامل کریں</button>
             </div>
         </div>
 
-        <!-- Original 5 Buttons Section at Bottom with their working system -->
-        <div class="bottom-buttons-section">
-            <button class="action-btn" onclick="alert('تمام کیٹیگریز کا سیکشن کھل رہا ہے!')">تمام کیٹیگریز</button>
-            <button class="action-btn" onclick="alert('آج کی بہترین ڈیلز (Today Deals) چیک کی جا رہی ہیں!')">آج کی ڈیلز</button>
-            <button class="action-btn" onclick="alert('کسٹمر سپورٹ سے رابطہ قائم کیا جا رہا ہے!')">کسٹمر سپورٹ</button>
-            <button class="action-btn" onclick="alert('آپ کی براؤزنگ ہسٹری اوپن ہو رہی ہے!')">براؤزنگ ہسٹری</button>
-            <button class="action-btn" onclick="alert('میزان بینک / پےونیر پیمنٹ گیٹ وے پر منتقلی جاری ہے!')">میزان / پےونیر پے</button>
+        <div class="bottom-nav">
+            <button>تمام کیٹیگریز</button>
+            <button>آج کی ڈیلز</button>
+            <button>کسمٹم سپورٹ</button>
+            <button>براؤزنگ ہسٹری</button>
+            <button>سوانح اے جے نوی</button>
         </div>
-    </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 R.A.W GROUP CHOUKIRH 79. All Rights Reserved.</p>
-    </footer>
-
-    <script>
-        function handleImageSearch(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    alert("تصویر اپ لوڈ ہو گئی ہے! تلاش جاری ہے۔");
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
-
+        <div class="site-footer">
+            &copy; 2026 R.A.W GROUP CHOUKIRH 79. All Rights Reserved.
+        </div>
+    </div>
 </body>
 </html>
