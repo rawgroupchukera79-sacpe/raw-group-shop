@@ -280,7 +280,149 @@ function googleTranslateElementInit() {
     <span style="font-size: 20px;">👤</span>
     <span style="font-size: 11px;">Account</span>
   </div>
+</div><!-- Clean Minimalist White Customer Account Modal with Private Profile Picture -->
+<div id="customer-account-modal" class="custom-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; justify-content: center; align-items: center;">
+  <div class="modal-content" style="background: #ffffff; width: 92%; max-width: 420px; border-radius: 10px; padding: 18px; max-height: 88vh; overflow-y: auto; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+    
+    <!-- Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; margin-bottom: 15px;">
+      <h3 style="margin: 0; font-size: 16px; color: #222222; font-weight: 600;">👤 Customer Account</h3>
+      <span onclick="closeCustomerAccountModal()" style="cursor: pointer; font-size: 18px; color: #555555; font-weight: bold;">✕</span>
+    </div>
+
+    <!-- Private Profile Picture Section -->
+    <div style="text-align: center; margin-bottom: 15px;">
+      <div id="profilePicPreview" style="width: 70px; height: 70px; border-radius: 50%; background: #f0f0f0; margin: 0 auto 8px auto; display: flex; align-items: center; justify-content: center; font-size: 28px; border: 1px solid #dcdcdc; overflow: hidden;">
+        👤
+      </div>
+      <label style="font-size: 11px; color: #666; cursor: pointer; background: #f8f8f8; padding: 4px 10px; border: 1px solid #dcdcdc; border-radius: 4px; display: inline-block;">
+        تصویر تبدیل کریں (Private)
+        <input type="file" id="custPhotoFile" accept="image/*" onchange="previewProfilePic(event)" style="display: none;">
+      </label>
+      <p style="font-size: 10px; color: #888; margin: 4px 0 0 0;">یہ تصویر بالکل نجی (Hidden) رہے گی، صرف آپ کو نظر آئے گی۔</p>
+    </div>
+
+    <!-- Customer Info & Address Form -->
+    <div style="margin-bottom: 15px;">
+      <label style="display: block; font-size: 12px; color: #444; margin-bottom: 4px;">Full Name (پورا نام)</label>
+      <input type="text" id="custName" placeholder="Apna naam likhein" style="width: 100%; padding: 9px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; margin-bottom: 10px; box-sizing: border-box;">
+
+      <label style="display: block; font-size: 12px; color: #444; margin-bottom: 4px;">Mobile / WhatsApp Number</label>
+      <input type="text" id="custPhone" placeholder="03XXXXXXXXX" style="width: 100%; padding: 9px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; margin-bottom: 10px; box-sizing: border-box;">
+
+      <label style="display: block; font-size: 12px; color: #444; margin-bottom: 4px;">Delivery Address (مکمل پتہ اور شہر)</label>
+      <textarea id="custAddress" rows="2" placeholder="Ghar ka pata, gali, mohalla aur shehar..." style="width: 100%; padding: 9px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; margin-bottom: 10px; box-sizing: border-box;"></textarea>
+
+      <!-- Save Button (Clean White Style) -->
+      <button onclick="saveCustomerProfile()" style="width: 100%; padding: 10px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">
+        Save Profile & Address
+      </button>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #eeeeee; margin: 15px 0;">
+
+    <!-- Plain White Payment Options -->
+    <div style="margin-bottom: 15px;">
+      <p style="font-size: 13px; font-weight: 600; color: #222222; margin: 0 0 8px 0;">Payment Methods (ادائیگی کے طریقے)</p>
+
+      <!-- COD Button -->
+      <button onclick="togglePaymentInfo('cod-info')" style="width: 100%; padding: 10px 12px; background: #ffffff; color: #333333; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; text-align: left; cursor: pointer; margin-bottom: 6px;">
+        Cash on Delivery (COD)
+      </button>
+      <div id="cod-info" style="display: none; padding: 8px 10px; background: #fafafa; border: 1px solid #eeeeee; border-radius: 6px; font-size: 12px; color: #555; margin-bottom: 8px;">
+        Order wasool کرتے وقت delivery rider کو naqad cash ada karein.
+      </div>
+
+      <!-- JazzCash / EasyPaisa Button -->
+      <button onclick="togglePaymentInfo('wallet-info')" style="width: 100%; padding: 10px 12px; background: #ffffff; color: #333333; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; text-align: left; cursor: pointer; margin-bottom: 6px;">
+        JazzCash / EasyPaisa
+      </button>
+      <div id="wallet-info" style="display: none; padding: 8px 10px; background: #fafafa; border: 1px solid #eeeeee; border-radius: 6px; font-size: 12px; color: #555; margin-bottom: 8px;">
+        JazzCash / EasyPaisa Number: <b>0333-4664227</b> (Payment ke baad screenshot WhatsApp par bhej dein).
+      </div>
+
+      <!-- Bank Transfer Button -->
+      <button onclick="togglePaymentInfo('bank-info')" style="width: 100%; padding: 10px 12px; background: #ffffff; color: #333333; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; text-align: left; cursor: pointer; margin-bottom: 6px;">
+        Bank Account Transfer
+      </button>
+      <div id="bank-info" style="display: none; padding: 8px 10px; background: #fafafa; border: 1px solid #eeeeee; border-radius: 6px; font-size: 12px; color: #555; margin-bottom: 8px;">
+        Meezan Bank / Online Transfer ki maloomat ke liye order confirm karte waqt WhatsApp par rabta karein.
+      </div>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #eeeeee; margin: 15px 0;">
+
+    <!-- Plain White Orders Button -->
+    <button onclick="viewMyOrders()" style="width: 100%; padding: 10px 12px; background: #ffffff; color: #333333; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; text-align: left; cursor: pointer;">
+      My Orders (میرے آرڈرز)
+    </button>
+
+  </div>
 </div>
+
+<script>
+  let base64ProfilePic = "";
+
+  function openCustomerAccountModal() {
+    document.getElementById('customer-account-modal').style.display = 'flex';
+    if(localStorage.getItem('custName')) document.getElementById('custName').value = localStorage.getItem('custName');
+    if(localStorage.getItem('custPhone')) document.getElementById('custPhone').value = localStorage.getItem('custPhone');
+    if(localStorage.getItem('custAddress')) document.getElementById('custAddress').value = localStorage.getItem('custAddress');
+    
+    // Load saved private profile picture if exists
+    let savedPic = localStorage.getItem('custPhoto');
+    if(savedPic) {
+      base64ProfilePic = savedPic;
+      document.getElementById('profilePicPreview').innerHTML = `<img src="${savedPic}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`;
+    }
+  }
+
+  function closeCustomerAccountModal() {
+    document.getElementById('customer-account-modal').style.display = 'none';
+  }
+
+  function togglePaymentInfo(id) {
+    var el = document.getElementById(id);
+    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
+  }
+
+  function previewProfilePic(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        base64ProfilePic = e.target.result;
+        document.getElementById('profilePicPreview').innerHTML = `<img src="${base64ProfilePic}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`;
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function saveCustomerProfile() {
+    var name = document.getElementById('custName').value.trim();
+    var phone = document.getElementById('custPhone').value.trim();
+    var address = document.getElementById('custAddress').value.trim();
+
+    if(!name || !phone || !address) {
+      alert("Baraye meharbani apna naam, mobile number aur mukammal pata darj karein.");
+      return;
+    }
+
+    localStorage.setItem('custName', name);
+    localStorage.setItem('custPhone', phone);
+    localStorage.setItem('custAddress', address);
+    if(base64ProfilePic) {
+      localStorage.setItem('custPhoto', base64ProfilePic);
+    }
+    
+    alert("Aap ka account, private tasweer aur address mehfooz ho gaya hai!");
+  }
+
+  function viewMyOrders() {
+    alert("Abhi tak koi order record mein maujood nahi hai.");
+  }
+</script>
+
 
 <div id="privacy-policy-modal" class="custom-modal">
   <div class="modal-content">
