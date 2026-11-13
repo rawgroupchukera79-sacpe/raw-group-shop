@@ -229,39 +229,34 @@ function googleTranslateElementInit() {
     <div id="detActionBtn"></div>
   </div>
 </div>
-<div id="plus-action-menu">
-  <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('post')">📦 Naya Ad Lagayein</button>
-  <button class="menu-action-btn manage" onclick="closePlusMenu(); promptSellerLogin('seller_dashboard')">⚙️ Seller Dashboard</button>
-  <button class="menu-action-btn" style="background:#d9534f;" onclick="closePlusMenu(); promptAdminLogin()">👑 Main Admin Panel</button>
-</div><!-- Clean Daraz-Style 5-Button Bottom Navigation -->
-  
+<div id="plus-action-menu" style="display: none; position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: #fff; padding: 10px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); z-index: 2005; width: 220px; text-align: center;">
+  <button onclick="closePlusMenu(); promptSellerLogin('post')" style="width: 100%; padding: 8px; margin-bottom: 5px; background: #f57224; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">📢 Naya Ad Lagayein</button>
+  <button onclick="closePlusMenu(); promptSellerLogin('seller_dashboard')" style="width: 100%; padding: 8px; margin-bottom: 5px; background: #194376; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">🛒 Seller Dashboard</button>
+  <button onclick="closePlusMenu(); promptAdminLogin()" style="width: 100%; padding: 8px; background: #d9534f; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">🔐 Main Admin Panel</button>
+</div>
+
 <!-- Clean Daraz-Style 5-Button Bottom Navigation -->
 <div class="bottom-nav">
   <div class="nav-item active" onclick="scrollToTop()">
     <span style="font-size: 20px;">🏠</span>
-    <span>Home</span>
+    <span style="font-size: 11px;">Home</span>
   </div>
-
   <div class="nav-item" onclick="openMessagesModal()">
     <span style="font-size: 20px;">💬</span>
-    <span>Messages</span>
+    <span style="font-size: 11px;">Messages</span>
   </div>
-
   <div class="sell-fab-container">
     <div class="sell-fab" onclick="togglePlusMenu()">+</div>
   </div>
-
   <div class="nav-item" onclick="openCartModal()">
     <span style="font-size: 20px;">🛒</span>
-    <span>Cart</span>
+    <span style="font-size: 11px;">Cart</span>
   </div>
-
   <div class="nav-item" onclick="openCustomerAccountModal()">
     <span style="font-size: 20px;">👤</span>
-    <span>Account</span>
+    <span style="font-size: 11px;">Account</span>
   </div>
 </div>
-
 
 <div id="privacy-policy-modal" class="custom-modal">
   <div class="modal-content">
