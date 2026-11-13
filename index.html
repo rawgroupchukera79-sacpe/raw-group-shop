@@ -229,20 +229,37 @@ function googleTranslateElementInit() {
     <div id="detActionBtn"></div>
   </div>
 </div>
-
-<div class="bottom-nav">
-  <div class="nav-item" onclick="openPrivacyModal()"><span class="icon">🔒</span><span>Policy</span></div>
-  <div class="sell-fab-container">
-    <div class="sell-fab" onclick="togglePlusMenu()">+</div>
-  </div>
-  <div class="nav-item" onclick="openReviewModal()"><span class="icon">⭐</span><span>Review</span></div>
-</div>
-
 <div id="plus-action-menu">
   <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('post')">📦 Naya Ad Lagayein</button>
   <button class="menu-action-btn manage" onclick="closePlusMenu(); promptSellerLogin('seller_dashboard')">⚙️ Seller Dashboard</button>
   <button class="menu-action-btn" style="background:#d9534f;" onclick="closePlusMenu(); promptAdminLogin()">👑 Main Admin Panel</button>
+</div><!-- Clean Daraz-Style 5-Button Bottom Navigation -->
+<div class="bottom-nav">
+  <div class="nav-item active" onclick="scrollToTop()">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+    <span>Home</span>
+  </div>
+
+  <div class="nav-item" onclick="openMessagesModal()">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    <span>Messages</span>
+  </div>
+
+  <div class="sell-fab-container">
+    <div class="sell-fab" onclick="togglePlusMenu()">+</div>
+  </div>
+
+  <div class="nav-item" onclick="openCartModal()">
+    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+    <span>Cart</span>
+  </div>
+
+  <div class="nav-item" onclick="openCustomerAccountModal()">
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+    <span>Account</span>
+  </div>
 </div>
+
 
 <div id="privacy-policy-modal" class="custom-modal">
   <div class="modal-content">
