@@ -1179,7 +1179,43 @@ window.submitUserReview = async function() {
   }
 };
 
-window.onload = () => loadApprovedProducts();
+  window.onload = () => loadApprovedProducts();
+
+  // Cart open karne ka secure tareeqa (Sirf login/saved customer ke liye)
+  window.openCartModal = function() {
+    let savedName = localStorage.getItem('custName');
+    let savedPhone = localStorage.getItem('custPhone');
+
+    if (!savedName || !savedPhone) {
+      alert("Baraye meharbani pehle apna Account (Naam aur Mobile Number) save karein, taake aap ki shopping cart ban sakay.");
+      if (typeof openCustomerAccountModal === 'function') {
+        openCustomerAccountModal();
+      }
+      return;
+    }
+
+    document.getElementById('cart-modal').style.display = 'flex';
+    loadCartItems();
+  };
+
+  window.closeCartModal = function() {
+    document.getElementById('cart-modal').style.display = 'none';
+  };
+
+  window.loadCartItems = function() {
+    let container = document.getElementById('cartItemsContainer');
+    container.innerHTML = `<p style="text-align: center; color: #777; font-size: 13px; margin-top: 30px;">کوئی پروڈکٹ شامل نہیں کی گئی۔</p>`;
+    document.getElementById('cartTotalCount').innerText = "0";
+    document.getElementById('cartTotalPrice').innerText = "Rs. 0";
+  };
+
+  window.proceedToCheckout = function() {
+    closeCartModal();
+    if (typeof openCustomerAccountModal === 'function') {
+      openCustomerAccountModal();
+    }
+  };
+
 </script>
 
 </body>
