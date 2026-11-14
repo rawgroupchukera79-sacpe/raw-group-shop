@@ -292,7 +292,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Cart Modal (Integrated Automatic Admin & Seller Order Tracker) -->
+<!-- Cart Modal -->
 <div id="cart-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; margin-bottom: 15px;">
@@ -515,11 +515,12 @@ function openPureSellerDashboard(authData) {
     let sellerMob = String(authData.mobile || "").trim();
     let itemSeller = String(item.sellerName || "").trim().toLowerCase();
     let sellerName = String(authData.name || "").trim().toLowerCase();
-    return (itemMob === sellerMob) || (itemSeller === sellerName);
+    
+    return (itemMob === sellerMob) || (itemMob.includes(sellerMob) || sellerMob.includes(itemMob)) || (itemSeller === sellerName) || (sellerMob === ADMIN_MOBILE);
   });
 
   if(myAds.length === 0) {
-    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center;">Aapka apna koi ad mojood nahi hai.</p>`;
+    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center;">Aapka apna koi ad mojood nahi hai. (Naya ad lagayein)</p>`;
     return;
   }
   myAds.forEach((ad, i) => {
@@ -582,15 +583,15 @@ function renderProducts(products) {
     let itemName = (item.name || "").toLowerCase();
     let itemCat = (item.category || "").toLowerCase();
     let itemBrand = (item.brand || item.city || "").toLowerCase();
-    let hasAffLink = item.affiliateLink && item.affiliateLink.trim() !== "";
+    let affLink = item.affiliateLink ? item.affiliateLink.trim() : "";
+    let hasAffLink = affLink !== "";
 
-    let isAlibaba = hasAffLink && (item.affiliateLink.includes('alibaba') || itemName.includes('alibaba') || itemCat.includes('alibaba'));
-    let isAmazon = hasAffLink && (item.affiliateLink.includes('amazon') || itemName.includes('amazon') || itemCat.includes('amazon'));
-    let isDaraz = hasAffLink && (item.affiliateLink.includes('daraz') || itemName.includes('daraz') || itemCat.includes('daraz'));
+    let isAlibaba = hasAffLink && (affLink.includes('alibaba') || itemName.includes('alibaba') || itemCat.includes('alibaba'));
+    let isAmazon = hasAffLink && (affLink.includes('amazon') || itemName.includes('amazon') || itemCat.includes('amazon'));
+    let isDaraz = hasAffLink && (affLink.includes('daraz') || itemName.includes('daraz') || itemCat.includes('daraz'));
 
     let actionButtonsHTML = '';
-    if (hasAffLink || isAlibaba || isAmazon || isDaraz) {
-      let affLink = item.affiliateLink || "https://wa.me/923334664227";
+    if (hasAffLink) {
       let storeName = "Buy on Store";
       let btnBg = "#ff9900";
       if (isAlibaba || affLink.includes('alibaba')) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
@@ -649,14 +650,14 @@ window.openProductDetail = function(item) {
     imgContainer.innerHTML += `<img src="${imgSrc}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px; border:1px solid #ddd;" onerror="this.src='ejaz.png'">`;
   });
 
-  let hasAffLink = item.affiliateLink && item.affiliateLink.trim() !== "";
-  let isAlibaba = hasAffLink && (item.affiliateLink.includes('alibaba') || (item.name||"").toLowerCase().includes('alibaba'));
-  let isAmazon = hasAffLink && (item.affiliateLink.includes('amazon') || (item.name||"").toLowerCase().includes('amazon'));
-  let isDaraz = hasAffLink && (item.affiliateLink.includes('daraz') || (item.name||"").toLowerCase().includes('daraz'));
+  let affLink = item.affiliateLink ? item.affiliateLink.trim() : "";
+  let hasAffLink = affLink !== "";
+  let isAlibaba = hasAffLink && (affLink.includes('alibaba') || (item.name||"").toLowerCase().includes('alibaba'));
+  let isAmazon = hasAffLink && (affLink.includes('amazon') || (item.name||"").toLowerCase().includes('amazon'));
+  let isDaraz = hasAffLink && (affLink.includes('daraz') || (item.name||"").toLowerCase().includes('daraz'));
 
   const actionDiv = document.getElementById('detActionBtn');
-  if (hasAffLink || isAlibaba || isAmazon || isDaraz) {
-    let affLink = item.affiliateLink || "https://wa.me/923334664227";
+  if (hasAffLink) {
     let storeName = "Buy on Store";
     let btnBg = "#ff9900";
     if (isAlibaba || affLink.includes('alibaba')) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
@@ -692,19 +693,17 @@ function renderCartItems() {
   });
 }
 
-// AUTOMATIC ORDER SYSTEM (Firebase Save + Admin WhatsApp + Seller Auto-Forward)
 window.triggerAutomaticOrder = async function(item) {
   const custName = document.getElementById('custName').value.trim() || "Customer";
   const custPhone = document.getElementById('custPhone').value.trim() || "Not Provided";
   const custAddress = document.getElementById('custAddress').value.trim() || "Sargodha";
 
   if(custPhone === "Not Provided") {
-    alert_msg = prompt("Apna WhatsApp / Mobile Number likhein taake order confirm ho sake:");
+    let alert_msg = prompt("Apna WhatsApp / Mobile Number likhein taake order confirm ho sake:");
     if(!alert_msg) return;
   }
 
   try {
-    // 1. Save Order to Firebase Database (Tracker System)
     const orderData = {
       productName: item.name || item.title,
       price: item.pricePKR || item.price || "N/A",
@@ -719,9 +718,7 @@ window.triggerAutomaticOrder = async function(item) {
 
     await addDoc(collection(db, "orders"), orderData);
 
-    // 2. Prepare Automatic WhatsApp Message for Admin & Seller
     let sellerWhatsApp = item.mobile || ADMIN_MOBILE;
-    // Clean phone number format for WhatsApp link
     sellerWhatsApp = sellerWhatsApp.replace(/[^0-9]/g, '');
     if(sellerWhatsApp.startsWith('0')) sellerWhatsApp = '92' + sellerWhatsApp.substring(1);
 
@@ -733,7 +730,6 @@ window.triggerAutomaticOrder = async function(item) {
                    `📍 *Address:* ${custAddress}%0A%0A` +
                    `_Barah-e-raast yeh order deliver kar dein._`;
 
-    // 3. Open WhatsApp automatically directed to Seller/Admin
     window.open(`https://wa.me/${sellerWhatsApp}?text=${orderMsg}`, '_blank');
 
     alert("✅ آپ کا آرڈر کامیابی سے فائر بیس میں محفوظ ہو گیا ہے اور متعلقہ سیلر کو خودکار واٹس ایپ پیغام بھیج دیا گیا ہے!");
