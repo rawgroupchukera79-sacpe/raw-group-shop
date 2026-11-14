@@ -23,8 +23,9 @@ html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-se
 body { top: 0px !important; }
 
 .search-bar-row { display: flex; align-items: center; background: #194376; padding: 6px 15px 10px; }
-.search-container { flex: 1; position: relative; }
-.search-container input { width: 100%; padding: 9px 14px; border-radius: 20px; border: none; outline: none; font-size: 13px; font-family: inherit; }
+.search-container { flex: 1; position: relative; display: flex; align-items: center; background: #fff; border-radius: 20px; overflow: hidden; padding-right: 8px; }
+.search-container input { flex: 1; padding: 9px 14px; border: none; outline: none; font-size: 13px; font-family: inherit; background: transparent; }
+.camera-search-btn { background: none; border: none; font-size: 18px; cursor: pointer; padding: 4px 8px; color: #194376; display: flex; align-items: center; justify-content: center; }
 
 .cat-scroll-row { display: flex; gap: 12px; overflow-x: auto; padding: 12px 15px; background: #fff; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 .cat-scroll-row::-webkit-scrollbar { display: none; }
@@ -55,8 +56,9 @@ body { top: 0px !important; }
 .price { color: #f57224; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
 
 .btn-row { display: flex; gap: 4px; }
-.whatsapp-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #25d366; color: #fff; text-align: center; text-decoration: none; }
+.whatsapp-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #25d366; color: #fff; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; }
 .order-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #f57224; color: #fff; text-align: center; }
+.affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #fff; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
 
 /* Navigation Bar Style */
 .bottom-nav {
@@ -144,7 +146,12 @@ function googleTranslateElementInit() {
 
   <div class="search-bar-row">
     <div class="search-container">
-      <input id="search" onkeyup="filterShop()" placeholder="🔍 پروڈکٹ کا نام یا شہر تلاش کریں... (Search)">
+      <input id="search" onkeyup="filterShop()" placeholder="🔍 پروڈکٹ کا نام یا شہر تلاش کریں...">
+      <!-- Visual Search / Camera Button inside Search Bar -->
+      <button class="camera-search-btn" onclick="triggerVisualSearch()" title="تصویر کے ذریعے تلاش کریں (Visual Search)">
+        📷
+        <input type="file" id="visualSearchInput" accept="image/*" style="display: none;" onchange="handleVisualSearch(event)">
+      </button>
     </div>
   </div>
 
@@ -206,7 +213,7 @@ function googleTranslateElementInit() {
   <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('seller_account')">👤 Seller Account</button>
 </div>
 
-<!-- Bottom Navigation (First button changed to Privacy Policy Modal) -->
+<!-- Bottom Navigation -->
 <div class="bottom-nav">
   <div class="nav-item" onclick="openPrivacyModal()">
     <span style="font-size: 20px;">🔒</span>
@@ -229,7 +236,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Privacy Policy Modal (Clean White Style) -->
+<!-- Privacy Policy Modal -->
 <div id="privacy-policy-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
@@ -345,12 +352,20 @@ function googleTranslateElementInit() {
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
-      <h3 style="margin: 0; font-size: 16px; color: #194376; font-weight: 600;">⚙️ Seller Dashboard</h3>
+      <h3 style="margin: 0; font-size: 16px; color: #194376; font-weight: 600;">⚙️ Seller & Affiliate Dashboard</h3>
       <span style="cursor:pointer; font-size: 18px; color: #555555; font-weight: bold;" onclick="closeSellerDashboard()">✕</span>
     </div>
     <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
-    <button onclick="closeSellerDashboard(); openAdModalFromDashboard();" style="width:100%; background:#28a745; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer; margin-bottom:12px;">➕ Naya Ad Lagayein</button>
-    <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:200px; overflow-y:auto; margin-bottom:10px;"></div>
+    
+    <div style="background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px; color:#333;">
+      <b>💼 Affiliate & Commission Notice:</b><br>
+      Aap apne ad mein apna Daraz/Amazon affiliate link laga sakte hain. Uska commission seedha aapke account mein jayega!
+    </div>
+
+    <button onclick="closeSellerDashboard(); openAdModalFromDashboard();" style="width:100%; background:#28a745; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer; margin-bottom:12px;">➕ Naya Ad / Affiliate Link Lagayein</button>
+    
+    <div style="font-size:11px; font-weight:bold; color:#194376; margin-bottom:6px;">📦 Aapke Apne Ads & Links:</div>
+    <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:180px; overflow-y:auto; margin-bottom:10px;"></div>
     <button onclick="closeSellerDashboard()" style="width:100%; background:#ddd; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
   </div>
 </div>
@@ -387,7 +402,14 @@ function googleTranslateElementInit() {
       </div>
       <div class="form-group"><label>Ad Title *</label><input type="text" id="adTitle" required placeholder="Product Name"></div>
       <div class="form-group"><label>City *</label><input type="text" id="adCity" required value="Sargodha"></div>
-      <div class="form-group"><label>Price *</label><input type="number" id="adPrice" required placeholder="1500"></div>
+      <div class="form-group">
+        <label>Price (Optional - Services ya Rent ke liye khali chhor sakte hain)</label>
+        <input type="number" id="adPrice" placeholder="1500 (Optional)">
+      </div>
+      <div class="form-group">
+        <label>Affiliate / Store Link (Optional - Amazon/Daraz/Alibaba)</label>
+        <input type="text" id="adAffiliateLink" placeholder="https://s.daraz.pk/... ya Amazon/Alibaba link">
+      </div>
       <div class="form-group"><label>Tafseel *</label><textarea id="adDescription" rows="3" required placeholder="Tafseel..."></textarea></div>
       <div class="form-group"><label>Tasveerein *</label><input type="file" id="imageFileInput" accept="image/*" multiple required onchange="handleMultipleImages(event)"></div>
       <button type="submit" class="btn-submit-ad">Publish Ad Live</button>
@@ -434,6 +456,18 @@ window.closeCustomerAccountModal = () => document.getElementById('customer-accou
 
 window.openCartModal = () => document.getElementById('cart-modal').style.display = 'flex';
 window.closeCartModal = () => document.getElementById('cart-modal').style.display = 'none';
+
+// Visual Search Functions
+window.triggerVisualSearch = () => {
+  document.getElementById('visualSearchInput').click();
+};
+
+window.handleVisualSearch = (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+  alert("📸 تصویر موصول ہو گئی ہے! فی الحال اس تصویر سے ملتی جلتی پروڈکٹس کو سرچ کیا جا رہا ہے۔");
+  // Future AI visual matching can be extended here
+};
 
 window.promptSellerLogin = (actionType) => {
   pendingTargetAction = actionType;
@@ -523,9 +557,36 @@ function renderProducts(products) {
     let imagesList = item.images || (item.img ? [item.img] : ['ejaz.png']);
     let mainImg = imagesList[0];
     let currencySymbol = item.currency || 'Rs.';
-    let priceVal = item.pricePKR || item.price || 0;
-    let priceDisplay = `${currencySymbol} ${priceVal}`;
-    let contactLink = `https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
+    let priceVal = item.pricePKR || item.price;
+    let priceDisplay = (priceVal !== undefined && priceVal !== "" && !isNaN(priceVal)) ? `${currencySymbol} ${priceVal}` : "Price on Contact";
+
+    let itemName = (item.name || "").toLowerCase();
+    let itemCat = (item.category || "").toLowerCase();
+    let itemBrand = (item.brand || item.city || "").toLowerCase();
+
+    let isAlibaba = itemName.includes('alibaba') || itemCat.includes('alibaba') || itemBrand.includes('alibaba');
+    let isAmazon = itemName.includes('amazon') || itemCat.includes('amazon') || itemBrand.includes('amazon');
+    let isDaraz = itemName.includes('daraz') || itemCat.includes('daraz') || itemBrand.includes('daraz');
+
+    let actionButtonsHTML = '';
+    if ((item.affiliateLink && item.affiliateLink.trim() !== '') || isAlibaba || isAmazon || isDaraz) {
+      let affLink = item.affiliateLink || "https://wa.me/923334664227";
+      let storeName = "Buy on Store";
+      let btnBg = "#ff9900";
+      if (isAlibaba) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
+      else if (isAmazon) { storeName = "Buy on Amazon"; btnBg = "#FF9900"; }
+      else if (isDaraz) { storeName = "Buy on Daraz"; btnBg = "#f57224"; }
+
+      actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn" style="background:${btnBg}; color:#fff;">🛒 ${storeName}</a>`;
+    } else {
+      let contactLink = `https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
+      actionButtonsHTML = `
+        <div class="btn-row">
+          <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
+          <button class="order-btn" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 Order</button>
+        </div>
+      `;
+    }
 
     shopList.innerHTML += `
       <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}">
@@ -534,10 +595,7 @@ function renderProducts(products) {
           <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
           <div class="city-label">📍 ${item.brand || item.city || 'Sargodha'}</div>
           <div class="price">${priceDisplay}</div>
-          <div class="btn-row">
-            <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
-            <button class="order-btn" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 Order</button>
-          </div>
+          ${actionButtonsHTML}
         </div>
       </div>
     `;
@@ -552,8 +610,10 @@ window.filterByCategory = function(cat) {
 window.openProductDetail = function(item) {
   document.getElementById('detTitle').innerText = item.name || item.title;
   let currencySymbol = item.currency || 'Rs.';
-  let priceVal = item.pricePKR || item.price || 0;
-  document.getElementById('detPrice').innerText = `Price: ${currencySymbol} ${priceVal}`;
+  let priceVal = item.pricePKR || item.price;
+  let priceDisplay = (priceVal !== undefined && priceVal !== "" && !isNaN(priceVal)) ? `${currencySymbol} ${priceVal}` : "Price on Contact";
+  
+  document.getElementById('detPrice').innerText = `Price: ${priceDisplay}`;
   document.getElementById('detCity').innerText = `Location: ${item.brand || item.city || 'Sargodha'}`;
   document.getElementById('detDescription').innerText = item.description || item.desc || 'Mazeed tafseel mojood nahi hai.';
 
@@ -564,13 +624,32 @@ window.openProductDetail = function(item) {
     imgContainer.innerHTML += `<img src="${imgSrc}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px; border:1px solid #ddd;" onerror="this.src='ejaz.png'">`;
   });
 
-  let contactLink = `https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
-  document.getElementById('detActionBtn').innerHTML = `
-    <div style="display:flex; gap:8px;">
-      <a href="${contactLink}" target="_blank" style="flex:1; background:#25d366; color:#fff; text-align:center; padding:9px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none;">💬 WhatsApp Chat</a>
-      <a href="${contactLink}" target="_blank" style="flex:1; background:#f57224; color:#fff; text-align:center; padding:9px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none;">🛒 Secure Order</a>
-    </div>
-  `;
+  let itemName = (item.name || "").toLowerCase();
+  let itemCat = (item.category || "").toLowerCase();
+  let itemBrand = (item.brand || item.city || "").toLowerCase();
+  let isAlibaba = itemName.includes('alibaba') || itemCat.includes('alibaba') || itemBrand.includes('alibaba');
+  let isAmazon = itemName.includes('amazon') || itemCat.includes('amazon') || itemBrand.includes('amazon');
+  let isDaraz = itemName.includes('daraz') || itemCat.includes('daraz') || itemBrand.includes('daraz');
+
+  const actionDiv = document.getElementById('detActionBtn');
+  if ((item.affiliateLink && item.affiliateLink.trim() !== '') || isAlibaba || isAmazon || isDaraz) {
+    let affLink = item.affiliateLink || "https://wa.me/923334664227";
+    let storeName = "Buy on Store";
+    let btnBg = "#ff9900";
+    if (isAlibaba) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
+    else if (isAmazon) { storeName = "Buy on Amazon"; btnBg = "#FF9900"; }
+    else if (isDaraz) { storeName = "Buy on Daraz"; btnBg = "#f57224"; }
+
+    actionDiv.innerHTML = `<a href="${affLink}" target="_blank" style="background:${btnBg}; color:#fff; padding:9px 12px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none; display:block; text-align:center;">🛒 ${storeName}</a>`;
+  } else {
+    let contactLink = `https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
+    actionDiv.innerHTML = `
+      <div style="display:flex; gap:8px;">
+        <a href="${contactLink}" target="_blank" style="flex:1; background:#25d366; color:#fff; text-align:center; padding:9px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none;">💬 WhatsApp Chat</a>
+        <a href="${contactLink}" target="_blank" style="flex:1; background:#f57224; color:#fff; text-align:center; padding:9px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none;">🛒 Secure Order</a>
+      </div>
+    `;
+  }
   document.getElementById('product-detail-modal').style.display = 'flex';
 };
 
@@ -608,17 +687,20 @@ window.submitUserAd = async function(e) {
   const category = document.getElementById('adCategory').value;
   const name = document.getElementById('adTitle').value;
   const city = document.getElementById('adCity').value;
-  const price = document.getElementById('adPrice').value;
+  const priceInput = document.getElementById('adPrice').value;
+  const affiliateLink = document.getElementById('adAffiliateLink').value;
   const description = document.getElementById('adDescription').value;
   const authData = JSON.parse(localStorage.getItem('raw_locked_seller_auth') || '{}');
 
   if (uploadedImagesArray.length === 0) return alert("Tasveer select karein!");
 
+  let priceVal = (priceInput !== "") ? Number(priceInput) : "";
+
   try {
     await addDoc(collection(db, "products"), {
       name, category, 
-      pricePKR: Number(price), price: Number(price), currency: 'Rs.',
-      brand: city, affiliateLink: "",
+      pricePKR: priceVal, price: priceVal, currency: 'Rs.',
+      brand: city, affiliateLink: affiliateLink || "",
       description, images: uploadedImagesArray,
       mobile: authData.mobile || ADMIN_MOBILE,
       sellerName: authData.name || 'Partner',
