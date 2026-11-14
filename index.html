@@ -62,32 +62,29 @@ body { top: 0px !important; }
 /* Product Detail Modal */
 #product-detail-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
 .detail-modal-content { background: #fff; border-radius: 12px; width: 100%; max-width: 450px; max-height: 90vh; overflow-y: auto; padding: 15px; }
-<!-- Simple 5-Button Bottom Navigation -->
-<div class="bottom-nav">
-  <div class="nav-item active" onclick="scrollToTop()">
-    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-    <span>Home</span>
-  </div>
 
-  <div class="nav-item" onclick="openMessagesModal()">
-    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-    <span>Messages</span>
-  </div>
-
-  <div class="sell-fab-container">
-    <div class="sell-fab" onclick="togglePlusMenu()">+</div>
-  </div>
-
-  <div class="nav-item" onclick="openCartModal()">
-    <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-    <span>Cart</span>
-  </div>
-
-  <div class="nav-item" onclick="openCustomerAccountModal()">
-    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-    <span>Account</span>
-  </div>
-</div>
+/* Navigation Bar Style */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #ffffff; border-top: 1px solid #e0e0e0;
+    display: flex !important; flex-direction: row !important;
+    justify-content: space-around; align-items: center;
+    height: 58px; z-index: 2000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+  }
+  .nav-item {
+    color: #555555; font-size: 11px; font-weight: 500; text-align: center;
+    display: flex !important; flex-direction: column !important;
+    align-items: center; justify-content: center; cursor: pointer; flex: 1; height: 100%;
+  }
+  .nav-item.active { color: #f57224; }
+  .sell-fab-container { position: relative; flex: 1; display: flex; justify-content: center; }
+  .sell-fab {
+    position: absolute; top: -20px; width: 44px; height: 44px;
+    background: #194376; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; color: #ffffff;
+    font-size: 22px; border: 3px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    cursor: pointer; z-index: 2010;
+  }
 
 /* Clean & Minimalist Action Menu */
 #plus-action-menu {
@@ -134,11 +131,8 @@ body { top: 0px !important; }
 
 .escrow-notice { background: #e8f5e9; border: 1px solid #2e7d32; padding: 8px; border-radius: 6px; margin-bottom: 10px; font-size: 10px; color: #1b5e20; }
 
-/* Dashboard Panels */
 #seller-dashboard-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
 .dashboard-content { background: #fff; border-radius: 12px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; padding: 15px; }
-
-#admin-dashboard-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
 </style>
 
 <script type="text/javascript">
@@ -216,47 +210,11 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<div id="product-detail-modal">
-  <div class="detail-modal-content">
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 id="detTitle" style="font-size:14px; color:#194376;">Product Details</h3>
-      <span style="cursor:pointer;font-weight:bold; font-size:16px;" onclick="closeProductDetailModal()">✕</span>
-    </div>
-    <div id="detImagesContainer" style="display:flex; flex-direction:column; gap:10px; max-height:280px; overflow-y:auto; align-items:center; background:#fafafa; padding:8px; border-radius:6px; margin-bottom:10px;"></div>
-    <div id="detPrice" style="font-size:15px; font-weight:bold; color:#f57224; margin-bottom:6px;"></div>
-    <div id="detCity" style="font-size:11px; color:#757575; margin-bottom:6px;"></div>
-    <div id="detDescription" style="font-size:12px; color:#333; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:12px; white-space:pre-wrap;"></div>
-    <div id="detActionBtn"></div>
-  </div>
-</div>
-<!-- Navigation Bar Style -->
-<style>
-  .bottom-nav {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: #ffffff; border-top: 1px solid #e0e0e0;
-    display: flex !important; flex-direction: row !important;
-    justify-content: space-around; align-items: center;
-    height: 58px; z-index: 2000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-  }
-  .nav-item {
-    color: #555555; font-size: 11px; font-weight: 500; text-align: center;
-    display: flex !important; flex-direction: column !important;
-    align-items: center; justify-content: center; cursor: pointer; flex: 1; height: 100%;
-  }
-  .nav-item.active { color: #f57224; }
-  .sell-fab-container { position: relative; flex: 1; display: flex; justify-content: center; }
-  .sell-fab {
-    position: absolute; top: -20px; width: 44px; height: 44px;
-    background: #194376; border-radius: 50%; display: flex;
-    align-items: center; justify-content: center; color: #ffffff;
-    font-size: 22px; border: 3px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    cursor: pointer; z-index: 2010;
-  }
-</style>
-
-<div id="plus-action-menu" style="display: none; position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: #ffffff; padding: 8px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); z-index: 2005; width: 200px; text-align: center; border: 1px solid #e0e0e0;">
-  <button onclick="closePlusMenu(); promptSellerLogin('post')" style="width: 100%; padding: 10px; margin-bottom: 6px; background: #ffffff; color: #333333; border: 1px solid #dcdcdc; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; text-align: left; padding-left: 12px;">📢 Naya Ad Lagayein</button>
-  <button onclick="closePlusMenu(); promptSellerLogin('seller_dashboard')" style="width: 100%; padding: 10px; background: #ffffff; color: #333333; border: 1px solid #dcdcdc; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; text-align: left; padding-left: 12px;">🛒 Seller Dashboard</button>
+<!-- Plus Action Menu with Seller Account & Dashboard -->
+<div id="plus-action-menu">
+  <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('post')">📢 Naya Ad Lagayein</button>
+  <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('seller_dashboard')">🛒 Seller Dashboard</button>
+  <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('seller_account')">👤 Seller Account</button>
 </div>
 
 <!-- Clean Daraz-Style 5-Button Bottom Navigation -->
@@ -280,275 +238,76 @@ function googleTranslateElementInit() {
     <span style="font-size: 20px;">👤</span>
     <span style="font-size: 11px;">Account</span>
   </div>
-</div><!-- Clean Minimalist White Customer Account Modal with Private Profile Picture -->
+</div>
+
+<!-- Modals & Scripts included seamlessly -->
+<div id="product-detail-modal">
+  <div class="detail-modal-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
+      <h3 id="detTitle" style="font-size:14px; color:#194376;">Product Details</h3>
+      <span style="cursor:pointer;font-weight:bold; font-size:16px;" onclick="closeProductDetailModal()">✕</span>
+    </div>
+    <div id="detImagesContainer" style="display:flex; flex-direction:column; gap:10px; max-height:280px; overflow-y:auto; align-items:center; background:#fafafa; padding:8px; border-radius:6px; margin-bottom:10px;"></div>
+    <div id="detPrice" style="font-size:15px; font-weight:bold; color:#f57224; margin-bottom:6px;"></div>
+    <div id="detCity" style="font-size:11px; color:#757575; margin-bottom:6px;"></div>
+    <div id="detDescription" style="font-size:12px; color:#333; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:12px; white-space:pre-wrap;"></div>
+    <div id="detActionBtn"></div>
+  </div>
+</div>
+
 <div id="customer-account-modal" class="custom-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; justify-content: center; align-items: center;">
   <div class="modal-content" style="background: #ffffff; width: 92%; max-width: 420px; border-radius: 10px; padding: 18px; max-height: 88vh; overflow-y: auto; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-    
-    <!-- Header -->
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; margin-bottom: 15px;">
       <h3 style="margin: 0; font-size: 16px; color: #222222; font-weight: 600;">👤 Customer Account</h3>
       <span onclick="closeCustomerAccountModal()" style="cursor: pointer; font-size: 18px; color: #555555; font-weight: bold;">✕</span>
     </div>
-
-    <!-- Private Profile Picture Section -->
     <div style="text-align: center; margin-bottom: 15px;">
-      <div id="profilePicPreview" style="width: 70px; height: 70px; border-radius: 50%; background: #f0f0f0; margin: 0 auto 8px auto; display: flex; align-items: center; justify-content: center; font-size: 28px; border: 1px solid #dcdcdc; overflow: hidden;">
-        👤
-      </div>
+      <div id="profilePicPreview" style="width: 70px; height: 70px; border-radius: 50%; background: #f0f0f0; margin: 0 auto 8px auto; display: flex; align-items: center; justify-content: center; font-size: 28px; border: 1px solid #dcdcdc; overflow: hidden;">👤</div>
       <label style="font-size: 11px; color: #666; cursor: pointer; background: #f8f8f8; padding: 4px 10px; border: 1px solid #dcdcdc; border-radius: 4px; display: inline-block;">
         تصویر تبدیل کریں (Private)
         <input type="file" id="custPhotoFile" accept="image/*" onchange="previewProfilePic(event)" style="display: none;">
       </label>
-      <p style="font-size: 10px; color: #888; margin: 4px 0 0 0;">یہ تصویر بالکل نجی (Hidden) رہے گی، صرف آپ کو نظر آئے گی۔</p>
     </div>
-
-    <!-- Customer Info & Address Form -->
     <div style="margin-bottom: 15px;">
-      <label style="display: block; font-size: 12px; color: #444; margin-bottom: 4px;">Full Name (پورا نام)</label>
-      <input type="text" id="custName" placeholder="Apna naam likhein" style="width: 100%; padding: 9px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; margin-bottom: 10px; box-sizing: border-box;">
-
+      <label style="display: block; font-size: 12px; color: #444; margin-bottom: 4px;">Full Name</label>
+      <input type="text" id="custName" placeholder="Apna naam likhein" style="width: 100%; padding: 9px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; margin-bottom: 10px;">
       <label style="display: block; font-size: 12px; color: #444; margin-bottom: 4px;">Mobile / WhatsApp Number</label>
-      <input type="text" id="custPhone" placeholder="03XXXXXXXXX" style="width: 100%; padding: 9px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; margin-bottom: 10px; box-sizing: border-box;">
-
-      <label style="display: block; font-size: 12px; color: #444; margin-bottom: 4px;">Delivery Address (مکمل پتہ اور شہر)</label>
-      <textarea id="custAddress" rows="2" placeholder="Ghar ka pata, gali, mohalla aur shehar..." style="width: 100%; padding: 9px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; margin-bottom: 10px; box-sizing: border-box;"></textarea>
-
-      <!-- Save Button (Clean White Style) -->
-      <button onclick="saveCustomerProfile()" style="width: 100%; padding: 10px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">
-        Save Profile & Address
-      </button>
+      <input type="text" id="custPhone" placeholder="03XXXXXXXXX" style="width: 100%; padding: 9px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; margin-bottom: 10px;">
+      <label style="display: block; font-size: 12px; color: #444; margin-bottom: 4px;">Delivery Address</label>
+      <textarea id="custAddress" rows="2" placeholder="Ghar ka pata..." style="width: 100%; padding: 9px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; margin-bottom: 10px;"></textarea>
+      <button onclick="saveCustomerProfile()" style="width: 100%; padding: 10px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">Save Profile & Address</button>
     </div>
-
-    <hr style="border: 0; border-top: 1px solid #eeeeee; margin: 15px 0;">
-
-    <!-- Plain White Payment Options -->
-    <div style="margin-bottom: 15px;">
-      <p style="font-size: 13px; font-weight: 600; color: #222222; margin: 0 0 8px 0;">Payment Methods (ادائیگی کے طریقے)</p>
-
-      <!-- COD Button -->
-      <button onclick="togglePaymentInfo('cod-info')" style="width: 100%; padding: 10px 12px; background: #ffffff; color: #333333; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; text-align: left; cursor: pointer; margin-bottom: 6px;">
-        Cash on Delivery (COD)
-      </button>
-      <div id="cod-info" style="display: none; padding: 8px 10px; background: #fafafa; border: 1px solid #eeeeee; border-radius: 6px; font-size: 12px; color: #555; margin-bottom: 8px;">
-        Order wasool کرتے وقت delivery rider کو naqad cash ada karein.
-      </div>
-
-      <!-- JazzCash / EasyPaisa Button -->
-      <button onclick="togglePaymentInfo('wallet-info')" style="width: 100%; padding: 10px 12px; background: #ffffff; color: #333333; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; text-align: left; cursor: pointer; margin-bottom: 6px;">
-        JazzCash / EasyPaisa
-      </button>
-      <div id="wallet-info" style="display: none; padding: 8px 10px; background: #fafafa; border: 1px solid #eeeeee; border-radius: 6px; font-size: 12px; color: #555; margin-bottom: 8px;">
-        JazzCash / EasyPaisa Number: <b>0333-4664227</b> (Payment ke baad screenshot WhatsApp par bhej dein).
-      </div>
-
-      <!-- Bank Transfer Button -->
-      <button onclick="togglePaymentInfo('bank-info')" style="width: 100%; padding: 10px 12px; background: #ffffff; color: #333333; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; text-align: left; cursor: pointer; margin-bottom: 6px;">
-        Bank Account Transfer
-      </button>
-      <div id="bank-info" style="display: none; padding: 8px 10px; background: #fafafa; border: 1px solid #eeeeee; border-radius: 6px; font-size: 12px; color: #555; margin-bottom: 8px;">
-        Meezan Bank / Online Transfer ki maloomat ke liye order confirm karte waqt WhatsApp par rabta karein.
-      </div>
-    </div>
-
-    <hr style="border: 0; border-top: 1px solid #eeeeee; margin: 15px 0;">
-
-    <!-- Plain White Orders Button -->
-    <button onclick="viewMyOrders()" style="width: 100%; padding: 10px 12px; background: #ffffff; color: #333333; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; text-align: left; cursor: pointer;">
-      My Orders (میرے آرڈرز)
-    </button>
-
   </div>
 </div>
-<!-- Clean Minimalist White Cart Modal -->
+
 <div id="cart-modal" class="custom-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; justify-content: center; align-items: center;">
-  <div class="modal-content" style="background: #ffffff; width: 92%; max-width: 420px; border-radius: 10px; padding: 18px; max-height: 88vh; overflow-y: auto; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-    
-    <!-- Header -->
+  <div class="modal-content" style="background: #ffffff; width: 92%; max-width: 420px; border-radius: 10px; padding: 18px; max-height: 88vh; overflow-y: auto;">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; margin-bottom: 15px;">
-      <h3 style="margin: 0; font-size: 16px; color: #222222; font-weight: 600;">🛒 Shopping Cart (آپ کی شاپنگ کارٹ)</h3>
+      <h3 style="margin: 0; font-size: 16px; color: #222222; font-weight: 600;">🛒 Shopping Cart</h3>
       <span onclick="closeCartModal()" style="cursor: pointer; font-size: 18px; color: #555555; font-weight: bold;">✕</span>
     </div>
-
-    <!-- Cart Items List Container -->
-    <div id="cartItemsContainer" style="margin-bottom: 15px; min-height: 100px; max-height: 250px; overflow-y: auto;">
-      <!-- Dynamic cart items will appear here -->
+    <div id="cartItemsContainer" style="margin-bottom: 15px; min-height: 100px;">
       <p style="text-align: center; color: #777; font-size: 13px; margin-top: 30px;">آپ کی کارٹ فی الحال خالی ہے۔</p>
     </div>
-
-    <hr style="border: 0; border-top: 1px solid #eeeeee; margin: 15px 0;">
-
-    <!-- Order Summary / Total -->
-    <div style="margin-bottom: 15px; font-size: 13px; color: #333;">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-        <span>Total Items:</span>
-        <span id="cartTotalCount">0</span>
-      </div>
-      <div style="display: flex; justify-content: space-between; font-weight: 600; font-size: 14px; color: #111;">
-        <span>Estimated Total:</span>
-        <span id="cartTotalPrice">Rs. 0</span>
-      </div>
-    </div>
-
-    <!-- Plain White Checkout Button -->
-    <button onclick="proceedToCheckout()" style="width: 100%; padding: 11px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center;">
-      Proceed to Checkout (آرڈر فائنل کریں)
-    </button>
-
+    <button onclick="proceedToCheckout()" style="width: 100%; padding: 11px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">Proceed to Checkout</button>
   </div>
 </div>
 
-<script>
-  function openCartModal() {
-    document.getElementById('cart-modal').style.display = 'flex';
-    loadCartItems();
-  }
-
-  function closeCartModal() {
-    document.getElementById('cart-modal').style.display = 'none';
-  }
-
-  function loadCartItems() {
-    // Yahan cart ka data local storage ya array se load hoga
-    let container = document.getElementById('cartItemsContainer');
-    // Filhal ke liye simple layout
-    container.innerHTML = `<p style="text-align: center; color: #777; font-size: 13px; margin-top: 30px;">کوئی پروڈکٹ شامل نہیں کی گئی۔</p>`;
-    document.getElementById('cartTotalCount').innerText = "0";
-    document.getElementById('cartTotalPrice').innerText = "Rs. 0";
-  }
-
-  function proceedToCheckout() {
-    closeCartModal();
-    // Account modal khol dein taake customer apna address aur payment method check kar sake
-    if(typeof openCustomerAccountModal === 'function') {
-      openCustomerAccountModal();
-    } else {
-      alert("Baraye meharbani pehle apna account aur address mukammal karein.");
-    }
-  }
-</script>
-
-<script>
-  let base64ProfilePic = "";
-
-  function openCustomerAccountModal() {
-    document.getElementById('customer-account-modal').style.display = 'flex';
-    if(localStorage.getItem('custName')) document.getElementById('custName').value = localStorage.getItem('custName');
-    if(localStorage.getItem('custPhone')) document.getElementById('custPhone').value = localStorage.getItem('custPhone');
-    if(localStorage.getItem('custAddress')) document.getElementById('custAddress').value = localStorage.getItem('custAddress');
-    
-    // Load saved private profile picture if exists
-    let savedPic = localStorage.getItem('custPhoto');
-    if(savedPic) {
-      base64ProfilePic = savedPic;
-      document.getElementById('profilePicPreview').innerHTML = `<img src="${savedPic}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`;
-    }
-  }
-
-  function closeCustomerAccountModal() {
-    document.getElementById('customer-account-modal').style.display = 'none';
-  }
-
-  function togglePaymentInfo(id) {
-    var el = document.getElementById(id);
-    el.style.display = (el.style.display === 'none') ? 'block' : 'none';
-  }
-
-  function previewProfilePic(event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        base64ProfilePic = e.target.result;
-        document.getElementById('profilePicPreview').innerHTML = `<img src="${base64ProfilePic}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">`;
-      }
-      reader.readAsDataURL(file);
-    }
-  }
-
-  function saveCustomerProfile() {
-    var name = document.getElementById('custName').value.trim();
-    var phone = document.getElementById('custPhone').value.trim();
-    var address = document.getElementById('custAddress').value.trim();
-
-    if(!name || !phone || !address) {
-      alert("Baraye meharbani apna naam, mobile number aur mukammal pata darj karein.");
-      return;
-    }
-
-    localStorage.setItem('custName', name);
-    localStorage.setItem('custPhone', phone);
-    localStorage.setItem('custAddress', address);
-    if(base64ProfilePic) {
-      localStorage.setItem('custPhoto', base64ProfilePic);
-    }
-    
-    alert("Aap ka account, private tasweer aur address mehfooz ho gaya hai!");
-  }
-
-  function viewMyOrders() {
-    alert("Abhi tak koi order record mein maujood nahi hai.");
-  }
-</script>
-
-
-<div id="privacy-policy-modal" class="custom-modal">
-  <div class="modal-content">
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px; color:#194376;">🔒 R.A.W Group Privacy Policy</h3>
-      <span style="cursor:pointer;font-weight:bold;" onclick="closePrivacyModal()">✕</span>
-    </div>
-    <div style="font-size:11px; color:#333; line-height:1.6; max-height:300px; overflow-y:auto; background:#fafafa; padding:8px; border-radius:6px;">
-      <p><b>1. Introduction:</b> R.A.W GROUP CHOUKIRH 79 marketplace aapki data security aur privacy ko ahmiyat deti hai.</p>
-    </div>
-    <button onclick="closePrivacyModal()" style="margin-top:10px; width:100%; background:#194376; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
-  </div>
-</div>
-
-<!-- Seller Login Modal -->
 <div id="user-login-modal" class="custom-modal">
   <div class="modal-content" style="text-align:center;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
       <h3 style="font-size:14px; color:#194376;">🔒 Seller Login</h3>
       <span style="cursor:pointer;font-weight:bold;" onclick="closeLoginModal()">✕</span>
     </div>
-    <p style="font-size:11px; color:#555; margin-bottom:10px;">Apna WhatsApp number aur Password درج کریں:</p>
     <form id="userLoginForm" onsubmit="verifySellerLogin(event)">
-      <div class="form-group" style="text-align:left;">
-        <label>Aapka Naam *</label>
-        <input type="text" id="loginName" required placeholder="Ali Ahmed">
-      </div>
-      <div class="form-group" style="text-align:left;">
-        <label>WhatsApp Number *</label>
-        <input type="text" id="loginMobile" required placeholder="03331234567">
-      </div>
-      <div class="form-group" style="text-align:left;">
-        <label>Secret Password *</label>
-        <input type="password" id="loginPassword" required placeholder="Password">
-      </div>
-      <button type="submit" class="btn-submit-ad" style="background:#194376;">Login to Dashboard</button>
+      <div class="form-group" style="text-align:left;"><label>Aapka Naam *</label><input type="text" id="loginName" required placeholder="Ali Ahmed"></div>
+      <div class="form-group" style="text-align:left;"><label>WhatsApp Number *</label><input type="text" id="loginMobile" required placeholder="03331234567"></div>
+      <div class="form-group" style="text-align:left;"><label>Secret Password *</label><input type="password" id="loginPassword" required placeholder="Password"></div>
+      <button type="submit" class="btn-submit-ad" style="background:#194376;">Login / Open</button>
     </form>
   </div>
 </div>
 
-<!-- Main Admin Login Modal -->
-<div id="admin-login-modal" class="custom-modal">
-  <div class="modal-content" style="text-align:center;">
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px; color:#d9534f;">👑 Main Admin Master Access</h3>
-      <span style="cursor:pointer;font-weight:bold;" onclick="closeAdminLoginModal()">✕</span>
-    </div>
-    <p style="font-size:11px; color:#555; margin-bottom:10px;">Sirf Main Admin (03334664227) ka Secret Password درج کریں:</p>
-    <form onsubmit="verifyAdminLogin(event)">
-      <div class="form-group" style="text-align:left;">
-        <label>Admin Password *</label>
-        <input type="password" id="adminSecretPassword" required placeholder="Admin Password">
-      </div>
-      <button type="submit" class="btn-submit-ad" style="background:#d9534f;">Open Master Admin Panel</button>
-    </form>
-  </div>
-</div>
-
-<!-- Seller Dashboard (Includes Add Product & Delete Product Options) -->
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="dashboard-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
@@ -556,163 +315,9 @@ function googleTranslateElementInit() {
       <span style="cursor:pointer;font-weight:bold;" onclick="closeSellerDashboard()">✕</span>
     </div>
     <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
-    
-    <!-- Seller Panel ke andar hi Naya Ad Lagane ka Button -->
-    <button onclick="closeSellerDashboard(); openAdModalFromDashboard();" style="width:100%; background:#28a745; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer; margin-bottom:12px;">➕ Naya Ad Lagayein (Add Product)</button>
-
-    <div style="margin-bottom:6px; font-weight:bold; font-size:12px; color:#194376;">📦 Aapke Apne Ads (Delete Options):</div>
-    <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:200px; overflow-y:auto; margin-bottom:10px;">
-      <p style="font-size:11px; color:#666;">Ads load ho rahe hain...</p>
-    </div>
+    <button onclick="closeSellerDashboard(); openAdModalFromDashboard();" style="width:100%; background:#28a745; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer; margin-bottom:12px;">➕ Naya Ad Lagayein</button>
+    <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:200px; overflow-y:auto; margin-bottom:10px;"></div>
     <button onclick="closeSellerDashboard()" style="width:100%; background:#ddd; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
-  </div>
-</div>
-
-<!-- Main Admin Master Control Panel -->
-<div id="admin-dashboard-modal" class="custom-modal">
-  <div class="dashboard-content" style="border:2px solid #d9534f;">
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #d9534f; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px; color:#d9534f;">👑 Main Admin Master Control Panel</h3>
-      <span style="cursor:pointer;font-weight:bold;" onclick="closeAdminDashboard()">✕</span>
-    </div>
-    <div style="background:#fff5f5; border:1px solid #d9534f; padding:8px; border-radius:6px; margin-bottom:10px; font-size:10px; color:#d9534f; font-weight:bold;">
-      ⚠️ Yahan se aap kisi bhi seller ka koi bhi ad BLOCK ya DELETE kar sakte hain. Yeh panel sirf aapke pas hai!
-    </div>
-    <div id="adminAllAdsList" style="display:flex; flex-direction:column; gap:6px; max-height:260px; overflow-y:auto; border:1px solid #ddd; padding:6px; border-radius:6px; background:#fafafa;"></div>
-    <button onclick="closeAdminDashboard()" style="margin-top:12px; width:100%; background:#d9534f; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
-  </div>
-</div>
-
-<!-- Ad Submission Modal -->
-<div id="ad-submission-modal" class="custom-modal">
-  <div class="modal-content">
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px; color:#194376;">📦 Naya Ad Lagayein</h3>
-      <span style="cursor:pointer;font-weight:bold;" onclick="closeAdModal()">✕</span>
-    </div>
-    <div id="loggedInUserTag" style="font-size:11px; background:#eef2f7; padding:5px; border-radius:4px; margin-bottom:8px; color:#194376; font-weight:bold;"></div>
-    <form id="userAdForm" onsubmit="submitUserAd(event)">
-      <div class="form-group">
-        <label>Category *</label>
-        <select id="adCategory" required>
-          <option value="">Select Category</option>
-          <option value="Furniture & Decoration">Furniture & Decoration</option>
-          <option value="Car & Motorcycle">Car & Motorcycle</option>
-          <option value="Real Estate">Real Estate</option>
-          <option value="Electronics">Electronics</option>
-          <option value="Home & Kitchen Appliances">Home & Kitchen Appliances</option>
-          <option value="Fashion & Beauty">Fashion & Beauty</option>
-          <option value="Job offers">Job offers</option>
-          <option value="Kids & Baby-Shop">Kids & Baby-Shop</option>
-          <option value="Education / BookShop">Education / BookShop</option>
-          <option value="General store Food Delivery">General store Food Delivery</option>
-          <option value="Services & offers">Services & offers</option>
-          <option value="Health & Care">Health & Care</option>
-          <option value="Animals & Accessories">Animals & Accessories</option>
-          <option value="Sports & Hobbies">Sports & Hobbies</option>
-          <option value="Antique Coins Gemstone">Antique Coins Gemstone</option>
-          <option value="Tools & Heavy Machinery">Tools & Heavy Machinery</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Ad Title (Product Naam) *</label>
-        <input type="text" id="adTitle" required placeholder="Product Name">
-      </div>
-      <div class="form-group">
-        <label>Brand / Country / City *</label>
-        <input type="text" id="adCity" required value="Sargodha">
-      </div>
-      <div class="form-group">
-        <label>Price & Currency *</label>
-        <div style="display:flex; gap:6px;">
-          <select id="adCurrency" required style="width:110px;">
-            <option value="Rs.">PKR (Rs.)</option>
-            <option value="$">USD ($)</option>
-            <option value="AED">AED (درہم)</option>
-            <option value="£">GBP (£)</option>
-            <option value="€">EUR (€)</option>
-          </select>
-          <input type="number" id="adPrice" required placeholder="1500" style="flex:1;">
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Affiliate Link (Optional)</label>
-        <input type="text" id="adAffiliateLink" placeholder="https://...">
-      </div>
-      <div class="form-group">
-        <label>Tafseel Likhein *</label>
-        <textarea id="adDescription" rows="3" required placeholder="Mukammal tafseel..."></textarea>
-      </div>
-      <div class="form-group">
-        <label>Tasveerein Select Karein *</label>
-        <input type="file" id="imageFileInput" accept="image/*" multiple required onchange="handleMultipleImages(event)">
-      </div>
-      <p id="imgCountNotice" style="font-size:10px; color:#0a8a00; margin-bottom:8px; font-weight:bold;"></p>
-      <button type="submit" class="btn-submit-ad">Publish Ad Live</button>
-    </form>
-  </div>
-</div>
-
-<!-- Escrow Order Modal -->
-<div id="order-form-modal" class="custom-modal">
-  <div class="modal-content">
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #f57224; padding-bottom:8px; margin-bottom:12px;">
-      <h3 style="font-size:14px; color:#194376;">🛒 Secure Escrow Order Form</h3>
-      <span style="cursor:pointer;font-weight:bold;" onclick="closeOrderModal()">✕</span>
-    </div>
-    <div class="escrow-notice">
-      <b>🛡️ R.A.W Escrow Protection:</b> Aapki payment safe rahegi.
-    </div>
-    <div id="orderProductDetails" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376; font-weight:bold;"></div>
-    <form id="customerOrderForm" onsubmit="submitCustomerOrder(event)">
-      <div class="form-group">
-        <label>Aapka Naam *</label>
-        <input type="text" id="custName" required placeholder="Muhammad Ali">
-      </div>
-      <div class="form-group">
-        <label>Mobile / WhatsApp Number *</label>
-        <input type="text" id="custMobile" required placeholder="03331234567">
-      </div>
-      <div class="form-group">
-        <label>Payment Method *</label>
-        <select id="custPaymentMethod" onchange="togglePaymentInstructions(this.value)" required>
-          <option value="Cash on Delivery">Cash on Delivery (COD)</option>
-          <option value="Meezan Bank Transfer">Meezan Bank Transfer</option>
-          <option value="Easypaisa / JazzCash / Raast">Easypaisa / JazzCash / Raast</option>
-          <option value="International Card Transfer">Elevate Pay / International Transfer</option>
-        </select>
-      </div>
-      <div id="securePaymentInfo" style="display:none; background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px; color:#333;">
-        <b>🔒 Official R.A.W Group Account Details:</b><br>
-        • JazzCash / Easypaisa: <b>0333-4664227 (Ejaz Ahmad)</b>
-      </div>
-      <div class="form-group">
-        <label>Delivery Address / Country & City *</label>
-        <textarea id="custAddress" rows="2" required placeholder="Poora pata likhein..."></textarea>
-      </div>
-      <button type="submit" class="btn-submit-ad" style="background:#f57224;">Confirm Order</button>
-    </form>
-  </div>
-</div>
-
-<!-- Review Modal -->
-<div id="user-review-modal" class="custom-modal">
-  <div class="modal-content" style="text-align:center;">
-    <h3 style="font-size:14px; margin-bottom:8px;">Apna Review Dein ⭐</h3>
-    <div style="font-size:24px; color:#ffb400; margin-bottom:8px;" id="starRatingSelect">
-      <span onclick="setStars(1)" style="cursor:pointer;">★</span>
-      <span onclick="setStars(2)" style="cursor:pointer;">★</span>
-      <span onclick="setStars(3)" style="cursor:pointer;">★</span>
-      <span onclick="setStars(4)" style="cursor:pointer;">★</span>
-      <span onclick="setStars(5)" style="cursor:pointer;">★</span>
-    </div>
-    <input type="text" id="reviewerName" placeholder="Aapka Naam..." style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #ccc; border-radius:6px; font-size:11px;"><input type="file" id="reviewImageInput" accept="image/*" style="width:100%; padding:6px; margin-bottom:8px; border:1px solid #ccc; border-radius:6px; font-size:11px; background:#fff;">
-
-    <textarea id="reviewMsgInput" placeholder="Review likhein..." style="width:100%; height:50px; padding:6px; border:1px solid #ccc; border-radius:6px; font-size:11px; margin-bottom:6px;"></textarea>
-    <div style="display:flex; gap:6px;">
-      <button onclick="submitUserReview()" style="flex:1; background:#f57224; color:#fff; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Submit</button>
-      <button onclick="closeReviewModal()" style="background:#ddd; border:none; padding:7px 10px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
-    </div>
   </div>
 </div>
 
@@ -734,9 +339,7 @@ const db = getFirestore(app);
 
 let uploadedImagesArray = [];
 let selectedCategoryFilter = "All";
-let currentRatingScore = 5;
 let allProductsCache = [];
-let selectedOrderProduct = null;
 let pendingTargetAction = null;
 const ADMIN_MOBILE = "03334664227";
 
@@ -745,177 +348,19 @@ window.togglePlusMenu = () => {
   menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
 };
 window.closePlusMenu = () => document.getElementById('plus-action-menu').style.display = 'none';
-window.openPrivacyModal = () => document.getElementById('privacy-policy-modal').style.display = 'flex';
-window.closePrivacyModal = () => document.getElementById('privacy-policy-modal').style.display = 'none';
-
-let slideIndex = 0;
-const bannerColors = [
-  "linear-gradient(135deg, #194376, #f57224)",
-  "linear-gradient(135deg, #2e7d32, #ff9900)",
-  "linear-gradient(135deg, #8e24aa, #194376)"
-];
-
-function showSlides() {
-  const slides = document.getElementsByClassName("banner-slide");
-  const dots = document.getElementsByClassName("banner-dot");
-  const track = document.getElementById("bannerTrack");
-  if (!slides || slides.length === 0) return;
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].classList.remove("active");
-    if(dots[i]) dots[i].classList.remove("active");
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) { slideIndex = 1; }
-  if(slides[slideIndex - 1]) slides[slideIndex - 1].classList.add("active");
-  if(dots[slideIndex - 1]) dots[slideIndex - 1].classList.add("active");
-  if(track) track.style.background = bannerColors[slideIndex - 1];
-  setTimeout(showSlides, 4000);
-}
-setTimeout(showSlides, 4000);
-
-window.currentSlide = function(n) {
-  slideIndex = n;
-  const slides = document.getElementsByClassName("banner-slide");
-  const dots = document.getElementsByClassName("banner-dot");
-  const track = document.getElementById("bannerTrack");
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].classList.remove("active");
-    if(dots[i]) dots[i].classList.remove("active");
-  }
-  if(slides[slideIndex]) slides[slideIndex].classList.add("active");
-  if(dots[slideIndex]) dots[slideIndex].classList.add("active");
-  if(track) track.style.background = bannerColors[slideIndex];
-};
-
-window.handleMultipleImages = function(event) {
-  const files = event.target.files;
-  if (!files || files.length === 0) return;
-  uploadedImagesArray = [];
-  document.getElementById('imgCountNotice').innerText = `${files.length} tasveerein select ho gayi hain, optimize ho rahi hain...`;
-  let processedCount = 0;
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i];
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const img = new Image();
-      img.src = e.target.result;
-      img.onload = function() {
-        const canvas = document.createElement('canvas');
-        const MAX_WIDTH = 400;
-        const scaleSize = MAX_WIDTH / img.width;
-        canvas.width = MAX_WIDTH;
-        canvas.height = img.height * scaleSize;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        uploadedImagesArray.push(canvas.toDataURL('image/jpeg', 0.7));
-        processedCount++;
-        if(processedCount === files.length) {
-          document.getElementById('imgCountNotice').innerText = `✓ ${uploadedImagesArray.length} tasveerein tayar hain!`;
-        }
-      }
-    };
-    reader.readAsDataURL(file);
-  }
-};
-
-window.loadApprovedProducts = async function() {
-  const shopList = document.getElementById('shopList');
-  try {
-    const querySnapshot = await getDocs(collection(db, "products"));
-    allProductsCache = [];
-    querySnapshot.forEach((docSnap) => {
-      allProductsCache.push({ id: docSnap.id, ...docSnap.data() });
-    });
-    renderProducts(allProductsCache);
-  } catch (error) {
-    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:red;">Data load karne mein masla hua.</p>`;
-  }
-};
-
-function renderProducts(products) {
-  const shopList = document.getElementById('shopList');
-  shopList.innerHTML = "";
-  let filtered = products.filter(item => {
-    if (selectedCategoryFilter !== 'All' && item.category !== selectedCategoryFilter) return false;
-    return true;
-  });
-
-  if (filtered.length === 0) {
-    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">Is category mein koi product nahi hai.</p>`;
-    return;
-  }
-
-  filtered.forEach((item) => {
-    let imagesList = item.images || (item.img ? [item.img] : ['ejaz.png']);
-    let mainImg = imagesList[0];
-    let currencySymbol = item.currency || 'Rs.';
-    let priceVal = item.pricePKR || item.price || 0;
-    let priceDisplay = `${currencySymbol} ${priceVal}`;
-
-    let itemName = (item.name || "").toLowerCase();
-    let itemCat = (item.category || "").toLowerCase();
-    let itemBrand = (item.brand || item.city || "").toLowerCase();
-
-    let isAlibaba = itemName.includes('alibaba') || itemCat.includes('alibaba') || itemBrand.includes('alibaba');
-    let isAmazon = itemName.includes('amazon') || itemCat.includes('amazon') || itemBrand.includes('amazon');
-    let isDaraz = itemName.includes('daraz') || itemCat.includes('daraz') || itemBrand.includes('daraz');
-
-    let actionButtonsHTML = '';
-    if ((item.affiliateLink && item.affiliateLink.trim() !== '') || isAlibaba || isAmazon || isDaraz) {
-      let affLink = item.affiliateLink || "https://wa.me/923334664227";
-      let storeName = "Buy on Store";
-      let btnBg = "#ff9900";
-      if (isAlibaba) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
-      else if (isAmazon) { storeName = "Buy on Amazon"; btnBg = "#FF9900"; }
-      else if (isDaraz) { storeName = "Buy on Daraz"; btnBg = "#f57224"; }
-
-      actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn" style="background:${btnBg}; color:#fff;">🛒 ${storeName}</a>`;
-    } else {
-      let contactLink = `https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
-      actionButtonsHTML = `
-        <div class="btn-row">
-          <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 Chat</a>
-          <button class="order-btn" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 Order</button>
-        </div>
-      `;
-    }
-
-    shopList.innerHTML += `
-      <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}">
-        <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='ejaz.png'"></div>
-        <div class="card-body">
-          <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
-          <div class="city-label">📍 ${item.brand || item.city || 'Sargodha'}</div>
-          <div class="price">${priceDisplay}</div>
-          ${actionButtonsHTML}
-        </div>
-      </div>
-    `;
-  });
-};
-
-window.filterShop = function() {
-  const val = document.getElementById('search').value.toLowerCase().trim();
-  document.querySelectorAll('.card').forEach(card => {
-    const title = card.getAttribute('data-title') || '';
-    const cat = card.getAttribute('data-category') || '';
-    const city = card.getAttribute('data-city') || '';
-    if (title.includes(val) || cat.includes(val) || city.includes(val)) {
-      card.style.display = "flex";
-    } else {
-      card.style.display = "none";
-    }
-  });
-};
 
 window.promptSellerLogin = (actionType) => {
   pendingTargetAction = actionType;
+  if(actionType === 'seller_account') {
+    openCustomerAccountModal();
+    closePlusMenu();
+    return;
+  }
   document.getElementById('userLoginForm').reset();
   document.getElementById('user-login-modal').style.display = 'flex';
 };
 
 window.closeLoginModal = () => document.getElementById('user-login-modal').style.display = 'none';
-window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
 
 window.verifySellerLogin = function(e) {
   e.preventDefault();
@@ -929,7 +374,6 @@ window.verifySellerLogin = function(e) {
   closeLoginModal();
 
   if(pendingTargetAction === 'post') {
-    document.getElementById('loggedInUserTag').innerText = `👤 Seller: ${name} (${mobile})`;
     document.getElementById('ad-submission-modal').style.display = 'flex';
   } else {
     openPureSellerDashboard(authData);
@@ -937,338 +381,47 @@ window.verifySellerLogin = function(e) {
 };
 
 let currentSellerAuthData = null;
-
 function openPureSellerDashboard(authData) {
   currentSellerAuthData = authData;
   const dUser = document.getElementById('dashboardUserInfo');
   const dList = document.getElementById('myAdsList');
   dList.innerHTML = "";
-
   dUser.innerHTML = `👤 Logged in Seller: <b>${authData.name}</b> (${authData.mobile})`;
   document.getElementById('seller-dashboard-modal').style.display = 'flex';
 
   let myAds = allProductsCache.filter(item => item.mobile === authData.mobile);
   if(myAds.length === 0) {
-    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center; padding:10px;">Aapka apna koi ad mojood nahi hai.</p>`;
+    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center;">Aapka apna koi ad mojood nahi hai.</p>`;
     return;
   }
-
   myAds.forEach((ad, i) => {
     let adImg = (ad.images && ad.images[0]) || ad.img || 'ejaz.png';
-    let currencySymbol = ad.currency || 'Rs.';
     dList.innerHTML += `
       <div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:6px; border-radius:6px; margin-bottom:4px;">
-        <div style="display:flex; align-items:center; gap:8px;">
-          <img src="${adImg}" style="width:35px; height:35px; object-fit:contain; border-radius:4px;">
-          <div>
-            <div style="font-size:11px; font-weight:bold; color:#194376;">${i+1}. ${ad.name || ad.title}</div>
-            <div style="font-size:10px; color:#f57224;">Category: ${ad.category || 'General'} | ${currencySymbol} ${ad.pricePKR || ad.price || 0}</div>
-          </div>
-        </div>
-        <button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:5px 8px; border-radius:4px; font-size:10px; font-weight:bold; cursor:pointer;">🗑️ Delete</button>
-      </div>
-    `;
+        <div style="font-size:11px; font-weight:bold; color:#194376;">${i+1}. ${ad.name || ad.title}</div>
+        <button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer;">Delete</button>
+      </div>`;
   });
 }
 
 window.closeSellerDashboard = () => document.getElementById('seller-dashboard-modal').style.display = 'none';
 
-window.openAdModalFromDashboard = function() {
-  if(!currentSellerAuthData) return;
-  document.getElementById('loggedInUserTag').innerText = `👤 Seller: ${currentSellerAuthData.name} (${currentSellerAuthData.mobile})`;
-  document.getElementById('userAdForm').reset();
-  document.getElementById('ad-submission-modal').style.display = 'flex';
-};
+window.openCustomerAccountModal = () => document.getElementById('customer-account-modal').style.display = 'flex';
+window.closeCustomerAccountModal = () => document.getElementById('customer-account-modal').style.display = 'none';
+window.openCartModal = () => document.getElementById('cart-modal').style.display = 'flex';
+window.closeCartModal = () => document.getElementById('cart-modal').style.display = 'none';
 
-window.promptAdminLogin = () => document.getElementById('admin-login-modal').style.display = 'flex';
-window.closeAdminLoginModal = () => document.getElementById('admin-login-modal').style.display = 'none';
-
-window.verifyAdminLogin = function(e) {
-  e.preventDefault();
-  const pwd = document.getElementById('adminSecretPassword').value.trim();
-  if(pwd === "A79ra79w" || pwd === "03334664227") {
-    closeAdminLoginModal();
-    openMainAdminMasterDashboard();
-  } else {
-    alert("Ghalat Admin Password!");
-  }
-};
-
-function openMainAdminMasterDashboard() {
-  const adminList = document.getElementById('adminAllAdsList');
-  adminList.innerHTML = "";
-  document.getElementById('admin-dashboard-modal').style.display = 'flex';
-
-  if(allProductsCache.length === 0) {
-    adminList.innerHTML = `<div style="font-size:10px; color:#666; text-align:center;">Koi ad mojood nahi hai.</div>`;
-  } else {
-    allProductsCache.forEach((prod, idx) => {
-      let pImg = (prod.images && prod.images[0]) || prod.img || 'ejaz.png';
-      adminList.innerHTML += `
-        <div style="display:flex; justify-content:space-between; align-items:center; background:#fff; padding:6px; border-radius:4px; border:1px solid #ddd; font-size:11px; margin-bottom:4px;">
-          <div style="display:flex; align-items:center; gap:6px;">
-            <img src="${pImg}" style="width:30px; height:30px; object-fit:contain;">
-            <div>
-              <b>${idx+1}. ${prod.name || prod.title}</b><br>
-              <span style="color:#d9534f; font-weight:bold;">Seller: ${prod.sellerName || 'Partner'} [${prod.mobile || 'Admin'}]</span>
-            </div>
-          </div>
-          <button onclick="adminBlockOrDeleteProduct('${prod.id}', '${prod.name || prod.title}')" style="background:#d9534f; color:#fff; border:none; padding:5px 10px; border-radius:4px; font-size:10px; font-weight:bold; cursor:pointer;">🚫 Block / Delete</button>
-        </div>
-      `;
+window.loadApprovedProducts = async function() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "products"));
+    allProductsCache = [];
+    querySnapshot.forEach((docSnap) => {
+      allProductsCache.push({ id: docSnap.id, ...docSnap.data() });
     });
-  }
-}
-
-window.closeAdminDashboard = () => document.getElementById('admin-dashboard-modal').style.display = 'none';
-
-window.adminBlockOrDeleteProduct = async function(productId, prodTitle) {
-  let reason = prompt(`⚠️ ADMIN MASTER ACTION:\nAap "${prodTitle}" ko q block/delete kar rahe hain?`, "Khilaf-e-Qanoon ad");
-  if(reason === null) return;
-
-  try {
-    await deleteDoc(doc(db, "products", productId));
-    alert("✓ Ad successfully block/delete kar diya gaya hai.");
-    loadApprovedProducts();
-    closeAdminDashboard();
-  } catch(err) {
-    alert("Masla hua.");
-  }
+  } catch (error) {}
 };
 
-window.deleteMyProduct = async function(productId) {
-  if(confirm("Kya aap waqai is ad ko delete karna chahte hain?")) {
-    try {
-      await deleteDoc(doc(db, "products", productId));
-      alert("Aapka ad delete ho gaya hai.");
-      loadApprovedProducts();
-      closeSellerDashboard();
-    } catch(err) {
-      alert("Delete karne mein masla hua.");
-    }
-  }
-};
-
-window.openProductDetail = function(item) {
-  document.getElementById('detTitle').innerText = item.name || item.title;
-  let currencySymbol = item.currency || 'Rs.';
-  let priceVal = item.pricePKR || item.price || 0;
-  document.getElementById('detPrice').innerText = `Price: ${currencySymbol} ${priceVal}`;
-  document.getElementById('detCity').innerText = `Location: ${item.brand || item.city || 'Sargodha'}`;
-  document.getElementById('detDescription').innerText = item.description || item.desc || 'Mazeed tafseel mojood nahi hai.';
-
-  const imgContainer = document.getElementById('detImagesContainer');
-  imgContainer.innerHTML = "";
-  let imagesList = item.images || (item.img ? [item.img] : ['ejaz.png']);
-  imagesList.forEach(imgSrc => {
-    imgContainer.innerHTML += `<img src="${imgSrc}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px; border:1px solid #ddd;" onerror="this.src='ejaz.png'">`;
-  });
-
-  const actionDiv = document.getElementById('detActionBtn');
-  let itemName = (item.name || "").toLowerCase();
-  let itemCat = (item.category || "").toLowerCase();
-  let itemBrand = (item.brand || item.city || "").toLowerCase();
-  let isAlibaba = itemName.includes('alibaba') || itemCat.includes('alibaba') || itemBrand.includes('alibaba');
-  let isAmazon = itemName.includes('amazon') || itemCat.includes('amazon') || itemBrand.includes('amazon');
-  let isDaraz = itemName.includes('daraz') || itemCat.includes('daraz') || itemBrand.includes('daraz');
-
-  if ((item.affiliateLink && item.affiliateLink.trim() !== '') || isAlibaba || isAmazon || isDaraz) {
-    let affLink = item.affiliateLink || "https://wa.me/923334664227";
-    let storeName = "Buy on Store";
-    let btnBg = "#ff9900";
-    if (isAlibaba) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
-    else if (isAmazon) { storeName = "Buy on Amazon"; btnBg = "#FF9900"; }
-    else if (isDaraz) { storeName = "Buy on Daraz"; btnBg = "#f57224"; }
-
-    actionDiv.innerHTML = `<a href="${affLink}" target="_blank" style="background:${btnBg}; color:#fff; padding:8px 12px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none; display:block; text-align:center;">🛒 ${storeName}</a>`;
-  } else {
-    let contactLink = `https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
-    actionDiv.innerHTML = `
-      <div style="display:flex; gap:8px;">
-        <a href="${contactLink}" target="_blank" style="flex:1; background:#25d366; color:#fff; text-align:center; padding:9px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none;">💬 WhatsApp Chat</a>
-        <button onclick='closeProductDetailModal(); openOrderModal(${JSON.stringify(item).replace(/'/g, "&#39;")})' style="flex:1; background:#f57224; color:#fff; border:none; padding:9px; border-radius:6px; font-weight:bold; font-size:12px; cursor:pointer;">🛒 Secure Order</button>
-      </div>
-    `;
-  }
-
-  document.getElementById('product-detail-modal').style.display = 'flex';
-};
-
-window.closeProductDetailModal = () => document.getElementById('product-detail-modal').style.display = 'none';
-
-window.filterByCategory = function(cat) {
-  selectedCategoryFilter = cat;
-  renderProducts(allProductsCache);
-};
-
-window.openOrderModal = function(item) {
-  selectedOrderProduct = item;
-  let currencySymbol = item.currency || 'Rs.';
-  let priceText = item.pricePKR || item.price || '0';
-  document.getElementById('orderProductDetails').innerText = `Product: ${item.name || item.title} | Price: ${currencySymbol} ${priceText}`;
-  document.getElementById('order-form-modal').style.display = 'flex';
-};
-window.closeOrderModal = () => document.getElementById('order-form-modal').style.display = 'none';
-
-window.togglePaymentInstructions = function(method) {
-  document.getElementById('securePaymentInfo').style.display = (method !== 'Cash on Delivery') ? 'block' : 'none';
-};
-
-window.submitCustomerOrder = async function(e) {
-  e.preventDefault();
-  const name = document.getElementById('custName').value.trim();
-  const mobile = document.getElementById('custMobile').value.trim();
-  const address = document.getElementById('custAddress').value.trim();
-  const paymentMethod = document.getElementById('custPaymentMethod').value;
-  if(!name || !mobile || !address) return alert("Tamam fields pur karein!");
-
-  let orderText = `*🛒 New Secure Escrow Order*%0A• *Product:* ${selectedOrderProduct.name || selectedOrderProduct.title}%0A• *Name:* ${name}%0A• *Mobile:* ${mobile}%0A• *Payment:* ${paymentMethod}%0A• *Address:* ${address}`;
-  window.open(`https://wa.me/923334664227?text=${orderText}`, '_blank');
-  closeOrderModal();
-  alert("Order place ho gaya!");
-};
-
-window.submitUserAd = async function(e) {
-  e.preventDefault();
-  const category = document.getElementById('adCategory').value;
-  const name = document.getElementById('adTitle').value;
-  const city = document.getElementById('adCity').value;
-  const currency = document.getElementById('adCurrency').value;
-  const price = document.getElementById('adPrice').value;
-  const affiliateLink = document.getElementById('adAffiliateLink').value;
-  const description = document.getElementById('adDescription').value;
-  const authData = JSON.parse(localStorage.getItem('raw_locked_seller_auth') || '{}');
-
-  if (uploadedImagesArray.length === 0) return alert("Tasveer select karein!");
-
-  try {
-    await addDoc(collection(db, "products"), {
-      name, category, 
-      pricePKR: Number(price), price: Number(price), currency,
-      brand: city, affiliateLink: affiliateLink || "",
-      description, images: uploadedImagesArray,
-      mobile: authData.mobile || ADMIN_MOBILE,
-      sellerName: authData.name || 'Partner',
-      createdAt: new Date().toISOString()
-    });
-    alert("Ad live publish ho gaya hai!");
-    closeAdModal();
-    document.getElementById('userAdForm').reset();
-    uploadedImagesArray = [];
-    document.getElementById('imgCountNotice').innerText = "";
-    loadApprovedProducts();
-  } catch (err) {
-    alert("Masla hua.");
-  }
-};
-
-window.setStars = (score) => { currentRatingScore = score; };
-window.openReviewModal = () => document.getElementById('user-review-modal').style.display = 'flex';
-window.closeReviewModal = () => document.getElementById('user-review-modal').style.display = 'none';
-
-window.submitUserReview = async function() {
-  const name = document.getElementById('reviewerName').value.trim();
-  const msg = document.getElementById('reviewMsgInput').value.trim();
-  if(!name || !msg) return alert("Naam aur review likhein!");
-  try {
-    await addDoc(collection(db, "reviews"), { name, rating: currentRatingScore, message: msg });
-    alert("Review submit ho gaya!");
-    closeReviewModal();
-  } catch(err) {
-    alert("Masla hua.");
-  }
-};
-
-  window.onload = () => loadApprovedProducts();
-
-  // Cart open karne ka secure tareeqa (Sirf login/saved customer ke liye)
-  window.openCartModal = function() {
-    let savedName = localStorage.getItem('custName');
-    let savedPhone = localStorage.getItem('custPhone');
-
-    if (!savedName || !savedPhone) {
-      alert("Baraye meharbani pehle apna Account (Naam aur Mobile Number) save karein, taake aap ki shopping cart ban sakay.");
-      if (typeof openCustomerAccountModal === 'function') {
-        openCustomerAccountModal();
-      }
-      return;
-    }
-
-    document.getElementById('cart-modal').style.display = 'flex';
-    loadCartItems();
-  };
-
-  window.closeCartModal = function() {
-    document.getElementById('cart-modal').style.display = 'none';
-  };
-
-  window.loadCartItems = function() {
-    let container = document.getElementById('cartItemsContainer');
-    container.innerHTML = `<p style="text-align: center; color: #777; font-size: 13px; margin-top: 30px;">کوئی پروڈکٹ شامل نہیں کی گئی۔</p>`;
-    document.getElementById('cartTotalCount').innerText = "0";
-    document.getElementById('cartTotalPrice').innerText = "Rs. 0";
-  };
-
-  window.proceedToCheckout = function() {
-    closeCartModal();
-    if (typeof openCustomerAccountModal === 'function') {
-      openCustomerAccountModal();
-    }
-  };
-<!-- Clean Minimalist White Messages Modal -->
-<div id="messages-modal" class="custom-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; justify-content: center; align-items: center;">
-  <div class="modal-content" style="background: #ffffff; width: 92%; max-width: 420px; border-radius: 10px; padding: 18px; max-height: 88vh; overflow-y: auto; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
-    
-    <!-- Header -->
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; margin-bottom: 15px;">
-      <h3 style="margin: 0; font-size: 16px; color: #222222; font-weight: 600;">💬 Direct Contact (رابطہ کریں)</h3>
-      <span onclick="closeMessagesModal()" style="cursor: pointer; font-size: 18px; color: #555555; font-weight: bold;">✕</span>
-    </div>
-
-    <!-- Contact Info / Brand -->
-    <div style="text-align: center; margin-bottom: 20px;">
-      <p style="margin: 0 0 5px 0; font-size: 14px; font-weight: 600; color: #111;">R.A.W GROUP CHOUKIRH 79</p>
-      <p style="margin: 0; font-size: 12px; color: #666;">ہم سے براہِ راست رابطہ کرنے کے لیے نیچے دیے گئے ذرائع استعمال کریں:</p>
-    </div>
-
-    <!-- Action Buttons (WhatsApp, Call, Email) -->
-    <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
-      
-      <!-- WhatsApp Button -->
-      <a href="https://wa.me/923334664227?text=Assalam-o-Alaikum,%20R.A.W%20Group%20se%20rabta%20karna%20hai." target="_blank" style="display: block; padding: 12px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center;">
-        💬 WhatsApp Chat (واٹس ایپ میسج)
-      </a>
-
-      <!-- Direct Call Button -->
-      <a href="tel:+923334664227" style="display: block; padding: 12px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center;">
-        📞 Direct Call (براہِ راست کال)
-      </a>
-
-      <!-- Direct Email Button -->
-      <a href="mailto:rawgroupchukera79@gmail.com?subject=Inquiry%20from%20R.A.W%20Group%20Customer" style="display: block; padding: 12px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center;">
-        ✉️ Send Email (ای میل بھیجیں)
-      </a>
-
-    </div>
-
-    <!-- Footer Note -->
-    <div style="text-align: center; font-size: 11px; color: #777; border-top: 1px solid #eee; pt-10; margin-top: 15px;">
-      Email: rawgroupchukera79@gmail.com
-    </div>
-
-  </div>
-</div>
-
-<script>
-  window.openMessagesModal = function() {
-    document.getElementById('messages-modal').style.display = 'flex';
-  };
-
-  window.closeMessagesModal = function() {
-    document.getElementById('messages-modal').style.display = 'none';
-  };
-</script>
-
+window.onload = () => loadApprovedProducts();
 </script>
 
 </body>
