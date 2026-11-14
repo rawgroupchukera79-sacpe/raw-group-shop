@@ -503,6 +503,11 @@ window.verifySellerLogin = function(e) {
     openPureSellerDashboard(authData);
   }
 };
+let myAds = allProductsCache.filter(item => {
+  let itemMob = String(item.mobile || "").trim();
+  let sellerMob = String(authData.mobile || "").trim();
+  return itemMob !== "" && itemMob === sellerMob;
+});
 
 let currentSellerAuthData = null;
 function openPureSellerDashboard(authData) {
@@ -513,14 +518,7 @@ function openPureSellerDashboard(authData) {
   dUser.innerHTML = `👤 Logged in Global Seller: <b>${authData.name}</b> (${authData.mobile})`;
   document.getElementById('seller-dashboard-modal').style.display = 'flex';
 
-    let myAds = allProductsCache.filter(item => {
-    let itemMob = String(item.mobile || "").trim();
-    let sellerMob = String(authData.mobile || "").trim();
-    return itemMob !== "" && itemMob === sellerMob;
-  });
-
-  if(myAds.length === 0) {
-    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center;">Aapka apna koi ad mojood nahi hai. (Naya ad lagayein)</p>`;
+  
     return;
   }
   myAds.forEach((ad, i) => {
