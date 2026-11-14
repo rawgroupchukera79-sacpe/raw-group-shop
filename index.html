@@ -595,7 +595,17 @@ function renderProducts(products) {
 
     let actionButtonsHTML = '';
     if (hasAffLink) {
+          let actionButtonsHTML = '';
+    if (hasAffLink) {
       let storeName = "Buy on Store";
+      let btnBg = "#ff9900";
+      if (isAlibaba || affLink.includes('alibaba')) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
+      else if (isAmazon || affLink.includes('amazon')) { storeName = "Buy on Amazon"; btnBg = "#FF9900"; }
+      else if (isDaraz || affLink.includes('daraz')) { storeName = "Buy on Daraz"; btnBg = "#f57224"; }
+
+      actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn" style="background:${btnBg}; color:#fff;">🛒 ${storeName}</a>`;
+    } else {
+
       let btnBg = "#ff9900";
       if (isAlibaba || affLink.includes('alibaba')) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
       else if (isAmazon || affLink.includes('amazon')) { storeName = "Buy on Amazon"; btnBg = "#FF9900"; }
