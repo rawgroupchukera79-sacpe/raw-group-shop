@@ -1,149 +1,3 @@
-<!DOCTYPE html>
-<html lang="ur" dir="rtl">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>R.A.W GROUP - Admin & Escrow Payout Dashboard</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;}
-:root{ --orange:#FF8C00; }
-body{background:#f5f5f5; font-family:'Poppins', 'Noto Nastaliq Urdu', sans-serif; margin:0; padding:10px;}
-.box{max-width:600px; margin:15px auto; background:white; border:3px solid var(--orange); border-radius:18px; padding:18px; overflow:hidden; position:relative;}
-.logo-box{width:90px; height:90px; margin:0 auto 10px auto; border:3px solid var(--orange); border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:white;}
-.logo-box img{width:100%; height:100%; object-fit:cover;}
-h1{color:var(--orange); text-align:center; font-size:22px; margin:5px 0;}
-input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid var(--orange); border-radius:10px; font-size:16px; display:block; font-family:inherit;}
-.price-row{display:flex; gap:6px; margin:6px 0;}
-.price-row select{width:110px;}
-.price-row input{flex:1; margin:0;}
-.btn-add{width:100%; padding:14px; background:var(--orange); color:white; border:none; border-radius:10px; font-weight:bold; font-size:18px; cursor:pointer;}
-.btn-logout{position:absolute; top:12px; left:12px; background:#ff1a1a; color:white; border:none; padding:7px 14px; border-radius:8px; cursor:pointer; font-weight:bold;}
-#status{text-align:center; color:green; border:1px dashed var(--orange); padding:7px; border-radius:8px; font-weight:bold; margin:8px 0;}
-#preview-container{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; justify-content:center;}
-#preview-container img{width:70px; height:70px; object-fit:cover; border-radius:8px; border:2px solid var(--orange);}
-.product-item{display:flex; gap:10px; align-items:center; border:2px solid var(--orange); border-radius:12px; padding:8px; margin-bottom:10px; background:#fffaf3; width:100%;}
-.product-item img{width:60px; height:60px; object-fit:cover; border-radius:8px; flex-shrink:0;}
-.p-info{flex:1; text-align:right; font-size:13px; overflow:hidden;}
-.btn-edit{background:var(--orange); color:white; border:none; padding:6px 10px; border-radius:6px; margin:2px; cursor:pointer;}
-.btn-del{background:#ff1a1a; color:white; border:none; padding:6px 10px; border-radius:6px; margin:2px; cursor:pointer;}
-.order-card{border:2px solid #194376; background:#eef2f7; border-radius:10px; padding:10px; margin-bottom:10px; font-size:12px;}
-.seller-card{border:2px solid #2e7d32; background:#e8f5e9; border-radius:10px; padding:10px; margin-bottom:10px; font-size:12px;}
-.profit-badge{background:#28a745; color:white; padding:3px 8px; border-radius:4px; font-weight:bold;}
-.btn-release{background:#28a745; color:white; border:none; padding:8px; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:6px; width:100%; font-size:12px;}
-.btn-hold{background:#d9534f; color:white; border:none; padding:8px; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:4px; width:100%; font-size:12px;}
-.whatsapp-contact-btn{display:inline-block; background:#25d366; color:white; padding:4px 10px; border-radius:6px; text-decoration:none; font-weight:bold; margin-top:4px; font-size:11px;}
-</style>
-</head>
-<body>
-
-<div class="box" id="loginBox" style="text-align:center;">
-  <div class="logo-box"><img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'"></div>
-  <h1>Admin Login</h1>
-  <input type="password" id="adminPass" placeholder="1234" style="text-align:center;">
-  <button class="btn-add" id="loginBtn" type="button">لاگ ان کریں</button>
-  <p id="loginError" style="color:red; font-weight:bold;"></p>
-</div>
-
-<div class="box" id="adminPanel" style="display:none;">
-  <button class="btn-logout" id="logoutBtn" type="button">لاگ آؤٹ</button>
-  <div class="logo-box"><img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'"></div>
-  <h1>R.A.W GROUP ADMIN & ESCROW DASHBOARD</h1>
-
-  <a href="index.html" target="_blank" style="display:block; text-align:center; background:#194376; color:white; padding:10px; border-radius:8px; text-decoration:none; margin-bottom:12px; font-weight:bold;">🛍️ Shop Dekhen - دکان دیکھیں</a>
-
-  <select id="category" style="width:100%; padding:12px; margin:8px 0; border:2px solid var(--orange); border-radius:8px; background:white; font-weight:bold;">
-    <option value="">کیٹیگری منتخب کریں</option>
-    <option value="Furniture & Decoration">Furniture & Decoration</option>
-    <option value="Car & Motorcycle">Car & Motorcycle</option>
-    <option value="Real Estate">Real Estate</option>
-    <option value="Electronics">Electronics</option>
-    <option value="Home & Kitchen Appliances">Home & Kitchen Appliances</option>
-    <option value="Fashion & Beauty">Fashion & Beauty</option>
-    <option value="Job offers">Job offers</option>
-    <option value="Kids & Baby-Shop">Kids & Baby-Shop</option>
-    <option value="Education / BookShop">Education / BookShop</option>
-    <option value="General store Food Delivery">General store Food Delivery</option>
-    <option value="Services & offers">Services & offers</option>
-    <option value="Health & Care">Health & Care</option>
-    <option value="Animals & Accessories">Animals & Accessories</option>
-    <option value="Sports & Hobbies">Sports & Hobbies</option>
-    <option value="Antique Coins Gemstone">Antique Coins Gemstone</option>
-    <option value="Tools & Heavy Machinery">Tools & Heavy Machinery</option>
-  </select>
-
-  <input id="name" placeholder="پروڈکٹ کا نام *">
-  <input id="brand" placeholder="برانڈ یا شہر (e.g. Sargodha / London / Dubai)">
-  
-  <div class="price-row">
-    <select id="adCurrency">
-      <option value="Rs.">PKR (Rs.)</option>
-      <option value="$">USD ($)</option>
-      <option value="AED">AED (درہم)</option>
-      <option value="£">GBP (£)</option>
-      <option value="€">EUR (€)</option>
-    </select>
-    <input id="priceDirectPKR" type="number" placeholder="قیمت لکھیں *">
-  </div>
-
-  <input id="affiliateLink" placeholder="WhatsApp / Contact Link (Optional)">
-  <textarea id="desc" rows="2" placeholder="تفصیل لکھیں"></textarea>
-  
-  <input id="imageFile" type="file" accept="image/*" multiple>
-  <div id="preview-container"></div>
-  <div id="status">تصاویر منتخب کریں</div>
-  
-  <button class="btn-add" id="addBtn" type="button">سیو کریں</button>
-  <button id="cancelEditBtn" type="button" style="display:none; background:#666; color:white; width:100%; padding:10px; border-radius:10px; margin-top:5px; border:none;">کینسل کریں</button>
-  
-  <hr style="margin:15px 0; border:1px dashed #FF8C00;">
-  
-  <!-- Registered Sellers Manager -->
-  <div style="background:#e8f5e9; border:2px dashed #2e7d32; padding:10px; border-radius:10px; margin-bottom:15px;">
-    <h3 style="color:#1b5e20; font-size:14px; text-align:center; margin-bottom:8px;">👥 Registered Sellers & Direct Contact Manager</h3>
-    <div id="sellersList" style="text-align:right;">لوڈ ہو رہا ہے...</div>
-  </div>
-
-  <hr style="margin:15px 0; border:1px dashed #FF8C00;">
-
-  <!-- Escrow Orders & Dispute Manager -->
-  <div style="background:#fff3ec; border:2px dashed #f57224; padding:10px; border-radius:10px; margin-bottom:15px;">
-    <h3 style="color:#194376; font-size:14px; text-align:center; margin-bottom:8px;">🛡️ Escrow Orders & Dispute / Payout Manager</h3>
-    <div id="ordersList" style="text-align:right;">لوڈ ہو رہا ہے...</div>
-  </div>
-
-  <hr style="margin:15px 0; border:1px dashed #FF8C00;">
-  <h3 style="color:#194376; font-size:16px;">تمام پروڈکٹس مینیجر:</h3>
-  <div id="productList">لوڈ ہو رہا ہے...</div>
-</div>
-
-<script>
-const CORRECT_PASS="1234";
-const loginBox=document.getElementById('loginBox'), adminPanel=document.getElementById('adminPanel');
-function doLogin(){ 
-  let p=document.getElementById('adminPass').value.trim(); 
-  if(p===CORRECT_PASS){
-    sessionStorage.setItem('raw_logged_in','true'); 
-    loginBox.style.display='none'; 
-    adminPanel.style.display='block';
-    if(window.loadProductsFromFirebase) window.loadProductsFromFirebase();
-    if(window.loadOrdersFromFirebase) window.loadOrdersFromFirebase();
-    if(window.loadSellersFromFirebase) window.loadSellersFromFirebase();
-  } else {
-    document.getElementById('loginError').innerText='غلط پاس ورڈ! 1234 لکھیں';
-  } 
-}
-document.getElementById('loginBtn').addEventListener('click',doLogin);
-document.getElementById('adminPass').addEventListener('keypress',e=>{if(e.key==='Enter')doLogin();});
-document.getElementById('logoutBtn').addEventListener('click',()=>{
-  sessionStorage.removeItem('raw_logged_in'); 
-  adminPanel.style.display='none'; 
-  loginBox.style.display='block';
-});
-if(sessionStorage.getItem('raw_logged_in')==='true'){loginBox.style.display='none'; adminPanel.style.display='block';}
-</script>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -155,32 +9,24 @@ const db = getFirestore(app);
 let editingId = null, existingImagesForEdit = [], selectedFiles = [];
 
 async function compressAndResize(f) {
-  const size = 400;
-  let source, w, h, cleanup = () => {};
-  try {
-    if (window.createImageBitmap) {
-      const bmp = await createImageBitmap(f);
-      source = bmp; w = bmp.width; h = bmp.height;
-      cleanup = () => bmp.close && bmp.close();
-    } else { throw new Error('fallback'); }
-  } catch (_) {
-    const url = URL.createObjectURL(f);
-    const img = new Image();
-    await new Promise((res, rej) => {
-      img.onload = res;
-      img.onerror = () => rej(new Error('تصویر نہیں کھل سکی'));
-      img.src = url;
-    });
-    source = img; w = img.naturalWidth; h = img.naturalHeight;
-    cleanup = () => URL.revokeObjectURL(url);
-  }
-  const canvas = document.createElement('canvas');
-  canvas.width = size; canvas.height = size;
-  const ctx = canvas.getContext('2d');
-  const min = Math.min(w, h);
-  ctx.drawImage(source, (w - min) / 2, (h - min) / 2, min, min, 0, 0, size, size);
-  cleanup();
-  return canvas.toDataURL('image/jpeg', 0.6);
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const size = 400;
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+        const min = Math.min(img.width, img.height);
+        ctx.drawImage(img, (img.width - min) / 2, (img.height - min) / 2, min, min, 0, 0, size, size);
+        resolve(canvas.toDataURL('image/jpeg', 0.6));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(f);
+  });
 }
 
 const status = document.getElementById('status'), listDiv = document.getElementById('productList'), previewContainer = document.getElementById('preview-container'), addBtn = document.getElementById('addBtn'), cancelEditBtn = document.getElementById('cancelEditBtn');
@@ -204,4 +50,294 @@ addBtn.onclick = async () => {
 
   if(!name){ alert('پروڈکٹ کا نام لکھیں'); return; } 
   if(!category){ alert('کیٹیگری منتخب کریں'); return; }
-  if(!
+  if(!price){ alert('قیمت لکھیں'); return; }
+  if(!editingId && selectedFiles.length === 0 && existingImagesForEdit.length === 0){ alert('کم از کم 1 تصویر منتخب کریں'); return; } 
+  
+  addBtn.disabled = true; 
+  try {
+    status.innerText = 'تصاویر ری سائیز ہو رہی ہیں...'; 
+    let compImgs = [];
+    for (const f of selectedFiles) {
+      compImgs.push(await compressAndResize(f));
+    }
+    if (compImgs.length === 0) { compImgs = existingImagesForEdit; }
+
+    status.innerText = 'ڈیٹا بیس میں Save ہو رہا ہے...';
+
+    let data = { 
+      category: category, 
+      name: name, 
+      brand: document.getElementById('brand').value || 'Sargodha', 
+      currency: currency,
+      affiliateLink: document.getElementById('affiliateLink').value.trim(),
+      mobile: '03334664227',
+      desc: document.getElementById('desc').value || '', 
+      images: compImgs, 
+      price: Number(price),
+      pricePKR: Number(price),
+      sellerName: 'Admin (Ejaz Ahmad)',
+      status: 'approved',
+      isVerifiedSeller: true,
+      createdAt: serverTimestamp() 
+    }; 
+    
+    if(editingId){ 
+      await updateDoc(doc(db, 'products', editingId), data); 
+      status.innerText = 'آپڈیٹ ہو گیا ✅'; 
+    } else { 
+      await addDoc(collection(db, 'products'), data); 
+      status.innerText = 'کامیابی سے Save ہو گیا ✅'; 
+    } 
+    resetForm(); 
+    loadProducts();
+  } catch(e) { 
+    status.innerText = 'خرابی: ' + e.message; 
+  } finally {
+    addBtn.disabled = false; 
+  }
+};
+
+function resetForm(){ 
+  editingId = null; 
+  existingImagesForEdit = []; 
+  selectedFiles = []; 
+  document.getElementById('imageFile').value = ''; 
+  document.getElementById('name').value = ''; 
+  document.getElementById('priceDirectPKR').value = ''; 
+  document.getElementById('brand').value = ''; 
+  document.getElementById('affiliateLink').value = '';
+  document.getElementById('desc').value = ''; 
+  document.getElementById('category').value = '';
+  document.getElementById('adCurrency').value = 'Rs.';
+  previewContainer.innerHTML = ''; 
+  addBtn.innerText = 'سیو کریں'; 
+  cancelEditBtn.style.display = 'none'; 
+  status.innerText = 'تصاویر منتخب کریں'; 
+}
+cancelEditBtn.onclick = resetForm;
+
+async function loadProducts(){ 
+  listDiv.innerHTML = 'لوڈ ہو رہا ہے...'; 
+  try{ 
+    const snap = await getDocs(collection(db, 'products'));
+    if(snap.empty){ listDiv.innerHTML = 'کوئی پروڈکٹ نہیں ملی'; return; } 
+    listDiv.innerHTML = ''; 
+    snap.forEach(d => { 
+      const p = d.data(); 
+      let img = (p.images && p.images[0]) || 'logo.png'; 
+      let curr = p.currency || 'Rs.';
+
+      let isAdminProduct = (String(p.mobile || '').trim() === "03334664227" || String(p.sellerName || '').includes("Admin"));
+
+      let adminActionButtons = !isAdminProduct ? `
+        <div style="margin-top: 5px; display:flex; gap:4px;">
+          <button class="btn-block-prod" style="background:#e65100; color:white; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer;">Block</button>
+          <button class="btn-block-seller" style="background:#d32f2f; color:white; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer;">Block Seller</button>
+        </div>
+      ` : `<div style="color:#2e7d32; font-size:10px; font-weight:bold; margin-top:3px;">[Your Official Product]</div>`;
+
+      const div = document.createElement('div'); 
+      div.className = 'product-item'; 
+      div.innerHTML = `
+        <img src="${img}">
+        <div class="p-info">
+          <b>${p.name}</b><br>
+          <span>${curr} ${p.pricePKR || p.price} | ${p.category}</span><br>
+          <span style="color:#0a8a00; font-size:11px;">👤 Seller: ${p.sellerName || 'Admin'} (${p.mobile || 'N/A'})</span>
+          ${adminActionButtons}
+        </div>
+        <div>
+          <button class="btn-edit">ایڈٹ</button>
+          <button class="btn-del">ڈیلیٹ</button>
+        </div>
+      `; 
+
+      if(!isAdminProduct) {
+        div.querySelector('.btn-block-prod').onclick = async () => {
+          if(!confirm("Kya aap is product ko block karna chahte hain?")) return;
+          try {
+            await updateDoc(doc(db, 'products', d.id), { isBlocked: true });
+            alert("Product block ho gayi hai!");
+            loadProducts();
+          } catch(err) { alert("Masla hua: " + err.message); }
+        };
+
+        div.querySelector('.btn-block-seller').onclick = async () => {
+          let reason = prompt(`Seller (${p.mobile}) ko block karne ki wajah likhein:`);
+          if(!reason) return;
+          try {
+            await addDoc(collection(db, "blockedSellers"), { mobile: p.mobile, reason: reason, blockedAt: new Date() });
+            alert("Seller block kar diya gaya hai!");
+          } catch(err) { alert("Masla hua: " + err.message); }
+        };
+      }
+      
+      div.querySelector('.btn-edit').onclick = () => { 
+        editingId = d.id; 
+        document.getElementById('name').value = p.name || ''; 
+        document.getElementById('brand').value = p.brand || ''; 
+        document.getElementById('affiliateLink').value = p.affiliateLink || ''; 
+        document.getElementById('desc').value = p.desc || ''; 
+        document.getElementById('category').value = p.category || ''; 
+        document.getElementById('priceDirectPKR').value = p.pricePKR || p.price || '';
+        document.getElementById('adCurrency').value = p.currency || 'Rs.';
+        
+        existingImagesForEdit = p.images || []; 
+        previewContainer.innerHTML = ''; 
+        if(p.images){
+          p.images.forEach(s => {
+            const im = document.createElement('img');
+            im.src = s;
+            previewContainer.appendChild(im);
+          });
+        } 
+        addBtn.innerText = 'اپ ڈیٹ کریں'; 
+        cancelEditBtn.style.display = 'block'; 
+        window.scrollTo({top:0, behavior:'smooth'});
+      }; 
+
+      div.querySelector('.btn-del').onclick = async () => { 
+        if(!confirm('ڈیلیٹ کرنا چاہتے ہیں؟')) return; 
+        await deleteDoc(doc(db, 'products', d.id)); 
+        div.remove(); 
+      }; 
+
+      listDiv.appendChild(div); 
+    }); 
+  }catch(e){ 
+    listDiv.innerHTML = 'Error: ' + e.message; 
+  } 
+}
+
+window.loadSellersFromFirebase = async function() {
+  const container = document.getElementById('sellersList');
+  container.innerHTML = "لوڈ ہو رہا ہے...";
+  try {
+    const snap = await getDocs(collection(db, "products"));
+    if(snap.empty) {
+      container.innerHTML = "<p style='text-align:center; color:#666;'>Abhi tak koi seller mojood nahi hai.</p>";
+      return;
+    }
+    
+    let sellersMap = {};
+    snap.forEach((docSnap) => {
+      let p = docSnap.data();
+      let sName = p.sellerName || 'Unknown Seller';
+      let sMobile = p.mobile || '03334664227';
+      let key = sMobile + "_" + sName;
+      
+      if(!sellersMap[key]) {
+        sellersMap[key] = { name: sName, mobile: sMobile, adsCount: 0, items: [] };
+      }
+      sellersMap[key].adsCount++;
+      sellersMap[key].items.push(p.name);
+    });
+
+    container.innerHTML = "";
+    for(let key in sellersMap) {
+      let seller = sellersMap[key];
+      let cleanMob = seller.mobile.replace(/^0/, '');
+      let waLink = `https://wa.me/92${cleanMob}?text=Assalam-o-Alaikum%20${encodeURIComponent(seller.name)},%20R.A.W%20Group%20Admin%20ki%20طرف%20سے%20رابطہ%20ہے۔`;
+
+      container.innerHTML += `
+        <div class="seller-card">
+          <h4>👤 Seller Name: ${seller.name}</h4>
+          <p>📞 WhatsApp / Mobile: <b>${seller.mobile}</b></p>
+          <p>📦 Total Active Ads: <b>${seller.adsCount}</b></p>
+          <a href="${waLink}" target="_blank" class="whatsapp-contact-btn">💬 Payout / WhatsApp Raabta</a>
+        </div>
+      `;
+    }
+  } catch(e) {
+    container.innerHTML = "Sellers load karne mein masla hua.";
+  }
+};
+
+window.loadOrdersFromFirebase = async function() {
+  const container = document.getElementById('ordersList');
+  container.innerHTML = "لوڈ ہو رہا ہے...";
+  try {
+    const snap = await getDocs(collection(db, "orders"));
+    if(snap.empty) {
+      container.innerHTML = "<p style='text-align:center; color:#666;'>Abhi tak koi new order nahi aaya.</p>";
+      return;
+    }
+    container.innerHTML = "";
+    snap.forEach((docSnap) => {
+      const o = docSnap.data();
+      const orderId = docSnap.id;
+      let curr = o.currency || 'Rs.';
+      let totalPrice = Number(o.productPrice || 0);
+      let adminComm = o.adminCommission || Math.round(totalPrice * 0.05);
+      let sellerPay = o.sellerPayout || (totalPrice - adminComm);
+
+      let statusColor = '#ff9900';
+      let statusText = o.escrowStatus || 'Held in Escrow (رقم محفوظ ہے)';
+      if(o.payoutStatus === 'Payout Released') {
+        statusColor = '#28a745';
+        statusText = 'Completed & Released (رقم منتقل کر دی گئی)';
+      } else if(o.escrowStatus === 'Held & Cancelled / Damaged') {
+        statusColor = '#d9534f';
+        statusText = 'Hold / Disputed (پروڈکٹ خرابی کی وجہ سے رقم روکی گئی)';
+      }
+
+      let reasonBox = o.holdReason ? `<p style="color:red; font-size:11px; margin-top:4px;"><b>⚠️ وجہ:</b> ${o.holdReason}</p>` : '';
+
+      container.innerHTML += `
+        <div class="order-card">
+          <h4>📦 Product: ${o.productName}</h4>
+          <p>💰 Total Price: <b>${curr} ${totalPrice}</b> | <span class="profit-badge">5% Commission: ${curr} ${adminComm}</span></p>
+          <p>💵 Seller Payout: <b style="color:#194376;">${curr} ${sellerPay}</b></p>
+          <p>👤 Customer: ${o.customerName} (${o.customerMobile})</p>
+          <p>📍 Address: ${o.customerAddress}</p>
+          <p>🛡️ Escrow Status: <b style="color:${statusColor}">${statusText}</b></p>
+          ${reasonBox}
+          
+          ${o.payoutStatus !== 'Payout Released' ? `
+            <button class="btn-release" onclick="releaseSellerPayout('${orderId}', '${o.sellerMobile || '03334664227'}', '${sellerPay}')">✅ Deliver & Release Payout (رقم بھیجیں)</button>
+            <button class="btn-hold" onclick="holdSellerPayout('${orderId}')">❌ Hold / Product Damaged (رقم روکیں اور وجہ بتائیں)</button>
+          ` : `<span style="color:#28a745; font-weight:bold; display:block; margin-top:6px;">✓ Payout Transferred Successfully</span>`}
+        </div>
+      `;
+    });
+  } catch(e) {
+    container.innerHTML = "Orders load karne mein masla hua: " + e.message;
+  }
+};
+
+window.releaseSellerPayout = async function(orderId, sellerMobile, payoutAmount) {
+  if(!confirm(`Kya order deliver ho gaya hai aur aap seller ko ${payoutAmount} رقم جاری کرنا चाहते ہیں?`)) return;
+  try {
+    await updateDoc(doc(db, "orders", orderId), {
+      escrowStatus: "Completed & Released",
+      payoutStatus: "Payout Released"
+    });
+    alert("Payout Successfully Released to Seller!");
+    loadOrdersFromFirebase();
+  } catch(e) {
+    alert("Update karne mein masla hua.");
+  }
+};
+
+window.holdSellerPayout = async function(orderId) {
+  let reason = prompt("رقم کیوں روکی جا رہی ہے؟ وجہ درج کریں (مثلاً: پروڈکٹ خراب تھی):");
+  if(!reason) return;
+  try {
+    await updateDoc(doc(db, "orders", orderId), {
+      escrowStatus: "Held & Cancelled / Damaged",
+      payoutStatus: "Payout Held",
+      holdReason: reason
+    });
+    alert("رقم روک دی گئی ہے اور وجہ درج کر دی گئی ہے۔");
+    loadOrdersFromFirebase();
+  } catch(e) {
+    alert("Masla hua, dobara koshish karein.");
+  }
+};
+
+window.loadProductsFromFirebase = loadProducts;
+
+loadProducts();
+loadOrdersFromFirebase();
+loadSellersFromFirebase();
+</script>
