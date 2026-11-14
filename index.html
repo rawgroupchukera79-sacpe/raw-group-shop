@@ -619,8 +619,8 @@ function renderProducts(products) {
         <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='ejaz.png'"></div>
         <div class="card-body">
           <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
-          <div class="city-label">📍 ${item.brand || item.city || 'Sargodha'}</div>
-          <div class="price">${priceDisplay}</div>
+          <div class="city-label">📍 ${item.brand || item.city || 'Global City'}</div>
+           <div class="price">${priceDisplay}</div>
           ${actionButtonsHTML}
         </div>
       </div>
@@ -645,7 +645,8 @@ window.openProductDetail = function(item) {
   let priceDisplay = (priceVal !== undefined && priceVal !== "" && !isNaN(priceVal)) ? `${currencySymbol} ${priceVal}` : "Price on Contact";
   
   document.getElementById('detPrice').innerText = `Price: ${priceDisplay}`;
-  document.getElementById('detCity').innerText = `Location: ${item.brand || item.city || 'Sargodha'}`;
+  document.getElementById('detCity').innerText = 'Location: ' + (item.brand || item.city || 'Global City');
+
   document.getElementById('detDescription').innerText = item.description || item.desc || 'Mazeed tafseel mojood nahi hai.';
 
   const imgContainer = document.getElementById('detImagesContainer');
