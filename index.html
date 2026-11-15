@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
 
-   <style>
-    /* --- R.A.W GROUP PURE WHITE & FINAL PERFECT POLISH --- */
+<style>
+    /* --- R.A.W GROUP PURE WHITE & COMPLETE POLISHED STYLE --- */
     * {
         box-sizing: border-box;
         margin: 0;
@@ -25,7 +25,7 @@
         top: 0px !important;
     }
 
-    /* ٹاپ بار اور ہیڈر کی بہترین ترتیب */
+    /* ٹاپ بار اور ہیڈر کی بہترین اور متوازن ترتیب */
     .top-bar, header, .navbar-top {
         display: flex !important;
         justify-content: space-between !important;
@@ -36,14 +36,22 @@
         width: 100% !important;
     }
 
-    /* اونر کی تصویر اور لوگو کا گول اور نفاست والا سائز */
-    .owner-branding, .owner-branding img, header img {
-        width: 45px !important;
-        height: 45px !important;
+    /* آپ کا اصل لوگو اور اونر برینڈنگ (گولڈن/اورنج شیڈ میں) */
+    .owner-branding {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        color: #d4af37 !important;
+        font-weight: 700 !important;
+    }
+
+    .owner-branding img {
+        width: 42px !important;
+        height: 42px !important;
         border-radius: 50% !important;
         object-fit: cover !important;
         border: 2px solid #FFD700 !important;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+        box-shadow: 0 2px 6px rgba(212, 175, 55, 0.3) !important;
     }
 
     /* گوگل ٹرانسلیٹ باکس */
@@ -66,6 +74,32 @@
         background: #ffffff !important;
         border: 1px solid #f0f0f0 !important;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+    }
+
+    /* نیا خوبصورت اور الگ کلر والا سروسز / فیچرز بینر */
+    .raw-service-banner {
+        background: linear-gradient(135deg, #194376 0%, #295f9c 100%) !important;
+        color: #ffffff !important;
+        border-radius: 16px !important;
+        padding: 18px 20px !important;
+        margin: 15px auto !important;
+        max-width: 96% !important;
+        box-shadow: 0 6px 18px rgba(25, 67, 118, 0.15) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        text-align: center !important;
+    }
+
+    .raw-service-banner h3 {
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        color: #FFD700 !important;
+        margin-bottom: 6px !important;
+    }
+
+    .raw-service-banner p {
+        font-size: 12px !important;
+        opacity: 0.95 !important;
+        line-height: 1.5 !important;
     }
 
     /* پروڈکٹ کارڈز اور بکس کی نرم گولائی */
@@ -95,8 +129,15 @@
         background: #ffffff !important;
         border-color: #194376 !important;
         outline: none !important;
-      }
-      
+    }
+</style>
+
+<!-- سروسز بینر جو اب خود بخود اسی کوڈ کے ساتھ سکرین پر آ جائے گا -->
+<div class="raw-service-banner">
+    <h3>⭐ R.A.W GROUP CHOUKIRH 79 SERVICES ⭐</h3>
+    <p>آپکی اپنی آن لائن مارکیٹ پلیس | ملٹی وینڈر شاپ، محفوظ پیمنٹس (Meezan Bank)، اور بہترین ایفلی ایٹ سروسز!</p>
+</div>
+
 
 .search-bar-row { display: flex; align-items: center; background: #194376; padding: 6px 15px 10px; }
 .search-container { flex: 1; position: relative; display: flex; align-items: center; background: #fff; border-radius: 20px; overflow: hidden; padding-right: 8px; }
