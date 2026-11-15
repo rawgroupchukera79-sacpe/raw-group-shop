@@ -10,80 +10,93 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
 
    <style>
-/* --- R.A.W GROUP PURE WHITE & MODERN RESPONSIVE POLISH --- */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+    /* --- R.A.W GROUP PURE WHITE & FINAL PERFECT POLISH --- */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
-body {
-    background-color: #ffffff !important;
-    color: #222222 !important;
-    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    padding-bottom: 70px;
-}
+    body {
+        background-color: #ffffff !important;
+        color: #222222 !important;
+        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        padding-bottom: 70px;
+        top: 0px !important;
+    }
 
-/* پوری ویب سائٹ کا مین کنٹینر اور بارڈر لے آؤٹ جو موبائل اور کمپیوٹر دونوں پر فٹ رہے */
-.main-shop-view, .container, body {
-    max-width: 1200px;
-    margin: 0 auto;
-}
+    /* ٹاپ بار اور ہیڈر کی بہترین ترتیب */
+    .top-bar, header, .navbar-top {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 8px 12px !important;
+        background: #ffffff !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+        width: 100% !important;
+    }
 
-/* کیٹگریز کے چھوٹے آئیکونز (نرم کونوں اور خوبصورت شیپ کے ساتھ، اورنج بارڈر ختم یا صاف لک) */
-.cat-item, .cat-icon-circle {
-    border-radius: 14px !important;
-    background: #ffffff !important;
-    border: 1px solid #f0f0f0 !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
-    transition: all 0.2s ease;
-}
+    /* اونر کی تصویر اور لوگو کا گول اور نفاست والا سائز */
+    .owner-branding, .owner-branding img, header img {
+        width: 45px !important;
+        height: 45px !important;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        border: 2px solid #FFD700 !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+    }
 
-/* پروڈکٹ کارڈز اور بکس کی نرم گولائی (میسج باکس جیسی خوبصورت شیپ) */
-.card, .product-card, .shop-card {
-    background: #ffffff !important;
-    border: 1px solid #eaeaea !important;
-    border-radius: 14px !important;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03) !important;
-    overflow: hidden !important;
-    transition: all 0.25s ease-in-out !important;
-}
+    /* گوگل ٹرانسلیٹ باکس */
+    #google_translate_element, .goog-te-combo {
+        background: #ffffff !important;
+        padding: 5px 8px !important;
+        border-radius: 10px !important;
+        border: 1px solid #dcdcdc !important;
+        font-size: 11px !important;
+        outline: none !important;
+    }
 
-.card:hover, .product-card:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08) !important;
-    transform: translateY(-2px);
-}
+    .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+    }
 
-/* گوگل ٹرانسلیٹ، سرچ بار اور ان پٹ فیلڈز کی نرم گولائی */
-input, select, textarea, #google_translate_element select {
-    background: #fafafa !important;
-    border: 1px solid #dcdcdc !important;
-    border-radius: 12px !important;
-    padding: 8px 12px !important;
-    transition: all 0.2s;
-}
+    /* کیٹگریز کے چھوٹے آئیکونز */
+    .cat-item, .cat-icon-circle {
+        border-radius: 14px !important;
+        background: #ffffff !important;
+        border: 1px solid #f0f0f0 !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+    }
 
-input:focus, select:focus, textarea:focus {
-    background: #ffffff !important;
-    border-color: #194376 !important;
-    outline: none !important;
-    box-shadow: 0 0 0 3px rgba(25, 67, 118, 0.1);
-}
+    /* پروڈکٹ کارڈز اور بکس کی نرم گولائی */
+    .card, .product-card, .shop-card {
+        background: #ffffff !important;
+        border: 1px solid #eaeaea !important;
+        border-radius: 14px !important;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03) !important;
+        overflow: hidden !important;
+        transition: all 0.25s ease-in-out !important;
+    }
 
-/* ٹاپ بار، ہیڈر اور بینرز کی صاف ستھری لک */
-header, .top-banner, .navbar, .top-bar {
-    background: #ffffff !important;
-    border-bottom: 1px solid #f0f0f0 !important;
-}
+    .card:hover, .product-card:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08) !important;
+        transform: translateY(-2px);
+    }
 
-/* سب سے نیچے والے پانچوں نیویگیشن بٹنز کی نرم اور خوبصورت گولائی */
-.bottom-nav, .nav-item, .btn-row button {
-    border-radius: 12px !important;
-}
+    /* سرچ بار اور ان پٹ فیلڈز */
+    input, select, textarea {
+        background: #fafafa !important;
+        border: 1px solid #dcdcdc !important;
+        border-radius: 12px !important;
+        padding: 8px 12px !important;
+    }
 
-#google_translate_element select { background: #fff; padding: 4px 8px; border-radius: 15px; border: 1px solid #ccc; font-size: 11px; outline: none; font-family: inherit; cursor: pointer; max-width: 140px; }
-.goog-te-banner-frame.skiptranslate { display: none !important; }
-body { top: 0px !important; }
+    input:focus, select:focus, textarea:focus {
+        background: #ffffff !important;
+        border-color: #194376 !important;
+        outline: none !important;
+      }
+      
 
 .search-bar-row { display: flex; align-items: center; background: #194376; padding: 6px 15px 10px; }
 .search-container { flex: 1; position: relative; display: flex; align-items: center; background: #fff; border-radius: 20px; overflow: hidden; padding-right: 8px; }
