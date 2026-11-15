@@ -233,31 +233,39 @@
 .btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 9px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
 </style>
 
-<script type="text/javascript">function googleTranslateElementInit() {
+<script type="text/javascript">
+function googleTranslateElementInit() {
     new google.translate.TranslateElement({
         pageLanguage: 'en',
         includedLanguages: 'ur,hi,en,ar,fa,zh-CN,es,fr,de,tr',
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE
     }, 'google_translate_element');
 }
+</script>
 
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'ur', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
 
-<div id="main-shop-view">
 <div class="top-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: #ffffff; border-bottom: 1px solid #e0e0e0;">
-    <div id="google_translate_element"></div>
-    <div class="owner-branding" style="display: flex; align-items: center; gap: 8px;">
-        <img src="ejar.jpg" onerror="this.onerror=null;this.src='./logo.png';" style="height: 30px; border-radius: 50%;" title="Ijaz Ahmad">
-        <img src="./logo.png" onerror="this.style.display='none';" style="height: 30px;" title="R.A.W Group">
-        <span style="font-size: 13px; font-weight: 700; color: #194376;">R.A.W GROUP CHOUKIRH 79</span>
+    <!-- بائیں سائیڈ پر گوگل ٹرانسلیٹ -->
+    <div style="flex: 1; display: flex; justify-content: flex-start;">
+        <div id="google_translate_element"></div>
+    </div>
+    
+    <!-- بالکل سینٹر میں برانڈ کا نام -->
+    <div style="flex: 1; text-align: center;">
+        <span style="font-size: 13px; font-weight: 700; color: #194376; white-space: nowrap;">R.A.W GROUP CHOUKIRH 79</span>
+    </div>
+    
+    <!-- دائیں سائیڈ پر اونر کی تصویر اور لوگو -->
+    <div class="owner-branding" style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 6px;">
+        <img src="ejar.jpg" onerror="this.onerror=null;this.src='./ejar.jpg';" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;" title="Ijaz Ahmad">
+        <img src="./logo.png" onerror="this.style.display='none';" style="height: 28px;" title="R.A.W Group">
     </div>
 </div>
+
     
     <div class="search-bar-row">
     <div class="search-container">
