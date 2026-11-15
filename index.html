@@ -249,24 +249,23 @@ function googleTranslateElementInit() {
 <body>
     <div class="top-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: #ffffff; border-bottom: 1px solid #e0e0e0; width: 100%;">
     <div class="top-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: #ffffff; border-bottom: 1px solid #e0e0e0; width: 100%;">
-        <!-- بائیں سائیڈ پر گوگل ٹرانسلیٹ -->
-        <div style="flex: 1; display: flex; justify-content: flex-start;">
-            <div id="google_translate_element"></div>
-        </div>
-        
-        <!-- بالکل سینٹر میں ستاروں کے ساتھ گولڈن اور واضح نام -->
-        <div style="flex: 1.5; text-align: center;">
-            <span style="font-size: 14px; font-weight: 700; color: #d4af37; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">⭐ R.A.W GROUP CHOUKIRH 79 ⭐</span>
-        </div>
-        
-        <!-- دائیں سائیڈ پر اونر کی تصویر اور لوگو -->
-        <div class="owner-branding" style="flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 6px;">
-            <img src="./ejar.jpg" onerror="this.onerror=null;this.src='ejar.jpg';" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid #d4af37;" title="Ijaz Ahmad">
-            <img src="./logo.png" onerror="this.style.display='none';" style="height: 28px;" title="R.A.W Group">
-        </div>
+    <!-- بائیں سائیڈ پر گوگل ٹرانسلیٹ -->
+    <div style="display: flex; justify-content: flex-start;">
+        <div id="google_translate_element"></div>
     </div>
+    
+    <!-- بالکل سینٹر میں ستاروں کے ساتھ گولڈن نام -->
+    <div style="text-align: center;">
+        <span style="font-size: 13px; font-weight: 700; color: #d4af37; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">⭐ R.A.W GROUP CHOUKIRH 79 ⭐</span>
+    </div>
+    
+    <!-- دائیں سائیڈ پر اونر کی تصویر اور لوگو -->
+    <div class="owner-branding" style="display: flex; justify-content: flex-end; align-items: center; gap: 6px;">
+        <img src="./ejar.jpg" onerror="this.onerror=null;this.src='ejar.jpg';" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid #d4af37;" title="Ijaz Ahmad">
+        <img src="./logo.png" onerror="this.style.display='none';" style="height: 26px;" title="R.A.W Group">
+    </div>
+</div>
 
-    <div class="search-bar-row">
     <div class="search-container">
       <input id="search" onkeyup="filterShop()" placeholder="🔍 پروڈکٹ کا نام یا شہر تلاش کریں...">
       <button class="camera-search-btn" onclick="triggerVisualSearch()" title="تصویر کے ذریعے تلاش کریں">
