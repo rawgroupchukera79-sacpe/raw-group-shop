@@ -89,7 +89,8 @@ function googleTranslateElementInit() {
 
 <div class="top-bar">
     <div style="display: flex; align-items: center;"><div id="google_translate_element"></div></div>
-    <div style="font-size: 12px; font-weight: 700; color: #d4af37;">⭐ R.A.W GROUP 79 ⭐</div>
+    <!-- کسٹمر کا نام یہاں شو ہوگا -->
+    <div style="font-size: 12px; font-weight: 700; color: #d4af37;" id="topCustomerDisplay">⭐ R.A.W GROUP 79 ⭐</div>
     <div class="owner-branding">
         <img id="headerOwnerImg" src="./ejar.jpg" onerror="this.src='ejaz.png';">
         <img src="./logo.png" onerror="this.style.display='none';" style="height: 24px;">
@@ -104,7 +105,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- تمام 17 کیٹیگریز بحال کر دی گئی ہیں -->
+<!-- تمام 17 کیٹیگریز -->
 <div class="cat-scroll-row">
   <div class="cat-item" onclick="filterByCategory('All')"><div class="cat-icon-circle">📦</div><span>تمام</span></div>
   <div class="cat-item" onclick="filterByCategory('Furniture & Decoration')"><div class="cat-icon-circle">🛋️</div><span>Furniture</span></div>
@@ -147,7 +148,7 @@ function googleTranslateElementInit() {
   <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('seller_dashboard')">🛒 Seller Dashboard</button>
 </div>
 
-<!-- Bottom Navigation (تمام پرانے آئیکونز اور نظام بحال) -->
+<!-- Bottom Navigation -->
 <div class="bottom-nav">
   <div class="nav-item" onclick="openPrivacyModal()"><span>🔒</span><span>Policy</span></div>
   <div class="nav-item" onclick="openMessagesModal()"><span>💬</span><span>Messages</span></div>
@@ -156,7 +157,7 @@ function googleTranslateElementInit() {
   <div class="nav-item" onclick="openCustomerAccountModal()"><span>👤</span><span>Account</span></div>
 </div>
 
-<!-- Privacy Policy Modal (مکمل بحال) -->
+<!-- Privacy Policy Modal -->
 <div id="privacy-policy-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #ddd; padding-bottom:6px; margin-bottom:10px;">
@@ -165,14 +166,12 @@ function googleTranslateElementInit() {
     </div>
     <div style="font-size: 11px; color: #333; line-height: 1.5; max-height: 250px; overflow-y: auto; background: #fafafa; padding: 8px; border-radius: 4px; margin-bottom: 10px;">
       <p><b>1. Introduction:</b> R.A.W GROUP CHOUKIRHA 79 is operated under Main Admin Ejaz Ahmad, Sargodha, Pakistan.</p>
-      <p style="margin-top:6px;"><b>2. 3% Platform Fee:</b> We charge a nominal 3% platform service fee on processed orders while 97% goes to the seller.</p>
-      <p style="margin-top:6px;"><b>3. Security:</b> Secure payments via Meezan Bank, Payoneer, and Firebase storage protection.</p>
     </div>
     <button onclick="closePrivacyModal()" class="btn-submit" style="background:#194376;">Close</button>
   </div>
 </div>
 
-<!-- Messages / Direct Contact Modal (مکمل بحال) -->
+<!-- Messages Modal -->
 <div id="messages-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #ddd; padding-bottom:6px; margin-bottom:10px;">
@@ -182,30 +181,29 @@ function googleTranslateElementInit() {
     <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;">
       <a href="https://wa.me/923334664227?text=Assalam-o-Alaikum,%20R.A.W%20Group%20se%20rabta%20karna%20hai." target="_blank" style="padding: 10px; background: #25d366; color: #fff; border-radius: 6px; font-size: 12px; font-weight: bold; text-decoration: none; text-align: center;">💬 WhatsApp Chat: 0333-4664227</a>
       <a href="tel:+923334664227" style="padding: 10px; background: #194376; color: #fff; border-radius: 6px; font-size: 12px; font-weight: bold; text-decoration: none; text-align: center;">📞 Direct Call: +92 333 4664227</a>
-      <a href="mailto:rawgroupchukera79@gmail.com" style="padding: 10px; background: #333; color: #fff; border-radius: 6px; font-size: 12px; font-weight: bold; text-decoration: none; text-align: center;">✉️ Email Support</a>
     </div>
     <button onclick="closeMessagesModal()" class="btn-submit" style="background:#ccc; color:#333;">Close</button>
   </div>
 </div>
 
-<!-- Customer Account Modal -->
+<!-- Customer Account Modal (تصویر ہٹا دی گئی ہے اور نیا فارم کر دیا گیا ہے) -->
 <div id="customer-account-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding-bottom: 6px; margin-bottom: 10px;">
-      <h3 style="font-size: 14px; color: #222;">👤 Customer Account</h3>
+      <h3 style="font-size: 14px; color: #222;">👤 Customer Account & Favorites</h3>
       <span onclick="closeCustomerAccountModal()" style="cursor: pointer; font-size: 16px; font-weight: bold;">✕</span>
     </div>
-    <div style="text-align: center; margin-bottom: 10px;">
-      <div id="profilePicPreview" style="width: 60px; height: 60px; border-radius: 50%; background: #f0f0f0; margin: 0 auto 6px auto; display: flex; align-items: center; justify-content: center; font-size: 24px; border: 1px solid #dcdcdc; background-size: cover; background-position: center;">👤</div>
-      <label style="font-size: 10px; color: #666; cursor: pointer; background: #f8f8f8; padding: 3px 8px; border: 1px solid #dcdcdc; border-radius: 4px; display: inline-block;">
-        تصویر تبدیل کریں
-        <input type="file" id="custPhotoFile" accept="image/*" onchange="previewProfilePic(event)" style="display: none;">
-      </label>
-    </div>
-    <div class="form-group"><label>Full Name</label><input type="text" id="custName" placeholder="Apna naam"></div>
+    <div class="form-group"><label>Full Name</label><input type="text" id="custName" placeholder="Apna naam likhein"></div>
     <div class="form-group"><label>WhatsApp Number</label><input type="text" id="custPhone" placeholder="03XXXXXXXXX"></div>
     <div class="form-group"><label>Delivery Address</label><textarea id="custAddress" rows="2" placeholder="Ghar ka pata"></textarea></div>
-    <button onclick="saveCustomerProfile()" class="btn-submit" style="background:#194376; margin-top:5px;">Save Profile</button>
+    <button onclick="saveCustomerProfile()" class="btn-submit" style="background:#194376; margin-top:5px;">Save & View Dashboard</button>
+    
+    <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+      <h4 style="font-size: 12px; color: #194376; margin-bottom: 6px;">⭐ Aapki Favorite / خریدی گئی پروڈکٹس:</h4>
+      <div id="customerFavoritesList" style="max-height: 120px; overflow-y: auto; font-size: 11px; color: #555;">
+        <p>کوئی پسندیدہ پروڈکٹ موجود نہیں۔</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -235,6 +233,7 @@ function googleTranslateElementInit() {
     <div id="detCity" style="font-size:11px; color:#666; margin-bottom:4px;"></div>
     <div id="detDescription" style="font-size:11px; color:#333; background:#f9f9f9; padding:6px; border-radius:4px; margin-bottom:10px;"></div>
     <div id="detActionBtn"></div>
+    <button onclick="addToFavoritesCurrent()" style="width:100%; margin-top:6px; background:#ff9900; color:#fff; border:none; padding:7px; border-radius:6px; font-size:11px; font-weight:bold; cursor:pointer;">❤️ Favorite میں شامل کریں</button>
   </div>
 </div>
 
@@ -284,7 +283,7 @@ function googleTranslateElementInit() {
           <option value="Car & Motorcycle">Car & Motorcycle</option>
           <option value="Real Estate">Real Estate</option>
           <option value="Electronics">Electronics</option>
-          <option value="Home & Kitchen Appliances">Home & Kitchen Appliances</option>
+          <option value="Home & Kitchen Appliances">Home & Kitchen & Appliances</option>
           <option value="Fashion & Beauty">Fashion & Beauty</option>
           <option value="Job offers">Job offers</option>
           <option value="Kids & Baby-Shop">Kids & Baby-Shop</option>
@@ -328,52 +327,49 @@ let uploadedImagesArray = [];
 let selectedCategoryFilter = "All";
 let pendingTargetAction = null;
 let cartItems = [];
+let customerFavorites = [];
+let currentActiveProduct = null;
 const ADMIN_MOBILE = "03334664227";
 
-// Menu toggles
 window.togglePlusMenu = () => {
   const m = document.getElementById('plus-action-menu');
   m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
 };
 window.closePlusMenu = () => document.getElementById('plus-action-menu').style.display = 'none';
 
-// Modals
 window.openPrivacyModal = () => document.getElementById('privacy-policy-modal').style.display = 'flex';
 window.closePrivacyModal = () => document.getElementById('privacy-policy-modal').style.display = 'none';
 
 window.openMessagesModal = () => document.getElementById('messages-modal').style.display = 'flex';
 window.closeMessagesModal = () => document.getElementById('messages-modal').style.display = 'none';
 
-window.openCustomerAccountModal = () => document.getElementById('customer-account-modal').style.display = 'flex';
+// کسٹمر اکاؤنٹ کھولتے ہی پرانا فارم خالی ملے گا تاکہ نیا اکاؤنٹ بنے
+window.openCustomerAccountModal = () => {
+  document.getElementById('custName').value = "";
+  document.getElementById('custPhone').value = "";
+  document.getElementById('custAddress').value = "";
+  renderCustomerFavorites();
+  document.getElementById('customer-account-modal').style.display = 'flex';
+};
 window.closeCustomerAccountModal = () => document.getElementById('customer-account-modal').style.display = 'none';
 
 window.openCartModal = () => { renderCartItems(); document.getElementById('cart-modal').style.display = 'flex'; };
 window.closeCartModal = () => document.getElementById('cart-modal').style.display = 'none';
 
-// Customer Profile Picture & Save
-let savedProfilePicBase64 = "";
-window.previewProfilePic = (e) => {
-  const f = e.target.files[0];
-  if(f) {
-    const r = new FileReader();
-    r.onload = (ev) => {
-      savedProfilePicBase64 = ev.target.result;
-      document.getElementById('profilePicPreview').style.backgroundImage = `url(${savedProfilePicBase64})`;
-      document.getElementById('profilePicPreview').innerText = "";
-    };
-    r.readAsDataURL(f);
-  }
-};
-
+// کسٹمر پروفائل سیو کرنا اور نام ٹاپ بار پر شو کرنا
 window.saveCustomerProfile = () => {
   const name = document.getElementById('custName').value.trim();
   const phone = document.getElementById('custPhone').value.trim();
   const address = document.getElementById('custAddress').value.trim();
   if(!name || !phone) return alert("نام اور فون نمبر درج کریں!");
   
-  localStorage.setItem('raw_customer_profile', JSON.stringify({ name, phone, address, pic: savedProfilePicBase64 }));
-  if(savedProfilePicBase64) document.getElementById('headerOwnerImg').src = savedProfilePicBase64;
-  alert("✅ پروفائل محفوظ ہو گئی ہے!");
+  const customerData = { name, phone, address };
+  localStorage.setItem('raw_customer_profile', JSON.stringify(customerData));
+  
+  // نام کو اوپر سرچ بار کے قریب شو کر دیں
+  document.getElementById('topCustomerDisplay').innerText = `👤 ${name}`;
+  
+  alert("✅ کسٹمر اکاؤنٹ کامیابی سے بن گیا ہے!");
   closeCustomerAccountModal();
 };
 
@@ -382,19 +378,39 @@ window.addEventListener('DOMContentLoaded', () => {
   if(sp) {
     try {
       const d = JSON.parse(sp);
-      if(d.name) document.getElementById('custName').value = d.name;
-      if(d.phone) document.getElementById('custPhone').value = d.phone;
-      if(d.address) document.getElementById('custAddress').value = d.address;
-      if(d.pic) {
-        savedProfilePicBase64 = d.pic;
-        document.getElementById('profilePicPreview').style.backgroundImage = `url(${d.pic})`;
-        document.getElementById('profilePicPreview').innerText = "";
-        document.getElementById('headerOwnerImg').src = d.pic;
+      if(d.name) {
+        document.getElementById('topCustomerDisplay').innerText = `👤 ${d.name}`;
       }
     } catch(e){}
   }
+  
+  const favs = localStorage.getItem('raw_customer_favorites');
+  if(favs) {
+    try { customerFavorites = JSON.parse(favs); } catch(e){}
+  }
+  
   loadApprovedProducts();
 });
+
+window.addToFavoritesCurrent = () => {
+  if(!currentActiveProduct) return;
+  customerFavorites.push(currentActiveProduct);
+  localStorage.setItem('raw_customer_favorites', JSON.stringify(customerFavorites));
+  alert("❤️ پروڈکٹ آپ کے اکاؤنٹ / فیورٹ میں محفوظ کر دی گئی ہے!");
+  closeProductDetailModal();
+};
+
+function renderCustomerFavorites() {
+  const list = document.getElementById('customerFavoritesList');
+  if(customerFavorites.length === 0) {
+    list.innerHTML = `<p>کوئی پسندیدہ پروڈکٹ موجود نہیں۔</p>`;
+    return;
+  }
+  list.innerHTML = "";
+  customerFavorites.forEach((fav, idx) => {
+    list.innerHTML += `<div style="padding:4px 0; border-bottom:1px solid #eee;"><b>${idx+1}.</b> ${fav.name || fav.title} (Rs. ${fav.pricePKR || fav.price || 0})</div>`;
+  });
+}
 
 window.promptSellerLogin = (type) => {
   pendingTargetAction = type;
@@ -520,6 +536,7 @@ window.addToCartAndOrder = (item) => {
 };
 
 window.openProductDetail = (item) => {
+  currentActiveProduct = item;
   document.getElementById('detTitle').innerText = item.name || item.title;
   let priceVal = item.pricePKR || item.price;
   document.getElementById('detPrice').innerText = `Price: ${priceVal ? 'Rs. ' + priceVal : 'Price on Contact'}`;
@@ -571,11 +588,6 @@ window.triggerAutomaticOrder = async (item) => {
   const name = document.getElementById('custName').value.trim() || "Customer";
   const phone = document.getElementById('custPhone').value.trim() || "Not Provided";
   const address = document.getElementById('custAddress').value.trim() || "Sargodha";
-
-  if(phone === "Not Provided") {
-    let p = prompt("अपना واٹس ایپ / موبائل نمبر درج کریں:");
-    if(!p) return;
-  }
 
   try {
     await addDoc(collection(db, "orders"), {
