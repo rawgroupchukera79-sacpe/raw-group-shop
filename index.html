@@ -10,58 +10,76 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
 
    <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    /* --- R.A.W GROUP PURE WHITE & MODERN POLISH --- */
-    body {
-        background-color: #ffffff !important;
-        color: #222222 !important;
-        font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif;
-    }
+/* --- R.A.W GROUP PURE WHITE & MODERN RESPONSIVE POLISH --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    /* کارڈز اور پروڈکٹ بکس کو صاف ستھرا اور پیور وائٹ بنانا */
-    .card, .product-card, .shop-card {
-        background: #ffffff !important;
-        border: 1px solid #eaeaea !important;
-        border-radius: 10px !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
-        transition: all 0.25s ease-in-out !important;
-    }
+body {
+    background-color: #ffffff !important;
+    color: #222222 !important;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding-bottom: 70px;
+}
 
-    .card:hover, .product-card:hover {
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08) !important;
-        transform: translateY(-2px);
-    }
+/* پوری ویب سائٹ کا مین کنٹینر اور بارڈر لے آؤٹ جو موبائل اور کمپیوٹر دونوں پر فٹ رہے */
+.main-shop-view, .container, body {
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-    /* گول آئیکونز اور تصویروں کو مزید نکھارنا */
-    img, .circular-icon, .category-icon {
-        border-radius: 50% !important;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.04);
-    }
+/* کیٹگریز کے چھوٹے آئیکونز (نرم کونوں اور خوبصورت شیپ کے ساتھ، اورنج بارڈر ختم یا صاف لک) */
+.cat-item, .cat-icon-circle {
+    border-radius: 14px !important;
+    background: #ffffff !important;
+    border: 1px solid #f0f0f0 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+    transition: all 0.2s ease;
+}
 
-    /* ٹاپ بینرز اور ہیڈر کی صفائی */
-    header, .top-banner, .navbar {
-        background: #ffffff !important;
-        border-bottom: 1px solid #f0f0f0 !important;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-    }
+/* پروڈکٹ کارڈز اور بکس کی نرم گولائی (میسج باکس جیسی خوبصورت شیپ) */
+.card, .product-card, .shop-card {
+    background: #ffffff !important;
+    border: 1px solid #eaeaea !important;
+    border-radius: 14px !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03) !important;
+    overflow: hidden !important;
+    transition: all 0.25s ease-in-out !important;
+}
 
-    /* سرچ بار اور ان پٹ فیلڈز کا ماڈرن پیور وائٹ لک */
-    input, select, textarea {
-        background: #fafafa !important;
-        border: 1px solid #dcdcdc !important;
-        border-radius: 8px !important;
-        padding: 8px 12px !important;
-        transition: border 0.2s;
-    }
+.card:hover, .product-card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-2px);
+}
 
-    input:focus, select:focus, textarea:focus {
-        background: #ffffff !important;
-        border-color: #194376 !important;
-        outline: none !important;
-        box-shadow: 0 0 0 3px rgba(25, 67, 118, 0.1);
-    }
+/* گوگل ٹرانسلیٹ، سرچ بار اور ان پٹ فیلڈز کی نرم گولائی */
+input, select, textarea, #google_translate_element select {
+    background: #fafafa !important;
+    border: 1px solid #dcdcdc !important;
+    border-radius: 12px !important;
+    padding: 8px 12px !important;
+    transition: all 0.2s;
+}
 
+input:focus, select:focus, textarea:focus {
+    background: #ffffff !important;
+    border-color: #194376 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(25, 67, 118, 0.1);
+}
+
+/* ٹاپ بار، ہیڈر اور بینرز کی صاف ستھری لک */
+header, .top-banner, .navbar, .top-bar {
+    background: #ffffff !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+/* سب سے نیچے والے پانچوں نیویگیشن بٹنز کی نرم اور خوبصورت گولائی */
+.bottom-nav, .nav-item, .btn-row button {
+    border-radius: 12px !important;
+}
 
 #google_translate_element select { background: #fff; padding: 4px 8px; border-radius: 15px; border: 1px solid #ccc; font-size: 11px; outline: none; font-family: inherit; cursor: pointer; max-width: 140px; }
 .goog-te-banner-frame.skiptranslate { display: none !important; }
