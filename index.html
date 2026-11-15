@@ -9,14 +9,58 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
 
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif; background: #f5f5f5; color: #212121; padding-bottom: 70px; }
-#main-shop-view { display: flex; flex-direction: column; min-height: 100vh; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    /* --- R.A.W GROUP PURE WHITE & MODERN POLISH --- */
+    body {
+        background-color: #ffffff !important;
+        color: #222222 !important;
+        font-family: 'Poppins', 'Noto Nastaliq Urdu', sans-serif;
+    }
 
-.top-bar { display: flex; justify-content: space-between; align-items: center; background: #194376; padding: 8px 15px; position: relative; z-index: 1000; }
-.owner-branding { display: flex; align-items: center; gap: 6px; }
-.owner-branding img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; box-shadow: 0 2px 6px rgba(0,0,0,0.3); background: #fff3ec; }
+    /* کارڈز اور پروڈکٹ بکس کو صاف ستھرا اور پیور وائٹ بنانا */
+    .card, .product-card, .shop-card {
+        background: #ffffff !important;
+        border: 1px solid #eaeaea !important;
+        border-radius: 10px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+        transition: all 0.25s ease-in-out !important;
+    }
+
+    .card:hover, .product-card:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08) !important;
+        transform: translateY(-2px);
+    }
+
+    /* گول آئیکونز اور تصویروں کو مزید نکھارنا */
+    img, .circular-icon, .category-icon {
+        border-radius: 50% !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+    }
+
+    /* ٹاپ بینرز اور ہیڈر کی صفائی */
+    header, .top-banner, .navbar {
+        background: #ffffff !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    /* سرچ بار اور ان پٹ فیلڈز کا ماڈرن پیور وائٹ لک */
+    input, select, textarea {
+        background: #fafafa !important;
+        border: 1px solid #dcdcdc !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+        transition: border 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        background: #ffffff !important;
+        border-color: #194376 !important;
+        outline: none !important;
+        box-shadow: 0 0 0 3px rgba(25, 67, 118, 0.1);
+    }
+
 
 #google_translate_element select { background: #fff; padding: 4px 8px; border-radius: 15px; border: 1px solid #ccc; font-size: 11px; outline: none; font-family: inherit; cursor: pointer; max-width: 140px; }
 .goog-te-banner-frame.skiptranslate { display: none !important; }
