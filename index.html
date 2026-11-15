@@ -233,7 +233,14 @@
 .btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 9px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
 </style>
 
-<script type="text/javascript">
+<script type="text/javascript">function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'ur,hi,en,ar,fa,zh-CN,es,fr,de,tr',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+}
+
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'ur', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
 }
@@ -243,15 +250,16 @@ function googleTranslateElementInit() {
 <body>
 
 <div id="main-shop-view">
-  <div class="top-bar">
+<div class="top-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: #ffffff; border-bottom: 1px solid #e0e0e0;">
     <div id="google_translate_element"></div>
-    <div class="owner-branding">
-      <img src="./ejaz.jpg" onerror="this.onerror=function(){this.src='./logo.png';}; this.src='./logo.png';" title="Ejaz Ahmad">
-      <img src="./logo.png" onerror="this.style.display='none';" title="R.A.W Group">
+    <div class="owner-branding" style="display: flex; align-items: center; gap: 8px;">
+        <img src="ejar.jpg" onerror="this.onerror=null;this.src='./logo.png';" style="height: 30px; border-radius: 50%;" title="Ijaz Ahmad">
+        <img src="./logo.png" onerror="this.style.display='none';" style="height: 30px;" title="R.A.W Group">
+        <span style="font-size: 13px; font-weight: 700; color: #194376;">R.A.W GROUP CHOUKIRH 79</span>
     </div>
-  </div>
-
-  <div class="search-bar-row">
+</div>
+    
+    <div class="search-bar-row">
     <div class="search-container">
       <input id="search" onkeyup="filterShop()" placeholder="🔍 پروڈکٹ کا نام یا شہر تلاش کریں...">
       <button class="camera-search-btn" onclick="triggerVisualSearch()" title="تصویر کے ذریعے تلاش کریں">
@@ -280,11 +288,11 @@ function googleTranslateElementInit() {
     <div class="cat-item" onclick="filterByCategory('Antique Coins Gemstone')"><div class="cat-icon-circle">💍</div><span>Gemstone</span></div>
     <div class="cat-item" onclick="filterByCategory('Tools & Heavy Machinery')"><div class="cat-icon-circle">🛠️</div><span>Tools</span></div>
   </div>
-    <div class="raw-service-banner" style="background: linear-gradient(135deg, #194376 0%, #295f9c 100%); color: #ffffff; border-radius: 16px; padding: 18px 20px; margin: 15px auto; max-width: 96%; text-align: center; box-shadow: 0 6px 18px rgba(25, 67, 118, 0.15);">
-        <h3 style="font-size: 16px; font-weight: 700; color: #FFD700; margin-bottom: 6px;">⭐ R.A.W GROUP CHOUKIRH 79 SERVICES ⭐</h3>
-        <p style="font-size: 12px; opacity: 0.95; line-height: 1.5;">آپکی اپنی آن لائن مارکیٹ پلیس | ملٹی وینڈر شاپ، محفوظ پیمنٹس (Meezan Bank)، اور بہترین ایفلی ایٹ سروسز!</p>
-    </div>
-    <div class="banner">
+    <div class="raw-service-banner" style="background: #ffffff; color: #194376; border: 2px solid #194376; border-radius: 16px; padding: 18px 20px; margin: 15px auto; max-width: 96%; text-align: center; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);">
+    <h3 style="font-size: 16px; font-weight: 700; color: #d4af37; margin-bottom: 6px;">⭐ R.A.W GROUP CHOUKIRH 79 MARKETPLACE ⭐</h3>
+    <p style="font-size: 12px; color: #333333; opacity: 0.95; line-height: 1.5;">ویب سائٹ بنانے کے <span style="color: #d4af37; font-weight: bold;">جھنجھٹ اور خرچے</span> سے جان چھڑائیں! <span style="color: #194376; font-weight: bold;">نہ پیسے چاہیے، نہ خریدنی ہے</span> — بس اپنا <span style="color: #d4af37; font-weight: bold;">سیلر اکاؤنٹ بنائیں</span> اور اپنی آن لائن شاپ <span style="color: #194376; font-weight: bold;">فوراً تیار</span> پائیں!</p>
+</div>
+   <div class="banner">
     <div class="banner-track" id="bannerTrack">
       <div class="banner-slide active">
         <h3>R.A.W GROUP CHOUKIRH 79</h3>
