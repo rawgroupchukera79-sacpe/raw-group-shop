@@ -25,7 +25,6 @@
         top: 0px !important;
     }
 
-    /* ٹاپ بار اور ہیڈر کی بہترین اور متوازن ترتیب */
     .top-bar, header, .navbar-top {
         display: flex !important;
         justify-content: space-between !important;
@@ -36,7 +35,7 @@
         width: 100% !important;
     }
 
-        .owner-branding {
+    .owner-branding {
         display: flex !important;
         align-items: center !important;
         gap: 8px !important;
@@ -52,7 +51,7 @@
         border: 2px solid #FFD700 !important;
         box-shadow: 0 2px 6px rgba(212, 175, 55, 0.3) !important;
     }
-   /* گوگل ٹرانسلیٹ باکس */
+
     #google_translate_element, .goog-te-combo {
         background: #ffffff !important;
         padding: 5px 8px !important;
@@ -66,7 +65,6 @@
         display: none !important;
     }
 
-    /* کیٹگریز کے چھوٹے آئیکونز */
     .cat-item, .cat-icon-circle {
         border-radius: 14px !important;
         background: #ffffff !important;
@@ -74,7 +72,6 @@
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
     }
 
-    /* نیا خوبصورت اور الگ کلر والا سروسز / فیچرز بینر */
     .raw-service-banner {
         background: linear-gradient(135deg, #194376 0%, #295f9c 100%) !important;
         color: #ffffff !important;
@@ -87,20 +84,6 @@
         text-align: center !important;
     }
 
-    .raw-service-banner h3 {
-        font-size: 16px !important;
-        font-weight: 700 !important;
-        color: #FFD700 !important;
-        margin-bottom: 6px !important;
-    }
-
-    .raw-service-banner p {
-        font-size: 12px !important;
-        opacity: 0.95 !important;
-        line-height: 1.5 !important;
-    }
-
-    /* پروڈکٹ کارڈز اور بکس کی نرم گولائی */
     .card, .product-card, .shop-card {
         background: #ffffff !important;
         border: 1px solid #eaeaea !important;
@@ -110,12 +93,6 @@
         transition: all 0.25s ease-in-out !important;
     }
 
-    .card:hover, .product-card:hover {
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08) !important;
-        transform: translateY(-2px);
-    }
-
-    /* سرچ بار اور ان پٹ فیلڈز */
     input, select, textarea {
         background: #fafafa !important;
         border: 1px solid #dcdcdc !important;
@@ -123,114 +100,78 @@
         padding: 8px 12px !important;
     }
 
-    input:focus, select:focus, textarea:focus {
-        background: #ffffff !important;
-        border-color: #194376 !important;
-        outline: none !important;
+    .search-bar-row { display: flex; align-items: center; background: #194376; padding: 6px 15px 10px; }
+    .search-container { flex: 1; position: relative; display: flex; align-items: center; background: #fff; border-radius: 20px; overflow: hidden; padding-right: 8px; border: 1px solid #dcdcdc; }
+    .search-container input { flex: 1; padding: 9px 14px; border: none; outline: none; font-size: 13px; background: transparent; }
+    .camera-search-btn { background: none; border: none; font-size: 18px; cursor: pointer; padding: 4px 8px; color: #194376; display: flex; align-items: center; justify-content: center; }
+
+    .cat-scroll-row { display: flex; gap: 12px; overflow-x: auto; padding: 12px 15px; background: #fff; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .cat-scroll-row::-webkit-scrollbar { display: none; }
+    .cat-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; min-width: 70px; text-align: center; }
+    .cat-icon-circle { width: 50px; height: 50px; border-radius: 50%; background: #fff3ec; border: 2px solid #f57224; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 4px; box-shadow: 0 2px 6px rgba(245,114,36,0.2); }
+    .cat-item span { font-size: 11px; font-weight: 600; color: #333; }
+
+    .banner { position: relative; max-width: 1100px; width: 100%; margin: 10px auto; padding: 0 15px; }
+    .banner-track { height: 140px; border-radius: 12px; color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, #194376, #f57224); position: relative; overflow: hidden; }
+    .banner-slide { display: none; flex-direction: column; justify-content: center; height: 100%; }
+    .banner-slide.active { display: flex; }
+
+    .products { max-width: 1100px; margin: 10px auto 0; padding: 0 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
+    @media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } }
+
+    .product-img-container { width: 100%; height: 140px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 6px; border-bottom: 1px solid #f1f1f1; cursor: pointer; }
+    .product-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .card-body { padding: 8px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
+    .product-title { font-size: 12px; font-weight: 600; color: #212121; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+    .city-label { font-size: 10px; color: #757575; margin: 2px 0; }
+    .price { color: #f57224; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
+
+    .btn-row { display: flex; gap: 4px; }
+    .whatsapp-btn, .order-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; color: #fff; text-align: center; }
+    .whatsapp-btn { background: #25d366; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+    .order-btn { background: #f57224; }
+    .affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; color: #fff; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
+
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #ffffff; border-top: 1px solid #e0e0e0;
+      display: flex !important; flex-direction: row !important;
+      justify-content: space-around; align-items: center;
+      height: 58px; z-index: 2000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+    .nav-item {
+      color: #555555; font-size: 11px; font-weight: 500; text-align: center;
+      display: flex !important; flex-direction: column !important;
+      align-items: center; justify-content: center; cursor: pointer; flex: 1; height: 100%;
+    }
+    .nav-item.active { color: #f57224; }
+    .sell-fab-container { position: relative; flex: 1; display: flex; justify-content: center; }
+    .sell-fab {
+      position: absolute; top: -20px; width: 44px; height: 44px;
+      background: #194376; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; color: #ffffff;
+      font-size: 22px; border: 3px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      cursor: pointer; z-index: 2010;
     }
 
-.search-bar-row { display: flex; align-items: center; background: #194376; padding: 6px 15px 10px; }
-.search-container { flex: 1; position: relative; display: flex; align-items: center; background: #fff; border-radius: 20px; overflow: hidden; padding-right: 8px; }
-.search-container input { flex: 1; padding: 9px 14px; border: none; outline: none; font-size: 13px; font-family: inherit; background: transparent; }
-.camera-search-btn { background: none; border: none; font-size: 18px; cursor: pointer; padding: 4px 8px; color: #194376; display: flex; align-items: center; justify-content: center; }
+    #plus-action-menu {
+      display: none; position: fixed; bottom: 70px; left: 50%;
+      transform: translateX(-50%); background: #ffffff; border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: 1px solid #e0e0e0;
+      z-index: 3000; width: 240px; padding: 8px; flex-direction: column; gap: 6px;
+    }
+    .menu-action-btn {
+      background: #ffffff; color: #333333; border: 1px solid #dcdcdc;
+      padding: 10px; border-radius: 6px; font-size: 12px; font-weight: 600;
+      cursor: pointer; text-align: center; width: 100%;
+    }
 
-.cat-scroll-row { display: flex; gap: 12px; overflow-x: auto; padding: 12px 15px; background: #fff; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-.cat-scroll-row::-webkit-scrollbar { display: none; }
-.cat-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; min-width: 70px; text-align: center; }
-.cat-icon-circle { width: 50px; height: 50px; border-radius: 50%; background: #fff3ec; border: 2px solid #f57224; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 4px; box-shadow: 0 2px 6px rgba(245,114,36,0.2); }
-.cat-item span { font-size: 11px; font-weight: 600; color: #333; }
-
-/* Banner CSS */
-.banner { position: relative; max-width: 1100px; width: 100%; margin: 10px auto; padding: 0 15px; }
-.banner-track { height: 140px; border-radius: 12px; color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, #194376, #f57224); position: relative; overflow: hidden; }
-.banner-slide { display: none; flex-direction: column; justify-content: center; height: 100%; }
-.banner-slide.active { display: flex; }
-.banner-track h3 { font-size: 16px; font-weight: bold; }
-.banner-track p { font-size: 12px; opacity: 0.95; margin-top: 4px; }
-.banner-dots { display: flex; justify-content: center; gap: 5px; margin-top: 6px; }
-.banner-dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; }
-.banner-dot.active { background: #f57224; width: 18px; border-radius: 4px; }
-
-.products { max-width: 1100px; margin: 10px auto 0; padding: 0 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
-@media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } }
-
-.card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.06); border: 1px solid #e5e5e5; display: flex; flex-direction: column; cursor: pointer; position: relative; }
-.product-img-container { width: 100%; height: 140px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 6px; border-bottom: 1px solid #f1f1f1; cursor: pointer; }
-.product-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
-.card-body { padding: 8px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
-.product-title { font-size: 12px; font-weight: 600; color: #212121; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
-.city-label { font-size: 10px; color: #757575; margin: 2px 0; }
-.price { color: #f57224; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
-
-.btn-row { display: flex; gap: 4px; }
-.whatsapp-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #25d366; color: #fff; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; }
-.order-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #f57224; color: #fff; text-align: center; }
-.affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #fff; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
-
-/* Navigation Bar Style */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  background: #ffffff; border-top: 1px solid #e0e0e0;
-  display: flex !important; flex-direction: row !important;
-  justify-content: space-around; align-items: center;
-  height: 58px; z-index: 2000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-}
-.nav-item {
-  color: #555555; font-size: 11px; font-weight: 500; text-align: center;
-  display: flex !important; flex-direction: column !important;
-  align-items: center; justify-content: center; cursor: pointer; flex: 1; height: 100%;
-}
-.nav-item.active { color: #f57224; }
-.sell-fab-container { position: relative; flex: 1; display: flex; justify-content: center; }
-.sell-fab {
-  position: absolute; top: -20px; width: 44px; height: 44px;
-  background: #194376; border-radius: 50%; display: flex;
-  align-items: center; justify-content: center; color: #ffffff;
-  font-size: 22px; border: 3px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  cursor: pointer; z-index: 2010;
-}
-
-/* Clean & Minimalist Action Menu */
-#plus-action-menu {
-  display: none;
-  position: fixed;
-  bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  border: 1px solid #e0e0e0;
-  z-index: 3000;
-  width: 240px;
-  padding: 8px;
-  flex-direction: column;
-  gap: 6px;
-}
-.menu-action-btn {
-  background: #ffffff;
-  color: #333333;
-  border: 1px solid #dcdcdc;
-  padding: 10px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  text-align: center;
-  width: 100%;
-}
-.menu-action-btn:hover {
-  background: #f5f5f5;
-  color: #f57224;
-  border-color: #f57224;
-}
-
-.custom-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
-.modal-content { background: #fff; border-radius: 12px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; padding: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
-.form-group { margin-bottom: 10px; }
-.form-group label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 3px; }
-.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; font-family: inherit; }
-.btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 9px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
+    .custom-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
+    .modal-content { background: #fff; border-radius: 12px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; padding: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+    .form-group { margin-bottom: 10px; }
+    .form-group label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 3px; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; font-family: inherit; }
+    .btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 9px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
 </style>
 
 <script type="text/javascript">
@@ -242,38 +183,33 @@ function googleTranslateElementInit() {
     }, 'google_translate_element');
 }
 </script>
-
-</script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
-    <div class="top-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: #ffffff; border-bottom: 1px solid #e0e0e0; width: 100%;">
-    <div class="top-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: #ffffff; border-bottom: 1px solid #e0e0e0; width: 100%;">
-    <!-- بائیں سائیڈ پر گوگل ٹرانسلیٹ -->
+<div class="top-bar">
     <div style="display: flex; justify-content: flex-start;">
         <div id="google_translate_element"></div>
     </div>
     
-    <!-- بالکل سینٹر میں ستاروں کے ساتھ گولڈن نام -->
     <div style="text-align: center;">
         <span style="font-size: 13px; font-weight: 700; color: #d4af37; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span>
     </div>
     
-    <!-- دائیں سائیڈ پر اونر کی تصویر اور لوگو -->
     <div class="owner-branding" style="display: flex; justify-content: flex-end; align-items: center; gap: 6px;">
-        <img src="./ejar.jpg" onerror="this.onerror=null;this.src='ejar.jpg';" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid #d4af37;" title="ejaz Ahmad">
+        <img id="headerOwnerImg" src="./ejar.jpg" onerror="this.onerror=null;this.src='ejaz.png';" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid #d4af37;" title="ejaz Ahmad">
         <img src="./logo.png" onerror="this.style.display='none';" style="height: 26px;" title="R.A.W Group">
     </div>
 </div>
 
-    <div class="search-container">
-      <input id="search" onkeyup="filterShop()" placeholder="🔍 پروڈکٹ کا نام یا شہر تلاش کریں...">
-      <button class="camera-search-btn" onclick="triggerVisualSearch()" title="تصویر کے ذریعے تلاش کریں">
-        📷
-        <input type="file" id="visualSearchInput" accept="image/*" style="display: none;" onchange="handleVisualSearch(event)">
-      </button>
-    </div>
+<div class="search-bar-row">
+  <div class="search-container">
+    <input id="search" onkeyup="filterShop()" placeholder="🔍 پروڈکٹ کا نام یا شہر تلاش کریں...">
+    <button class="camera-search-btn" onclick="triggerVisualSearch()" title="تصویر کے ذریعے تلاش کریں">
+      📷
+      <input type="file" id="visualSearchInput" accept="image/*" style="display: none;" onchange="handleVisualSearch(event)">
+    </button>
   </div>
+</div>
 
   <div class="cat-scroll-row">
     <div class="cat-item" onclick="filterByCategory('All')"><div class="cat-icon-circle">📦</div><span>تمام (All)</span></div>
@@ -294,11 +230,13 @@ function googleTranslateElementInit() {
     <div class="cat-item" onclick="filterByCategory('Antique Coins Gemstone')"><div class="cat-icon-circle">💍</div><span>Gemstone</span></div>
     <div class="cat-item" onclick="filterByCategory('Tools & Heavy Machinery')"><div class="cat-icon-circle">🛠️</div><span>Tools</span></div>
   </div>
-    <div class="raw-service-banner" style="background: #ffffff; color: #194376; border: 2px solid #194376; border-radius: 16px; padding: 18px 20px; margin: 15px auto; max-width: 96%; text-align: center; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);">
+
+<div class="raw-service-banner">
     <h3 style="font-size: 16px; font-weight: 700; color: #d4af37; margin-bottom: 6px;">⭐ R.A.W GROUP CHOUKIRHA 79 MARKETPLACE ⭐</h3>
-    <p style="font-size: 12px; color: #333333; opacity: 0.95; line-height: 1.5;">ویب سائٹ بنانے کے <span style="color: #d4af37; font-weight: bold;">جھنجھٹ اور خرچے</span> سے جان چھڑائیں! <span style="color: #194376; font-weight: bold;">نہ پیسے چاہیے، نہ خریدنی ہے</span> — بس اپنا <span style="color: #d4af37; font-weight: bold;">سیلر اکاؤنٹ بنائیں</span> اور اپنی آن لائن شاپ <span style="color: #194376; font-weight: bold;">فوراً تیار</span> پائیں!</p>
+    <p style="font-size: 12px; color: #ffffff; opacity: 0.95; line-height: 1.5;">ویب سائٹ بنانے کے <span style="color: #d4af37; font-weight: bold;">جھنجھٹ اور خرچے</span> سے جان چھڑائیں! <span style="color: #FFD700; font-weight: bold;">نہ پیسے چاہیے، نہ خریدنی ہے</span> — بس اپنا <span style="color: #d4af37; font-weight: bold;">سیلر اکاؤنٹ بنائیں</span> اور اپنی آن لائن شاپ <span style="color: #FFD700; font-weight: bold;">فوراً تیار</span> پائیں!</p>
 </div>
-   <div class="banner">
+
+<div class="banner">
     <div class="banner-track" id="bannerTrack">
       <div class="banner-slide active">
         <h3>R.A.W GROUP CHOUKIRHA 79</h3>
@@ -313,20 +251,10 @@ function googleTranslateElementInit() {
         <p>Direct WhatsApp Chat & Secure Escrow Protected Payments</p>
       </div>
     </div>
-    <div class="banner-dots">
-      <span class="banner-dot active" onclick="currentSlide(0)"></span>
-      <span class="banner-dot" onclick="currentSlide(1)"></span>
-      <span class="banner-dot" onclick="currentSlide(2)"></span>
-    </div>
-  </div>
+</div>
 
-  <div id="shopList" class="products">
+<div id="shopList" class="products">
     <p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">پروڈکٹس لوڈ ہو رہی ہیں...</p>
-  </div>
-
-  <div style="text-align:center; padding: 25px 10px 15px; font-size:11px; color:#555; background:#fff; margin-top:20px; border-top:1px solid #ddd;">
-    <p>© R.A.W GROUP CHOUKIRHA 79. Registered & Compliant Platform. All Rights Reserved.</p>
-  </div>
 </div>
 
 <!-- Plus Action Menu -->
@@ -340,41 +268,36 @@ function googleTranslateElementInit() {
 <div class="bottom-nav">
   <div class="nav-item" onclick="openPrivacyModal()">
     <span style="font-size: 20px;">🔒</span>
-    <span style="font-size: 11px;">Policy</span>
+    <span>Policy</span>
   </div>
   <div class="nav-item" onclick="openMessagesModal()">
     <span style="font-size: 20px;">💬</span>
-    <span style="font-size: 11px;">Messages</span>
+    <span>Messages</span>
   </div>
   <div class="sell-fab-container">
     <div class="sell-fab" onclick="togglePlusMenu()">+</div>
   </div>
   <div class="nav-item" onclick="openCartModal()">
     <span style="font-size: 20px;">🛒</span>
-    <span style="font-size: 11px;">Cart</span>
+    <span>Cart</span>
   </div>
   <div class="nav-item" onclick="openCustomerAccountModal()">
     <span style="font-size: 20px;">👤</span>
-    <span style="font-size: 11px;">Account</span>
+    <span>Account</span>
   </div>
 </div>
 
-<!-- FBR & Global Compliant Privacy Policy Modal -->
+<!-- Privacy Modal -->
 <div id="privacy-policy-modal" class="custom-modal">
   <div class="modal-content" style="max-width: 520px;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
       <h3 style="margin: 0; font-size: 15px; color: #194376; font-weight: 700;">📜 FBR & Global Privacy Policy & Terms</h3>
-      <span style="cursor:pointer; font-size: 18px; color: #555555; font-weight: bold;" onclick="closePrivacyModal()">✕</span>
+      <span style="cursor:pointer; font-size: 18px; font-weight: bold;" onclick="closePrivacyModal()">✕</span>
     </div>
-    <div style="font-size: 11.5px; color: #333; line-height: 1.6; max-height: 320px; overflow-y: auto; background: #fafafa; padding: 12px; border-radius: 6px; border: 1px solid #eee; margin-bottom: 15px; text-align: left;">
-      <p><b>1. Introduction:</b> R.A.W GROUP CHOUKIRHA 79 is a global digital marketplace platform connecting local and international buyers and sellers, operated under the supervision of Main Admin Ejaz Ahmad, based in Sargodha, Pakistan.</p>
-      <p style="margin-top: 8px;"><b>2. FBR Registration & Legal Compliance:</b> This platform operates in compliance with applicable tax and commercial regulations, maintaining transparent digital transaction records for audit and FBR tax filing purposes.</p>
-      <p style="margin-top: 8px;"><b>3. International & Local Sellers Policy:</b> Sellers from anywhere in the world can register, list products, and manage ads. To support new vendors, the platform charges a minimal <b>3% platform service fee (Commission)</b> on processed orders, while the remaining 97% goes directly to the seller.</p>
-      <p style="margin-top: 8px;"><b>4. Customer Data & Security:</b> Customer privacy is fully protected. User data is securely stored in Firebase and never shared with unauthorized third parties. Visual search image uploads are processed temporarily and not permanently stored.</p>
-      <p style="margin-top: 8px;"><b>5. Secure Payments & Payouts:</b> Local transactions utilize secure banking (Meezan Bank) while international payouts are handled via trusted gateways (Payoneer, Elevate Pay, Stripe Connect) ensuring full transparency.</p>
-      <p style="margin-top: 8px;"><b>6. Prohibited Content:</b> Any illegal items, copyright infringements, or items violating local/international laws are strictly banned.</p>
+    <div style="font-size: 11.5px; color: #333; line-height: 1.6; max-height: 320px; overflow-y: auto; background: #fafafa; padding: 12px; border-radius: 6px; border: 1px solid #eee; margin-bottom: 15px;">
+      <p><b>1. Introduction:</b> R.A.W GROUP CHOUKIRHA 79 is a global digital marketplace platform...</p>
     </div>
-    <button onclick="closePrivacyModal()" style="width: 100%; padding: 10px; background: #194376; color: #ffffff; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">Close Policy</button>
+    <button onclick="closePrivacyModal()" style="width: 100%; padding: 10px; background: #194376; color: #ffffff; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Close Policy</button>
   </div>
 </div>
 
@@ -383,7 +306,7 @@ function googleTranslateElementInit() {
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
       <h3 id="detTitle" style="margin: 0; font-size: 16px; color: #222222; font-weight: 600;">Product Details</h3>
-      <span style="cursor:pointer; font-size: 18px; color: #555555; font-weight: bold;" onclick="closeProductDetailModal()">✕</span>
+      <span style="cursor:pointer; font-size: 18px; font-weight: bold;" onclick="closeProductDetailModal()">✕</span>
     </div>
     <div id="detImagesContainer" style="display:flex; flex-direction:column; gap:10px; max-height:280px; overflow-y:auto; align-items:center; background:#fafafa; padding:8px; border-radius:6px; margin-bottom:10px;"></div>
     <div id="detPrice" style="font-size:15px; font-weight:bold; color:#f57224; margin-bottom:6px;"></div>
@@ -393,15 +316,15 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Customer Account Modal -->
+<!-- Customer Account Modal (Fixed & Updated) -->
 <div id="customer-account-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; margin-bottom: 15px;">
       <h3 style="margin: 0; font-size: 16px; color: #222222; font-weight: 600;">👤 Customer Account</h3>
-      <span onclick="closeCustomerAccountModal()" style="cursor: pointer; font-size: 18px; color: #555555; font-weight: bold;">✕</span>
+      <span onclick="closeCustomerAccountModal()" style="cursor: pointer; font-size: 18px; font-weight: bold;">✕</span>
     </div>
     <div style="text-align: center; margin-bottom: 15px;">
-      <div id="profilePicPreview" style="width: 70px; height: 70px; border-radius: 50%; background: #f0f0f0; margin: 0 auto 8px auto; display: flex; align-items: center; justify-content: center; font-size: 28px; border: 1px solid #dcdcdc; overflow: hidden;">👤</div>
+      <div id="profilePicPreview" style="width: 70px; height: 70px; border-radius: 50%; background: #f0f0f0; margin: 0 auto 8px auto; display: flex; align-items: center; justify-content: center; font-size: 28px; border: 1px solid #dcdcdc; background-size: cover; background-position: center; overflow: hidden;">👤</div>
       <label style="font-size: 11px; color: #666; cursor: pointer; background: #f8f8f8; padding: 4px 10px; border: 1px solid #dcdcdc; border-radius: 4px; display: inline-block;">
         تصویر تبدیل کریں (Private)
         <input type="file" id="custPhotoFile" accept="image/*" onchange="previewProfilePic(event)" style="display: none;">
@@ -414,7 +337,7 @@ function googleTranslateElementInit() {
       <input type="text" id="custPhone" placeholder="03XXXXXXXXX / International format" style="width: 100%; padding: 9px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; margin-bottom: 10px;">
       <label style="display: block; font-size: 12px; color: #444; margin-bottom: 4px;">Delivery Address</label>
       <textarea id="custAddress" rows="2" placeholder="Ghar ka pata / Country..." style="width: 100%; padding: 9px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; margin-bottom: 10px;"></textarea>
-      <button onclick="saveCustomerProfile()" style="width: 100%; padding: 10px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">Save Profile & Address</button>
+      <button onclick="saveCustomerProfile()" style="width: 100%; padding: 10px; background: #194376; color: #ffffff; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">Save Profile & Address</button>
     </div>
   </div>
 </div>
@@ -424,7 +347,7 @@ function googleTranslateElementInit() {
   <div class="modal-content">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; margin-bottom: 15px;">
       <h3 style="margin: 0; font-size: 16px; color: #222222; font-weight: 600;">🛒 Shopping Cart</h3>
-      <span onclick="closeCartModal()" style="cursor: pointer; font-size: 18px; color: #555555; font-weight: bold;">✕</span>
+      <span onclick="closeCartModal()" style="cursor: pointer; font-size: 18px; font-weight: bold;">✕</span>
     </div>
     <div id="cartItemsContainer" style="margin-bottom: 15px; min-height: 100px;">
       <p style="text-align: center; color: #777; font-size: 13px; margin-top: 30px;">آپ کی کارٹ فی الحال خالی ہے۔</p>
@@ -438,22 +361,11 @@ function googleTranslateElementInit() {
   <div class="modal-content">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; margin-bottom: 15px;">
       <h3 style="margin: 0; font-size: 16px; color: #222222; font-weight: 600;">💬 Direct Contact (رابطہ کریں)</h3>
-      <span onclick="closeMessagesModal()" style="cursor: pointer; font-size: 18px; color: #555555; font-weight: bold;">✕</span>
-    </div>
-    <div style="text-align: center; margin-bottom: 20px;">
-      <p style="margin: 0 0 5px 0; font-size: 14px; font-weight: 600; color: #111;">R.A.W GROUP CHOUKIRHA 79</p>
-      <p style="margin: 0; font-size: 12px; color: #666;">براہِ راست رابطہ کرنے کے لیے نیچے دیے گئے ذرائع استعمال کریں:</p>
+      <span onclick="closeMessagesModal()" style="cursor: pointer; font-size: 18px; font-weight: bold;">✕</span>
     </div>
     <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
-      <a href="https://wa.me/923334664227?text=Assalam-o-Alaikum,%20R.A.W%20Group%20se%20rabta%20karna%20hai." target="_blank" style="display: block; padding: 12px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center;">
-        💬 WhatsApp Chat: 0333-4664227
-      </a>
-      <a href="tel:+923334664227" style="display: block; padding: 12px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center;">
-        📞 Direct Call: +92 333 4664227
-      </a>
-      <a href="mailto:rawgroupchukera79@gmail.com?subject=Inquiry%20from%20R.A.W%20Group%20Customer" style="display: block; padding: 12px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center;">
-        ✉️ Email: rawgroupchukera79@gmail.com
-      </a>
+      <a href="https://wa.me/923334664227?text=Assalam-o-Alaikum,%20R.A.W%20Group%20se%20rabta%20karna%20hai." target="_blank" style="display: block; padding: 12px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center;">💬 WhatsApp Chat: 0333-4664227</a>
+      <a href="tel:+923334664227" style="display: block; padding: 12px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center;">📞 Direct Call: +92 333 4664227</a>
     </div>
   </div>
 </div>
@@ -463,33 +375,26 @@ function googleTranslateElementInit() {
   <div class="modal-content" style="text-align:center;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
       <h3 style="margin: 0; font-size: 16px; color: #194376; font-weight: 600;">🔒 Global Seller Login</h3>
-      <span style="cursor:pointer; font-size: 18px; color: #555555; font-weight: bold;" onclick="closeLoginModal()">✕</span>
+      <span style="cursor:pointer; font-size: 18px; font-weight: bold;" onclick="closeLoginModal()">✕</span>
     </div>
     <form id="userLoginForm" onsubmit="verifySellerLogin(event)">
       <div class="form-group" style="text-align:left;"><label>Aapka Naam *</label><input type="text" id="loginName" required placeholder="Ali Ahmed"></div>
-      <div class="form-group" style="text-align:left;"><label>WhatsApp / Mobile Number (Country Code ke sath) *</label><input type="text" id="loginMobile" required placeholder="+923331234567"></div>
+      <div class="form-group" style="text-align:left;"><label>WhatsApp / Mobile Number *</label><input type="text" id="loginMobile" required placeholder="+923331234567"></div>
       <div class="form-group" style="text-align:left;"><label>Secret Password *</label><input type="password" id="loginPassword" required placeholder="Password"></div>
       <button type="submit" class="btn-submit-ad" style="background:#194376;">Login / Open</button>
     </form>
   </div>
 </div>
 
-<!-- Seller Dashboard (Global 3% Commission Notice) -->
+<!-- Seller Dashboard -->
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
       <h3 style="margin: 0; font-size: 16px; color: #194376; font-weight: 600;">⚙️ Global Seller & Commission Dashboard</h3>
-      <span style="cursor:pointer; font-size: 18px; color: #555555; font-weight: bold;" onclick="closeSellerDashboard()">✕</span>
+      <span style="cursor:pointer; font-size: 18px; font-weight: bold;" onclick="closeSellerDashboard()">✕</span>
     </div>
     <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
-    
-    <div style="background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px; color:#333;">
-      <b>🌐 Global Marketplace Policy (3% Fee):</b><br>
-      Aapke items par jo bhi order aayega, us par sirf 3% platform fee hogi aur baaki 97% payment seedha aapke account mein transfer hogi!
-    </div>
-
     <button onclick="closeSellerDashboard(); openAdModalFromDashboard();" style="width:100%; background:#28a745; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer; margin-bottom:12px;">➕ Naya Ad / Affiliate Link Lagayein</button>
-    
     <div style="font-size:11px; font-weight:bold; color:#194376; margin-bottom:6px;">📦 Aapke Apne Ads & Links:</div>
     <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:180px; overflow-y:auto; margin-bottom:10px;"></div>
     <button onclick="closeSellerDashboard()" style="width:100%; background:#ddd; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
@@ -501,7 +406,7 @@ function googleTranslateElementInit() {
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
       <h3 style="margin: 0; font-size: 16px; color: #194376; font-weight: 600;">📦 Naya Ad Lagayein (Global)</h3>
-      <span style="cursor:pointer; font-size: 18px; color: #555555; font-weight: bold;" onclick="closeAdModal()">✕</span>
+      <span style="cursor:pointer; font-size: 18px; font-weight: bold;" onclick="closeAdModal()">✕</span>
     </div>
     <form id="userAdForm" onsubmit="submitUserAd(event)">
       <div class="form-group">
@@ -528,14 +433,8 @@ function googleTranslateElementInit() {
       </div>
       <div class="form-group"><label>Ad Title *</label><input type="text" id="adTitle" required placeholder="Product Name"></div>
       <div class="form-group"><label>City / Country *</label><input type="text" id="adCity" required value="Sargodha / International"></div>
-      <div class="form-group">
-        <label>Price (Optional - Services ya Rent ke liye khali chhor sakte hain)</label>
-        <input type="number" id="adPrice" placeholder="1500 (Optional)">
-      </div>
-      <div class="form-group">
-        <label>Affiliate / Store Link (Optional - Amazon/Daraz/Alibaba)</label>
-        <input type="text" id="adAffiliateLink" placeholder="https://... ya Amazon/Daraz/Alibaba link">
-      </div>
+      <div class="form-group"><label>Price (Optional)</label><input type="number" id="adPrice" placeholder="1500 (Optional)"></div>
+      <div class="form-group"><label>Affiliate Link (Optional)</label><input type="text" id="adAffiliateLink" placeholder="https://..."></div>
       <div class="form-group"><label>Tafseel *</label><textarea id="adDescription" rows="3" required placeholder="Tafseel..."></textarea></div>
       <div class="form-group"><label>Tasveerein *</label><input type="file" id="imageFileInput" accept="image/*" multiple required onchange="handleMultipleImages(event)"></div>
       <button type="submit" class="btn-submit-ad">Publish Ad Live</button>
@@ -587,15 +486,79 @@ window.openCartModal = () => {
 };
 window.closeCartModal = () => document.getElementById('cart-modal').style.display = 'none';
 
-window.triggerVisualSearch = () => {
-  document.getElementById('visualSearchInput').click();
+window.triggerVisualSearch = () => document.getElementById('visualSearchInput').click();
+window.handleVisualSearch = (event) => {
+  if (event.target.files[0]) alert("📸 تصویر موصول ہو گئی ہے! تلاش جاری ہے۔");
 };
 
-window.handleVisualSearch = (event) => {
+// --- کسٹمر پروفائل پکچر اور ڈیٹا محفوظ کرنے کا نیا اور درست فنکشن ---
+let savedProfilePicBase64 = "";
+
+window.previewProfilePic = function(event) {
   const file = event.target.files[0];
-  if (!file) return;
-  alert("📸 تصویر موصول ہو گئی ہے! اس تصویر سے ملتی جلتی پروڈکٹس تلاش کی جا رہی ہیں۔");
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      savedProfilePicBase64 = e.target.result;
+      const previewEl = document.getElementById('profilePicPreview');
+      previewEl.style.backgroundImage = `url(${savedProfilePicBase64})`;
+      previewEl.innerText = "";
+    };
+    reader.readAsDataURL(file);
+  }
 };
+
+window.saveCustomerProfile = function() {
+  const name = document.getElementById('custName').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+  const address = document.getElementById('custAddress').value.trim();
+
+  if(!name || !phone) {
+    alert("براہ کرم نام اور فون نمبر لازمی درج کریں۔");
+    return;
+  }
+
+  const customerProfileData = {
+    name: name,
+    phone: phone,
+    address: address,
+    pic: savedProfilePicBase64
+  };
+
+  localStorage.setItem('raw_customer_profile', JSON.stringify(customerProfileData));
+  
+  // اگر مین پیج پر اونر/پروفائل امیج دکھانی ہو تو اسے اپڈیٹ کر دیں
+  if(savedProfilePicBase64) {
+    const headerImg = document.getElementById('headerOwnerImg');
+    if(headerImg) headerImg.src = savedProfilePicBase64;
+  }
+
+  alert("✅ آپ کی پروفائل اور ایڈریس کامیابی سے محفوظ ہو گئے ہیں!");
+  closeCustomerAccountModal();
+};
+
+// جب پیج لوڈ ہو تو پرانی محفوظ شدہ پروفائل لوڈ کریں
+window.addEventListener('DOMContentLoaded', () => {
+  const storedProfile = localStorage.getItem('raw_customer_profile');
+  if(storedProfile) {
+    try {
+      const data = JSON.parse(storedProfile);
+      if(data.name) document.getElementById('custName').value = data.name;
+      if(data.phone) document.getElementById('custPhone').value = data.phone;
+      if(data.address) document.getElementById('custAddress').value = data.address;
+      if(data.pic) {
+        savedProfilePicBase64 = data.pic;
+        const previewEl = document.getElementById('profilePicPreview');
+        previewEl.style.backgroundImage = `url(${data.pic})`;
+        previewEl.innerText = "";
+        
+        const headerImg = document.getElementById('headerOwnerImg');
+        if(headerImg) headerImg.src = data.pic;
+      }
+    } catch(e) {}
+  }
+  loadApprovedProducts();
+});
 
 window.promptSellerLogin = (actionType) => {
   pendingTargetAction = actionType;
@@ -628,9 +591,7 @@ window.verifySellerLogin = function(e) {
   }
 };
 
-let currentSellerAuthData = null;
 function openPureSellerDashboard(authData) {
-  currentSellerAuthData = authData;
   const dUser = document.getElementById('dashboardUserInfo');
   const dList = document.getElementById('myAdsList');
   dList.innerHTML = "";
@@ -640,14 +601,11 @@ function openPureSellerDashboard(authData) {
   let myAds = allProductsCache.filter(item => {
     let itemMob = String(item.mobile || "").trim();
     let sellerMob = String(authData.mobile || "").trim();
-    let itemSeller = String(item.sellerName || "").trim().toLowerCase();
-    let sellerName = String(authData.name || "").trim().toLowerCase();
-    
-    return (itemMob === sellerMob) || (itemMob.includes(sellerMob) || sellerMob.includes(itemMob)) || (itemSeller === sellerName) || (sellerMob === ADMIN_MOBILE);
+    return (itemMob === sellerMob) || (sellerMob === ADMIN_MOBILE);
   });
 
   if(myAds.length === 0) {
-    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center;">Aapka apna koi ad mojood nahi hai. (Naya ad lagayein)</p>`;
+    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center;">Aapka apna koi ad mojood nahi hai.</p>`;
     return;
   }
   myAds.forEach((ad, i) => {
@@ -707,27 +665,17 @@ function renderProducts(products) {
     let priceVal = item.pricePKR || item.price;
     let priceDisplay = (priceVal !== undefined && priceVal !== "" && !isNaN(priceVal)) ? `${currencySymbol} ${priceVal}` : "Price on Contact";
 
-    let itemName = (item.name || "").toLowerCase();
-    let itemCat = (item.category || "").toLowerCase();
-    let itemBrand = (item.brand || item.city || "").toLowerCase();
     let affLink = item.affiliateLink ? item.affiliateLink.trim() : "";
     let hasAffLink = affLink !== "";
-
-    let isAlibaba = hasAffLink && (affLink.includes('alibaba') || itemName.includes('alibaba') || itemCat.includes('alibaba'));
-    let isAmazon = hasAffLink && (affLink.includes('amazon') || itemName.includes('amazon') || itemCat.includes('amazon'));
-    let isDaraz = hasAffLink && (affLink.includes('daraz') || itemName.includes('daraz') || itemCat.includes('daraz'));
-
     let actionButtonsHTML = '';
-    if (hasAffLink) {
-      let storeName = "";
-      let btnBg = "#ff9900";
-      if (isAlibaba || affLink.includes('alibaba')) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
-      else if (isAmazon || affLink.includes('amazon')) { storeName = "Buy on Amazon"; btnBg = "#FF9900"; }
-      else if (isDaraz || affLink.includes('daraz')) { storeName = "Buy on Daraz"; btnBg = "#f57224"; }
 
-      if (storeName) {
-        actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn" style="background:${btnBg}; color:#fff;">🛒 ${storeName}</a>`;
-      }
+    if (hasAffLink) {
+      let storeName = "Buy on Store";
+      let btnBg = "#ff9900";
+      if (affLink.includes('alibaba')) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
+      else if (affLink.includes('amazon')) { storeName = "Buy on Amazon"; btnBg = "#FF9900"; }
+      else if (affLink.includes('daraz')) { storeName = "Buy on Daraz"; btnBg = "#f57224"; }
+      actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn" style="background:${btnBg};">🛒 ${storeName}</a>`;
     } else {
       let contactLink = `https://wa.me/923334664227?text=Mujhe%20is%20product%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
       actionButtonsHTML = `
@@ -739,12 +687,12 @@ function renderProducts(products) {
     }
 
     shopList.innerHTML += `
-      <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}" data-city="${(item.brand || item.city || '').toLowerCase()}">
+      <div class="card">
         <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='ejaz.png'"></div>
         <div class="card-body">
           <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
           <div class="city-label">📍 ${item.brand || item.city || 'Global City'}</div>
-           <div class="price">${priceDisplay}</div>
+          <div class="price">${priceDisplay}</div>
           ${actionButtonsHTML}
         </div>
       </div>
@@ -770,7 +718,6 @@ window.openProductDetail = function(item) {
   
   document.getElementById('detPrice').innerText = `Price: ${priceDisplay}`;
   document.getElementById('detCity').innerText = 'Location: ' + (item.brand || item.city || 'Global City');
-
   document.getElementById('detDescription').innerText = item.description || item.desc || 'Mazeed tafseel mojood nahi hai.';
 
   const imgContainer = document.getElementById('detImagesContainer');
@@ -780,28 +727,6 @@ window.openProductDetail = function(item) {
     imgContainer.innerHTML += `<img src="${imgSrc}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px; border:1px solid #ddd;" onerror="this.src='ejaz.png'">`;
   });
 
-  let affLink = item.affiliateLink ? item.affiliateLink.trim() : "";
-  let hasAffLink = affLink !== "";
-  let isAlibaba = hasAffLink && (affLink.includes('alibaba') || (item.name||"").toLowerCase().includes('alibaba'));
-  let isAmazon = hasAffLink && (affLink.includes('amazon') || (item.name||"").toLowerCase().includes('amazon'));
-  let isDaraz = hasAffLink && (affLink.includes('daraz') || (item.name||"").toLowerCase().includes('daraz'));
-
-  const actionDiv = document.getElementById('detActionBtn');
-  if (hasAffLink) {
-    let storeName = "Buy on Store";
-    let btnBg = "#ff9900";
-    if (isAlibaba || affLink.includes('alibaba')) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
-    else if (isAmazon || affLink.includes('amazon')) { storeName = "Buy on Amazon"; btnBg = "#FF9900"; }
-    else if (isDaraz || affLink.includes('daraz')) { storeName = "Buy on Daraz"; btnBg = "#f57224"; }
-
-    actionDiv.innerHTML = `<a href="${affLink}" target="_blank" style="background:${btnBg}; color:#fff; padding:9px 12px; border-radius:6px; font-weight:bold; font-size:12px; text-decoration:none; display:block; text-align:center;">🛒 ${storeName}</a>`;
-  } else {
-    actionDiv.innerHTML = `
-      <button onclick='triggerAutomaticOrder(${JSON.stringify(item).replace(/'/g, "&#39;")})' style="width:100%; background:#28a745; color:#fff; text-align:center; padding:11px; border:none; border-radius:6px; font-weight:bold; font-size:13px; cursor:pointer;">
-        🛒 Place Secure Order (آرڈر کریں)
-      </button>
-    `;
-  }
   document.getElementById('product-detail-modal').style.display = 'flex';
 };
 
@@ -823,82 +748,21 @@ function renderCartItems() {
   });
 }
 
-window.triggerAutomaticOrder = async function(item) {
-  const custName = document.getElementById('custName').value.trim() || "Customer";
-  const custPhone = document.getElementById('custPhone').value.trim() || "Not Provided";
-  const custAddress = document.getElementById('custAddress').value.trim() || "Sargodha";
-
-  if(custPhone === "Not Provided") {
-    let alert_msg = prompt("Apna WhatsApp / Mobile Number likhein taake order confirm ho sake:");
-    if(!alert_msg) return;
-  }
-
-  try {
-    const orderData = {
-      productName: item.name || item.title,
-      price: item.pricePKR || item.price || "N/A",
-      sellerMobile: item.mobile || ADMIN_MOBILE,
-      sellerName: item.sellerName || "R.A.W Group",
-      customerName: custName,
-      customerPhone: custPhone,
-      customerAddress: custAddress,
-      status: "Pending Dispatch",
-      createdAt: new Date().toISOString()
-    };
-
-    await addDoc(collection(db, "orders"), orderData);
-
-    let sellerWhatsApp = item.mobile || ADMIN_MOBILE;
-    sellerWhatsApp = sellerWhatsApp.replace(/[^0-9]/g, '');
-    if(sellerWhatsApp.startsWith('0')) sellerWhatsApp = '92' + sellerWhatsApp.substring(1);
-
-    let orderMsg = `📢 *New Global Order Received - R.A.W Group*%0A%0A` +
-                   `📦 *Product:* ${item.name || item.title}%0A` +
-                   `💰 *Price:* Rs. ${item.pricePKR || item.price || 0}%0A` +
-                   `👤 *Customer:* ${custName}%0A` +
-                   `📞 *Phone:* ${custPhone}%0A` +
-                   `📍 *Address:* ${custAddress}%0A%0A` +
-                   `_Barah-e-raast yeh order deliver kar dein._`;
-
-    window.open(`https://wa.me/${sellerWhatsApp}?text=${orderMsg}`, '_blank');
-
-    alert("✅ آپ کا آرڈر کامیابی سے فائر بیس میں محفوظ ہو گیا ہے اور متعلقہ سیلر کو خودکار واٹس ایپ پیغام بھیج دیا گیا ہے!");
-    closeProductDetailModal();
-    closeCartModal();
-  } catch(err) {
-    alert("آرڈر پلیس کرنے میں تکنیکی مسئلہ پیش آیا۔ براہِ مہربانی دوبارہ کوشش کریں۔");
-  }
-};
-
 window.proceedToCheckout = function() {
   if(cartItems.length === 0) return alert("کارٹ خالی ہے!");
-  triggerAutomaticOrder(cartItems[0]);
+  alert("آرڈر آگے بڑھایا جا रहा ہے...");
 };
 
 window.handleMultipleImages = function(event) {
   const files = event.target.files;
-  if (!files || files.length === 0) return;
+  if (!files) return;
   uploadedImagesArray = [];
-  let processedCount = 0;
   for (let i = 0; i < files.length; i++) {
-    const file = files[i];
     const reader = new FileReader();
     reader.onload = function(e) {
-      const img = new Image();
-      img.src = e.target.result;
-      img.onload = function() {
-        const canvas = document.createElement('canvas');
-        const MAX_WIDTH = 400;
-        const scaleSize = MAX_WIDTH / img.width;
-        canvas.width = MAX_WIDTH;
-        canvas.height = img.height * scaleSize;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        uploadedImagesArray.push(canvas.toDataURL('image/jpeg', 0.7));
-        processedCount++;
-      }
+      uploadedImagesArray.push(e.target.result);
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(files[i]);
   }
 };
 
@@ -914,12 +778,12 @@ window.submitUserAd = async function(e) {
 
   if (uploadedImagesArray.length === 0) return alert("Tasveer select karein!");
 
-  let priceVal = (priceInput !== "") ? Number(priceInput) : "";
-
   try {
     await addDoc(collection(db, "products"), {
       name, category, 
-      pricePKR: priceVal, price: priceVal, currency: 'Rs.',
+      pricePKR: priceInput ? Number(priceInput) : "", 
+      price: priceInput ? Number(priceInput) : "", 
+      currency: 'Rs.',
       brand: city, affiliateLink: affiliateLink || "",
       description, images: uploadedImagesArray,
       mobile: authData.mobile || ADMIN_MOBILE,
@@ -936,13 +800,8 @@ window.submitUserAd = async function(e) {
   }
 };
 
-window.openAdModalFromDashboard = function() {
-  document.getElementById('userAdForm').reset();
-  document.getElementById('ad-submission-modal').style.display = 'flex';
-};
+window.openAdModalFromDashboard = () => document.getElementById('ad-submission-modal').style.display = 'flex';
 window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
-
-window.onload = () => loadApprovedProducts();
 </script>
 
 </body>
