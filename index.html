@@ -69,11 +69,11 @@ function googleTranslateElementInit() {
 <body>
     <div class="top-bar">
     <div style="display: flex; justify-content: flex-start;"><div id="google_translate_element"></div></div>
-    <!-- شاپ کا مین نام بڑا اور نمایاں کر دیا گیا ہے -->
-    <div style="text-align: center;"><span style="font-size: 15px; font-weight: 800; color: #d4af37; letter-spacing: 0.5px;">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span></div>
+    <!-- شاپ کا مین نام اب کافی بڑا اور واضح کر دیا گیا ہے -->
+    <div style="text-align: center;"><span style="font-size: 17px; font-weight: 800; color: #d4af37; letter-spacing: 0.5px;">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span></div>
     <div class="owner-branding" style="display: flex; justify-content: flex-end; align-items: center; gap: 6px;">
-        <img src="ejaz.jpg" onerror="this.onerror=null;this.src='./ejaz.jpg';" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid #d4af37;" title="ejaz Ahmad">
-        <img src="logo.png" onerror="this.style.display='none';" style="height: 28px;" title="R.A.W Group">
+        <img src="ejaz.jpg" onerror="this.onerror=null;this.src='./ejaz.jpg';" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #d4af37;" title="ejaz Ahmad">
+        <img src="logo.png" onerror="this.style.display='none';" style="height: 30px;" title="R.A.W Group">
     </div>
 </div>
 
@@ -249,7 +249,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Seller Dashboard Modal -->
+<!-- Seller Dashboard Modal (Updated with Product Pictures for clear identification) -->
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
@@ -264,8 +264,8 @@ function googleTranslateElementInit() {
 
     <button onclick="closeSellerDashboard(); openAdModalFromDashboard();" style="width:100%; background:#28a745; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer; margin-bottom:12px;">➕ Naya Ad Lagayein</button>
     
-    <div style="font-size:11px; font-weight:bold; color:#194376; margin-bottom:6px;">📦 Your Products (Unified):</div>
-    <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:180px; overflow-y:auto; margin-bottom:10px;"></div>
+    <div style="font-size:11px; font-weight:bold; color:#194376; margin-bottom:6px;">📦 Your Products (Unified with Images):</div>
+    <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:220px; overflow-y:auto; margin-bottom:10px;"></div>
     
     <button onclick="closeSellerDashboard()" style="width:100%; background:#ddd; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
   </div>
@@ -438,7 +438,7 @@ async function loadFirebaseCustomerOrders(phone) {
     });
 
     if(myOrders.length === 0) {
-      container.innerHTML = `<p style="text-align:center; color:#666; padding:10px;">ابھی تک آپ کا فائر بیس میں کوئی آرڈر درج نہیں ہے۔</p>`;
+      container.innerHTML = `<p style="font-size:11px; text-align:center; color:#666; padding:10px;">ابھی تک آپ کا فائر بیس میں کوئی آرڈر درج نہیں ہے۔</p>`;
       return;
     }
 
@@ -454,7 +454,7 @@ async function loadFirebaseCustomerOrders(phone) {
       `;
     });
   } catch(err) {
-    container.innerHTML = `<p style="text-align:center; color:red;">فائر بیس سے آرڈرز لوڈ کرنے میں مسئلہ آیا ہے۔</p>`;
+    container.innerHTML = `<p style="font-size:11px; text-align:center; color:red;">فائر بیس سے آرڈرز لوڈ کرنے میں مسئلہ آیا ہے۔</p>`;
   }
 }
 
@@ -487,6 +487,7 @@ window.verifySellerLogin = function(e) {
   else openPureSellerDashboard(authData);
 };
 
+// سیلر ڈیش بورڈ میں پروڈکٹ کی تصویر، نام اور قیمت شو کرنے کا اپڈیٹڈ فنکشن
 function openPureSellerDashboard(authData) {
   const dUser = document.getElementById('dashboardUserInfo');
   const dList = document.getElementById('myAdsList');
@@ -506,10 +507,21 @@ function openPureSellerDashboard(authData) {
   }
 
   myAds.forEach((ad, i) => {
+    let imgList = ad.images || (ad.img ? [ad.img] : ['ejaz.jpg']);
+    let prodImg = imgList[0];
+    let prodTitle = ad.name || ad.title || 'Product';
+    let prodPrice = (ad.pricePKR || ad.price) ? `Rs. ${ad.pricePKR || ad.price}` : 'Price on Contact';
+
     dList.innerHTML += `
-      <div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:6px; border-radius:6px; margin-bottom:4px;">
-        <span style="font-size:11px; font-weight:bold; color:#194376;">${i+1}. ${ad.name || ad.title} <span style="font-size:9px; color:#555;">(By: ${ad.sellerName || 'Partner'})</span></span>
-        <button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer;">Delete</button>
+      <div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:6px; border-radius:6px; margin-bottom:5px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <img src="${prodImg}" style="width:36px; height:36px; object-fit:contain; border-radius:4px; border:1px solid #ccc; background:#fff;" onerror="this.src='ejaz.jpg'">
+          <div>
+            <div style="font-size:11px; font-weight:bold; color:#194376;">${i+1}. ${prodTitle}</div>
+            <div style="font-size:10px; color:#f57224; font-weight:bold;">${prodPrice}</div>
+          </div>
+        </div>
+        <button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:5px 10px; border-radius:4px; font-size:11px; cursor:pointer; font-weight:bold;">Delete</button>
       </div>`;
   });
 }
