@@ -229,17 +229,24 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Seller Dashboard Modal -->
+<!-- Seller Dashboard Modal (Unified by Mobile Number) -->
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
-      <h3 style="margin:0; font-size:16px; color:#194376;">⚙️ Seller & Commission Dashboard</h3>
+      <h3 style="margin:0; font-size:16px; color:#194376;">⚙️ Seller Dashboard & Unified Hub</h3>
       <span style="cursor:pointer; font-size:18px;" onclick="closeSellerDashboard()">✕</span>
     </div>
     <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
-    <div style="background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px;"><b>🌐 Marketplace Policy:</b> 3% platform fee, 97% to seller!</div>
+    
+    <div style="background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px;">
+      <b>🌐 Unified Account Notice:</b> آپ کے اس موبائل نمبر سے جڑے ہوئے تمام اکاؤنٹس اور پروڈکٹس یہاں ایک ہی جگہ یکجا شو ہو رہے ہیں (3% فیس پالیسی لاگو ہے)۔
+    </div>
+
     <button onclick="closeSellerDashboard(); openAdModalFromDashboard();" style="width:100%; background:#28a745; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer; margin-bottom:12px;">➕ Naya Ad Lagayein</button>
+    
+    <div style="font-size:11px; font-weight:bold; color:#194376; margin-bottom:6px;">📦 آپ کی تمام پروڈکٹس (Unified Products):</div>
     <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:180px; overflow-y:auto; margin-bottom:10px;"></div>
+    
     <button onclick="closeSellerDashboard()" style="width:100%; background:#ddd; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
   </div>
 </div>
@@ -264,7 +271,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Custom Secure Escrow Order Form Modal -->
+<!-- Custom Secure Escrow Order Form Modal with GPS & Cancel -->
 <div id="customOrderModal" class="custom-modal">
   <div class="modal-content" style="max-width:450px; text-align:right;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
@@ -285,10 +292,23 @@ function googleTranslateElementInit() {
     <form id="secureOrderForm" onsubmit="submitSecureOrder(event)">
       <div class="form-group"><label>آپ کا پورا نام (Full Name) *</label><input type="text" id="custFullName" required placeholder="अपना नाम लिखें"></div>
       <div class="form-group"><label>موبائل / واٹس ایپ نمبر (Phone Number) *</label><input type="tel" id="custPhoneNum" required placeholder="03XXXXXXXXX"></div>
-      <div class="form-group"><label>مکمل پتہ اور شہر (Complete Address) *</label><textarea id="custFullAddress" rows="2" required placeholder="گلی نمبر، محلہ، شہر..."></textarea></div>
-      <button type="submit" style="width:100%; background:#28a745; color:white; border:none; padding:11px; font-size:14px; font-weight:bold; border-radius:6px; cursor:pointer; margin-top:5px;">
-        ✅ Place Secure Order (آرڈر کنفرم کریں)
-      </button>
+      
+      <div class="form-group">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+          <label style="margin:0;">مکمل پتہ اور شہر (Complete Address) *</label>
+          <button type="button" onclick="getLiveLocation()" style="background:#194376; color:#fff; border:none; padding:3px 8px; border-radius:4px; font-size:10px; cursor:pointer; font-weight:bold;">📍 Get Live GPS Location</button>
+        </div>
+        <textarea id="custFullAddress" rows="2" required placeholder="گلی نمبر، محلہ، شہر یا لائیو لوکیشن لنک..."></textarea>
+      </div>
+
+      <div style="display:flex; gap:8px; margin-top:5px;">
+        <button type="submit" style="flex:2; background:#28a745; color:white; border:none; padding:11px; font-size:13px; font-weight:bold; border-radius:6px; cursor:pointer;">
+          ✅ Place Secure Order
+        </button>
+        <button type="button" onclick="closeCustomOrderModal()" style="flex:1; background:#d9534f; color:white; border:none; padding:11px; font-size:13px; font-weight:bold; border-radius:6px; cursor:pointer;">
+          ❌ Cancel
+        </button>
+      </div>
     </form>
   </div>
 </div>
@@ -349,26 +369,44 @@ window.closeLoginModal = () => document.getElementById('user-login-modal').style
 window.verifySellerLogin = function(e) {
   e.preventDefault();
   const name = document.getElementById('loginName').value.trim();
-  const mobile = document.getElementById('loginMobile').value.trim();
+  const mobile = document.getElementById('loginMobile').value.replace(/\D/g, ''); // نمبر کو بالکل صاف کرنا تاکہ مختلف فارمیٹ میچ ہو جائیں
   const password = document.getElementById('loginPassword').value.trim();
   if(!name || !mobile || !password) return alert("Tamam fields pur karein!");
+  
   const authData = { name, mobile, password };
   localStorage.setItem('raw_locked_seller_auth', JSON.stringify(authData));
   closeLoginModal();
+  
   if(pendingTargetAction === 'post') document.getElementById('ad-submission-modal').style.display = 'flex';
   else openPureSellerDashboard(authData);
 };
 
+// ایک ہی نمبر کے تمام اکاؤنٹس اور پروڈکٹس کو ایک ہی جگہ یکجا دکھانے کا فنکشن
 function openPureSellerDashboard(authData) {
   const dUser = document.getElementById('dashboardUserInfo');
   const dList = document.getElementById('myAdsList');
   dList.innerHTML = "";
-  dUser.innerHTML = `👤 Seller: <b>${authData.name}</b> (${authData.mobile})`;
+  dUser.innerHTML = `👤 Active Seller Name: <b>${authData.name}</b> | Mobile: <b>${authData.mobile}</b>`;
   document.getElementById('seller-dashboard-modal').style.display = 'flex';
-  let myAds = allProductsCache.filter(item => String(item.mobile || "").trim() === String(authData.mobile || "").trim());
-  if(myAds.length === 0) { dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center;">Koi ad mojood nahi hai.</p>`; return; }
+
+  // موبائل نمبر کی بنیاد پر تمام پروڈکٹس کو ایک ہی جگہ اکٹھا کرنا (خواہ نام مختلف ہوں)
+  let cleanLoginMob = String(authData.mobile || "").replace(/\D/g, '');
+  let myAds = allProductsCache.filter(item => {
+    let itemMob = String(item.mobile || "").replace(/\D/g, '');
+    return itemMob.includes(cleanLoginMob) || cleanLoginMob.includes(itemMob) || (cleanLoginMob === ADMIN_MOBILE.replace(/\D/g, ''));
+  });
+
+  if(myAds.length === 0) {
+    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center;">اس نمبر پر فی الحال کوئی پروڈکٹ درج نہیں ہے۔ (نئی پروڈکٹ شامل کریں)</p>`;
+    return;
+  }
+
   myAds.forEach((ad, i) => {
-    dList.innerHTML += `<div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:6px; border-radius:6px; margin-bottom:4px;"><span style="font-size:11px; font-weight:bold;">${i+1}. ${ad.name || ad.title}</span><button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer;">Delete</button></div>`;
+    dList.innerHTML += `
+      <div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:6px; border-radius:6px; margin-bottom:4px;">
+        <span style="font-size:11px; font-weight:bold; color:#194376;">${i+1}. ${ad.name || ad.title} <span style="font-size:9px; color:#555;">(By: ${ad.sellerName || 'Partner'})</span></span>
+        <button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer;">Delete</button>
+      </div>`;
   });
 }
 
@@ -452,6 +490,22 @@ window.openCustomOrderModal = function(item) {
 };
 window.closeCustomOrderModal = () => document.getElementById('customOrderModal').style.display = 'none';
 
+window.getLiveLocation = function() {
+  if (!navigator.geolocation) { alert("آپ کا براؤزر GPS لوکیشن کو سپورٹ نہیں کرتا۔"); return; }
+  alert("📍 آپ کی لائیو لوکیشن لی جا رہی ہے، براہ کرم اجازت (Allow) دیں...");
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const mapsLink = `https://maps.google.com/?q=${lat},${lon}`;
+      document.getElementById('custFullAddress').value = `Live GPS Location: ${mapsLink}`;
+      alert("✅ آپ کی لائیو لوکیشن کامیابی سے پتے میں درج کر دی گئی ہے!");
+    },
+    (error) => { alert("لوکیشن حاصل کرنے میں خرابی ہوئی: براہ کرم GPS آن کریں۔"); },
+    { enableHighAccuracy: true, timeout: 10000 }
+  );
+};
+
 window.submitSecureOrder = async function(event) {
   event.preventDefault();
   const custName = document.getElementById('custFullName').value.trim();
@@ -470,7 +524,7 @@ window.submitSecureOrder = async function(event) {
       `💰 *Price:* Rs. ${item.pricePKR || item.price || 'N/A'}\n` +
       `👤 *Customer:* ${custName}\n` +
       `📞 *Phone:* ${custPhone}\n` +
-      `📍 *Address:* ${custAddress}\n` +
+      `📍 *Address / Location:* ${custAddress}\n` +
       `_Platform Commission: 3% (Escrow Protected Delivery)_`;
 
     window.open(`https://wa.me/${sellerWhatsApp}?text=${encodeURIComponent(orderMsg)}`, '_blank');
