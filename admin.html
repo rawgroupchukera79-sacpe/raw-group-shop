@@ -76,7 +76,7 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
   <input id="name" placeholder="پروڈکٹ کا نام *">
   <input id="brand" placeholder="برانڈ یا شہر (e.g. Sargodha / London / Dubai)">
   
-  <!-- کرنسی کنورٹر (لائیو اور قابلِ اعتماد ریٹس کے ساتھ) -->
+  <!-- لائیو کرنسی ریٹ (پرانا ورکنگ موڈ) -->
   <div class="price-row">
     <select id="adCurrency" onchange="convertLiveCurrency()">
       <option value="Rs.">PKR (Rs.)</option>
@@ -101,7 +101,7 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
   
   <hr style="margin:15px 0; border:1px dashed #FF8C00;">
   
-  <!-- Registered Sellers Manager -->
+  <!-- Registered Sellers Manager (یونیک سیلر اکاؤنٹس) -->
   <div style="background:#e8f5e9; border:2px dashed #2e7d32; padding:10px; border-radius:10px; margin-bottom:15px;">
     <h3 style="color:#1b5e20; font-size:14px; text-align:center; margin-bottom:8px;">👥 Registered Sellers & Direct Contact Manager</h3>
     <div id="sellersList" style="text-align:right;">لوڈ ہو رہا ہے...</div>
@@ -145,25 +145,25 @@ document.getElementById('logoutBtn').addEventListener('click',()=>{
 });
 if(sessionStorage.getItem('raw_logged_in')==='true'){loginBox.style.display='none'; adminPanel.style.display='block';}
 
-// کرنسی ریٹس (لائیو اور اپڈیٹڈ ریٹس)
-let currencyRates = { USD: 280, AED: 76, GBP: 350, EUR: 300 };
+// لائیو کرنسی ریٹ سسٹم
+let liveRates = { USD: 280, AED: 76, GBP: 350, EUR: 300 };
 
-async function fetchLiveExchangeRates() {
+async function fetchLiveRates() {
   try {
     let res = await fetch('https://open.er-api.com/v6/latest/USD');
     let data = await res.json();
-    if(data && data.rates) {
-        let pkrRate = data.rates.PKR || 280;
-        currencyRates.USD = pkrRate;
-        currencyRates.AED = pkrRate / 3.67;
-        currencyRates.GBP = pkrRate / data.rates.GBP;
-        currencyRates.EUR = pkrRate / data.rates.EUR;
+    if(data && data.rates && data.rates.PKR) {
+      let usdToPkr = data.rates.PKR;
+      liveRates.USD = usdToPkr;
+      liveRates.AED = usdToPkr / 3.67;
+      liveRates.GBP = usdToPkr / data.rates.GBP;
+      liveRates.EUR = usdToPkr / data.rates.EUR;
     }
-  } catch(e) {
-    console.log("Using standard rates.");
+  } catch(err) {
+    console.log("Using default fallback rates.");
   }
 }
-fetchLiveExchangeRates();
+fetchLiveRates();
 
 window.convertLiveCurrency = function() {
   let curr = document.getElementById('adCurrency').value;
@@ -173,9 +173,9 @@ window.convertLiveCurrency = function() {
   if(curr === 'Rs.') {
     noteDiv.innerText = `🇵🇰 قیمت پاکستانی روپے (PKR) میں درج ہے۔`;
   } else {
-    let rate = currencyRates[curr] || 280;
+    let rate = liveRates[curr] || 280;
     let convertedPKR = Math.round(val * rate);
-    noteDiv.innerText = `💱 ریٹ کے حساب سے اندازاً پاکستانی قیمت: Rs. ${convertedPKR.toLocaleString()} (Rate: ~${Math.round(rate)})`;
+    noteDiv.innerText = `💱 لائیو ریٹ کے حساب سے اندازاً پاکستانی قیمت: Rs. ${convertedPKR.toLocaleString()} (Rate: ~${Math.round(rate)})`;
   }
 };
 </script>
@@ -258,7 +258,7 @@ addBtn.onclick = async () => {
     let numericPrice = Number(price);
     let finalPKR = numericPrice;
     if(currency !== 'Rs.') {
-      let r = currencyRates[currency] || 280;
+      let r = liveRates[currency] || 280;
       finalPKR = Math.round(numericPrice * r);
     }
 
@@ -414,6 +414,7 @@ async function loadProducts(){
   } 
 }
 
+// سیلرز کو یونیک (Unique) اور ایک جگہ شو کرنے کا فنکشن
 window.loadSellersFromFirebase = async function() {
   const container = document.getElementById('sellersList');
   container.innerHTML = "لوڈ ہو رہا ہے...";
@@ -428,9 +429,8 @@ window.loadSellersFromFirebase = async function() {
     snap.forEach((docSnap) => {
       let p = docSnap.data();
       let sMobile = String(p.mobile || '03334664227').replace(/\D/g, ''); 
+      if(sMobile.length > 4) sMobile = sMobile.slice(-10);
       let sName = p.sellerName || 'Verified Seller';
-      
-      if(!sMobile) sMobile = '03334664227';
 
       if(!sellersMap[sMobile]) {
         sellersMap[sMobile] = { name: sName, mobile: p.mobile || sMobile, adsCount: 0 };
@@ -448,7 +448,7 @@ window.loadSellersFromFirebase = async function() {
         <div class="seller-card">
           <h4>👤 Seller Name: ${seller.name}</h4>
           <p>📞 WhatsApp / Mobile: <b>${seller.mobile}</b></p>
-          <p>📦 Total Active Ads: <b>${seller.adsCount}</b></p>
+          <p>📦 Total Active Products/Ads: <b>${seller.adsCount}</b></p>
           <a href="${waLink}" target="_blank" class="whatsapp-contact-btn">💬 Payout / WhatsApp Raabta</a>
         </div>
       `;
@@ -458,6 +458,7 @@ window.loadSellersFromFirebase = async function() {
   }
 };
 
+// کسٹمر وائز آرڈرز کو ایک ہی لسٹ میں گروپ کرنے کا فنکشن (تصاویر اور ڈیٹیل کے ساتھ)
 window.loadOrdersFromFirebase = async function() {
   const container = document.getElementById('ordersList');
   container.innerHTML = "لوڈ ہو رہا ہے...";
@@ -472,11 +473,15 @@ window.loadOrdersFromFirebase = async function() {
     snap.forEach((docSnap) => {
       const o = docSnap.data();
       const orderId = docSnap.id;
-      let custKey = (o.customerName || 'Unknown') + "_" + (o.phone || o.customerMobile || 'NoNumber');
+      
+      let cName = (o.customerName || 'Unknown').trim();
+      let cPhone = String(o.phone || o.customerMobile || 'NoNumber').replace(/\D/g, '');
+      if(cPhone.length > 4) cPhone = cPhone.slice(-10);
+      let custKey = cName + "_" + cPhone;
 
       if(!customerOrdersMap[custKey]) {
         customerOrdersMap[custKey] = {
-          customerName: o.customerName || 'Unknown Customer',
+          customerName: cName,
           phone: o.phone || o.customerMobile || 'N/A',
           address: o.address || o.customerAddress || 'N/A',
           orders: []
