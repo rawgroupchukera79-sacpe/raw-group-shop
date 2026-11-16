@@ -177,11 +177,11 @@ function googleTranslateElementInit() {
     </div>
     <div style="margin-bottom:15px;">
       <label style="display:block; font-size:12px; margin-bottom:4px;">Full Name</label>
-      <input type="text" id="custName" placeholder="Apna naam likhein" style="width:100%; padding:9px; margin-bottom:10px;">
-      <label style="display:block; font-size:12px; margin-bottom:4px;">Mobile / WhatsApp Number</label>
-      <input type="text" id="custPhone" placeholder="03XXXXXXXXX" style="width:100%; padding:9px; margin-bottom:10px;">
+      <input type="text" id="custName" placeholder="Enter your full name" style="width:100%; padding:9px; margin-bottom:10px;">
+      <label style="display:block; font-size:12px; margin-bottom:4px;">Mobile / WhatsApp Number (with Country Code)</label>
+      <input type="text" id="custPhone" placeholder="+923331234567" style="width:100%; padding:9px; margin-bottom:10px;">
       <label style="display:block; font-size:12px; margin-bottom:4px;">Delivery Address</label>
-      <textarea id="custAddress" rows="2" placeholder="Ghar ka pata..." style="width:100%; padding:9px; margin-bottom:10px;"></textarea>
+      <textarea id="custAddress" rows="2" placeholder="Street, House #, City, Country..." style="width:100%; padding:9px; margin-bottom:10px;"></textarea>
       <button onclick="saveCustomerProfile()" style="width:100%; padding:10px; background:#fff; color:#222; border:1px solid #333; border-radius:6px; font-weight:600; cursor:pointer;">Save Profile & Address</button>
     </div>
   </div>
@@ -207,7 +207,7 @@ function googleTranslateElementInit() {
       <span onclick="closeMessagesModal()" style="cursor:pointer; font-size:18px;">✕</span>
     </div>
     <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:15px;">
-      <a href="https://wa.me/923334664227?text=Assalam-o-Alaikum" target="_blank" style="padding:12px; background:#fff; color:#222; border:1px solid #333; border-radius:6px; text-decoration:none; text-align:center; font-weight:600;">💬 WhatsApp: 0333-4664227</a>
+      <a href="https://wa.me/923334664227?text=Assalam-o-Alaikum" target="_blank" style="padding:12px; background:#fff; color:#222; border:1px solid #333; border-radius:6px; text-decoration:none; text-align:center; font-weight:600;">💬 WhatsApp: +92 333 4664227</a>
       <a href="tel:+923334664227" style="padding:12px; background:#fff; color:#222; border:1px solid #333; border-radius:6px; text-decoration:none; text-align:center; font-weight:600;">📞 Call: +92 333 4664227</a>
     </div>
   </div>
@@ -221,15 +221,15 @@ function googleTranslateElementInit() {
       <span style="cursor:pointer; font-size:18px;" onclick="closeLoginModal()">✕</span>
     </div>
     <form id="userLoginForm" onsubmit="verifySellerLogin(event)">
-      <div class="form-group" style="text-align:left;"><label>Aapka Naam *</label><input type="text" id="loginName" required placeholder="Ali Ahmed"></div>
-      <div class="form-group" style="text-align:left;"><label>WhatsApp Number *</label><input type="text" id="loginMobile" required placeholder="+923331234567"></div>
+      <div class="form-group" style="text-align:left;"><label>Seller Name *</label><input type="text" id="loginName" required placeholder="Ali Ahmed"></div>
+      <div class="form-group" style="text-align:left;"><label>WhatsApp Number (with Country Code) *</label><input type="text" id="loginMobile" required placeholder="+923331234567 or +971..."></div>
       <div class="form-group" style="text-align:left;"><label>Secret Password *</label><input type="password" id="loginPassword" required placeholder="Password"></div>
       <button type="submit" class="btn-submit-ad" style="background:#194376;">Login / Open</button>
     </form>
   </div>
 </div>
 
-<!-- Seller Dashboard Modal (Unified by Mobile Number) -->
+<!-- Seller Dashboard Modal -->
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
@@ -239,12 +239,12 @@ function googleTranslateElementInit() {
     <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
     
     <div style="background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px;">
-      <b>🌐 Unified Account Notice:</b> آپ کے اس موبائل نمبر سے جڑے ہوئے تمام اکاؤنٹس اور پروڈکٹس یہاں ایک ہی جگہ یکجا شو ہو رہے ہیں (3% فیس پالیسی لاگو ہے)۔
+      <b>🌐 Global Marketplace Policy:</b> 3% platform fee, 97% goes directly to the seller! All products linked to your phone number appear here.
     </div>
 
     <button onclick="closeSellerDashboard(); openAdModalFromDashboard();" style="width:100%; background:#28a745; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer; margin-bottom:12px;">➕ Naya Ad Lagayein</button>
     
-    <div style="font-size:11px; font-weight:bold; color:#194376; margin-bottom:6px;">📦 آپ کی تمام پروڈکٹس (Unified Products):</div>
+    <div style="font-size:11px; font-weight:bold; color:#194376; margin-bottom:6px;">📦 Your Products (Unified):</div>
     <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:180px; overflow-y:auto; margin-bottom:10px;"></div>
     
     <button onclick="closeSellerDashboard()" style="width:100%; background:#ddd; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
@@ -259,19 +259,19 @@ function googleTranslateElementInit() {
       <span style="cursor:pointer; font-size:18px;" onclick="closeAdModal()">✕</span>
     </div>
     <form id="userAdForm" onsubmit="submitUserAd(event)">
-      <div class="form-group"><label>Category *</label><select id="adCategory" required><option value="">Select</option><option value="Furniture & Decoration">Furniture</option><option value="Electronics">Electronics</option><option value="Fashion & Beauty">Fashion</option><option value="General store Food Delivery">General Store</option></select></div>
+      <div class="form-group"><label>Category *</label><select id="adCategory" required><option value="">Select Category</option><option value="Furniture & Decoration">Furniture</option><option value="Car & Motorcycle">Vehicles</option><option value="Real Estate">Real Estate</option><option value="Electronics">Electronics</option><option value="Home & Kitchen Appliances">Home & Kitchen</option><option value="Fashion & Beauty">Fashion</option><option value="Job offers">Jobs</option><option value="Kids & Baby-Shop">Kids & Baby</option><option value="Education / BookShop">BookShop</option><option value="General store Food Delivery">General Store</option><option value="Services & offers">Services</option><option value="Health & Care">Health & Care</option><option value="Animals & Accessories">Animals</option><option value="Sports & Hobbies">Sports</option><option value="Antique Coins Gemstone">Gemstone</option><option value="Tools & Heavy Machinery">Tools</option></select></div>
       <div class="form-group"><label>Ad Title *</label><input type="text" id="adTitle" required placeholder="Product Name"></div>
-      <div class="form-group"><label>City *</label><input type="text" id="adCity" required value="Sargodha"></div>
-      <div class="form-group"><label>Price</label><input type="number" id="adPrice" placeholder="1500"></div>
-      <div class="form-group"><label>Affiliate Link</label><input type="text" id="adAffiliateLink" placeholder="https://..."></div>
-      <div class="form-group"><label>Tafseel *</label><textarea id="adDescription" rows="3" required placeholder="Tafseel..."></textarea></div>
-      <div class="form-group"><label>Tasveerein *</label><input type="file" id="imageFileInput" accept="image/*" multiple required onchange="handleMultipleImages(event)"></div>
+      <div class="form-group"><label>City / Country *</label><input type="text" id="adCity" required value="Sargodha / International"></div>
+      <div class="form-group"><label>Price (Optional)</label><input type="number" id="adPrice" placeholder="1500"></div>
+      <div class="form-group"><label>Affiliate Link (Optional)</label><input type="text" id="adAffiliateLink" placeholder="https://..."></div>
+      <div class="form-group"><label>Description *</label><textarea id="adDescription" rows="3" required placeholder="Product details..."></textarea></div>
+      <div class="form-group"><label>Images *</label><input type="file" id="imageFileInput" accept="image/*" multiple required onchange="handleMultipleImages(event)"></div>
       <button type="submit" class="btn-submit-ad">Publish Ad Live</button>
     </form>
   </div>
 </div>
 
-<!-- Custom Secure Escrow Order Form Modal with GPS & Cancel -->
+<!-- Custom Secure Escrow Order Form Modal with Direct Google Maps & Global Phone -->
 <div id="customOrderModal" class="custom-modal">
   <div class="modal-content" style="max-width:450px; text-align:right;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
@@ -290,15 +290,15 @@ function googleTranslateElementInit() {
     </div>
 
     <form id="secureOrderForm" onsubmit="submitSecureOrder(event)">
-      <div class="form-group"><label>آپ کا پورا نام (Full Name) *</label><input type="text" id="custFullName" required placeholder="अपना नाम लिखें"></div>
-      <div class="form-group"><label>موبائل / واٹس ایپ نمبر (Phone Number) *</label><input type="tel" id="custPhoneNum" required placeholder="03XXXXXXXXX"></div>
+      <div class="form-group"><label>Full Name (آپ کا پورا نام) *</label><input type="text" id="custFullName" required placeholder="Enter your full name"></div>
+      <div class="form-group"><label>WhatsApp / Mobile Number (مع ملک کوڈ) *</label><input type="tel" id="custPhoneNum" required placeholder="+923331234567 / +971..."></div>
       
       <div class="form-group">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
-          <label style="margin:0;">مکمل پتہ اور شہر (Complete Address) *</label>
-          <button type="button" onclick="getLiveLocation()" style="background:#194376; color:#fff; border:none; padding:3px 8px; border-radius:4px; font-size:10px; cursor:pointer; font-weight:bold;">📍 Get Live GPS Location</button>
+          <label style="margin:0;">Complete Address / City (مکمل پتہ) *</label>
+          <button type="button" onclick="getLiveLocation()" style="background:#194376; color:#fff; border:none; padding:3px 8px; border-radius:4px; font-size:10px; cursor:pointer; font-weight:bold;">📍 Open Google Maps Location</button>
         </div>
-        <textarea id="custFullAddress" rows="2" required placeholder="گلی نمبر، محلہ، شہر یا لائیو لوکیشن لنک..."></textarea>
+        <textarea id="custFullAddress" rows="2" required placeholder="Street #, Area, City, Country or Google Maps Link..."></textarea>
       </div>
 
       <div style="display:flex; gap:8px; margin-top:5px;">
@@ -369,9 +369,9 @@ window.closeLoginModal = () => document.getElementById('user-login-modal').style
 window.verifySellerLogin = function(e) {
   e.preventDefault();
   const name = document.getElementById('loginName').value.trim();
-  const mobile = document.getElementById('loginMobile').value.replace(/\D/g, ''); // نمبر کو بالکل صاف کرنا تاکہ مختلف فارمیٹ میچ ہو جائیں
+  const mobile = document.getElementById('loginMobile').value.trim();
   const password = document.getElementById('loginPassword').value.trim();
-  if(!name || !mobile || !password) return alert("Tamam fields pur karein!");
+  if(!name || !mobile || !password) return alert("Please fill all fields!");
   
   const authData = { name, mobile, password };
   localStorage.setItem('raw_locked_seller_auth', JSON.stringify(authData));
@@ -381,15 +381,13 @@ window.verifySellerLogin = function(e) {
   else openPureSellerDashboard(authData);
 };
 
-// ایک ہی نمبر کے تمام اکاؤنٹس اور پروڈکٹس کو ایک ہی جگہ یکجا دکھانے کا فنکشن
 function openPureSellerDashboard(authData) {
   const dUser = document.getElementById('dashboardUserInfo');
   const dList = document.getElementById('myAdsList');
   dList.innerHTML = "";
-  dUser.innerHTML = `👤 Active Seller Name: <b>${authData.name}</b> | Mobile: <b>${authData.mobile}</b>`;
+  dUser.innerHTML = `👤 Seller Name: <b>${authData.name}</b> | Mobile: <b>${authData.mobile}</b>`;
   document.getElementById('seller-dashboard-modal').style.display = 'flex';
 
-  // موبائل نمبر کی بنیاد پر تمام پروڈکٹس کو ایک ہی جگہ اکٹھا کرنا (خواہ نام مختلف ہوں)
   let cleanLoginMob = String(authData.mobile || "").replace(/\D/g, '');
   let myAds = allProductsCache.filter(item => {
     let itemMob = String(item.mobile || "").replace(/\D/g, '');
@@ -397,7 +395,7 @@ function openPureSellerDashboard(authData) {
   });
 
   if(myAds.length === 0) {
-    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center;">اس نمبر پر فی الحال کوئی پروڈکٹ درج نہیں ہے۔ (نئی پروڈکٹ شامل کریں)</p>`;
+    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center;">No products found for this number.</p>`;
     return;
   }
 
@@ -411,8 +409,8 @@ function openPureSellerDashboard(authData) {
 }
 
 window.deleteMyProduct = async function(productId) {
-  if(!confirm("Kya aap waqai delete karna chahte hain?")) return;
-  try { await deleteDoc(doc(db, "products", productId)); alert("Delete ho gaya!"); document.getElementById('seller-dashboard-modal').style.display = 'none'; loadApprovedProducts(); } catch(err) { alert("Masla hua."); }
+  if(!confirm("Are you sure you want to delete this ad?")) return;
+  try { await deleteDoc(doc(db, "products", productId)); alert("Deleted successfully!"); document.getElementById('seller-dashboard-modal').style.display = 'none'; loadApprovedProducts(); } catch(err) { alert("Error deleting product."); }
 };
 window.closeSellerDashboard = () => document.getElementById('seller-dashboard-modal').style.display = 'none';
 
@@ -424,7 +422,7 @@ window.loadApprovedProducts = async function() {
     querySnapshot.forEach((docSnap) => { allProductsCache.push({ id: docSnap.id, ...docSnap.data() }); });
     renderProducts(allProductsCache);
   } catch (error) {
-    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:red;">ڈیٹا لوڈ کرنے میں نیٹ ورک کا مسئلہ آیا ہے۔ براہ کرم ریفریش کریں۔</p>`;
+    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:red;">Network error loading products.</p>`;
   }
 };
 
@@ -490,18 +488,27 @@ window.openCustomOrderModal = function(item) {
 };
 window.closeCustomOrderModal = () => document.getElementById('customOrderModal').style.display = 'none';
 
+// براہ راست گوگل میپ کے ساتھ جڑنے اور لوکیشن حاصل کرنے کا اپڈیٹڈ فنکشن
 window.getLiveLocation = function() {
-  if (!navigator.geolocation) { alert("آپ کا براؤزر GPS لوکیشن کو سپورٹ نہیں کرتا۔"); return; }
-  alert("📍 آپ کی لائیو لوکیشن لی جا رہی ہے، براہ کرم اجازت (Allow) دیں...");
+  if (!navigator.geolocation) {
+    alert("Geolocation is not supported by your browser");
+    return;
+  }
+  alert("📍 Fetching your GPS coordinates to open Google Maps...");
   navigator.geolocation.getCurrentPosition(
     (position) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-      const mapsLink = `https://maps.google.com/?q=${lat},${lon}`;
-      document.getElementById('custFullAddress').value = `Live GPS Location: ${mapsLink}`;
-      alert("✅ آپ کی لائیو لوکیشن کامیابی سے پتے میں درج کر دی گئی ہے!");
+      // براہ راست گوگل میپ کا لنک اور کوآرڈینیٹس درج کرنا
+      const mapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
+      document.getElementById('custFullAddress').value = `Google Maps Location: ${mapsUrl}`;
+      // صارف کے لیے خود بخود گوگل میپ کا صفحہ الگ ٹیب میں کھولنا
+      window.open(mapsUrl, '_blank');
+      alert("✅ Google Maps opened successfully and location added!");
     },
-    (error) => { alert("لوکیشن حاصل کرنے میں خرابی ہوئی: براہ کرم GPS آن کریں۔"); },
+    (error) => {
+      alert("Unable to retrieve your location. Please ensure GPS is enabled.");
+    },
     { enableHighAccuracy: true, timeout: 10000 }
   );
 };
@@ -511,7 +518,7 @@ window.submitSecureOrder = async function(event) {
   const custName = document.getElementById('custFullName').value.trim();
   const custPhone = document.getElementById('custPhoneNum').value.trim();
   const custAddress = document.getElementById('custFullAddress').value.trim();
-  if(!custName || !custPhone || !custAddress) return alert('براہ کرم تمام خانے پُر کریں۔');
+  if(!custName || !custPhone || !custAddress) return alert('Please fill in all required fields.');
 
   try {
     let item = selectedProductForOrder;
@@ -532,7 +539,7 @@ window.submitSecureOrder = async function(event) {
     closeCustomOrderModal();
     closeProductDetailModal();
   } catch(err) {
-    alert('خرابی پیش آئی: ' + err.message);
+    alert('Error processing order: ' + err.message);
   }
 };
 
@@ -559,16 +566,6 @@ window.openProductDetail = function(item) {
   document.getElementById('product-detail-modal').style.display = 'flex';
 };
 window.closeProductDetailModal = () => document.getElementById('product-detail-modal').style.display = 'none';
-
-function renderCartItems() {
-  const container = document.getElementById('cartItemsContainer');
-  if(cartItems.length === 0) { container.innerHTML = `<p style="text-align:center; color:#777; font-size:13px; margin-top:30px;">آپ کی کارٹ فی الحال خالی ہے۔</p>`; return; }
-  container.innerHTML = "";
-  cartItems.forEach((ci, idx) => {
-    container.innerHTML += `<div style="display:flex; justify-content:space-between; padding:8px; border-bottom:1px solid #eee;"><span style="font-size:12px; font-weight:bold;">${idx+1}. ${ci.name || ci.title}</span><span style="font-size:12px; color:#f57224;">Rs. ${ci.pricePKR || ci.price || 0}</span></div>`;
-  });
-}
-window.proceedToCheckout = function() { if(cartItems.length === 0) return alert("کارٹ خالی ہے!"); openCustomOrderModal(cartItems[0]); };
 
 window.handleMultipleImages = function(event) {
   const files = event.target.files;
@@ -604,7 +601,7 @@ window.submitUserAd = async function(e) {
   const description = document.getElementById('adDescription').value;
   const authData = JSON.parse(localStorage.getItem('raw_locked_seller_auth') || '{}');
 
-  if (uploadedImagesArray.length === 0) return alert("Tasveer select karein!");
+  if (uploadedImagesArray.length === 0) return alert("Please select product images!");
 
   try {
     await addDoc(collection(db, "products"), {
@@ -616,13 +613,13 @@ window.submitUserAd = async function(e) {
       sellerName: authData.name || 'Partner',
       createdAt: new Date().toISOString()
     });
-    alert("Ad live publish ho gaya hai!");
+    alert("Ad published live successfully!");
     document.getElementById('ad-submission-modal').style.display = 'none';
     document.getElementById('userAdForm').reset();
     uploadedImagesArray = [];
     loadApprovedProducts();
   } catch (err) {
-    alert("Masla hua.");
+    alert("Error publishing ad.");
   }
 };
 
