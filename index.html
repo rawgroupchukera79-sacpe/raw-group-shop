@@ -69,7 +69,6 @@ function googleTranslateElementInit() {
 <body>
     <div class="top-bar">
     <div style="display: flex; justify-content: flex-start;"><div id="google_translate_element"></div></div>
-    <!-- نام کا رنگ اب واضح اور نیلے (Blue) رنگ میں کر دیا گیا ہے -->
     <div style="text-align: center;"><span style="font-size: 16px; font-weight: 800; color: #194376; letter-spacing: 0.5px;">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span></div>
     <div class="owner-branding" style="display: flex; justify-content: flex-end; align-items: center; gap: 6px;">
         <img src="ejaz.jpg" onerror="this.onerror=null;this.src='./ejaz.jpg';" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #194376;" title="ejaz Ahmad">
@@ -121,10 +120,11 @@ function googleTranslateElementInit() {
     <p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">پروڈکٹس لوڈ ہو رہی ہیں...</p>
   </div>
 
-<!-- Plus Action Menu -->
+<!-- Plus Action Menu (بشمول ریٹنگ سسٹم آپشن) -->
 <div id="plus-action-menu">
   <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('post')">📢 Naya Ad Lagayein</button>
   <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('seller_dashboard')">🛒 Seller Dashboard</button>
+  <button class="menu-action-btn" onclick="closePlusMenu(); openRatingModal()">⭐ Live Ratings & Reviews</button>
   <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('customer_account')">👤 Customer Account</button>
 </div>
 
@@ -135,6 +135,47 @@ function googleTranslateElementInit() {
   <div class="sell-fab-container"><div class="sell-fab" onclick="togglePlusMenu()">+</div></div>
   <div class="nav-item" onclick="openCartModal()"><span>🛒</span><span>Cart</span></div>
   <div class="nav-item" onclick="openCustomerAccountModal()"><span>👤</span><span id="navAccountLabel">Account</span></div>
+</div>
+
+<!-- Live Rating & Review Modal -->
+<div id="rating-modal" class="custom-modal">
+  <div class="modal-content" style="max-width: 480px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:12px;">
+      <h3 style="margin:0; font-size:16px; color:#194376;">⭐ Customer Ratings & Live Reviews</h3>
+      <span style="cursor:pointer; font-size:18px;" onclick="closeRatingModal()">✕</span>
+    </div>
+
+    <!-- ریویو جمع کرانے کا فارم -->
+    <div style="background:#f9f9f9; padding:10px; border-radius:8px; margin-bottom:12px; border:1px solid #eee;">
+      <h4 style="font-size:13px; color:#333; margin-bottom:8px;">اپنا ریویو اور ریٹنگ درج کریں:</h4>
+      <form id="reviewForm" onsubmit="submitCustomerReview(event)">
+        <div class="form-group"><label>آپ کا نام *</label><input type="text" id="revName" required placeholder="Ali Ahmed"></div>
+        <div class="form-group">
+          <label>سٹار ریٹنگ (1 سے 5) *</label>
+          <select id="revStars" required onchange="checkStarRating()">
+            <option value="5">⭐⭐⭐⭐⭐ (5 - بہت بہترین)</option>
+            <option value="4">⭐⭐⭐⭐ (4 - اچھا)</option>
+            <option value="3">⭐⭐⭐ (3 - اوسط)</option>
+            <option value="2">⭐⭐ (2 - بہتر ہو سکتا ہے)</option>
+            <option value="1">⭐ (1 - خرابی / مسئلہ)</option>
+          </select>
+        </div>
+        <!-- کم ریٹنگ کی صورت میں وجہ پوچھنے والا باکس -->
+        <div class="form-group" id="reasonGroup" style="display:none;">
+          <label style="color:#d9534f; font-weight:bold;">کم ریٹنگ کی وجہ بتائیں (ضروری ہے) *</label>
+          <textarea id="revReason" rows="2" placeholder="وجہ تحریر کریں (مثلاً: آرڈر میں تاخیر یا کوالٹی کا مسئلہ)..."></textarea>
+        </div>
+        <div class="form-group"><label>تجربہ یا کمنٹ *</label><textarea id="revComment" rows="2" required placeholder="اپنا تجربہ شیئر کریں..."></textarea></div>
+        <div class="form-group"><label>تصویر اٹیچ کریں (اختیاری)</label><input type="file" id="revImageFile" accept="image/*" onchange="handleReviewImage(event)"></div>
+        <button type="submit" class="btn-submit-ad" style="background:#194376;">Submit Review Live</button>
+      </form>
+    </div>
+
+    <h4 style="font-size:13px; font-weight:bold; color:#194376; margin-bottom:6px;">💬 تمام کسٹمرز کے لائیو ریویوز:</h4>
+    <div id="allReviewsContainer" style="max-height:180px; overflow-y:auto; border:1px solid #ddd; border-radius:6px; padding:8px; background:#fff;">
+      <p style="text-align:center; color:#666; font-size:11px;">ریویوز لوڈ ہو رہے ہیں...</p>
+    </div>
+  </div>
 </div>
 
 <!-- Privacy Policy Modal -->
@@ -304,7 +345,14 @@ function googleTranslateElementInit() {
     <form id="secureOrderForm" onsubmit="submitSecureOrder(event)">
       <div class="form-group"><label>Full Name *</label><input type="text" id="custFullName" required placeholder="Enter your full name"></div>
       <div class="form-group"><label>WhatsApp / Mobile Number *</label><input type="tel" id="custPhoneNum" required placeholder="+923331234567"></div>
-      <div class="form-group"><label>Complete Address / City *</label><textarea id="custFullAddress" rows="2" required placeholder="Street #, Area, City..."></textarea></div>
+      
+      <div class="form-group">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+          <label style="margin:0;">Complete Address / City *</label>
+          <button type="button" onclick="openGoogleMapsDirect()" style="background:#194376; color:#fff; border:none; padding:4px 9px; border-radius:4px; font-size:10px; cursor:pointer; font-weight:bold;">📍 Open Google Maps</button>
+        </div>
+        <textarea id="custFullAddress" rows="2" required placeholder="Street #, Area, City or Google Maps Link..."></textarea>
+      </div>
 
       <div style="display:flex; gap:8px; margin-top:5px;">
         <button type="submit" style="flex:2; background:#28a745; color:white; border:none; padding:11px; font-size:13px; font-weight:bold; border-radius:6px; cursor:pointer;">✅ Confirm Order</button>
@@ -331,6 +379,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 let uploadedImagesArray = [];
+let reviewImageBase64 = "";
 let selectedCategoryFilter = "All";
 let allProductsCache = [];
 let pendingTargetAction = null;
@@ -349,6 +398,114 @@ window.closePrivacyModal = () => document.getElementById('privacy-policy-modal')
 
 window.openMessagesModal = () => document.getElementById('messages-modal').style.display = 'flex';
 window.closeMessagesModal = () => document.getElementById('messages-modal').style.display = 'none';
+
+// ریٹنگ ماڈل کنٹرولز
+window.openRatingModal = () => {
+  loadLiveReviews();
+  document.getElementById('rating-modal').style.display = 'flex';
+};
+window.closeRatingModal = () => document.getElementById('rating-modal').style.display = 'none';
+
+window.checkStarRating = function() {
+  const stars = document.getElementById('revStars').value;
+  const reasonGroup = document.getElementById('reasonGroup');
+  if(Number(stars) <= 3) {
+    reasonGroup.style.display = 'block';
+    document.getElementById('revReason').required = true;
+  } else {
+    reasonGroup.style.display = 'none';
+    document.getElementById('revReason').required = false;
+  }
+};
+
+window.handleReviewImage = function(event) {
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.src = e.target.result;
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      const MAX_WIDTH = 300;
+      const scaleSize = MAX_WIDTH / img.width;
+      canvas.width = MAX_WIDTH;
+      canvas.height = img.height * scaleSize;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      reviewImageBase64 = canvas.toDataURL('image/jpeg', 0.7);
+    }
+  };
+  reader.readAsDataURL(file);
+};
+
+window.submitCustomerReview = async function(e) {
+  e.preventDefault();
+  const name = document.getElementById('revName').value.trim();
+  const stars = document.getElementById('revStars').value;
+  const reason = document.getElementById('revReason').value.trim();
+  const comment = document.getElementById('revComment').value.trim();
+
+  if(!name || !comment) return alert("نام اور کمنٹ لازمی لکھیں!");
+
+  try {
+    await addDoc(collection(db, "reviews"), {
+      name,
+      stars: Number(stars),
+      reason: Number(stars) <= 3 ? reason : "معیاری تجربہ",
+      comment,
+      image: reviewImageBase64 || "",
+      date: new Date().toLocaleDateString()
+    });
+
+    alert("⭐ آپ کا ریویو کامیابی سے لائیو ہو گیا ہے!");
+    document.getElementById('reviewForm').reset();
+    reviewImageBase64 = "";
+    document.getElementById('reasonGroup').style.display = 'none';
+    loadLiveReviews();
+  } catch(err) {
+    alert("ریویو محفوظ کرنے میں خرابی پیش آئی: " + err.message);
+  }
+};
+
+async function loadLiveReviews() {
+  const container = document.getElementById('allReviewsContainer');
+  container.innerHTML = `<p style="text-align:center; color:#666; font-size:11px;">ریویوز لوڈ ہو رہے ہیں...</p>`;
+  try {
+    const querySnapshot = await getDocs(collection(db, "reviews"));
+    let reviewsList = [];
+    querySnapshot.forEach((docSnap) => {
+      reviewsList.push(docSnap.data());
+    });
+
+    if(reviewsList.length === 0) {
+      container.innerHTML = `<p style="text-align:center; color:#666; font-size:11px; padding:10px;">ابھی تک کوئی ریویو موجود نہیں ہے۔ پہلا ریویو آپ دیں!</p>`;
+      return;
+    }
+
+    container.innerHTML = "";
+    reviewsList.forEach((rev) => {
+      let starStr = "⭐".repeat(rev.stars);
+      let reasonHtml = rev.stars <= 3 ? `<div style="font-size:10px; color:#d9534f; margin-top:2px;"><b>وجہ:</b> ${rev.reason}</div>` : "";
+      let imgHtml = rev.image ? `<img src="${rev.image}" style="width:40px; height:40px; object-fit:contain; border-radius:4px; border:1px solid #ccc; margin-top:4px;" onerror="this.style.display='none'">` : "";
+
+      container.innerHTML += `
+        <div style="background:#fafafa; border:1px solid #eee; padding:6px; border-radius:6px; margin-bottom:6px;">
+          <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:bold; color:#194376;">
+            <span>${rev.name}</span>
+            <span style="font-size:10px;">${starStr}</span>
+          </div>
+          <div style="font-size:11px; color:#333; margin-top:2px;">${rev.comment}</div>
+          ${reasonHtml}
+          ${imgHtml}
+          <div style="font-size:9px; color:#888; text-align:right; margin-top:2px;">${rev.date || ''}</div>
+        </div>
+      `;
+    });
+  } catch(err) {
+    container.innerHTML = `<p style="text-align:center; color:red; font-size:11px;">ریویوز لوڈ کرنے میں مسئلہ آیا ہے۔</p>`;
+  }
+}
 
 window.openCustomerAccountModal = () => {
   checkCustomerLoginState();
@@ -600,6 +757,13 @@ window.openCustomOrderModal = function(item) {
 };
 window.closeCustomOrderModal = () => document.getElementById('customOrderModal').style.display = 'none';
 
+window.openGoogleMapsDirect = function() {
+  const mapsUrl = "https://maps.google.com";
+  window.open(mapsUrl, '_blank');
+  document.getElementById('custFullAddress').value = "Google Maps Location: (Paste your shared map link here)";
+  alert("📍 گوگل میپس نئی ٹیب میں کھل گیا ہے! اپنی لوکیشن کا لنک کاپی کر کے یہاں پیسٹ کر دیں۔");
+};
+
 window.submitSecureOrder = async function(event) {
   event.preventDefault();
   const custName = document.getElementById('custFullName').value.trim();
@@ -624,7 +788,16 @@ window.submitSecureOrder = async function(event) {
     };
 
     await addDoc(collection(db, "orders"), orderData);
-    alert('آپ کا آرڈر کامیابی سے محفوظ ہو گیا ہے!');
+
+    let orderMsg = `🛍️ *New Order - R.A.W GROUP* 🛍️\n` +
+      `📦 *Product:* ${orderData.productName}\n` +
+      `💰 *Price:* ${orderData.price}\n` +
+      `👤 *Customer:* ${custName}\n` +
+      `📞 *Phone:* ${custPhone}\n` +
+      `📍 *Address:* ${custAddress}`;
+
+    window.open(`https://wa.me/${sellerWhatsApp}?text=${encodeURIComponent(orderMsg)}`, '_blank');
+    alert('آپ کا آرڈر فائر بیس میں محفوظ ہو گیا ہے اور واٹس ایپ پر بھیج دیا گیا ہے!');
     closeCustomOrderModal();
   } catch(err) {
     alert('خرابی پیش آئی: ' + err.message);
@@ -691,7 +864,7 @@ window.submitUserAd = async function(e) {
   const category = document.getElementById('adCategory').value;
   const name = document.getElementById('adTitle').value;
   const city = document.getElementById('adCity').value;
-  const priceInput = document.getElementById('adPrice.value') || document.getElementById('adPrice').value;
+  const priceInput = document.getElementById('adPrice').value;
   const affiliateLink = document.getElementById('adAffiliateLink').value;
   const description = document.getElementById('adDescription').value;
   const authData = JSON.parse(localStorage.getItem('raw_locked_seller_auth') || '{}');
