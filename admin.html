@@ -80,7 +80,7 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
     <select id="adCurrency">
       <option value="Rs.">PKR (Rs.)</option>
       <option value="$">USD ($)</option>
-      <option value="AED">AED (درہم)</option>
+      <option value="AED">AED (درهم)</option>
       <option value="£">GBP (£)</option>
       <option value="€">EUR (€)</option>
     </select>
@@ -99,7 +99,7 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
   
   <hr style="margin:15px 0; border:1px dashed #FF8C00;">
   
-  <!-- Registered Sellers Manager -->
+  <!-- Registered Sellers Manager (ایک نمبر کا ایک ہی کمبائنڈ اکاؤنٹ) -->
   <div style="background:#e8f5e9; border:2px dashed #2e7d32; padding:10px; border-radius:10px; margin-bottom:15px;">
     <h3 style="color:#1b5e20; font-size:14px; text-align:center; margin-bottom:8px;">👥 Registered Sellers & Direct Contact Manager</h3>
     <div id="sellersList" style="text-align:right;">لوڈ ہو رہا ہے...</div>
@@ -107,9 +107,9 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
 
   <hr style="margin:15px 0; border:1px dashed #FF8C00;">
 
-  <!-- Escrow Orders & Dispute Manager -->
+  <!-- Escrow Orders & Customer-wise List -->
   <div style="background:#fff3ec; border:2px dashed #f57224; padding:10px; border-radius:10px; margin-bottom:15px;">
-    <h3 style="color:#194376; font-size:14px; text-align:center; margin-bottom:8px;">🛡️ Escrow Orders & Dispute / Payout Manager</h3>
+    <h3 style="color:#194376; font-size:14px; text-align:center; margin-bottom:8px;">🛡️ Escrow Orders & Customer-wise List</h3>
     <div id="ordersList" style="text-align:right;">لوڈ ہو رہا ہے...</div>
   </div>
 
@@ -281,7 +281,6 @@ async function loadProducts(){
       let img = (p.images && p.images[0]) || 'logo.png'; 
       let curr = p.currency || 'Rs.';
 
-      // چیک کریں کہ کیا یہ پروڈکٹ ایڈمن کی اپنی ہے یا کسی سیلر کی
       let isAdminProduct = (String(p.mobile || '').trim() === "03334664227" || String(p.sellerName || '').includes("Admin"));
 
       let adminActionButtons = !isAdminProduct ? `
@@ -364,6 +363,7 @@ async function loadProducts(){
   } 
 }
 
+// فون نمبر کی بنیاد پر سیلرز کے اکاؤنٹس کو مرج (Unique) کرنے کا فنکشن
 window.loadSellersFromFirebase = async function() {
   const container = document.getElementById('sellersList');
   container.innerHTML = "لوڈ ہو رہا ہے...";
@@ -377,20 +377,20 @@ window.loadSellersFromFirebase = async function() {
     let sellersMap = {};
     snap.forEach((docSnap) => {
       let p = docSnap.data();
-      let sName = p.sellerName || 'Unknown Seller';
-      let sMobile = p.mobile || '03334664227';
-      let key = sMobile + "_" + sName;
+      let sMobile = String(p.mobile || '03334664227').replace(/\D/g, ''); // صرف نمبرز لیں تاکہ ڈپ্লিکیٹ نہ ہوں
+      let sName = p.sellerName || 'Verified Seller';
       
-      if(!sellersMap[key]) {
-        sellersMap[key] = { name: sName, mobile: sMobile, adsCount: 0, items: [] };
+      if(!sMobile) sMobile = '03334664227';
+
+      if(!sellersMap[sMobile]) {
+        sellersMap[sMobile] = { name: sName, mobile: p.mobile || sMobile, adsCount: 0 };
       }
-      sellersMap[key].adsCount++;
-      sellersMap[key].items.push(p.name);
+      sellersMap[sMobile].adsCount++;
     });
 
     container.innerHTML = "";
-    for(let key in sellersMap) {
-      let seller = sellersMap[key];
+    for(let mob in sellersMap) {
+      let seller = sellersMap[mob];
       let cleanMob = seller.mobile.replace(/^0/, '');
       let waLink = `https://wa.me/92${cleanMob}?text=Assalam-o-Alaikum%20${encodeURIComponent(seller.name)},%20R.A.W%20Group%20Admin%20ki%20طرف%20سے%20رابطہ%20ہے۔`;
 
@@ -408,6 +408,7 @@ window.loadSellersFromFirebase = async function() {
   }
 };
 
+// آرڈرز کو کسٹمر وائز لسٹ (Customer-wise List) میں گروپ کرنے کا فنکشن
 window.loadOrdersFromFirebase = async function() {
   const container = document.getElementById('ordersList');
   container.innerHTML = "لوڈ ہو رہا ہے...";
@@ -417,51 +418,84 @@ window.loadOrdersFromFirebase = async function() {
       container.innerHTML = "<p style='text-align:center; color:#666;'>Abhi tak koi new order nahi aaya.</p>";
       return;
     }
-    container.innerHTML = "";
+
+    let customerOrdersMap = {};
     snap.forEach((docSnap) => {
       const o = docSnap.data();
       const orderId = docSnap.id;
-      let curr = o.currency || 'Rs.';
-      let totalPrice = Number(o.productPrice || 0);
-      let adminComm = o.adminCommission || Math.round(totalPrice * 0.05);
-      let sellerPay = o.sellerPayout || (totalPrice - adminComm);
+      let custKey = (o.customerName || 'Unknown') + "_" + (o.phone || o.customerMobile || 'NoNumber');
 
-      let statusColor = '#ff9900';
-      let statusText = o.escrowStatus || 'Held in Escrow (رقم محفوظ ہے)';
-      if(o.payoutStatus === 'Payout Released') {
-        statusColor = '#28a745';
-        statusText = 'Completed & Released (رقم منتقل کر دی گئی)';
-      } else if(o.escrowStatus === 'Held & Cancelled / Damaged') {
-        statusColor = '#d9534f';
-        statusText = 'Hold / Disputed (پروڈکٹ خرابی کی وجہ سے رقم روکی گئی)';
+      if(!customerOrdersMap[custKey]) {
+        customerOrdersMap[custKey] = {
+          customerName: o.customerName || 'Unknown Customer',
+          phone: o.phone || o.customerMobile || 'N/A',
+          address: o.address || o.customerAddress || 'N/A',
+          orders: []
+        };
       }
+      customerOrdersMap[custKey].orders.push({ id: orderId, ...o });
+    });
 
-      let reasonBox = o.holdReason ? `<p style="color:red; font-size:11px; margin-top:4px;"><b>⚠️ وجہ:</b> ${o.holdReason}</p>` : '';
+    container.innerHTML = "";
+    for(let custKey in customerOrdersMap) {
+      let group = customerOrdersMap[custKey];
+      
+      let ordersHtml = "";
+      group.orders.forEach((o, index) => {
+        let curr = o.currency || 'Rs.';
+        let totalPrice = Number(o.price || o.productPrice || 0);
+        let adminComm = o.adminCommission || Math.round(totalPrice * 0.05);
+        let sellerPay = o.sellerPayout || (totalPrice - adminComm);
+
+        let statusColor = '#ff9900';
+        let statusText = o.escrowStatus || 'Held in Escrow (رقم محفوظ ہے)';
+        if(o.payoutStatus === 'Payout Released') {
+          statusColor = '#28a745';
+          statusText = 'Completed & Released (رقم منتقل کر دی گئی)';
+        } else if(o.escrowStatus === 'Held & Cancelled / Damaged') {
+          statusColor = '#d9534f';
+          statusText = 'Hold / Disputed (پروڈکٹ خرابی کی وجہ سے رقم روکی گئی)';
+        }
+
+        let reasonBox = o.holdReason ? `<p style="color:red; font-size:11px; margin-top:4px;"><b>⚠️ وجہ:</b> ${o.holdReason}</p>` : '';
+
+        ordersHtml += `
+          <div style="background:white; border:1px solid #ccc; padding:8px; border-radius:6px; margin-bottom:6px;">
+            <p><b>${index + 1}. Product:</b> ${o.productName}</p>
+            <p>💰 Price: <b>${curr} ${totalPrice}</b> | <span class="profit-badge">Commission: ${adminComm}</span></p>
+            <p>💵 Seller Payout: <b style="color:#194376;">${sellerPay}</b></p>
+            <p>🛡️ Escrow Status: <b style="color:${statusColor}">${statusText}</b></p>
+            ${reasonBox}
+            
+            ${o.payoutStatus !== 'Payout Released' ? `
+              <button class="btn-release" onclick="releaseSellerPayout('${o.id}', '${o.sellerMobile || '03334664227'}', '${sellerPay}')">✅ Deliver & Release Payout (رقم بھیجیں)</button>
+              <button class="btn-hold" onclick="holdSellerPayout('${o.id}')">❌ Hold / Product Damaged (رقم روکیں اور وجہ بتائیں)</button>
+            ` : `<span style="color:#28a745; font-weight:bold; display:block; margin-top:6px;">✓ Payout Transferred Successfully</span>`}
+          </div>
+        `;
+      });
 
       container.innerHTML += `
         <div class="order-card">
-          <h4>📦 Product: ${o.productName}</h4>
-          <p>💰 Total Price: <b>${curr} ${totalPrice}</b> | <span class="profit-badge">5% Commission: ${curr} ${adminComm}</span></p>
-          <p>💵 Seller Payout: <b style="color:#194376;">${curr} ${sellerPay}</b></p>
-          <p>👤 Customer: ${o.customerName} (${o.customerMobile})</p>
-          <p>📍 Address: ${o.customerAddress}</p>
-          <p>🛡️ Escrow Status: <b style="color:${statusColor}">${statusText}</b></p>
-          ${reasonBox}
-          
-          ${o.payoutStatus !== 'Payout Released' ? `
-            <button class="btn-release" onclick="releaseSellerPayout('${orderId}', '${o.sellerMobile || '03334664227'}', '${sellerPay}')">✅ Deliver & Release Payout (رقم بھیجیں)</button>
-            <button class="btn-hold" onclick="holdSellerPayout('${orderId}')">❌ Hold / Product Damaged (رقم روکیں اور وجہ بتائیں)</button>
-          ` : `<span style="color:#28a745; font-weight:bold; display:block; margin-top:6px;">✓ Payout Transferred Successfully</span>`}
+          <h4>👤 Customer: ${group.customerName}</h4>
+          <p>📞 Phone: <b>${group.phone}</b></p>
+          <p>📍 Address: ${group.address}</p>
+          <hr style="border:0; border-top:1px solid #cbd5e1; margin:6px 0;">
+          <b style="font-size:11px; color:#194376;">📦 All Orders (${group.orders.length}):</b>
+          <div style="margin-top:6px;">
+            ${ordersHtml}
+          </div>
         </div>
       `;
-    });
+    }
+
   } catch(e) {
     container.innerHTML = "Orders load karne mein masla hua: " + e.message;
   }
 };
 
 window.releaseSellerPayout = async function(orderId, sellerMobile, payoutAmount) {
-  if(!confirm(`Kya order deliver ho gaya hai aur aap seller ko ${payoutAmount} رقم جاری کرنا चाहते हैं?`)) return;
+  if(!confirm(`Kya order deliver ho gaya hai aur aap seller ko ${payoutAmount} رقم جاری کرنا चाहते ہیں?`)) return;
   try {
     await updateDoc(doc(db, "orders", orderId), {
       escrowStatus: "Completed & Released",
