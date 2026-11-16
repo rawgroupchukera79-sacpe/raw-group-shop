@@ -271,7 +271,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Custom Secure Escrow Order Form Modal with Direct Google Maps & Global Phone -->
+<!-- Custom Secure Escrow Order Form Modal with Robust Google Maps Fallback -->
 <div id="customOrderModal" class="custom-modal">
   <div class="modal-content" style="max-width:450px; text-align:right;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
@@ -296,9 +296,9 @@ function googleTranslateElementInit() {
       <div class="form-group">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
           <label style="margin:0;">Complete Address / City (مکمل پتہ) *</label>
-          <button type="button" onclick="getLiveLocation()" style="background:#194376; color:#fff; border:none; padding:3px 8px; border-radius:4px; font-size:10px; cursor:pointer; font-weight:bold;">📍 Open Google Maps Location</button>
+          <button type="button" onclick="openGoogleMapsDirect()" style="background:#194376; color:#fff; border:none; padding:4px 9px; border-radius:4px; font-size:10px; cursor:pointer; font-weight:bold;">📍 Open Google Maps</button>
         </div>
-        <textarea id="custFullAddress" rows="2" required placeholder="Street #, Area, City, Country or Google Maps Link..."></textarea>
+        <textarea id="custFullAddress" rows="2" required placeholder="Street #, Area, City, Country or paste Google Maps link..."></textarea>
       </div>
 
       <div style="display:flex; gap:8px; margin-top:5px;">
@@ -488,29 +488,12 @@ window.openCustomOrderModal = function(item) {
 };
 window.closeCustomOrderModal = () => document.getElementById('customOrderModal').style.display = 'none';
 
-// براہ راست گوگل میپ کے ساتھ جڑنے اور لوکیشن حاصل کرنے کا اپڈیٹڈ فنکشن
-window.getLiveLocation = function() {
-  if (!navigator.geolocation) {
-    alert("Geolocation is not supported by your browser");
-    return;
-  }
-  alert("📍 Fetching your GPS coordinates to open Google Maps...");
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      // براہ راست گوگل میپ کا لنک اور کوآرڈینیٹس درج کرنا
-      const mapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
-      document.getElementById('custFullAddress').value = `Google Maps Location: ${mapsUrl}`;
-      // صارف کے لیے خود بخود گوگل میپ کا صفحہ الگ ٹیب میں کھولنا
-      window.open(mapsUrl, '_blank');
-      alert("✅ Google Maps opened successfully and location added!");
-    },
-    (error) => {
-      alert("Unable to retrieve your location. Please ensure GPS is enabled.");
-    },
-    { enableHighAccuracy: true, timeout: 10000 }
-  );
+// براہ راست گوگل میپ کھولنے اور ایڈریس باکس میں لنک دینے کا بلاتعطل فنکشن
+window.openGoogleMapsDirect = function() {
+  const mapsUrl = "https://maps.google.com";
+  window.open(mapsUrl, '_blank');
+  document.getElementById('custFullAddress').value = "Google Maps Location: (Paste your shared map link here)";
+  alert("📍 Google Maps opened in a new tab! Copy your location link and paste it here.");
 };
 
 window.submitSecureOrder = async function(event) {
