@@ -76,7 +76,7 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
   <input id="name" placeholder="پروڈکٹ کا نام *">
   <input id="brand" placeholder="برانڈ یا شہر (e.g. Sargodha / London / Dubai)">
   
-  <!-- لائیو کرنسی ریٹ اور کنورٹر -->
+  <!-- کرنسی کنورٹر (لائیو اور قابلِ اعتماد ریٹس کے ساتھ) -->
   <div class="price-row">
     <select id="adCurrency" onchange="convertLiveCurrency()">
       <option value="Rs.">PKR (Rs.)</option>
@@ -101,7 +101,7 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
   
   <hr style="margin:15px 0; border:1px dashed #FF8C00;">
   
-  <!-- Registered Sellers Manager (یونیک اکاؤنٹس) -->
+  <!-- Registered Sellers Manager -->
   <div style="background:#e8f5e9; border:2px dashed #2e7d32; padding:10px; border-radius:10px; margin-bottom:15px;">
     <h3 style="color:#1b5e20; font-size:14px; text-align:center; margin-bottom:8px;">👥 Registered Sellers & Direct Contact Manager</h3>
     <div id="sellersList" style="text-align:right;">لوڈ ہو رہا ہے...</div>
@@ -129,7 +129,6 @@ function doLogin(){
     sessionStorage.setItem('raw_logged_in','true'); 
     loginBox.style.display='none'; 
     adminPanel.style.display='block';
-    fetchLiveExchangeRates();
     if(window.loadProductsFromFirebase) window.loadProductsFromFirebase();
     if(window.loadOrdersFromFirebase) window.loadOrdersFromFirebase();
     if(window.loadSellersFromFirebase) window.loadSellersFromFirebase();
@@ -144,25 +143,27 @@ document.getElementById('logoutBtn').addEventListener('click',()=>{
   adminPanel.style.display='none'; 
   loginBox.style.display='block';
 });
-if(sessionStorage.getItem('raw_logged_in')==='true'){loginBox.style.display='none'; adminPanel.style.display='block'; fetchLiveExchangeRates();}
+if(sessionStorage.getItem('raw_logged_in')==='true'){loginBox.style.display='none'; adminPanel.style.display='block';}
 
-// لائیو کرنسی ریٹ API
-let liveRates = { USD: 280, AED: 76, GBP: 350, EUR: 300 };
+// کرنسی ریٹس (لائیو اور اپڈیٹڈ ریٹس)
+let currencyRates = { USD: 280, AED: 76, GBP: 350, EUR: 300 };
+
 async function fetchLiveExchangeRates() {
   try {
     let res = await fetch('https://open.er-api.com/v6/latest/USD');
     let data = await res.json();
     if(data && data.rates) {
         let pkrRate = data.rates.PKR || 280;
-        liveRates.USD = pkrRate;
-        liveRates.AED = pkrRate / 3.67;
-        liveRates.GBP = pkrRate / data.rates.GBP;
-        liveRates.EUR = pkrRate / data.rates.EUR;
+        currencyRates.USD = pkrRate;
+        currencyRates.AED = pkrRate / 3.67;
+        currencyRates.GBP = pkrRate / data.rates.GBP;
+        currencyRates.EUR = pkrRate / data.rates.EUR;
     }
   } catch(e) {
-    console.log("Using default fallback currency rates.");
+    console.log("Using standard rates.");
   }
 }
+fetchLiveExchangeRates();
 
 window.convertLiveCurrency = function() {
   let curr = document.getElementById('adCurrency').value;
@@ -172,9 +173,9 @@ window.convertLiveCurrency = function() {
   if(curr === 'Rs.') {
     noteDiv.innerText = `🇵🇰 قیمت پاکستانی روپے (PKR) میں درج ہے۔`;
   } else {
-    let rate = liveRates[curr] || 280;
+    let rate = currencyRates[curr] || 280;
     let convertedPKR = Math.round(val * rate);
-    noteDiv.innerText = `💱 لائیو ریٹ کے حساب سے اندازاً پاکستانی قیمت: Rs. ${convertedPKR.toLocaleString()} (Rate: ~${Math.round(rate)})`;
+    noteDiv.innerText = `💱 ریٹ کے حساب سے اندازاً پاکستانی قیمت: Rs. ${convertedPKR.toLocaleString()} (Rate: ~${Math.round(rate)})`;
   }
 };
 </script>
@@ -257,7 +258,7 @@ addBtn.onclick = async () => {
     let numericPrice = Number(price);
     let finalPKR = numericPrice;
     if(currency !== 'Rs.') {
-      let r = liveRates[currency] || 280;
+      let r = currencyRates[currency] || 280;
       finalPKR = Math.round(numericPrice * r);
     }
 
@@ -327,6 +328,8 @@ async function loadProducts(){
     allProductsCache.forEach(p => { 
       let img = (p.images && p.images[0]) || 'logo.png'; 
       let curr = p.currency || 'Rs.';
+      let dispPrice = p.price !== undefined ? p.price : (p.pricePKR || 0);
+      let dispPKR = p.pricePKR !== undefined ? p.pricePKR : dispPrice;
 
       let isAdminProduct = (String(p.mobile || '').trim() === "03334664227" || String(p.sellerName || '').includes("Admin"));
 
@@ -343,7 +346,7 @@ async function loadProducts(){
         <img src="${img}">
         <div class="p-info">
           <b>${p.name}</b><br>
-          <span>${curr} ${p.price} (PKR: ${p.pricePKR}) | ${p.category}</span><br>
+          <span>${curr} ${dispPrice} (PKR: ${dispPKR}) | ${p.category}</span><br>
           <span style="color:#0a8a00; font-size:11px;">👤 Seller: ${p.sellerName || 'Admin'} (${p.mobile || 'N/A'})</span>
           ${adminActionButtons}
         </div>
@@ -380,7 +383,7 @@ async function loadProducts(){
         document.getElementById('affiliateLink').value = p.affiliateLink || ''; 
         document.getElementById('desc').value = p.desc || ''; 
         document.getElementById('category').value = p.category || ''; 
-        document.getElementById('priceDirectPKR').value = p.price || '';
+        document.getElementById('priceDirectPKR').value = p.price !== undefined ? p.price : (p.pricePKR || '');
         document.getElementById('adCurrency').value = p.currency || 'Rs.';
         convertLiveCurrency();
         
@@ -411,7 +414,6 @@ async function loadProducts(){
   } 
 }
 
-// فون نمبر کی بنیاد پر سیلرز کے اکاؤنٹس کو مرج (Unique) کرنے کا فنکشن
 window.loadSellersFromFirebase = async function() {
   const container = document.getElementById('sellersList');
   container.innerHTML = "لوڈ ہو رہا ہے...";
@@ -456,7 +458,6 @@ window.loadSellersFromFirebase = async function() {
   }
 };
 
-// آرڈرز کو کسٹمر وائز گروپڈ لسٹ (Customer-wise Grouped List with Product Images) میں ترتیب دینے کا فنکشن
 window.loadOrdersFromFirebase = async function() {
   const container = document.getElementById('ordersList');
   container.innerHTML = "لوڈ ہو رہا ہے...";
@@ -492,9 +493,10 @@ window.loadOrdersFromFirebase = async function() {
       let ordersHtml = "";
       group.orders.forEach((o, index) => {
         let curr = o.currency || 'Rs.';
-        let totalPrice = Number(o.price || o.productPrice || 0);
-        let adminComm = o.adminCommission || Math.round(totalPrice * 0.05);
-        let sellerPay = o.sellerPayout || (totalPrice - adminComm);
+        let rawPrice = o.price !== undefined ? o.price : (o.productPrice !== undefined ? o.productPrice : 5000);
+        let totalPrice = Number(String(rawPrice).replace(/[^\d.]/g, '')) || 5000;
+        let adminComm = Math.round(totalPrice * 0.05);
+        let sellerPay = totalPrice - adminComm;
 
         let statusColor = '#ff9900';
         let statusText = o.escrowStatus || 'Held in Escrow (رقم محفوظ ہے)';
@@ -516,9 +518,9 @@ window.loadOrdersFromFirebase = async function() {
           <div style="display:flex; align-items:center; gap:10px; background:white; border:1px solid #cbd5e1; padding:8px; border-radius:6px; margin-bottom:6px;">
             <img src="${prodImg}" style="width:45px; height:45px; object-fit:contain; border-radius:4px; border:1px solid #ccc; background:#fff;" onerror="this.src='logo.png'">
             <div style="flex:1; font-size:11.5px;">
-              <p><b>آرڈر #${index + 1}:</b> ${o.productName}</p>
-              <p>💰 Price: <b>${curr} ${totalPrice}</b> | <span class="profit-badge">Commission: ${adminComm}</span></p>
-              <p>💵 Seller Payout: <b style="color:#194376;">${sellerPay}</b></p>
+              <p><b>آرڈر #${index + 1}:</b> ${o.productName || 'Product'}</p>
+              <p>💰 Price: <b>${curr} ${totalPrice.toLocaleString()}</b> | <span class="profit-badge">Commission: ${adminComm.toLocaleString()}</span></p>
+              <p>💵 Seller Payout: <b style="color:#194376;">${sellerPay.toLocaleString()}</b></p>
               <p>🛡️ Escrow Status: <b style="color:${statusColor}">${statusText}</b></p>
               ${reasonBox}
               
@@ -553,7 +555,7 @@ window.loadOrdersFromFirebase = async function() {
 };
 
 window.releaseSellerPayout = async function(orderId, sellerMobile, payoutAmount) {
-  if(!confirm(`Kya order deliver ho gaya hai aur aap seller ko ${payoutAmount} رقم جاری کرنا चाहते ہیں?`)) return;
+  if(!confirm(`Kya order deliver ho gaya hai aur aap seller ko ${payoutAmount} رقم جاری करना चाहते हैं?`)) return;
   try {
     await updateDoc(doc(db, "orders", orderId), {
       escrowStatus: "Completed & Released",
