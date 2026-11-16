@@ -69,7 +69,6 @@ function googleTranslateElementInit() {
 <body>
     <div class="top-bar">
     <div style="display: flex; justify-content: flex-start;"><div id="google_translate_element"></div></div>
-    <!-- شاپ کا مین نام اب کافی بڑا اور واضح کر دیا گیا ہے -->
     <div style="text-align: center;"><span style="font-size: 17px; font-weight: 800; color: #d4af37; letter-spacing: 0.5px;">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span></div>
     <div class="owner-branding" style="display: flex; justify-content: flex-end; align-items: center; gap: 6px;">
         <img src="ejaz.jpg" onerror="this.onerror=null;this.src='./ejaz.jpg';" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #d4af37;" title="ejaz Ahmad">
@@ -124,7 +123,7 @@ function googleTranslateElementInit() {
 <!-- Plus Action Menu -->
 <div id="plus-action-menu">
   <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('post')">📢 Naya Ad Lagayein</button>
-  <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('seller_dashboard')">🛒 Seller Dashboard</button>
+  <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('seller_dashboard')">🛒 Seller Dashboard / Admin Panel</button>
   <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('seller_account')">👤 Customer / Seller Account</button>
 </div>
 
@@ -237,37 +236,55 @@ function googleTranslateElementInit() {
 <div id="user-login-modal" class="custom-modal">
   <div class="modal-content" style="text-align:center;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
-      <h3 style="margin:0; font-size:16px; color:#194376;">🔒 Global Seller Login</h3>
+      <h3 style="margin:0; font-size:16px; color:#194376;">🔒 Login / Admin Portal</h3>
       <span style="cursor:pointer; font-size:18px;" onclick="closeLoginModal()">✕</span>
     </div>
     <form id="userLoginForm" onsubmit="verifySellerLogin(event)">
-      <div class="form-group" style="text-align:left;"><label>Seller Name *</label><input type="text" id="loginName" required placeholder="Ali Ahmed"></div>
-      <div class="form-group" style="text-align:left;"><label>WhatsApp Number (with Country Code) *</label><input type="text" id="loginMobile" required placeholder="+923331234567"></div>
+      <div class="form-group" style="text-align:left;"><label>Name *</label><input type="text" id="loginName" required placeholder="Ejaz Ahmad"></div>
+      <div class="form-group" style="text-align:left;"><label>WhatsApp Number *</label><input type="text" id="loginMobile" required placeholder="+923334664227"></div>
       <div class="form-group" style="text-align:left;"><label>Secret Password *</label><input type="password" id="loginPassword" required placeholder="Password"></div>
-      <button type="submit" class="btn-submit-ad" style="background:#194376;">Login / Open</button>
+      <button type="submit" class="btn-submit-ad" style="background:#194376;">Login / Open Portal</button>
     </form>
   </div>
 </div>
 
-<!-- Seller Dashboard Modal (Updated with Product Pictures for clear identification) -->
+<!-- Seller Dashboard (Light for Sellers / Powerful Admin Panel with Edit & Delete for Admin) -->
 <div id="seller-dashboard-modal" class="custom-modal">
-  <div class="modal-content">
+  <div class="modal-content" style="max-width: 520px;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
-      <h3 style="margin:0; font-size:16px; color:#194376;">⚙️ Seller Dashboard & Unified Hub</h3>
+      <h3 id="dashboardModalTitle" style="margin:0; font-size:16px; color:#194376;">⚙️ Seller Dashboard</h3>
       <span style="cursor:pointer; font-size:18px;" onclick="closeSellerDashboard()">✕</span>
     </div>
     <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
     
-    <div style="background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px;">
-      <b>🌐 Global Marketplace Policy:</b> 3% platform fee, 97% goes directly to the seller! All products linked to your phone number appear here.
+    <div id="dashboardNoticeBox" style="background:#fff3ec; border:1px solid #f57224; padding:8px; border-radius:6px; margin-bottom:10px; font-size:11px;">
+      <b>📦 Seller Hub:</b> یہاں صرف آپ کی اپنی ذاتی پروڈکٹس شو ہو رہی ہیں۔
     </div>
 
     <button onclick="closeSellerDashboard(); openAdModalFromDashboard();" style="width:100%; background:#28a745; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer; margin-bottom:12px;">➕ Naya Ad Lagayein</button>
     
-    <div style="font-size:11px; font-weight:bold; color:#194376; margin-bottom:6px;">📦 Your Products (Unified with Images):</div>
-    <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:220px; overflow-y:auto; margin-bottom:10px;"></div>
+    <div id="dashboardProductsHeader" style="font-size:11px; font-weight:bold; color:#194376; margin-bottom:6px;">📦 Your Products Only:</div>
+    <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:240px; overflow-y:auto; margin-bottom:10px;"></div>
     
     <button onclick="closeSellerDashboard()" style="width:100%; background:#ddd; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
+  </div>
+</div>
+
+<!-- Admin Edit Product Modal -->
+<div id="admin-edit-modal" class="custom-modal">
+  <div class="modal-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
+      <h3 style="margin:0; font-size:16px; color:#194376;">✏️ Admin Edit Product</h3>
+      <span style="cursor:pointer; font-size:18px;" onclick="closeAdminEditModal()">✕</span>
+    </div>
+    <form id="adminEditForm" onsubmit="submitAdminEdit(event)">
+      <input type="hidden" id="editProductId">
+      <div class="form-group"><label>Product Title *</label><input type="text" id="editAdTitle" required></div>
+      <div class="form-group"><label>City / Location *</label><input type="text" id="editAdCity" required></div>
+      <div class="form-group"><label>Price (PKR) *</label><input type="number" id="editAdPrice" required></div>
+      <div class="form-group"><label>Description *</label><textarea id="editAdDescription" rows="3" required></textarea></div>
+      <button type="submit" class="btn-submit-ad" style="background:#194376;">Update Product Live</button>
+    </form>
   </div>
 </div>
 
@@ -335,7 +352,7 @@ function googleTranslateElementInit() {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE",
@@ -487,48 +504,122 @@ window.verifySellerLogin = function(e) {
   else openPureSellerDashboard(authData);
 };
 
-// سیلر ڈیش بورڈ میں پروڈکٹ کی تصویر، نام اور قیمت شو کرنے کا اپڈیٹڈ فنکشن
+// سیلر کے لیے ہلکا ڈیش بورڈ اور مین ایڈمن کے لیے طاقتور کنٹرول پینل (بشمول ایڈٹ اور ڈیلیٹ)
 function openPureSellerDashboard(authData) {
   const dUser = document.getElementById('dashboardUserInfo');
   const dList = document.getElementById('myAdsList');
+  const modalTitle = document.getElementById('dashboardModalTitle');
+  const noticeBox = document.getElementById('dashboardNoticeBox');
+  const productsHeader = document.getElementById('dashboardProductsHeader');
   dList.innerHTML = "";
-  dUser.innerHTML = `👤 Seller Name: <b>${authData.name}</b> | Mobile: <b>${authData.mobile}</b>`;
-  document.getElementById('seller-dashboard-modal').style.display = 'flex';
 
   let cleanLoginMob = String(authData.mobile || "").replace(/\D/g, '');
-  let myAds = allProductsCache.filter(item => {
+  let cleanAdminMob = String(ADMIN_MOBILE).replace(/\D/g, '');
+  let isAdmin = (cleanLoginMob === cleanAdminMob);
+
+  if (isAdmin) {
+    modalTitle.innerHTML = "🛡️ Main Admin Control Panel (مکمل کنٹرول)";
+    dUser.innerHTML = `🛡️ Main Admin: <b>${authData.name}</b> | Mobile: <b>${authData.mobile}</b>`;
+    noticeBox.innerHTML = `<b>⭐ Admin Notice:</b> آپ مین ایڈمن ہیں؛ یہاں مارکیٹ پلیس کی <b>تمام پروڈکٹس</b> شو ہو رہی ہیں اور آپ کسی بھی پروڈکٹ کو ایڈٹ یا ڈیلیٹ کر سکتے ہیں!`;
+    productsHeader.innerHTML = `📦 All Marketplace Products (Full Admin Control):`;
+  } else {
+    modalTitle.innerHTML = "⚙️ Seller Dashboard";
+    dUser.innerHTML = `👤 Seller Name: <b>${authData.name}</b> | Mobile: <b>${authData.mobile}</b>`;
+    noticeBox.innerHTML = `<b>📦 Seller Hub:</b> یہاں صرف آپ کی اپنی ذاتی پروڈکٹس شو ہو رہی ہیں۔`;
+    productsHeader.innerHTML = `📦 Your Products Only:`;
+  }
+
+  document.getElementById('seller-dashboard-modal').style.display = 'flex';
+
+  let displayedAds = allProductsCache.filter(item => {
     let itemMob = String(item.mobile || "").replace(/\D/g, '');
-    return itemMob.includes(cleanLoginMob) || cleanLoginMob.includes(itemMob) || (cleanLoginMob === ADMIN_MOBILE.replace(/\D/g, ''));
+    if (isAdmin) {
+      return true;
+    } else {
+      return itemMob === cleanLoginMob || itemMob.endsWith(cleanLoginMob) || cleanLoginMob.endsWith(itemMob);
+    }
   });
 
-  if(myAds.length === 0) {
-    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center;">No products found for this number.</p>`;
+  if(displayedAds.length === 0) {
+    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center;">کوئی پروڈکٹ موجود نہیں ہے۔</p>`;
     return;
   }
 
-  myAds.forEach((ad, i) => {
+  displayedAds.forEach((ad, i) => {
     let imgList = ad.images || (ad.img ? [ad.img] : ['ejaz.jpg']);
     let prodImg = imgList[0];
     let prodTitle = ad.name || ad.title || 'Product';
     let prodPrice = (ad.pricePKR || ad.price) ? `Rs. ${ad.pricePKR || ad.price}` : 'Price on Contact';
+    let sellerTag = isAdmin ? `<span style="font-size:9px; color:#194376; background:#eef2f7; padding:2px 4px; border-radius:3px; margin-left:5px;">(By: ${ad.sellerName || 'Seller'})</span>` : '';
+
+    let actionButtons = `<button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:5px 9px; border-radius:4px; font-size:11px; cursor:pointer; font-weight:bold;">Delete</button>`;
+    
+    // اگر مین ایڈمن ہے تو ایڈٹ کا بٹن بھی ساتھ نظر آئے گا
+    if (isAdmin) {
+      actionButtons = `
+        <div style="display:flex; gap:4px;">
+          <button onclick='openAdminEditModal(${JSON.stringify(ad).replace(/'/g, "&#39;")})' style="background:#ff9900; color:#fff; border:none; padding:5px 9px; border-radius:4px; font-size:11px; cursor:pointer; font-weight:bold;">Edit</button>
+          <button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:5px 9px; border-radius:4px; font-size:11px; cursor:pointer; font-weight:bold;">Delete</button>
+        </div>`;
+    }
 
     dList.innerHTML += `
       <div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:6px; border-radius:6px; margin-bottom:5px;">
         <div style="display:flex; align-items:center; gap:8px;">
           <img src="${prodImg}" style="width:36px; height:36px; object-fit:contain; border-radius:4px; border:1px solid #ccc; background:#fff;" onerror="this.src='ejaz.jpg'">
           <div>
-            <div style="font-size:11px; font-weight:bold; color:#194376;">${i+1}. ${prodTitle}</div>
+            <div style="font-size:11px; font-weight:bold; color:#194376;">${i+1}. ${prodTitle} ${sellerTag}</div>
             <div style="font-size:10px; color:#f57224; font-weight:bold;">${prodPrice}</div>
           </div>
         </div>
-        <button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:5px 10px; border-radius:4px; font-size:11px; cursor:pointer; font-weight:bold;">Delete</button>
+        ${actionButtons}
       </div>`;
   });
 }
 
+// ایڈمن ایڈٹ ماڈل اوپن کرنے کا فنکشن
+window.openAdminEditModal = function(ad) {
+  document.getElementById('editProductId').value = ad.id;
+  document.getElementById('editAdTitle').value = ad.name || ad.title || '';
+  document.getElementById('editAdCity').value = ad.brand || ad.city || 'Sargodha';
+  document.getElementById('editAdPrice').value = ad.pricePKR || ad.price || '';
+  document.getElementById('editAdDescription').value = ad.description || ad.desc || '';
+  document.getElementById('admin-edit-modal').style.display = 'flex';
+};
+window.closeAdminEditModal = () => document.getElementById('admin-edit-modal').style.display = 'none';
+
+// فائر بیس پر پروڈکٹ اپڈیٹ کرنے کا فنکشن
+window.submitAdminEdit = async function(e) {
+  e.preventDefault();
+  const prodId = document.getElementById('editProductId').value;
+  const newTitle = document.getElementById('editAdTitle').value.trim();
+  const newCity = document.getElementById('editAdCity').value.trim();
+  const newPrice = Number(document.getElementById('editAdPrice').value);
+  const newDesc = document.getElementById('editAdDescription').value.trim();
+
+  try {
+    const prodRef = doc(db, "products", prodId);
+    await updateDoc(prodRef, {
+      name: newTitle,
+      title: newTitle,
+      brand: newCity,
+      city: newCity,
+      pricePKR: newPrice,
+      price: newPrice,
+      description: newDesc
+    });
+    alert("✅ پروڈکٹ کامیابی سے اپڈیٹ (Edit) ہو گئی ہے!");
+    document.getElementById('admin-edit-modal').style.display = 'none';
+    document.getElementById('seller-dashboard-modal').style.display = 'none';
+    loadApprovedProducts();
+  } catch(err) {
+    alert("پروڈکٹ اپڈیٹ کرنے میں مسئلہ آیا ہے: " + err.message);
+  }
+};
+
 window.deleteMyProduct = async function(productId) {
-  if(!confirm("Are you sure you want to delete this ad?")) return;
-  try { await deleteDoc(doc(db, "products", productId)); alert("Deleted successfully!"); document.getElementById('seller-dashboard-modal').style.display = 'none'; loadApprovedProducts(); } catch(err) { alert("Error deleting product."); }
+  if(!confirm("کیا آپ واقعی اس پروڈکٹ کو حذف (Delete) کرنا چاہتے ہیں؟")) return;
+  try { await deleteDoc(doc(db, "products", productId)); alert("پروڈکٹ کامیابی سے حذف ہو گئی ہے!"); document.getElementById('seller-dashboard-modal').style.display = 'none'; loadApprovedProducts(); } catch(err) { alert("پروڈکٹ ڈیلیٹ کرنے میں خرابی پیش آئی۔"); }
 };
 window.closeSellerDashboard = () => document.getElementById('seller-dashboard-modal').style.display = 'none';
 
