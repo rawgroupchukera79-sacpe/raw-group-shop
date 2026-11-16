@@ -120,12 +120,11 @@ function googleTranslateElementInit() {
     <p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">پروڈکٹس لوڈ ہو رہی ہیں...</p>
   </div>
 
-<!-- Plus Action Menu (بشمول ریٹنگ سسٹم آپشن) -->
+<!-- Plus Action Menu -->
 <div id="plus-action-menu">
   <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('post')">📢 Naya Ad Lagayein</button>
   <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('seller_dashboard')">🛒 Seller Dashboard</button>
   <button class="menu-action-btn" onclick="closePlusMenu(); openRatingModal()">⭐ Live Ratings & Reviews</button>
-  <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('customer_account')">👤 Customer Account</button>
 </div>
 
 <!-- Bottom Navigation -->
@@ -145,7 +144,6 @@ function googleTranslateElementInit() {
       <span style="cursor:pointer; font-size:18px;" onclick="closeRatingModal()">✕</span>
     </div>
 
-    <!-- ریویو جمع کرانے کا فارم -->
     <div style="background:#f9f9f9; padding:10px; border-radius:8px; margin-bottom:12px; border:1px solid #eee;">
       <h4 style="font-size:13px; color:#333; margin-bottom:8px;">اپنا ریویو اور ریٹنگ درج کریں:</h4>
       <form id="reviewForm" onsubmit="submitCustomerReview(event)">
@@ -160,7 +158,6 @@ function googleTranslateElementInit() {
             <option value="1">⭐ (1 - خرابی / مسئلہ)</option>
           </select>
         </div>
-        <!-- کم ریٹنگ کی صورت میں وجہ پوچھنے والا باکس -->
         <div class="form-group" id="reasonGroup" style="display:none;">
           <label style="color:#d9534f; font-weight:bold;">کم ریٹنگ کی وجہ بتائیں (ضروری ہے) *</label>
           <textarea id="revReason" rows="2" placeholder="وجہ تحریر کریں (مثلاً: آرڈر میں تاخیر یا کوالٹی کا مسئلہ)..."></textarea>
@@ -186,8 +183,10 @@ function googleTranslateElementInit() {
       <span style="cursor:pointer; font-size:18px;" onclick="closePrivacyModal()">✕</span>
     </div>
     <div style="font-size:11.5px; color:#333; line-height:1.6; max-height:320px; overflow-y:auto; background:#fafafa; padding:12px; border-radius:6px; margin-bottom:15px; text-align:left;">
-      <p><b>1. Introduction:</b> R.A.W GROUP CHOUKIRHA 79 marketplace platform.</p>
-      <p style="margin-top:8px;"><b>2. Sellers Policy:</b> Minimal <b>3% platform service fee (Commission)</b> on processed orders, remaining 97% goes directly to the seller.</p>
+      <p><b>1. Introduction:</b> Welcome to R.A.W GROUP CHOUKIRHA 79 official online marketplace platform managed by Ejaz Ahmad in Sargodha, Pakistan.</p>
+      <p style="margin-top:8px;"><b>2. Sellers & Commission Policy:</b> We support local and international sellers. A minimal <b>3% platform service fee (Commission)</b> applies on processed orders, remaining 97% goes directly to the verified seller.</p>
+      <p style="margin-top:8px;"><b>3. User Data & Privacy:</b> All customer and seller personal information, phone numbers, and addresses are securely stored in Firebase Cloud Firestore and handled strictly in accordance with digital privacy standards.</p>
+      <p style="margin-top:8px;"><b>4. Secure Orders & Escrow:</b> Orders placed through our platform are protected via direct communication channels and verified fulfillment guidelines.</p>
     </div>
     <button onclick="closePrivacyModal()" style="width:100%; padding:10px; background:#194376; color:#fff; border:none; border-radius:6px; font-weight:600; cursor:pointer;">Close</button>
   </div>
@@ -235,7 +234,7 @@ function googleTranslateElementInit() {
       </div>
 
       <div style="font-size:12px; font-weight:bold; color:#333; margin-bottom:6px;">📦 Your Orders History:</div>
-      <div id="customerOrdersList" style="max-height:160px; overflow-y:auto; border:1px solid #ddd; border-radius:6px; padding:6px; background:#fafafa; margin-bottom:12px; font-size:11px;">
+      <div id="customerOrdersList" style="max-height:200px; overflow-y:auto; border:1px solid #ddd; border-radius:6px; padding:6px; background:#fafafa; margin-bottom:12px; font-size:11px;">
         <p style="text-align:center; color:#666;">Loading orders...</p>
       </div>
 
@@ -260,13 +259,20 @@ function googleTranslateElementInit() {
 
 <!-- Messages Modal -->
 <div id="messages-modal" class="custom-modal">
-  <div class="modal-content">
+  <div class="modal-content" style="text-align:center;">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
-      <h3 style="margin:0; font-size:16px;">💬 Direct Contact</h3>
+      <h3 style="margin:0; font-size:16px; color:#194376;">💬 Direct Contact & Support</h3>
       <span onclick="closeMessagesModal()" style="cursor:pointer; font-size:18px;">✕</span>
     </div>
+    <div style="background:#eef2f7; padding:12px; border-radius:8px; margin-bottom:15px; font-size:12px; color:#194376; text-align:left;">
+      <b>Store Owner:</b> Ejaz Ahmad<br>
+      <b>Location:</b> 79 S Chukera, Sargodha, Pakistan<br>
+      <b>WhatsApp Number:</b> +92 333 4664227<br>
+      <b>Official Email:</b> Rawgroupchukera79@gmail.com
+    </div>
     <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:15px;">
-      <a href="https://wa.me/923334664227?text=Assalam-o-Alaikum" target="_blank" style="padding:12px; background:#fff; color:#222; border:1px solid #333; border-radius:6px; text-decoration:none; text-align:center; font-weight:600;">💬 WhatsApp Support</a>
+      <a href="https://wa.me/923334664227?text=Assalam-o-Alaikum%20R.A.W%20Group%20Support" target="_blank" style="padding:12px; background:#25d366; color:#fff; border-radius:6px; text-decoration:none; text-align:center; font-weight:600;">💬 Chat on WhatsApp (+923334664227)</a>
+      <a href="mailto:Rawgroupchukera79@gmail.com" style="padding:12px; background:#194376; color:#fff; border-radius:6px; text-decoration:none; text-align:center; font-weight:600;">✉️ Send Email (Rawgroupchukera79@gmail.com)</a>
     </div>
   </div>
 </div>
@@ -399,7 +405,6 @@ window.closePrivacyModal = () => document.getElementById('privacy-policy-modal')
 window.openMessagesModal = () => document.getElementById('messages-modal').style.display = 'flex';
 window.closeMessagesModal = () => document.getElementById('messages-modal').style.display = 'none';
 
-// ریٹنگ ماڈل کنٹرولز
 window.openRatingModal = () => {
   loadLiveReviews();
   document.getElementById('rating-modal').style.display = 'flex';
@@ -479,7 +484,7 @@ async function loadLiveReviews() {
     });
 
     if(reviewsList.length === 0) {
-      container.innerHTML = `<p style="text-align:center; color:#666; font-size:11px; padding:10px;">ابھی تک کوئی ریویو موجود نہیں ہے۔ پہلا ریویو آپ دیں!</p>`;
+      container.innerHTML = `<p style="text-align:center; color:#666; font-size:11px; padding:10px;">ابھی تک کوئی ریویو موجود نہیں ہے۔</p>`;
       return;
     }
 
@@ -507,398 +512,4 @@ async function loadLiveReviews() {
   }
 }
 
-window.openCustomerAccountModal = () => {
-  checkCustomerLoginState();
-  document.getElementById('customer-account-modal').style.display = 'flex';
-};
-window.closeCustomerAccountModal = () => document.getElementById('customer-account-modal').style.display = 'none';
-
-window.loginCustomer = function(e) {
-  e.preventDefault();
-  const name = document.getElementById('custLoginName').value.trim();
-  const phone = document.getElementById('custLoginPhone').value.trim();
-  const address = document.getElementById('custLoginAddress').value.trim();
-  if(!name || !phone || !address) return alert("Tamam fields pur karein!");
-
-  const customerData = { name, phone, address };
-  localStorage.setItem('raw_customer_session', JSON.stringify(customerData));
-  alert("✅ کسٹمر اکاؤنٹ کامیابی سے لاگ ان ہو گیا ہے۔");
-  checkCustomerLoginState();
-};
-
-window.logoutCustomer = function() {
-  localStorage.removeItem('raw_customer_session');
-  alert("🚪 کسٹمر لاگ آؤٹ ہو چکا ہے۔");
-  checkCustomerLoginState();
-};
-
-function checkCustomerLoginState() {
-  const session = localStorage.getItem('raw_customer_session');
-  const loggedOutView = document.getElementById('customerLoggedOutView');
-  const loggedInView = document.getElementById('customerLoggedInView');
-  const navLabel = document.getElementById('navAccountLabel');
-
-  if(session) {
-    const cust = JSON.parse(session);
-    loggedOutView.style.display = 'none';
-    loggedInView.style.display = 'block';
-    document.getElementById('displayCustName').innerText = cust.name;
-    document.getElementById('displayCustPhone').innerText = cust.phone;
-    navLabel.innerText = cust.name.split(' ')[0];
-
-    if(document.getElementById('custFullName')) {
-      document.getElementById('custFullName').value = cust.name;
-      document.getElementById('custPhoneNum').value = cust.phone;
-      document.getElementById('custFullAddress').value = cust.address;
-    }
-
-    loadFirebaseCustomerOrders(cust.phone);
-  } else {
-    loggedOutView.style.display = 'block';
-    loggedInView.style.display = 'none';
-    navLabel.innerText = "Account";
-  }
-}
-
-async function loadFirebaseCustomerOrders(phone) {
-  const container = document.getElementById('customerOrdersList');
-  container.innerHTML = `<p style="text-align:center; color:#666;">Loading orders...</p>`;
-  try {
-    const querySnapshot = await getDocs(collection(db, "orders"));
-    let myOrders = [];
-    querySnapshot.forEach((docSnap) => {
-      let ord = docSnap.data();
-      let cleanStoredPhone = String(ord.phone || "").replace(/\D/g, '');
-      let cleanInputPhone = String(phone || "").replace(/\D/g, '');
-      if (cleanStoredPhone.includes(cleanInputPhone) || cleanInputPhone.includes(cleanStoredPhone)) {
-        myOrders.push(ord);
-      }
-    });
-
-    if(myOrders.length === 0) {
-      container.innerHTML = `<p style="font-size:11px; text-align:center; color:#666; padding:10px;">کوئی آرڈر موجود نہیں ہے۔</p>`;
-      return;
-    }
-
-    container.innerHTML = "";
-    myOrders.forEach((ord, idx) => {
-      container.innerHTML += `
-        <div style="background:#fff; border:1px solid #ddd; padding:6px; border-radius:4px; margin-bottom:5px;">
-          <b>${idx+1}. ${ord.productName}</b><br>
-          💰 Price: ${ord.price} | Status: <span style="color:#28a745; font-weight:bold;">${ord.status}</span><br>
-          📍 Address: ${ord.address}
-        </div>
-      `;
-    });
-  } catch(err) {
-    container.innerHTML = `<p style="font-size:11px; text-align:center; color:red;">لوڈنگ میں مسئلہ آیا ہے۔</p>`;
-  }
-}
-
-window.addToCart = function(item) {
-  cartItems.push(item);
-  alert(`🛒 "${item.name || item.title}" آپ کی کارٹ میں شامل کر دی گئی ہے!`);
-};
-
-window.openCartModal = () => { renderCartItems(); document.getElementById('cart-modal').style.display = 'flex'; };
-window.closeCartModal = () => document.getElementById('cart-modal').style.display = 'none';
-
-window.triggerVisualSearch = () => document.getElementById('visualSearchInput').click();
-window.handleVisualSearch = (event) => { if (event.target.files[0]) alert("📸 تصویر موصول ہو گئی ہے!"); };
-
-window.promptSellerLogin = (actionType) => {
-  pendingTargetAction = actionType;
-  if(actionType === 'customer_account') { openCustomerAccountModal(); closePlusMenu(); return; }
-  document.getElementById('userLoginForm').reset();
-  document.getElementById('user-login-modal').style.display = 'flex';
-};
-window.closeLoginModal = () => document.getElementById('user-login-modal').style.display = 'none';
-
-window.verifySellerLogin = function(e) {
-  e.preventDefault();
-  const name = document.getElementById('loginName').value.trim();
-  const mobile = document.getElementById('loginMobile').value.trim();
-  const password = document.getElementById('loginPassword').value.trim();
-  if(!name || !mobile || !password) return alert("Please fill all fields!");
-  
-  const authData = { name, mobile, password };
-  localStorage.setItem('raw_locked_seller_auth', JSON.stringify(authData));
-  closeLoginModal();
-  
-  if(pendingTargetAction === 'post') document.getElementById('ad-submission-modal').style.display = 'flex';
-  else openPureSellerDashboard(authData);
-};
-
-function openPureSellerDashboard(authData) {
-  const dUser = document.getElementById('dashboardUserInfo');
-  const dList = document.getElementById('myAdsList');
-  dList.innerHTML = "";
-
-  dUser.innerHTML = `👤 Seller Name: <b>${authData.name}</b> | Mobile: <b>${authData.mobile}</b>`;
-  document.getElementById('seller-dashboard-modal').style.display = 'flex';
-
-  let cleanLoginMob = String(authData.mobile || "").replace(/\D/g, '');
-
-  let myAds = allProductsCache.filter(item => {
-    let itemMob = String(item.mobile || "").replace(/\D/g, '');
-    return itemMob === cleanLoginMob || itemMob.endsWith(cleanLoginMob) || cleanLoginMob.endsWith(itemMob);
-  });
-
-  if(myAds.length === 0) {
-    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center;">آپ کی اس نمبر پر کوئی پروڈکٹ موجود نہیں ہے۔</p>`;
-    return;
-  }
-
-  myAds.forEach((ad, i) => {
-    let imgList = ad.images || (ad.img ? [ad.img] : ['ejaz.jpg']);
-    let prodImg = imgList[0];
-    let prodTitle = ad.name || ad.title || 'Product';
-    let prodPrice = (ad.pricePKR || ad.price) ? `Rs. ${ad.pricePKR || ad.price}` : 'Price on Contact';
-
-    dList.innerHTML += `
-      <div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:6px; border-radius:6px; margin-bottom:5px;">
-        <div style="display:flex; align-items:center; gap:8px;">
-          <img src="${prodImg}" style="width:36px; height:36px; object-fit:contain; border-radius:4px; border:1px solid #ccc; background:#fff;" onerror="this.src='ejaz.jpg'">
-          <div>
-            <div style="font-size:11px; font-weight:bold; color:#194376;">${i+1}. ${prodTitle}</div>
-            <div style="font-size:10px; color:#f57224; font-weight:bold;">${prodPrice}</div>
-          </div>
-        </div>
-        <button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:5px 10px; border-radius:4px; font-size:11px; cursor:pointer; font-weight:bold;">Delete</button>
-      </div>`;
-  });
-}
-
-window.deleteMyProduct = async function(productId) {
-  if(!confirm("کیا آپ واقعی اس پروڈکٹ کو حذف کرنا چاہتے ہیں؟")) return;
-  try { await deleteDoc(doc(db, "products", productId)); alert("پروڈکٹ حذف ہو گئی ہے!"); document.getElementById('seller-dashboard-modal').style.display = 'none'; loadApprovedProducts(); } catch(err) { alert("خرابی پیش آئی۔"); }
-};
-window.closeSellerDashboard = () => document.getElementById('seller-dashboard-modal').style.display = 'none';
-
-window.loadApprovedProducts = async function() {
-  const shopList = document.getElementById('shopList');
-  try {
-    const querySnapshot = await getDocs(collection(db, "products"));
-    allProductsCache = [];
-    querySnapshot.forEach((docSnap) => { allProductsCache.push({ id: docSnap.id, ...docSnap.data() }); });
-    renderProducts(allProductsCache);
-  } catch (error) {
-    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:red;">Network error loading products.</p>`;
-  }
-};
-
-function renderProducts(products) {
-  const shopList = document.getElementById('shopList');
-  shopList.innerHTML = "";
-  let filtered = products.filter(item => selectedCategoryFilter === 'All' || item.category === selectedCategoryFilter);
-
-  if (filtered.length === 0) {
-    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">اس کیٹیگری میں کوئی پروڈکٹ موجود نہیں ہے۔</p>`;
-    return;
-  }
-
-  filtered.forEach((item) => {
-    let imagesList = item.images || (item.img ? [item.img] : ['ejaz.jpg']);
-    let mainImg = imagesList[0];
-    let currencySymbol = item.currency || 'Rs.';
-    let priceVal = item.pricePKR || item.price;
-    let priceDisplay = (priceVal !== undefined && priceVal !== "" && !isNaN(priceVal)) ? `${currencySymbol} ${priceVal}` : "Price on Contact";
-
-    let affLink = item.affiliateLink ? item.affiliateLink.trim() : "";
-    let actionButtonsHTML = '';
-    if (affLink !== "") {
-      let storeName = "Buy Online";
-      let btnBg = "#ff9900";
-      if (affLink.includes('alibaba')) { storeName = "Buy on Alibaba"; btnBg = "#ff6600"; }
-      else if (affLink.includes('amazon')) { storeName = "Buy on Amazon"; btnBg = "#FF9900"; }
-      else if (affLink.includes('daraz')) { storeName = "Buy on Daraz"; btnBg = "#f57224"; }
-      actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn" style="background:${btnBg}; color:#fff;">🛒 ${storeName}</a>`;
-    } else {
-      actionButtonsHTML = `
-        <div class="btn-row">
-          <button class="whatsapp-btn" onclick='addToCart(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 Add to Cart</button>
-          <button class="order-btn" onclick='openCustomOrderModal(${JSON.stringify(item).replace(/'/g, "&#39;")})'>Order Now</button>
-        </div>
-      `;
-    }
-
-    shopList.innerHTML += `
-      <div class="card">
-        <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='ejaz.jpg'"></div>
-        <div class="card-body">
-          <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
-          <div class="city-label">📍 ${item.brand || item.city || 'Global City'}</div>
-          <div class="price">${priceDisplay}</div>
-          ${actionButtonsHTML}
-        </div>
-      </div>
-    `;
-  });
-};
-
-window.filterByCategory = function(cat) { selectedCategoryFilter = cat; renderProducts(allProductsCache); };
-
-window.openCustomOrderModal = function(item) {
-  selectedProductForOrder = item;
-  document.getElementById('modalProdName').innerText = item.name || item.title;
-  let currencySymbol = item.currency || 'Rs.';
-  let priceVal = item.pricePKR || item.price;
-  document.getElementById('modalProdPrice').innerText = (priceVal !== undefined && priceVal !== "" && !isNaN(priceVal)) ? `${currencySymbol} ${priceVal}` : "Price on Contact";
-  
-  const session = localStorage.getItem('raw_customer_session');
-  if(session) {
-    const cust = JSON.parse(session);
-    document.getElementById('custFullName').value = cust.name;
-    document.getElementById('custPhoneNum').value = cust.phone;
-    document.getElementById('custFullAddress').value = cust.address;
-  }
-
-  document.getElementById('customOrderModal').style.display = 'flex';
-};
-window.closeCustomOrderModal = () => document.getElementById('customOrderModal').style.display = 'none';
-
-window.openGoogleMapsDirect = function() {
-  const mapsUrl = "https://maps.google.com";
-  window.open(mapsUrl, '_blank');
-  document.getElementById('custFullAddress').value = "Google Maps Location: (Paste your shared map link here)";
-  alert("📍 گوگل میپس نئی ٹیب میں کھل گیا ہے! اپنی لوکیشن کا لنک کاپی کر کے یہاں پیسٹ کر دیں۔");
-};
-
-window.submitSecureOrder = async function(event) {
-  event.preventDefault();
-  const custName = document.getElementById('custFullName').value.trim();
-  const custPhone = document.getElementById('custPhoneNum').value.trim();
-  const custAddress = document.getElementById('custFullAddress').value.trim();
-  if(!custName || !custPhone || !custAddress) return alert('تمام خانوں کو پر کریں۔');
-
-  try {
-    let item = selectedProductForOrder;
-    let sellerWhatsApp = item.mobile || ADMIN_MOBILE;
-    sellerWhatsApp = sellerWhatsApp.replace(/\D/g, '');
-    if(sellerWhatsApp.startsWith('0')) sellerWhatsApp = '92' + sellerWhatsApp.substring(1);
-
-    let orderData = {
-      productName: item.name || item.title,
-      price: (item.currency || 'Rs.') + ' ' + (item.pricePKR || item.price || '0'),
-      customerName: custName,
-      phone: custPhone,
-      address: custAddress,
-      status: 'Active / Pending',
-      date: new Date().toLocaleString()
-    };
-
-    await addDoc(collection(db, "orders"), orderData);
-
-    let orderMsg = `🛍️ *New Order - R.A.W GROUP* 🛍️\n` +
-      `📦 *Product:* ${orderData.productName}\n` +
-      `💰 *Price:* ${orderData.price}\n` +
-      `👤 *Customer:* ${custName}\n` +
-      `📞 *Phone:* ${custPhone}\n` +
-      `📍 *Address:* ${custAddress}`;
-
-    window.open(`https://wa.me/${sellerWhatsApp}?text=${encodeURIComponent(orderMsg)}`, '_blank');
-    alert('آپ کا آرڈر فائر بیس میں محفوظ ہو گیا ہے اور واٹس ایپ پر بھیج دیا گیا ہے!');
-    closeCustomOrderModal();
-  } catch(err) {
-    alert('خرابی پیش آئی: ' + err.message);
-  }
-};
-
-window.openProductDetail = function(item) {
-  document.getElementById('detTitle').innerText = item.name || item.title;
-  let priceVal = item.pricePKR || item.price;
-  document.getElementById('detPrice').innerText = `Price: ${(priceVal !== undefined && priceVal !== "" && !isNaN(priceVal)) ? (item.currency || 'Rs.') + ' ' + priceVal : "Price on Contact"}`;
-  document.getElementById('detCity').innerText = 'Location: ' + (item.brand || item.city || 'Global City');
-  document.getElementById('detDescription').innerText = item.description || item.desc || 'تفصیل موجود نہیں۔';
-
-  const imgContainer = document.getElementById('detImagesContainer');
-  imgContainer.innerHTML = "";
-  let imagesList = item.images || (item.img ? [item.img] : ['ejaz.jpg']);
-  imagesList.forEach(imgSrc => {
-    imgContainer.innerHTML += `<img src="${imgSrc}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px;" onerror="this.src='ejaz.jpg'">`;
-  });
-
-  const actionDiv = document.getElementById('detActionBtn');
-  actionDiv.innerHTML = `<button onclick='addToCart(${JSON.stringify(item).replace(/'/g, "&#39;")}); closeProductDetailModal();' style="width:100%; background:#28a745; color:#fff; padding:11px; border:none; border-radius:6px; font-weight:bold; cursor:pointer;">🛒 Add to Cart</button>`;
-  
-  document.getElementById('product-detail-modal').style.display = 'flex';
-};
-window.closeProductDetailModal = () => document.getElementById('product-detail-modal').style.display = 'none';
-
-function renderCartItems() {
-  const container = document.getElementById('cartItemsContainer');
-  if(cartItems.length === 0) { container.innerHTML = `<p style="text-align:center; color:#777; font-size:13px; margin-top:30px;">آپ کی کارٹ فی الحال خالی ہے۔</p>`; return; }
-  container.innerHTML = "";
-  cartItems.forEach((ci, idx) => {
-    container.innerHTML += `<div style="display:flex; justify-content:space-between; padding:8px; border-bottom:1px solid #eee;"><span style="font-size:12px; font-weight:bold;">${idx+1}. ${ci.name || ci.title}</span><span style="font-size:12px; color:#f57224;">Rs. ${ci.pricePKR || ci.price || 0}</span></div>`;
-  });
-}
-window.proceedToCheckout = function() { if(cartItems.length === 0) return alert("کارٹ خالی ہے!"); openCustomOrderModal(cartItems[0]); };
-
-window.handleMultipleImages = function(event) {
-  const files = event.target.files;
-  if (!files) return;
-  uploadedImagesArray = [];
-  for (let i = 0; i < files.length; i++) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const img = new Image();
-      img.src = e.target.result;
-      img.onload = function() {
-        const canvas = document.createElement('canvas');
-        const MAX_WIDTH = 400;
-        const scaleSize = MAX_WIDTH / img.width;
-        canvas.width = MAX_WIDTH;
-        canvas.height = img.height * scaleSize;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        uploadedImagesArray.push(canvas.toDataURL('image/jpeg', 0.7));
-      }
-    };
-    reader.readAsDataURL(files[i]);
-  }
-};
-
-window.submitUserAd = async function(e) {
-  e.preventDefault();
-  const category = document.getElementById('adCategory').value;
-  const name = document.getElementById('adTitle').value;
-  const city = document.getElementById('adCity').value;
-  const priceInput = document.getElementById('adPrice').value;
-  const affiliateLink = document.getElementById('adAffiliateLink').value;
-  const description = document.getElementById('adDescription').value;
-  const authData = JSON.parse(localStorage.getItem('raw_locked_seller_auth') || '{}');
-
-  if (uploadedImagesArray.length === 0) return alert("تصویر منتخب کریں!");
-
-  try {
-    await addDoc(collection(db, "products"), {
-      name, category, 
-      pricePKR: priceInput ? Number(priceInput) : "", price: priceInput ? Number(priceInput) : "", currency: 'Rs.',
-      brand: city, affiliateLink: affiliateLink || "",
-      description, images: uploadedImagesArray,
-      mobile: authData.mobile || ADMIN_MOBILE,
-      sellerName: authData.name || 'Partner',
-      createdAt: new Date().toISOString()
-    });
-    alert("ایڈ کامیابی سے لائیو ہو گیا ہے!");
-    document.getElementById('ad-submission-modal').style.display = 'none';
-    document.getElementById('userAdForm').reset();
-    uploadedImagesArray = [];
-    loadApprovedProducts();
-  } catch (err) {
-    alert("خرابی پیش آئی۔");
-  }
-};
-
-window.openAdModalFromDashboard = () => document.getElementById('ad-submission-modal').style.display = 'flex';
-window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
-
-window.onload = () => {
-  loadApprovedProducts();
-  checkCustomerLoginState();
-};
-</script>
-
-</body>
-</html>
+window.openCustomerAccountModal = () =>
