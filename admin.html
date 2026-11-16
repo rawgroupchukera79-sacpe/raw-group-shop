@@ -28,7 +28,7 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
 .p-info{flex:1; text-align:right; font-size:13px; overflow:hidden;}
 .btn-edit{background:var(--orange); color:white; border:none; padding:6px 10px; border-radius:6px; margin:2px; cursor:pointer;}
 .btn-del{background:#ff1a1a; color:white; border:none; padding:6px 10px; border-radius:6px; margin:2px; cursor:pointer;}
-.order-card{border:2px solid #194376; background:#eef2f7; border-radius:10px; padding:10px; margin-bottom:10px; font-size:12px;}
+.order-card{border:2px solid #194376; background:#eef2f7; border-radius:10px; padding:12px; margin-bottom:12px; font-size:12px;}
 .seller-card{border:2px solid #2e7d32; background:#e8f5e9; border-radius:10px; padding:10px; margin-bottom:10px; font-size:12px;}
 .profit-badge{background:#28a745; color:white; padding:3px 8px; border-radius:4px; font-weight:bold;}
 .btn-release{background:#28a745; color:white; border:none; padding:8px; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:6px; width:100%; font-size:12px;}
@@ -59,7 +59,7 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
     <option value="Car & Motorcycle">Car & Motorcycle</option>
     <option value="Real Estate">Real Estate</option>
     <option value="Electronics">Electronics</option>
-    <option value="Home & Kitchen Appliances">Home & Kitchen Appliances</option>
+    <option value="Home & Kitchen Appliances">Home & Kitchen & Kitchen Appliances</option>
     <option value="Fashion & Beauty">Fashion & Beauty</option>
     <option value="Job offers">Job offers</option>
     <option value="Kids & Baby-Shop">Kids & Baby-Shop</option>
@@ -76,16 +76,18 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
   <input id="name" placeholder="پروڈکٹ کا نام *">
   <input id="brand" placeholder="برانڈ یا شہر (e.g. Sargodha / London / Dubai)">
   
+  <!-- لائیو کرنسی کنورٹر اور قیمت درج کرنے کا باکس -->
   <div class="price-row">
-    <select id="adCurrency">
+    <select id="adCurrency" onchange="convertLiveCurrency()">
       <option value="Rs.">PKR (Rs.)</option>
       <option value="$">USD ($)</option>
-      <option value="AED">AED (درهم)</option>
+      <option value="AED">AED (درہم)</option>
       <option value="£">GBP (£)</option>
       <option value="€">EUR (€)</option>
     </select>
-    <input id="priceDirectPKR" type="number" placeholder="قیمت لکھیں *">
+    <input id="priceDirectPKR" type="number" placeholder="قیمت لکھیں *" oninput="convertLiveCurrency()">
   </div>
+  <div id="liveRateNote" style="font-size:11px; color:#194376; font-weight:bold; margin-bottom:6px; text-align:left;"></div>
 
   <input id="affiliateLink" placeholder="WhatsApp / Contact Link (Optional)">
   <textarea id="desc" rows="2" placeholder="تفصیل لکھیں"></textarea>
@@ -99,7 +101,7 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
   
   <hr style="margin:15px 0; border:1px dashed #FF8C00;">
   
-  <!-- Registered Sellers Manager (ایک نمبر کا ایک ہی کمبائنڈ اکاؤنٹ) -->
+  <!-- Registered Sellers Manager (یونیک اکاؤنٹس) -->
   <div style="background:#e8f5e9; border:2px dashed #2e7d32; padding:10px; border-radius:10px; margin-bottom:15px;">
     <h3 style="color:#1b5e20; font-size:14px; text-align:center; margin-bottom:8px;">👥 Registered Sellers & Direct Contact Manager</h3>
     <div id="sellersList" style="text-align:right;">لوڈ ہو رہا ہے...</div>
@@ -107,9 +109,9 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
 
   <hr style="margin:15px 0; border:1px dashed #FF8C00;">
 
-  <!-- Escrow Orders & Customer-wise List -->
+  <!-- Escrow Orders & Customer-wise Grouped List -->
   <div style="background:#fff3ec; border:2px dashed #f57224; padding:10px; border-radius:10px; margin-bottom:15px;">
-    <h3 style="color:#194376; font-size:14px; text-align:center; margin-bottom:8px;">🛡️ Escrow Orders & Customer-wise List</h3>
+    <h3 style="color:#194376; font-size:14px; text-align:center; margin-bottom:8px;">🛡️ Escrow Orders & Customer-wise Grouped List</h3>
     <div id="ordersList" style="text-align:right;">لوڈ ہو رہا ہے...</div>
   </div>
 
@@ -127,6 +129,7 @@ function doLogin(){
     sessionStorage.setItem('raw_logged_in','true'); 
     loginBox.style.display='none'; 
     adminPanel.style.display='block';
+    fetchLiveExchangeRates();
     if(window.loadProductsFromFirebase) window.loadProductsFromFirebase();
     if(window.loadOrdersFromFirebase) window.loadOrdersFromFirebase();
     if(window.loadSellersFromFirebase) window.loadSellersFromFirebase();
@@ -141,7 +144,39 @@ document.getElementById('logoutBtn').addEventListener('click',()=>{
   adminPanel.style.display='none'; 
   loginBox.style.display='block';
 });
-if(sessionStorage.getItem('raw_logged_in')==='true'){loginBox.style.display='none'; adminPanel.style.display='block';}
+if(sessionStorage.getItem('raw_logged_in')==='true'){loginBox.style.display='none'; adminPanel.style.display='block'; fetchLiveExchangeRates();}
+
+// لائیو کرنسی ریٹس حاصل کرنے کا فنکشن (Live Exchange Rates API)
+let liveRates = { USD: 280, AED: 76, GBP: 350, EUR: 300 }; // ڈیفالٹ بیک اپ ریٹس
+async function fetchLiveExchangeRates() {
+  try {
+    let res = await fetch('https://open.er-api.com/v6/latest/USD');
+    let data = await res.json();
+    if(data && data.rates) {
+        let pkrRate = data.rates.PKR || 280;
+        liveRates.USD = pkrRate;
+        liveRates.AED = pkrRate / 3.67;
+        liveRates.GBP = pkrRate / data.rates.GBP;
+        liveRates.EUR = pkrRate / data.rates.EUR;
+    }
+  } catch(e) {
+    console.log("Using default fallback currency rates.");
+  }
+}
+
+window.convertLiveCurrency = function() {
+  let curr = document.getElementById('adCurrency').value;
+  let val = Number(document.getElementById('priceDirectPKR').value) || 0;
+  let noteDiv = document.getElementById('liveRateNote');
+  
+  if(curr === 'Rs.') {
+    noteDiv.innerText = `🇵🇰 قیمت پاکستانی روپے (PKR) میں درج ہے۔`;
+  } else {
+    let rate = liveRates[curr] || 280;
+    let convertedPKR = Math.round(val * rate);
+    noteDiv.innerText = `💱 لائیو ریٹ کے حساب سے اندازاً پاکستانی قیمت: Rs. ${convertedPKR.toLocaleString()} (Rate: ~${Math.round(rate)})`;
+  }
+};
 </script>
 
 <script type="module">
@@ -218,6 +253,14 @@ addBtn.onclick = async () => {
 
     status.innerText = 'ڈیٹا بیس میں Save ہو رہا ہے...';
 
+    // اگر کرنسی PKR نہیں ہے تو لائیو ریٹ کے حساب سے PKR قیمت بھی محفوظ کریں
+    let numericPrice = Number(price);
+    let finalPKR = numericPrice;
+    if(currency !== 'Rs.') {
+      let r = liveRates[currency] || 280;
+      finalPKR = Math.round(numericPrice * r);
+    }
+
     let data = { 
       category: category, 
       name: name, 
@@ -227,8 +270,8 @@ addBtn.onclick = async () => {
       mobile: '03334664227',
       desc: document.getElementById('desc').value || '', 
       images: compImgs, 
-      price: Number(price),
-      pricePKR: Number(price),
+      price: numericPrice,
+      pricePKR: finalPKR,
       sellerName: 'Admin (Ejaz Ahmad)',
       status: 'approved',
       isVerifiedSeller: true,
@@ -263,6 +306,7 @@ function resetForm(){
   document.getElementById('desc').value = ''; 
   document.getElementById('category').value = '';
   document.getElementById('adCurrency').value = 'Rs.';
+  document.getElementById('liveRateNote').innerText = '';
   previewContainer.innerHTML = ''; 
   addBtn.innerText = 'سیو کریں'; 
   cancelEditBtn.style.display = 'none'; 
@@ -296,7 +340,7 @@ async function loadProducts(){
         <img src="${img}">
         <div class="p-info">
           <b>${p.name}</b><br>
-          <span>${curr} ${p.pricePKR || p.price} | ${p.category}</span><br>
+          <span>${curr} ${p.price} (PKR: ${p.pricePKR}) | ${p.category}</span><br>
           <span style="color:#0a8a00; font-size:11px;">👤 Seller: ${p.sellerName || 'Admin'} (${p.mobile || 'N/A'})</span>
           ${adminActionButtons}
         </div>
@@ -333,8 +377,9 @@ async function loadProducts(){
         document.getElementById('affiliateLink').value = p.affiliateLink || ''; 
         document.getElementById('desc').value = p.desc || ''; 
         document.getElementById('category').value = p.category || ''; 
-        document.getElementById('priceDirectPKR').value = p.pricePKR || p.price || '';
+        document.getElementById('priceDirectPKR').value = p.price || '';
         document.getElementById('adCurrency').value = p.currency || 'Rs.';
+        convertLiveCurrency();
         
         existingImagesForEdit = p.images || []; 
         previewContainer.innerHTML = ''; 
@@ -377,7 +422,7 @@ window.loadSellersFromFirebase = async function() {
     let sellersMap = {};
     snap.forEach((docSnap) => {
       let p = docSnap.data();
-      let sMobile = String(p.mobile || '03334664227').replace(/\D/g, ''); // صرف نمبرز لیں تاکہ ڈپ্লিکیٹ نہ ہوں
+      let sMobile = String(p.mobile || '03334664227').replace(/\D/g, ''); 
       let sName = p.sellerName || 'Verified Seller';
       
       if(!sMobile) sMobile = '03334664227';
@@ -408,7 +453,7 @@ window.loadSellersFromFirebase = async function() {
   }
 };
 
-// آرڈرز کو کسٹمر وائز لسٹ (Customer-wise List) میں گروپ کرنے کا فنکشن
+// آرڈرز کو کسٹمر وائز گروپڈ لسٹ (Customer-wise Grouped List) میں ترتیب دینے کا فنکشن
 window.loadOrdersFromFirebase = async function() {
   const container = document.getElementById('ordersList');
   container.innerHTML = "لوڈ ہو رہا ہے...";
@@ -437,6 +482,7 @@ window.loadOrdersFromFirebase = async function() {
     });
 
     container.innerHTML = "";
+    let customerIndex = 1;
     for(let custKey in customerOrdersMap) {
       let group = customerOrdersMap[custKey];
       
@@ -460,8 +506,8 @@ window.loadOrdersFromFirebase = async function() {
         let reasonBox = o.holdReason ? `<p style="color:red; font-size:11px; margin-top:4px;"><b>⚠️ وجہ:</b> ${o.holdReason}</p>` : '';
 
         ordersHtml += `
-          <div style="background:white; border:1px solid #ccc; padding:8px; border-radius:6px; margin-bottom:6px;">
-            <p><b>${index + 1}. Product:</b> ${o.productName}</p>
+          <div style="background:white; border:1px solid #cbd5e1; padding:8px; border-radius:6px; margin-bottom:6px;">
+            <p><b>آرڈر #${index + 1}:</b> ${o.productName}</p>
             <p>💰 Price: <b>${curr} ${totalPrice}</b> | <span class="profit-badge">Commission: ${adminComm}</span></p>
             <p>💵 Seller Payout: <b style="color:#194376;">${sellerPay}</b></p>
             <p>🛡️ Escrow Status: <b style="color:${statusColor}">${statusText}</b></p>
@@ -477,11 +523,11 @@ window.loadOrdersFromFirebase = async function() {
 
       container.innerHTML += `
         <div class="order-card">
-          <h4>👤 Customer: ${group.customerName}</h4>
+          <h4 style="color:#194376; margin-bottom:4px;">👤 کسٹمر #${customerIndex++}: ${group.customerName}</h4>
           <p>📞 Phone: <b>${group.phone}</b></p>
           <p>📍 Address: ${group.address}</p>
-          <hr style="border:0; border-top:1px solid #cbd5e1; margin:6px 0;">
-          <b style="font-size:11px; color:#194376;">📦 All Orders (${group.orders.length}):</b>
+          <hr style="border:0; border-top:1px solid #b0c4de; margin:8px 0;">
+          <b style="font-size:11px; color:#194376;">📦 اس کسٹمر کے کل آرڈرز (${group.orders.length}):</b>
           <div style="margin-top:6px;">
             ${ordersHtml}
           </div>
