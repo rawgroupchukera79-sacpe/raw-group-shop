@@ -1021,7 +1021,6 @@ async function submitSecureOrder(event) {
     const ADMIN_MOBILE = "03334664227";
     let item = selectedProductForOrder;
 
-    // واٹس ایپ میسج تیار کرنا (ایڈمن کے لیے)
     let sellerWhatsApp = item.mobile || ADMIN_MOBILE;
     sellerWhatsApp = sellerWhatsApp.replace(/\D/g, '');
     if(sellerWhatsApp.startsWith('0')) sellerWhatsApp = '92' + sellerWhatsApp.substring(1);
@@ -1034,17 +1033,16 @@ async function submitSecureOrder(event) {
       `📍 *Address:* ${custAddress}\n` +
       `_Barah-e-raast yeh order deliver kar dein (Escrow Protected)._`;
 
-    // واٹس ایپ اوپن کرنا
     window.open(`https://wa.me/${sellerWhatsApp}?text=${encodeURIComponent(orderMsg)}`, '_blank');
     
-    alert('آپ کا آرڈر کامیابی سے محفوظ ہو گیا ہے!');
+    alert('آپ کا آرڈر کامیابی سے محفوظ ہو گیا ہے۔');
     closeCustomOrderModal();
 
   } catch(err) {
-    alert('آرڈر پروسیس کرنے میں خرابی: ' + err.message);
+    alert('خرابی پیش آئی: ' + err.message);
   }
 }
 </script>
-    
+
 </body>
 </html>
