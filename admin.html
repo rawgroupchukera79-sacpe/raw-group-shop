@@ -28,7 +28,7 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
 .p-info{flex:1; text-align:right; font-size:13px; overflow:hidden;}
 .btn-edit{background:var(--orange); color:white; border:none; padding:6px 10px; border-radius:6px; margin:2px; cursor:pointer;}
 .btn-del{background:#ff1a1a; color:white; border:none; padding:6px 10px; border-radius:6px; margin:2px; cursor:pointer;}
-.order-card{border:2px solid #194376; background:#eef2f7; border-radius:10px; padding:12px; margin-bottom:12px; font-size:12px;}
+.order-group-card{border:2px solid #194376; background:#eef2f7; border-radius:12px; padding:12px; margin-bottom:15px; font-size:12px;}
 .seller-card{border:2px solid #2e7d32; background:#e8f5e9; border-radius:10px; padding:10px; margin-bottom:10px; font-size:12px;}
 .profit-badge{background:#28a745; color:white; padding:3px 8px; border-radius:4px; font-weight:bold;}
 .btn-release{background:#28a745; color:white; border:none; padding:8px; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:6px; width:100%; font-size:12px;}
@@ -59,7 +59,7 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
     <option value="Car & Motorcycle">Car & Motorcycle</option>
     <option value="Real Estate">Real Estate</option>
     <option value="Electronics">Electronics</option>
-    <option value="Home & Kitchen Appliances">Home & Kitchen & Kitchen Appliances</option>
+    <option value="Home & Kitchen Appliances">Home & Kitchen Appliances</option>
     <option value="Fashion & Beauty">Fashion & Beauty</option>
     <option value="Job offers">Job offers</option>
     <option value="Kids & Baby-Shop">Kids & Baby-Shop</option>
@@ -76,7 +76,7 @@ input,select,textarea{width:100%; padding:12px; margin:6px 0; border:2px solid v
   <input id="name" placeholder="پروڈکٹ کا نام *">
   <input id="brand" placeholder="برانڈ یا شہر (e.g. Sargodha / London / Dubai)">
   
-  <!-- لائیو کرنسی کنورٹر اور قیمت درج کرنے کا باکس -->
+  <!-- لائیو کرنسی ریٹ اور کنورٹر -->
   <div class="price-row">
     <select id="adCurrency" onchange="convertLiveCurrency()">
       <option value="Rs.">PKR (Rs.)</option>
@@ -146,8 +146,8 @@ document.getElementById('logoutBtn').addEventListener('click',()=>{
 });
 if(sessionStorage.getItem('raw_logged_in')==='true'){loginBox.style.display='none'; adminPanel.style.display='block'; fetchLiveExchangeRates();}
 
-// لائیو کرنسی ریٹس حاصل کرنے کا فنکشن (Live Exchange Rates API)
-let liveRates = { USD: 280, AED: 76, GBP: 350, EUR: 300 }; // ڈیفالٹ بیک اپ ریٹس
+// لائیو کرنسی ریٹ API
+let liveRates = { USD: 280, AED: 76, GBP: 350, EUR: 300 };
 async function fetchLiveExchangeRates() {
   try {
     let res = await fetch('https://open.er-api.com/v6/latest/USD');
@@ -188,6 +188,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 let editingId = null, existingImagesForEdit = [], selectedFiles = [];
+let allProductsCache = [];
 
 async function compressAndResize(f) {
   const size = 400;
@@ -253,7 +254,6 @@ addBtn.onclick = async () => {
 
     status.innerText = 'ڈیٹا بیس میں Save ہو رہا ہے...';
 
-    // اگر کرنسی PKR نہیں ہے تو لائیو ریٹ کے حساب سے PKR قیمت بھی محفوظ کریں
     let numericPrice = Number(price);
     let finalPKR = numericPrice;
     if(currency !== 'Rs.') {
@@ -318,10 +318,13 @@ async function loadProducts(){
   listDiv.innerHTML = 'لوڈ ہو رہا ہے...'; 
   try{ 
     const snap = await getDocs(collection(db, 'products'));
-    if(snap.empty){ listDiv.innerHTML = 'کوئی پروڈکٹ نہیں ملی'; return; } 
+    allProductsCache = [];
+    snap.forEach(d => { allProductsCache.push({ id: d.id, ...d.data() }); });
+
+    if(allProductsCache.length === 0){ listDiv.innerHTML = 'کوئی پروڈکٹ نہیں ملی'; return; } 
     listDiv.innerHTML = ''; 
-    snap.forEach(d => { 
-      const p = d.data(); 
+
+    allProductsCache.forEach(p => { 
       let img = (p.images && p.images[0]) || 'logo.png'; 
       let curr = p.currency || 'Rs.';
 
@@ -354,7 +357,7 @@ async function loadProducts(){
         div.querySelector('.btn-block-prod').onclick = async () => {
           if(!confirm("Kya aap is product ko block karna chahte hain?")) return;
           try {
-            await updateDoc(doc(db, 'products', d.id), { isBlocked: true });
+            await updateDoc(doc(db, 'products', p.id), { isBlocked: true });
             alert("Product block ho gayi hai!");
             loadProducts();
           } catch(err) { alert("Masla hua: " + err.message); }
@@ -371,7 +374,7 @@ async function loadProducts(){
       }
       
       div.querySelector('.btn-edit').onclick = () => { 
-        editingId = d.id; 
+        editingId = p.id; 
         document.getElementById('name').value = p.name || ''; 
         document.getElementById('brand').value = p.brand || ''; 
         document.getElementById('affiliateLink').value = p.affiliateLink || ''; 
@@ -397,7 +400,7 @@ async function loadProducts(){
 
       div.querySelector('.btn-del').onclick = async () => { 
         if(!confirm('ڈیلیٹ کرنا چاہتے ہیں؟')) return; 
-        await deleteDoc(doc(db, 'products', d.id)); 
+        await deleteDoc(doc(db, 'products', p.id)); 
         div.remove(); 
       }; 
 
@@ -453,7 +456,7 @@ window.loadSellersFromFirebase = async function() {
   }
 };
 
-// آرڈرز کو کسٹمر وائز گروپڈ لسٹ (Customer-wise Grouped List) میں ترتیب دینے کا فنکشن
+// آرڈرز کو کسٹمر وائز گروپڈ لسٹ (Customer-wise Grouped List with Product Images) میں ترتیب دینے کا فنکشن
 window.loadOrdersFromFirebase = async function() {
   const container = document.getElementById('ordersList');
   container.innerHTML = "لوڈ ہو رہا ہے...";
@@ -505,24 +508,33 @@ window.loadOrdersFromFirebase = async function() {
 
         let reasonBox = o.holdReason ? `<p style="color:red; font-size:11px; margin-top:4px;"><b>⚠️ وجہ:</b> ${o.holdReason}</p>` : '';
 
+        // پروڈکٹ کی تصویر تلاش کرنا
+        let matchedProd = allProductsCache.find(p => (p.name || p.title) === o.productName);
+        let prodImg = matchedProd && (matchedProd.images?.[0] || matchedProd.img) ? (matchedProd.images?.[0] || matchedProd.img) : 'logo.png';
+
         ordersHtml += `
-          <div style="background:white; border:1px solid #cbd5e1; padding:8px; border-radius:6px; margin-bottom:6px;">
-            <p><b>آرڈر #${index + 1}:</b> ${o.productName}</p>
-            <p>💰 Price: <b>${curr} ${totalPrice}</b> | <span class="profit-badge">Commission: ${adminComm}</span></p>
-            <p>💵 Seller Payout: <b style="color:#194376;">${sellerPay}</b></p>
-            <p>🛡️ Escrow Status: <b style="color:${statusColor}">${statusText}</b></p>
-            ${reasonBox}
-            
-            ${o.payoutStatus !== 'Payout Released' ? `
-              <button class="btn-release" onclick="releaseSellerPayout('${o.id}', '${o.sellerMobile || '03334664227'}', '${sellerPay}')">✅ Deliver & Release Payout (رقم بھیجیں)</button>
-              <button class="btn-hold" onclick="holdSellerPayout('${o.id}')">❌ Hold / Product Damaged (رقم روکیں اور وجہ بتائیں)</button>
-            ` : `<span style="color:#28a745; font-weight:bold; display:block; margin-top:6px;">✓ Payout Transferred Successfully</span>`}
+          <div style="display:flex; align-items:center; gap:10px; background:white; border:1px solid #cbd5e1; padding:8px; border-radius:6px; margin-bottom:6px;">
+            <img src="${prodImg}" style="width:45px; height:45px; object-fit:contain; border-radius:4px; border:1px solid #ccc; background:#fff;" onerror="this.src='logo.png'">
+            <div style="flex:1; font-size:11.5px;">
+              <p><b>آرڈر #${index + 1}:</b> ${o.productName}</p>
+              <p>💰 Price: <b>${curr} ${totalPrice}</b> | <span class="profit-badge">Commission: ${adminComm}</span></p>
+              <p>💵 Seller Payout: <b style="color:#194376;">${sellerPay}</b></p>
+              <p>🛡️ Escrow Status: <b style="color:${statusColor}">${statusText}</b></p>
+              ${reasonBox}
+              
+              ${o.payoutStatus !== 'Payout Released' ? `
+                <div style="display:flex; gap:4px; margin-top:5px;">
+                  <button class="btn-release" onclick="releaseSellerPayout('${o.id}', '${o.sellerMobile || '03334664227'}', '${sellerPay}')" style="margin-top:0;">✅ Deliver & Release</button>
+                  <button class="btn-hold" onclick="holdSellerPayout('${o.id}')" style="margin-top:0;">❌ Hold / Damaged</button>
+                </div>
+              ` : `<span style="color:#28a745; font-weight:bold; display:block; margin-top:4px;">✓ Payout Transferred Successfully</span>`}
+            </div>
           </div>
         `;
       });
 
       container.innerHTML += `
-        <div class="order-card">
+        <div class="order-group-card">
           <h4 style="color:#194376; margin-bottom:4px;">👤 کسٹمر #${customerIndex++}: ${group.customerName}</h4>
           <p>📞 Phone: <b>${group.phone}</b></p>
           <p>📍 Address: ${group.address}</p>
