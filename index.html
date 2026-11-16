@@ -942,6 +942,7 @@ window.openAdModalFromDashboard = function() {
 };
 window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
 
+<!-- Custom Secure Order Form Modal -->
 <div id="customOrderModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
   <div style="background:#fff; width:90%; max-width:450px; padding:20px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.3); text-align:right; font-family:sans-serif; position:relative;">
     
@@ -972,7 +973,7 @@ window.closeAdModal = () => document.getElementById('ad-submission-modal').style
 
       <div style="margin-bottom:12px;">
         <label style="font-size:13px; font-weight:bold; display:block; margin-bottom:4px;">موبائل / واٹس ایپ نمبر (Phone Number):</label>
-        <input type="tel" id="custPhoneNum" required placeholder="03XXXXXXXXX" style="width:100% ; padding:8px; border:1px solid #ccc; border-radius:6px; box-sizing:border-box;">
+        <input type="tel" id="custPhoneNum" required placeholder="03XXXXXXXXX" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:6px; box-sizing:border-box;">
       </div>
 
       <div style="margin-bottom:15px;">
@@ -1035,11 +1036,11 @@ async function submitSecureOrder(event) {
 
     window.open(`https://wa.me/${sellerWhatsApp}?text=${encodeURIComponent(orderMsg)}`, '_blank');
     
-    alert('آپ کا آرڈر کامیابی سے محفوظ ہو گیا ہے۔');
+    alert('آپ کا آرڈر کامیابی سے محفوظ ہو گیا ہے!');
     closeCustomOrderModal();
 
   } catch(err) {
-    alert('خرابی پیش آئی: ' + err.message);
+    alert('آرڈر پروسیس کرنے میں خرابی: ' + err.message);
   }
 }
 </script>
