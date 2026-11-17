@@ -1,214 +1,873 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html lang="ur">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seller & Admin Portal - R.A.W GROUP</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>R.A.W GROUP CHOUKIRHA 79 SHOP</title>
+<meta name="google-site-verification" content="yeLNijbmqR4ERCkTu7OH9wZIw9081mm5aUR5Ku3V5JA" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-*{box-sizing:border-box;}
-:root{ --orange:#FF8C00; --navy:#194376; }
-body{background:#f5f5f5; font-family:'Poppins', 'Noto Nastaliq Urdu', sans-serif; margin:0; padding:10px;}
-.admin-container{max-width:650px; margin:0 auto; background:white; border:3px solid var(--navy); border-radius:18px; padding:15px;}
-.header{text-align:center; border-bottom:2px solid var(--navy); padding-bottom:10px; margin-bottom:15px;}
-h1{color:var(--navy); font-size:18px; margin:5px 0;}
-input,select,textarea{width:100%; padding:10px; margin:6px 0; border:2px solid var(--navy); border-radius:8px; font-size:14px; display:block; font-family:inherit;}
-.btn{width:100%; padding:12px; background:var(--navy); color:white; border:none; border-radius:8px; font-weight:bold; font-size:16px; cursor:pointer; margin-top:5px;}
-.section-box{background:#f0f4f8; border:2px solid #b0c4de; border-radius:10px; padding:12px; margin-bottom:15px;}
-.policy-box{background:#fffaf3; border:2px solid var(--orange); border-radius:10px; padding:12px; margin-bottom:15px; font-size:12px; line-height:1.5;}
-.item-card{background:white; border:1px solid #ccc; border-radius:8px; padding:10px; margin-bottom:8px; font-size:13px;}
+    /* --- R.A.W GROUP PURE WHITE & COMPLETE POLISHED STYLE --- */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: #ffffff !important;
+        color: #222222 !important;
+        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        padding-bottom: 70px;
+        top: 0px !important;
+    }
+
+    /* ٹاپ بار اور ہیڈر کی بہترین اور متوازن ترتیب */
+    .top-bar, header, .navbar-top {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 8px 12px !important;
+        background: #ffffff !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+        width: 100% !important;
+    }
+
+    .owner-branding {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        color: #d4af37 !important;
+        font-weight: 700 !important;
+    }
+
+    .owner-branding img {
+        width: 42px !important;
+        height: 42px !important;
+        border-radius: 50% !important;
+        object-fit: cover !important;
+        border: 2px solid #FFD700 !important;
+        box-shadow: 0 2px 6px rgba(212, 175, 55, 0.3) !important;
+    }
+
+    /* گوگل ٹرانسلیٹ باکس */
+    #google_translate_element, .goog-te-combo {
+        background: #ffffff !important;
+        padding: 5px 8px !important;
+        border-radius: 10px !important;
+        border: 1px solid #dcdcdc !important;
+        font-size: 11px !important;
+        outline: none !important;
+    }
+
+    .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+    }
+
+    /* کیٹگریز کے چھوٹے آئیکونز */
+    .cat-item, .cat-icon-circle {
+        border-radius: 14px !important;
+        background: #ffffff !important;
+        border: 1px solid #f0f0f0 !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+    }
+
+    /* نیا خوبصورت اور الگ کلر والا سروسز / فیچرز بینر */
+    .raw-service-banner {
+        background: linear-gradient(135deg, #194376 0%, #295f9c 100%) !important;
+        color: #ffffff !important;
+        border-radius: 16px !important;
+        padding: 18px 20px !important;
+        margin: 15px auto !important;
+        max-width: 96% !important;
+        box-shadow: 0 6px 18px rgba(25, 67, 118, 0.15) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        text-align: center !important;
+    }
+
+    .raw-service-banner h3 {
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        color: #FFD700 !important;
+        margin-bottom: 6px !important;
+    }
+
+    .raw-service-banner p {
+        font-size: 12px !important;
+        opacity: 0.95 !important;
+        line-height: 1.5 !important;
+    }
+
+    /* پروڈکٹ کارڈز اور بکس کی نرم گولائی */
+    .card, .product-card, .shop-card {
+        background: #ffffff !important;
+        border: 1px solid #eaeaea !important;
+        border-radius: 14px !important;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03) !important;
+        overflow: hidden !important;
+        transition: all 0.25s ease-in-out !important;
+    }
+
+    .card:hover, .product-card:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08) !important;
+        transform: translateY(-2px);
+    }
+
+    /* سرچ بار اور ان پٹ فیلڈز */
+    input, select, textarea {
+        background: #fafafa !important;
+        border: 1px solid #dcdcdc !important;
+        border-radius: 12px !important;
+        padding: 8px 12px !important;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        background: #ffffff !important;
+        border-color: #194376 !important;
+        outline: none !important;
+    }
+
+    .search-bar-row { display: flex; align-items: center; background: #194376; padding: 6px 15px 10px; }
+    .search-container { flex: 1; position: relative; display: flex; align-items: center; background: #fff; border-radius: 20px; overflow: hidden; padding-right: 8px; margin: 0 10px; }
+    .search-container input { flex: 1; padding: 9px 14px; border: none; outline: none; font-size: 13px; font-family: inherit; background: transparent; }
+    .camera-search-btn { background: none; border: none; font-size: 18px; cursor: pointer; padding: 4px 8px; color: #194376; display: flex; align-items: center; justify-content: center; }
+
+    .cat-scroll-row { display: flex; gap: 12px; overflow-x: auto; padding: 12px 15px; background: #fff; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .cat-scroll-row::-webkit-scrollbar { display: none; }
+    .cat-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; min-width: 70px; text-align: center; }
+    .cat-icon-circle { width: 50px; height: 50px; border-radius: 50%; background: #fff3ec; border: 2px solid #f57224; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 4px; box-shadow: 0 2px 6px rgba(245,114,36,0.2); }
+    .cat-item span { font-size: 11px; font-weight: 600; color: #333; }
+
+    /* Banner CSS */
+    .banner { position: relative; max-width: 1100px; width: 100%; margin: 10px auto; padding: 0 15px; }
+    .banner-track { height: 140px; border-radius: 12px; color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, #194376, #f57224); position: relative; overflow: hidden; }
+    .banner-slide { display: none; flex-direction: column; justify-content: center; height: 100%; }
+    .banner-slide.active { display: flex; }
+    .banner-track h3 { font-size: 16px; font-weight: bold; }
+    .banner-track p { font-size: 12px; opacity: 0.95; margin-top: 4px; }
+    .banner-dots { display: flex; justify-content: center; gap: 5px; margin-top: 6px; }
+    .banner-dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; }
+    .banner-dot.active { background: #f57224; width: 18px; border-radius: 4px; }
+
+    .products { max-width: 1100px; margin: 10px auto 0; padding: 0 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
+    @media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } }
+
+    .card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.06); border: 1px solid #e5e5e5; display: flex; flex-direction: column; cursor: pointer; position: relative; }
+    .product-img-container { width: 100%; height: 140px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 6px; border-bottom: 1px solid #f1f1f1; cursor: pointer; }
+    .product-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .card-body { padding: 8px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
+    .product-title { font-size: 12px; font-weight: 600; color: #212121; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+    .city-label { font-size: 10px; color: #757575; margin: 2px 0; }
+    .price { color: #f57224; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
+
+    .btn-row { display: flex; gap: 4px; }
+    .whatsapp-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #25d366; color: #fff; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+    .order-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #f57224; color: #fff; text-align: center; }
+    .affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #fff; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
+
+    /* Navigation Bar Style */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #ffffff; border-top: 1px solid #e0e0e0;
+      display: flex !important; flex-direction: row !important;
+      justify-content: space-around; align-items: center;
+      height: 58px; z-index: 2000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+    .nav-item {
+      color: #555555; font-size: 11px; font-weight: 500; text-align: center;
+      display: flex !important; flex-direction: column !important;
+      align-items: center; justify-content: center; cursor: pointer; flex: 1; height: 100%;
+    }
+    .nav-item.active { color: #f57224; }
+    .sell-fab-container { position: relative; flex: 1; display: flex; justify-content: center; }
+    .sell-fab {
+      position: absolute; top: -20px; width: 44px; height: 44px;
+      background: #194376; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; color: #ffffff;
+      font-size: 22px; border: 3px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      cursor: pointer; z-index: 2010;
+    }
+
+    /* Clean & Minimalist Action Menu */
+    #plus-action-menu {
+      display: none;
+      position: fixed;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      border: 1px solid #e0e0e0;
+      z-index: 3000;
+      width: 240px;
+      padding: 8px;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .menu-action-btn {
+      background: #ffffff;
+      color: #333333;
+      border: 1px solid #dcdcdc;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+    }
+    .menu-action-btn:hover {
+      background: #f5f5f5;
+      color: #f57224;
+      border-color: #f57224;
+    }
+
+    .custom-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
+    .modal-content { background: #fff; border-radius: 12px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; padding: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+    .form-group { margin-bottom: 10px; }
+    .form-group label { display: block; font-size: 11px; font-weight: bold; margin-bottom: 3px; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 12px; font-family: inherit; }
+    .btn-submit-ad { background: #28a745; color: white; border: none; width: 100%; padding: 9px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 13px; }
 </style>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'ur,hi,en,ar,fa,zh-CN,es,fr,de,tr',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
 
-<div class="admin-container">
-  <div class="header">
-    <h1>🔐 R.A.W GROUP - Seller & Admin Portal</h1>
-    <p style="font-size:12px; color:#555; margin:2px 0;">محفوظ کاروباری ڈیش بورڈ اور مالیاتی حساب کتاب</p>
-    <a href="index.html" style="display:inline-block; background:var(--orange); color:white; padding:5px 10px; border-radius:5px; font-size:11px; text-decoration:none; margin-top:5px; font-weight:bold;">🛍️ مین شاپ پر واپس جائیں</a>
-  </div>
-
-  <!-- سیلر لاگ ان سیکشن -->
-  <div id="loginBox" class="section-box" style="background:#fff3e0; border-color:var(--orange);">
-    <h3 style="color:var(--orange); margin-top:0; font-size:15px;">🔑 سیلر یا ایڈمن لاگ ان</h3>
-    <input id="loginStoreName" placeholder="اپنا رجسٹرڈ سٹور کا نام درج کریں (مثلاً Shahid Store) *">
-    <input id="loginMobile" placeholder="اپنا واٹس ایپ نمبر درج کریں * (مثلاً 03334664227)">
-    <button class="btn" style="background:var(--orange);" onclick="sellerLogin()">لاگ ان کریں (Login)</button>
-  </div>
-
-  <!-- مین ڈیش بورڈ (لاگ ان کے بعد ظاہر ہوگا) -->
-  <div id="dashboardBox" style="display:none;">
+<div class="top-bar">
+    <!-- بائیں سائیڈ پر گوگل ٹرانسلیٹ -->
+    <div style="display: flex; justify-content: flex-start;">
+        <div id="google_translate_element"></div>
+    </div>
     
-    <!-- سیلر کی اندرونی پالیسی اور ڈویز باکس -->
-    <div class="policy-box">
-      <h3 style="color:var(--orange); margin-top:0; font-size:14px;">📜 سیلرز کے لیے اندرونی شرائط و ضوابط (Seller Dues & Policies):</h3>
-      <ul>
-        <li><b>3% پلیٹ فارم کمیشن:</b> تمام کیش آن ڈلیوری (COD) یا براہ راست فروخت پر کمپنی کا 3% کمیشن لاگو ہوتا ہے۔</li>
-        <li><b>Pending Dues (پینڈنگ واجبات):</b> جو کیش آپ اپنے پاس وصول کرتے ہیں، اس کا کمپنی حصہ آپ کے اکاؤنٹ میں پینڈنگ شو ہوتا ہے۔</li>
-        <li><b>کریڈٹ لمٹ اور وارننگ:</b> اگر پینڈنگ رقم مخصوص حد سے بڑھ جائے اور بروقت جمع نہ کروائی گئی تو اکاؤنٹ بلاک یا قانونی کاروائی کی جا سکتی ہے۔</li>
-      </ul>
-      <div style="background:#ffebee; color:#c62828; padding:8px; border-radius:6px; font-weight:bold; margin-top:8px; text-align:center;">
-        خوش آمدید <span id="activeStoreDisplay" style="color:var(--navy);"></span> | آپ کی طرف کل Pending Dues: <span id="sellerPendingAmount">Rs. 0</span>
+    <!-- بالکل سینٹر میں ستاروں کے ساتھ گولڈن نام -->
+    <div style="text-align: center;">
+        <span style="font-size: 13px; font-weight: 700; color: #d4af37; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span>
+    </div>
+    
+    <!-- دائیں سائیڈ پر اونر کی تصویر اور لوگو -->
+    <div class="owner-branding" style="display: flex; justify-content: flex-end; align-items: center; gap: 6px;">
+        <img src="./ejar.jpg" onerror="this.onerror=null;this.src='ejar.jpg';" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid #d4af37;" title="ejaz Ahmad">
+        <img src="./logo.png" onerror="this.style.display='none';" style="height: 26px;" title="R.A.W Group">
+    </div>
+</div>
+
+<div class="search-bar-row">
+    <div class="search-container">
+      <input id="search" onkeyup="filterShop()" placeholder="🔍 پروڈکٹ کا نام یا شہر تلاش کریں...">
+      <button class="camera-search-btn" onclick="triggerVisualSearch()" title="تصویر کے ذریعے تلاش کریں">
+        📷
+        <input type="file" id="visualSearchInput" accept="image/*" style="display: none;" onchange="handleVisualSearch(event)">
+      </button>
+    </div>
+</div>
+
+  <div class="cat-scroll-row">
+    <div class="cat-item" onclick="filterByCategory('All')"><div class="cat-icon-circle">📦</div><span>تمام (All)</span></div>
+    <div class="cat-item" onclick="filterByCategory('Furniture & Decoration')"><div class="cat-icon-circle">🛋️</div><span>Furniture</span></div>
+    <div class="cat-item" onclick="filterByCategory('Car & Motorcycle')"><div class="cat-icon-circle">🚗</div><span>Vehicles</span></div>
+    <div class="cat-item" onclick="filterByCategory('Real Estate')"><div class="cat-icon-circle">🏠</div><span>Real Estate</span></div>
+    <div class="cat-item" onclick="filterByCategory('Electronics')"><div class="cat-icon-circle">💻</div><span>Electronics</span></div>
+    <div class="cat-item" onclick="filterByCategory('Home & Kitchen Appliances')"><div class="cat-icon-circle">🍳</div><span>Home & Kitchen</span></div>
+    <div class="cat-item" onclick="filterByCategory('Fashion & Beauty')"><div class="cat-icon-circle">👗</div><span>Fashion</span></div>
+    <div class="cat-item" onclick="filterByCategory('Job offers')"><div class="cat-icon-circle">💼</div><span>Jobs</span></div>
+    <div class="cat-item" onclick="filterByCategory('Kids & Baby-Shop')"><div class="cat-icon-circle">🧸</div><span>Kids & Baby</span></div>
+    <div class="cat-item" onclick="filterByCategory('Education / BookShop')"><div class="cat-icon-circle">📚</div><span>BookShop</span></div>
+    <div class="cat-item" onclick="filterByCategory('General store Food Delivery')"><div class="cat-icon-circle">🛒</div><span>General Store</span></div>
+    <div class="cat-item" onclick="filterByCategory('Services & offers')"><div class="cat-icon-circle">🌐</div><span>Services</span></div>
+    <div class="cat-item" onclick="filterByCategory('Health & Care')"><div class="cat-icon-circle">🩺</div><span>Health & Care</span></div>
+    <div class="cat-item" onclick="filterByCategory('Animals & Accessories')"><div class="cat-icon-circle">🐾</div><span>Animals</span></div>
+    <div class="cat-item" onclick="filterByCategory('Sports & Hobbies')"><div class="cat-icon-circle">⚽</div><span>Sports</span></div>
+    <div class="cat-item" onclick="filterByCategory('Antique Coins Gemstone')"><div class="cat-icon-circle">💍</div><span>Gemstone</span></div>
+    <div class="cat-item" onclick="filterByCategory('Tools & Heavy Machinery')"><div class="cat-icon-circle">🛠️</div><span>Tools</span></div>
+  </div>
+
+  <div class="raw-service-banner" style="background: #ffffff; color: #194376; border: 2px solid #194376; border-radius: 16px; padding: 18px 20px; margin: 15px auto; max-width: 96%; text-align: center; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);">
+    <h3 style="font-size: 16px; font-weight: 700; color: #d4af37; margin-bottom: 6px;">⭐ R.A.W GROUP CHOUKIRHA 79 MARKETPLACE ⭐</h3>
+    <p style="font-size: 12px; color: #333333; opacity: 0.95; line-height: 1.5;">ویب سائٹ بنانے کے <span style="color: #d4af37; font-weight: bold;">جھنجھٹ اور خرچے</span> سے جان چھڑائیں! <span style="color: #194376; font-weight: bold;">نہ پیسے چاہیے، نہ خریدنی ہے</span> — بس اپنا <span style="color: #d4af37; font-weight: bold;">سیلر اکاؤنٹ بنائیں</span> اور اپنی آن لائن شاپ <span style="color: #194376; font-weight: bold;">فوراً تیار</span> پائیں!</p>
+  </div>
+
+  <div class="banner">
+    <div class="banner-track" id="bannerTrack">
+      <div class="banner-slide active">
+        <h3>R.A.W GROUP CHOUKIRHA 79</h3>
+        <p>Aapki Apni Online Marketplace & Official Store</p>
+      </div>
+      <div class="banner-slide">
+        <h3>🛒 Official Global Affiliate Deals</h3>
+        <p>Amazon, Alibaba & Daraz Best Discounted Deals Available Worldwide!</p>
+      </div>
+      <div class="banner-slide">
+        <h3>💬 24/7 Customer Support & Global Orders</h3>
+        <p>Direct WhatsApp Chat & Secure Escrow Protected Payments</p>
       </div>
     </div>
-
-    <!-- نئی پروڈکٹ یا سروس شامل کرنے کا فارم -->
-    <div class="section-box">
-      <h3 style="color:var(--navy); margin-top:0; font-size:15px;">➕ نئی پروڈکٹ یا سروس درج کریں</h3>
-      <input id="pName" placeholder="آئٹم کا نام (مثلاً رینٹ اے کار یا پروڈکٹ نام) *">
-      <input id="pPrice" type="number" placeholder="قیمت (PKR میں - سروس کے لیے خالی چھوڑیں)">
-      
-      <select id="pCategory" onchange="checkCategoryType()">
-        <option value="General Products">عام پروڈکٹ (General Products)</option>
-        <option value="Real Estate">رئیل اسٹیٹ (Real Estate - سروس)</option>
-        <option value="Car & Motorcycle">رینٹ اے کار / موٹرسائیکل (Car & Rental - سروس)</option>
-        <option value="Services & offers">دیگر سروسز (Services & Offers)</option>
-      </select>
-
-      <input id="pImage" placeholder="تصویر کا لنک (Image URL) *">
-      <button class="btn" onclick="addNewItem()">🚀 پروڈکٹ / سروس لسٹ کریں</button>
+    <div class="banner-dots">
+      <span class="banner-dot active" onclick="currentSlide(0)"></span>
+      <span class="banner-dot" onclick="currentSlide(1)"></span>
+      <span class="banner-dot" onclick="currentSlide(2)"></span>
     </div>
-
-    <!-- سیلر کی اپنی لسٹ کردہ اشیاء -->
-    <div class="section-box">
-      <h3 style="color:var(--navy); margin-top:0; font-size:15px;">📦 آپ کی لسٹ کردہ پروڈکٹس اور سروسز</h3>
-      <div id="sellerItemsList">آئٹمز لوڈ ہو رہی ہیں...</div>
-    </div>
-
-    <button onclick="sellerLogout()" style="background:#666; color:white; border:none; width:100%; padding:10px; border-radius:8px; margin-top:10px; cursor:pointer; font-weight:bold;">لاگ آؤٹ (Logout)</button>
   </div>
 
+  <div id="shopList" class="products">
+    <p style="text-align:center;padding:20px;color:#666;grid-column: 1 / -1;">پروڈکٹس لوڈ ہو رہی ہیں...</p>
+  </div>
+
+  <div style="text-align:center; padding: 25px 10px 15px; font-size:11px; color:#555; background:#fff; margin-top:20px; border-top:1px solid #ddd;">
+    <p>© R.A.W GROUP CHOUKIRHA 79. Registered & Compliant Platform. All Rights Reserved.</p>
+  </div>
+
+<!-- Plus Action Menu -->
+<div id="plus-action-menu">
+  <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('post')">📢 Naya Ad Lagayein</button>
+  <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('seller_dashboard')">🛒 Seller Dashboard</button>
+  <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('seller_account')">👤 Seller Account</button>
+</div>
+
+<!-- Bottom Navigation -->
+<div class="bottom-nav">
+  <div class="nav-item" onclick="openPrivacyModal()">
+    <span style="font-size: 20px;">🔒</span>
+    <span style="font-size: 11px;">Policy</span>
+  </div>
+  <div class="nav-item" onclick="openMessagesModal()">
+    <span style="font-size: 20px;">💬</span>
+    <span style="font-size: 11px;">Messages</span>
+  </div>
+  <div class="sell-fab-container">
+    <div class="sell-fab" onclick="togglePlusMenu()">+</div>
+  </div>
+  <div class="nav-item" onclick="openCartModal()">
+    <span style="font-size: 20px;">🛒</span>
+    <span style="font-size: 11px;">Cart</span>
+  </div>
+  <div class="nav-item" onclick="openCustomerAccountModal()">
+    <span style="font-size: 20px;">👤</span>
+    <span style="font-size: 11px;">Account</span>
+  </div>
+</div>
+
+<!-- Public Privacy Policy Modal (عام کسٹمرز کے لیے باہر مین سکرین پر) -->
+<div id="privacy-policy-modal" class="custom-modal">
+  <div class="modal-content" style="max-width: 520px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
+      <h3 style="margin: 0; font-size: 15px; color: #194376; font-weight: 700;">📜 Public Privacy Policy & Terms</h3>
+      <span style="cursor:pointer; font-size: 18px; color: #555555; font-weight: bold;" onclick="closePrivacyModal()">✕</span>
+    </div>
+    <div style="font-size: 11.5px; color: #333; line-height: 1.6; max-height: 320px; overflow-y: auto; background: #fafafa; padding: 12px; border-radius: 6px; border: 1px solid #eee; margin-bottom: 15px; text-align: left;">
+      <p><b>1. Introduction:</b> R.A.W GROUP CHOUKIRHA 79 provides a clean, secure marketplace for customers to browse and buy products with universal payment options.</p>
+      <p style="margin-top: 8px;"><b>2. Customer Data & Privacy:</b> Customer phone numbers, names, and delivery addresses are kept fully secure and confidential, used solely for direct order fulfillment and shipping coordination.</p>
+      <p style="margin-top: 8px;"><b>3. Secure Transactions:</b> All purchases, inquiries, and local/international payments (Meezan Bank, Mobile Wallets, and Global Gateways) are processed with transparent guidelines.</p>
+    </div>
+    <button onclick="closePrivacyModal()" style="width: 100%; padding: 10px; background: #194376; color: #ffffff; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">Close Policy</button>
+  </div>
+</div>
+
+<!-- Product Detail Modal -->
+<div id="product-detail-modal" class="custom-modal">
+  <div class="modal-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
+      <h3 id="detTitle" style="margin: 0; font-size: 16px; color: #222222; font-weight: 600;">Product Details</h3>
+      <span style="cursor:pointer; font-size: 18px; color: #555555; font-weight: bold;" onclick="closeProductDetailModal()">✕</span>
+    </div>
+    <div id="detImagesContainer" style="display:flex; flex-direction:column; gap:10px; max-height:280px; overflow-y:auto; align-items:center; background:#fafafa; padding:8px; border-radius:6px; margin-bottom:10px;"></div>
+    <div id="detPrice" style="font-size:15px; font-weight:bold; color:#f57224; margin-bottom:6px;"></div>
+    <div id="detCity" style="font-size:11px; color:#757575; margin-bottom:6px;"></div>
+    <div id="detDescription" style="font-size:12px; color:#333; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:12px; white-space:pre-wrap;"></div>
+    <div id="detActionBtn"></div>
+  </div>
+</div>
+
+<!-- Customer Account Modal -->
+<div id="customer-account-modal" class="custom-modal">
+  <div class="modal-content">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; margin-bottom: 15px;">
+      <h3 style="margin: 0; font-size: 16px; color: #222222; font-weight: 600;">👤 Customer Account</h3>
+      <span onclick="closeCustomerAccountModal()" style="cursor: pointer; font-size: 18px; color: #555555; font-weight: bold;">✕</span>
+    </div>
+    <div style="margin-bottom: 15px;">
+      <label style="display: block; font-size: 12px; color: #444; margin-bottom: 4px;">Full Name</label>
+      <input type="text" id="custName" placeholder="Apna naam likhein" style="width: 100%; padding: 9px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; margin-bottom: 10px;">
+      <label style="display: block; font-size: 12px; color: #444; margin-bottom: 4px;">Mobile / WhatsApp Number</label>
+      <input type="text" id="custPhone" placeholder="03XXXXXXXXX" style="width: 100%; padding: 9px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; margin-bottom: 10px;">
+      <label style="display: block; font-size: 12px; color: #444; margin-bottom: 4px;">Delivery Address</label>
+      <textarea id="custAddress" rows="2" placeholder="Ghar ka pata..." style="width: 100%; padding: 9px; border: 1px solid #dcdcdc; border-radius: 6px; font-size: 13px; margin-bottom: 10px;"></textarea>
+      <button onclick="saveCustomerProfile()" style="width: 100%; padding: 10px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">Save Profile & Address</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cart Modal -->
+<div id="cart-modal" class="custom-modal">
+  <div class="modal-content">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; margin-bottom: 15px;">
+      <h3 style="margin: 0; font-size: 16px; color: #222222; font-weight: 600;">🛒 Shopping Cart</h3>
+      <span onclick="closeCartModal()" style="cursor: pointer; font-size: 18px; color: #555555; font-weight: bold;">✕</span>
+    </div>
+    <div id="cartItemsContainer" style="margin-bottom: 15px; min-height: 100px;">
+      <p style="text-align: center; color: #777; font-size: 13px; margin-top: 30px;">آپ کی کارٹ فی الحال خالی ہے۔</p>
+    </div>
+    <button onclick="proceedToCheckout()" style="width: 100%; padding: 11px; background: #28a745; color: #ffffff; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">Place Order Now (آرڈر کنفرم کریں)</button>
+  </div>
+</div>
+
+<!-- Messages Modal -->
+<div id="messages-modal" class="custom-modal">
+  <div class="modal-content">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; margin-bottom: 15px;">
+      <h3 style="margin: 0; font-size: 16px; color: #222222; font-weight: 600;">💬 Direct Contact (رابطہ کریں)</h3>
+      <span onclick="closeMessagesModal()" style="cursor: pointer; font-size: 18px; color: #555555; font-weight: bold;">✕</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+      <a href="https://wa.me/923334664227?text=Assalam-o-Alaikum,%20R.A.W%20Group%20se%20rabta%20karna%20hai." target="_blank" style="display: block; padding: 12px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center;">
+        💬 WhatsApp Chat: 0333-4664227
+      </a>
+      <a href="tel:+923334664227" style="display: block; padding: 12px; background: #ffffff; color: #222222; border: 1px solid #333333; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center;">
+        📞 Direct Call: +92 333 4664227
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Seller Login Modal -->
+<div id="user-login-modal" class="custom-modal">
+  <div class="modal-content" style="text-align:center;">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
+      <h3 style="margin: 0; font-size: 16px; color: #194376; font-weight: 600;">🔒 Seller & Admin Login</h3>
+      <span style="cursor:pointer; font-size: 18px; color: #555555; font-weight: bold;" onclick="closeLoginModal()">✕</span>
+    </div>
+    <form id="userLoginForm" onsubmit="verifySellerLogin(event)">
+      <div class="form-group" style="text-align:left;"><label>Store / Name *</label><input type="text" id="loginName" required placeholder="Store Name"></div>
+      <div class="form-group" style="text-align:left;"><label>WhatsApp Number *</label><input type="text" id="loginMobile" required placeholder="03334664227"></div>
+      <div class="form-group" style="text-align:left;"><label>Password *</label><input type="password" id="loginPassword" required placeholder="Password"></div>
+      <button type="submit" class="btn-submit-ad" style="background:#194376;">Login / Open</button>
+    </form>
+  </div>
+</div>
+
+<!-- Seller Dashboard (یہاں اندرونی سیلر پرائیویسی، 3% کمیشن اور پینڈنگ ڈویز صرف سیلر کو نظر آئیں گے) -->
+<div id="seller-dashboard-modal" class="custom-modal">
+  <div class="modal-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
+      <h3 style="margin: 0; font-size: 16px; color: #194376; font-weight: 600;">⚙️ Seller Account & Internal Policy</h3>
+      <span style="cursor:pointer; font-size: 18px; color: #555555; font-weight: bold;" onclick="closeSellerDashboard()">✕</span>
+    </div>
+    <div id="dashboardUserInfo" style="font-size:11px; background:#eef2f7; padding:8px; border-radius:6px; margin-bottom:10px; color:#194376;"></div>
+    
+    <!-- سیلر کی اندرونی پالیسی اور کمیشن کا اصول (صرف سیلر اکاؤنٹ کے اندر) -->
+    <div style="background:#fff3ec; border:1px solid #f57224; padding:10px; border-radius:6px; margin-bottom:10px; font-size:11.5px; color:#333; line-height:1.5;">
+      <b>📜 سیلرز کے لیے اندرونی شرائط و ضوابط (Internal Seller Policy):</b><br>
+      • <b>3% پلیٹ فارم کمیشن:</b> تمام COD یا براہ راست فروخت پر کمپنی کا 3% کمیشن لاگو ہوتا ہے۔<br>
+      • <b>Pending Dues & Dues Recovery:</b> جو کیش آپ اپنے پاس وصول کرتے ہیں، اس کا کمپنی حصہ پینڈنگ واجبات میں شمار ہوتا ہے۔ بروقت ادائیگی نہ کرنے پر اکاؤنٹ معطل کیا جا سکتا ہے۔
+    </div>
+
+    <button onclick="closeSellerDashboard(); openAdModalFromDashboard();" style="width:100%; background:#28a745; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer; margin-bottom:12px;">➕ نئی پروڈکٹ / سروس لسٹ کریں</button>
+    
+    <div style="font-size:11px; font-weight:bold; color:#194376; margin-bottom:6px;">📦 آپ کی اپنی لسٹ کردہ اشیاء:</div>
+    <div id="myAdsList" style="display:flex; flex-direction:column; gap:8px; max-height:180px; overflow-y:auto; margin-bottom:10px;"></div>
+    <button onclick="closeSellerDashboard()" style="width:100%; background:#ddd; border:none; padding:7px; border-radius:6px; font-weight:bold; font-size:11px; cursor:pointer;">Close</button>
+  </div>
+</div>
+
+<!-- Ad Submission Modal -->
+<div id="ad-submission-modal" class="custom-modal">
+  <div class="modal-content">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
+      <h3 style="margin: 0; font-size: 16px; color: #194376; font-weight: 600;">📦 پروڈکٹ یا سروس لسٹ کریں</h3>
+      <span style="cursor:pointer; font-size: 18px; color: #555555; font-weight: bold;" onclick="closeAdModal()">✕</span>
+    </div>
+    <form id="userAdForm" onsubmit="submitUserAd(event)">
+      <div class="form-group">
+        <label>Category *</label>
+        <select id="adCategory" required>
+          <option value="">Select Category</option>
+          <option value="Furniture & Decoration">Furniture & Decoration</option>
+          <option value="Car & Motorcycle">Car & Motorcycle (Vehicles)</option>
+          <option value="Real Estate">Real Estate</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Home & Kitchen Appliances">Home & Kitchen Appliances</option>
+          <option value="Fashion & Beauty">Fashion & Beauty</option>
+          <option value="Job offers">Job offers</option>
+          <option value="Kids & Baby-Shop">Kids & Baby-Shop</option>
+          <option value="Education / BookShop">Education / BookShop</option>
+          <option value="General store Food Delivery">General store Food Delivery</option>
+          <option value="Services & offers">Services & offers</option>
+          <option value="Health & Care">Health & Care</option>
+          <option value="Animals & Accessories">Animals & Accessories</option>
+          <option value="Sports & Hobbies">Sports & Hobbies</option>
+          <option value="Antique Coins Gemstone">Antique Coins Gemstone</option>
+          <option value="Tools & Heavy Machinery">Tools & Heavy Machinery</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Item / Title *</label><input type="text" id="adTitle" required placeholder="Product or Service Name"></div>
+      <div class="form-group"><label>City / Location *</label><input type="text" id="adCity" required value="Sargodha / Chukera"></div>
+      <div class="form-group">
+        <label>Price (Optional - رینٹ اے کار یا رئیل اسٹیٹ سروس کے لیے خالی چھوڑیں)</label>
+        <input type="number" id="adPrice" placeholder="Price in PKR (Optional)">
+      </div>
+      <div class="form-group">
+        <label>Affiliate / Store Link (Optional)</label>
+        <input type="text" id="adAffiliateLink" placeholder="https://...">
+      </div>
+      <div class="form-group"><label>Description *</label><textarea id="adDescription" rows="3" required placeholder="تفصیل درج کریں..."></textarea></div>
+      <div class="form-group"><label>Images *</label><input type="file" id="imageFileInput" accept="image/*" multiple required onchange="handleMultipleImages(event)"></div>
+      <button type="submit" class="btn-submit-ad">Publish Live</button>
+    </form>
+  </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const firebaseConfig = { apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE", authDomain: "raw-group-shop.firebaseapp.com", projectId: "raw-group-shop", storageBucket: "raw-group-shop.firebasestorage.app", messagingSenderId: "488689802066", appId: "1:488689802066:web:1437531e15df63e958388b" };
+const firebaseConfig = {
+  apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE",
+  authDomain: "raw-group-shop.firebaseapp.com",
+  projectId: "raw-group-shop",
+  storageBucket: "raw-group-shop.firebasestorage.app",
+  messagingSenderId: "488689802066",
+  appId: "1:488689802066:web:1437531e15df63e958388b"
+};
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let currentSeller = null;
+let uploadedImagesArray = [];
+let selectedCategoryFilter = "All";
+let allProductsCache = [];
+let pendingTargetAction = null;
+let cartItems = [];
+const ADMIN_MOBILE = "03334664227";
 
-window.sellerLogin = function() {
-  let storeName = document.getElementById('loginStoreName').value.trim();
-  let mobile = document.getElementById('loginMobile').value.trim();
+window.togglePlusMenu = () => {
+  const menu = document.getElementById('plus-action-menu');
+  menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+};
+window.closePlusMenu = () => document.getElementById('plus-action-menu').style.display = 'none';
 
-  if(!storeName || !mobile) {
-    alert("براہ کرم اپنا سٹور کا نام اور موبائل نمبر درج کریں!");
+window.openPrivacyModal = () => document.getElementById('privacy-policy-modal').style.display = 'flex';
+window.closePrivacyModal = () => document.getElementById('privacy-policy-modal').style.display = 'none';
+
+window.openMessagesModal = () => document.getElementById('messages-modal').style.display = 'flex';
+window.closeMessagesModal = () => document.getElementById('messages-modal').style.display = 'none';
+
+window.openCustomerAccountModal = () => document.getElementById('customer-account-modal').style.display = 'flex';
+window.closeCustomerAccountModal = () => document.getElementById('customer-account-modal').style.display = 'none';
+
+window.openCartModal = () => {
+  renderCartItems();
+  document.getElementById('cart-modal').style.display = 'flex';
+};
+window.closeCartModal = () => document.getElementById('cart-modal').style.display = 'none';
+
+window.triggerVisualSearch = () => {
+  document.getElementById('visualSearchInput').click();
+};
+
+window.handleVisualSearch = (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+  alert("📸 تصویر موصول ہو گئی ہے!");
+};
+
+window.promptSellerLogin = (actionType) => {
+  pendingTargetAction = actionType;
+  if(actionType === 'seller_account') {
+    openCustomerAccountModal();
+    closePlusMenu();
     return;
   }
-
-  currentSeller = { storeName, mobile };
-  localStorage.setItem('raw_seller', JSON.stringify(currentSeller));
-  
-  document.getElementById('loginBox').style.display = 'none';
-  document.getElementById('dashboardBox').style.display = 'block';
-  document.getElementById('activeStoreDisplay').innerText = `(${storeName})`;
-  
-  loadSellerData();
+  document.getElementById('userLoginForm').reset();
+  document.getElementById('user-login-modal').style.display = 'flex';
 };
 
-window.sellerLogout = function() {
-  localStorage.removeItem('raw_seller');
-  currentSeller = null;
-  document.getElementById('loginBox').style.display = 'block';
-  document.getElementById('dashboardBox').style.display = 'none';
-};
+window.closeLoginModal = () => document.getElementById('user-login-modal').style.display = 'none';
 
-// چیک کریں کہ آیا پہلے سے لاگ ان ہے
-window.onload = function() {
-  let saved = localStorage.getItem('raw_seller');
-  if(saved) {
-    currentSeller = JSON.parse(saved);
-    document.getElementById('loginBox').style.display = 'none';
-    document.getElementById('dashboardBox').style.display = 'block';
-    document.getElementById('activeStoreDisplay').innerText = `(${currentSeller.storeName})`;
-    loadSellerData();
-  }
-};
+window.verifySellerLogin = function(e) {
+  e.preventDefault();
+  const name = document.getElementById('loginName').value.trim();
+  const mobile = document.getElementById('loginMobile').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+  if(!name || !mobile || !password) return alert("تمام خانے پُر کریں!");
 
-window.checkCategoryType = function() {
-  let cat = document.getElementById('pCategory').value;
-  let priceInput = document.getElementById('pPrice');
-  if(cat.includes('Real Estate') || cat.includes('Car') || cat.includes('Services')) {
-    priceInput.placeholder = "سروس کے لیے قیمت کی ضرورت نہیں (انکوائری بیسڈ)";
+  const authData = { name, mobile, password };
+  localStorage.setItem('raw_locked_seller_auth', JSON.stringify(authData));
+  closeLoginModal();
+
+  if(pendingTargetAction === 'post') {
+    document.getElementById('ad-submission-modal').style.display = 'flex';
   } else {
-    priceInput.placeholder = "قیمت (PKR میں) *";
+    openPureSellerDashboard(authData);
   }
 };
 
-async function loadSellerData() {
-  let itemsListDiv = document.getElementById('sellerItemsList');
-  itemsListDiv.innerHTML = "آپ کا ڈیٹا لوڈ ہو رہا ہے...";
-  
-  document.getElementById('sellerPendingAmount').innerText = "Rs. 0 (سب کلیئر ہے)";
+function openPureSellerDashboard(authData) {
+  const dUser = document.getElementById('dashboardUserInfo');
+  const dList = document.getElementById('myAdsList');
+  dList.innerHTML = "";
+  dUser.innerHTML = `👤 سٹور: <b>${authData.name}</b> (${authData.mobile})`;
+  document.getElementById('seller-dashboard-modal').style.display = 'flex';
 
-  try {
-    const q = query(collection(db, "products"), where("storeName", "==", currentSeller.storeName));
-    const snap = await getDocs(q);
-    
-    if(snap.empty) {
-      itemsListDiv.innerHTML = "<p style='color:#666;'>آپ کی طرف سے فی الحال کوئی آئٹم لسٹ نہیں کی گئی۔</p>";
-      return;
-    }
+  let myAds = allProductsCache.filter(item => {
+    let itemMob = String(item.mobile || "").trim();
+    let sellerMob = String(authData.mobile || "").trim();
+    return (itemMob === sellerMob) || (sellerMob === ADMIN_MOBILE);
+  });
 
-    itemsListDiv.innerHTML = "";
-    snap.forEach(d => {
-      let p = d.data();
-      itemsListDiv.innerHTML += `
-        <div class="item-card">
-          <b>${p.name}</b> (${p.category})<br>
-          <span style="color:#2e7d32; font-weight:bold;">قیمت/تفصیل: ${p.pricePKR ? 'PKR ' + p.pricePKR : 'انکوائری بیسڈ سروس'}</span><br>
-          <span style="color:#555; font-size:11px;">سٹور: ${p.storeName}</span>
-        </div>
-      `;
-    });
-  } catch(e) {
-    itemsListDiv.innerHTML = "ڈیٹا لوڈ کرنے میں خرابی ہوئی۔ (فائر بیس انڈیکس کی ضرورت ہو سکتی ہے)";
+  if(myAds.length === 0) {
+    dList.innerHTML = `<p style="font-size:11px; color:#666; text-align:center;">آپ کی طرف سے فی الحال کوئی آئٹم لسٹ نہیں کی گئی۔</p>`;
+    return;
   }
+  myAds.forEach((ad, i) => {
+    dList.innerHTML += `
+      <div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:6px; border-radius:6px; margin-bottom:4px;">
+        <div style="font-size:11px; font-weight:bold; color:#194376;">${i+1}. ${ad.name || ad.title}</div>
+        <button onclick="deleteMyProduct('${ad.id}')" style="background:#d9534f; color:#fff; border:none; padding:4px 8px; border-radius:4px; font-size:10px; cursor:pointer;">ڈلیٹ کریں</button>
+      </div>`;
+  });
 }
 
-window.addNewItem = async function() {
-  let name = document.getElementById('pName').value.trim();
-  let price = document.getElementById('pPrice').value.trim();
-  let category = document.getElementById('pCategory').value;
-  let image = document.getElementById('pImage').value.trim();
+window.deleteMyProduct = async function(productId) {
+  if(!confirm("کیا آپ اس آئٹم کو ڈیلیٹ کرنا چاہتے ہیں؟")) return;
+  try {
+    await deleteDoc(doc(db, "products", productId));
+    alert("آئٹم کامیابی سے ڈیلیٹ ہو گیا!");
+    document.getElementById('seller-dashboard-modal').style.display = 'none';
+    loadApprovedProducts();
+  } catch(err) {
+    alert("ڈیلیٹ کرنے میں خرابی ہوئی۔");
+  }
+};
 
-  if(!name || !image) {
-    alert("براہ کرم آئٹم کا نام اور تصویر کا لنک لازمی درج کریں!");
+window.closeSellerDashboard = () => document.getElementById('seller-dashboard-modal').style.display = 'none';
+
+window.loadApprovedProducts = async function() {
+  const shopList = document.getElementById('shopList');
+  try {
+    const querySnapshot = await getDocs(collection(db, "products"));
+    allProductsCache = [];
+    querySnapshot.forEach((docSnap) => {
+      allProductsCache.push({ id: docSnap.id, ...docSnap.data() });
+    });
+    renderProducts(allProductsCache);
+  } catch (error) {
+    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:red;">ڈیٹا لوڈ کرنے میں خرابی۔</p>`;
+  }
+};
+
+function renderProducts(products) {
+  const shopList = document.getElementById('shopList');
+  shopList.innerHTML = "";
+  let filtered = products.filter(item => {
+    if (selectedCategoryFilter !== 'All' && item.category !== selectedCategoryFilter) return false;
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    shopList.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:20px; color:#666;">اس کیٹگری میں فی الحال کوئی پروڈکٹ یا سروس موجود نہیں ہے۔</p>`;
     return;
   }
 
-  let isService = category.includes('Real Estate') || category.includes('Car') || category.includes('Services');
+  filtered.forEach((item) => {
+    let imagesList = item.images || (item.img ? [item.img] : ['ejaz.png']);
+    let mainImg = imagesList[0];
+    let currencySymbol = item.currency || 'Rs.';
+    let priceVal = item.pricePKR || item.price;
+    let priceDisplay = (priceVal !== undefined && priceVal !== "" && !isNaN(priceVal)) ? `${currencySymbol} ${priceVal}` : "انکوائری بیسڈ سروس";
 
-  if(!isService && !price) {
-    alert("براہ کرم پروڈکٹ کی قیمت درج کریں!");
+    let affLink = item.affiliateLink ? item.affiliateLink.trim() : "";
+    let hasAffLink = affLink !== "";
+
+    let actionButtonsHTML = '';
+    if (hasAffLink) {
+      actionButtonsHTML = `<a href="${affLink}" target="_blank" class="affiliate-btn" style="background:#f57224; color:#fff;">🛒 وزٹ کریں</a>`;
+    } else {
+      let contactLink = `https://wa.me/923334664227?text=Mujhe%20is%20item%20mein%20interest%20hai:%20${encodeURIComponent(item.name || item.title)}`;
+      actionButtonsHTML = `
+        <div class="btn-row">
+          <a href="${contactLink}" target="_blank" class="whatsapp-btn">💬 رابطہ</a>
+          <button class="order-btn" onclick='addToCartAndOrder(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛒 آرڈر</button>
+        </div>
+      `;
+    }
+
+    shopList.innerHTML += `
+      <div class="card" data-title="${(item.name || item.title || '').toLowerCase()}" data-category="${(item.category || '').toLowerCase()}">
+        <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='ejaz.png'"></div>
+        <div class="card-body">
+          <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
+          <div class="city-label">📍 ${item.brand || item.city || 'Chukera 79 SB'}</div>
+          <div class="price">${priceDisplay}</div>
+          ${actionButtonsHTML}
+        </div>
+      </div>
+    `;
+  });
+};
+
+window.filterByCategory = function(cat) {
+  selectedCategoryFilter = cat;
+  renderProducts(allProductsCache);
+};
+
+window.addToCartAndOrder = function(item) {
+  cartItems.push(item);
+  openProductDetail(item);
+};
+
+window.openProductDetail = function(item) {
+  document.getElementById('detTitle').innerText = item.name || item.title;
+  let currencySymbol = item.currency || 'Rs.';
+  let priceVal = item.pricePKR || item.price;
+  let priceDisplay = (priceVal !== undefined && priceVal !== "" && !isNaN(priceVal)) ? `${currencySymbol} ${priceVal}` : "انکوائری بیسڈ سروس";
+  
+  document.getElementById('detPrice').innerText = `قیمت: ${priceDisplay}`;
+  document.getElementById('detCity').innerText = 'লোকেশন: ' + (item.brand || item.city || 'Chukera 79 SB');
+  document.getElementById('detDescription').innerText = item.description || item.desc || 'تفصیل موجود نہیں۔';
+
+  const imgContainer = document.getElementById('detImagesContainer');
+  imgContainer.innerHTML = "";
+  let imagesList = item.images || (item.img ? [item.img] : ['ejaz.png']);
+  imagesList.forEach(imgSrc => {
+    imgContainer.innerHTML += `<img src="${imgSrc}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px; border:1px solid #ddd;" onerror="this.src='ejaz.png'">`;
+  });
+
+  const actionDiv = document.getElementById('detActionBtn');
+  actionDiv.innerHTML = `
+    <button onclick='triggerAutomaticOrder(${JSON.stringify(item).replace(/'/g, "&#39;")})' style="width:100%; background:#28a745; color:#fff; text-align:center; padding:11px; border:none; border-radius:6px; font-weight:bold; font-size:13px; cursor:pointer;">
+      🛒 آرڈر کنفرم کریں
+    </button>
+  `;
+  document.getElementById('product-detail-modal').style.display = 'flex';
+};
+
+window.closeProductDetailModal = () => document.getElementById('product-detail-modal').style.display = 'none';
+
+function renderCartItems() {
+  const container = document.getElementById('cartItemsContainer');
+  if(cartItems.length === 0) {
+    container.innerHTML = `<p style="text-align: center; color: #777; font-size: 13px; margin-top: 30px;">آپ کی کارٹ فی الحال خالی ہے۔</p>`;
     return;
   }
+  container.innerHTML = "";
+  cartItems.forEach((ci, idx) => {
+    container.innerHTML += `
+      <div style="display:flex; justify-content:space-between; align-items:center; background:#fafafa; border:1px solid #ddd; padding:8px; border-radius:6px; margin-bottom:6px;">
+        <span style="font-size:12px; font-weight:bold;">${idx+1}. ${ci.name || ci.title}</span>
+        <span style="font-size:12px; color:#f57224; font-weight:bold;">Rs. ${ci.pricePKR || ci.price || 0}</span>
+      </div>`;
+  });
+}
+
+window.triggerAutomaticOrder = async function(item) {
+  const custName = document.getElementById('custName').value.trim() || "Customer";
+  const custPhone = document.getElementById('custPhone').value.trim() || "03334664227";
+  const custAddress = document.getElementById('custAddress').value.trim() || "Chukera 79 SB";
+
+  try {
+    await addDoc(collection(db, "orders"), {
+      productName: item.name || item.title,
+      price: item.pricePKR || item.price || "N/A",
+      customerName: custName,
+      customerPhone: custPhone,
+      customerAddress: custAddress,
+      createdAt: new Date().toISOString()
+    });
+
+    let orderMsg = `🛍️ *New Order - R.A.W GROUP*%0A📦 ${item.name || item.title}%0A👤 ${custName}%0A📞 ${custPhone}%0A📍 ${custAddress}`;
+    window.open(`https://wa.me/923334664227?text=${orderMsg}`, '_blank');
+
+    alert("✅ آپ کا آرڈر کامیابی سے محفوظ ہو گیا ہے!");
+    closeProductDetailModal();
+    closeCartModal();
+  } catch(err) {
+    alert("آرڈر پلیس کرنے میں خرابی ہوئی۔");
+  }
+};
+
+window.proceedToCheckout = function() {
+  if(cartItems.length === 0) return alert("کارٹ خالی ہے!");
+  triggerAutomaticOrder(cartItems[0]);
+};
+
+window.handleMultipleImages = function(event) {
+  const files = event.target.files;
+  if (!files || files.length === 0) return;
+  uploadedImagesArray = [];
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.src = e.target.result;
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        canvas.width = 400;
+        canvas.height = img.height * (400 / img.width);
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        uploadedImagesArray.push(canvas.toDataURL('image/jpeg', 0.7));
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
+window.submitUserAd = async function(e) {
+  e.preventDefault();
+  const category = document.getElementById('adCategory').value;
+  const name = document.getElementById('adTitle').value;
+  const city = document.getElementById('adCity').value;
+  const priceInput = document.getElementById('adPrice').value;
+  const affiliateLink = document.getElementById('adAffiliateLink').value;
+  const description = document.getElementById('adDescription').value;
+  const authData = JSON.parse(localStorage.getItem('raw_locked_seller_auth') || '{}');
+
+  if (uploadedImagesArray.length === 0) return alert("تصویر منتخب کریں!");
+
+  let priceVal = (priceInput !== "") ? Number(priceInput) : "";
 
   try {
     await addDoc(collection(db, "products"), {
-      name: name,
-      storeName: currentSeller.storeName,
-      mobile: currentSeller.mobile,
-      pricePKR: price ? Number(price) : 0,
-      currency: "Rs.",
-      category: category,
-      images: [image],
-      createdAt: serverTimestamp()
+      name, category, 
+      pricePKR: priceVal, price: priceVal, currency: 'Rs.',
+      brand: city, affiliateLink: affiliateLink || "",
+      description, images: uploadedImagesArray,
+      mobile: authData.mobile || ADMIN_MOBILE,
+      sellerName: authData.name || 'Store',
+      createdAt: new Date().toISOString()
     });
-
-    alert("آپ کی پروڈکٹ/سروس کامیابی سے لسٹ کر دی گئی ہے!");
-    document.getElementById('pName').value = '';
-    document.getElementById('pPrice').value = '';
-    document.getElementById('pImage').value = '';
-    loadSellerData();
-  } catch(e) {
-    alert("خرابی پیش آئی: " + e.message);
+    alert("آئٹم کامیابی سے لسٹ ہو گئی ہے!");
+    document.getElementById('ad-submission-modal').style.display = 'none';
+    document.getElementById('userAdForm').reset();
+    uploadedImagesArray = [];
+    loadApprovedProducts();
+  } catch (err) {
+    alert("خرابی پیش آئی۔");
   }
 };
+
+window.openAdModalFromDashboard = function() {
+  document.getElementById('userAdForm').reset();
+  document.getElementById('ad-submission-modal').style.display = 'flex';
+};
+window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
+
+window.onload = () => loadApprovedProducts();
 </script>
+
 </body>
 </html>
