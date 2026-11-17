@@ -66,17 +66,17 @@ function googleTranslateElementInit() {
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
-<body>
+<body
 <style>
-    /* مین ہیڈر کنٹینر - ابھرا ہوا گریڈینٹ، شیڈو اور ایک ہی لائن کی سیٹنگ */
+    /* مین ہیڈر کنٹینر - شاندار گہرا نیلا بیک گ라운ڈ اور تھری ڈی شیڈو */
     .header-container {
         display: flex !important;
         justify-content: space-between !important;
         align-items: center !important;
-        background: linear-gradient(135deg, #FF8C00 0%, #FFA500 50%, #FFD700 100%) !important;
+        background: linear-gradient(135deg, #0d1b2a 100%, #1b263b 50%, #415a77 0%) !important;
         padding: 10px 15px !important;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25), inset 0 2px 4px rgba(255, 255, 255, 0.4) !important;
-        border-bottom: 2px solid #e67e22 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 1px 3px rgba(255, 255, 255, 0.2) !important;
+        border-bottom: 2px solid #1b263b !important;
         width: 100% !important;
         box-sizing: border-box !important;
         flex-wrap: nowrap !important;
@@ -89,7 +89,7 @@ function googleTranslateElementInit() {
         flex: 0 0 auto !important;
     }
 
-    /* سینٹر میں: دکان کا نام */
+    /* سینٹر میں: دکان کا نام اور ستارے */
     .header-center {
         display: flex !important;
         align-items: center !important;
@@ -97,18 +97,26 @@ function googleTranslateElementInit() {
         flex: 1 1 auto !important;
         text-align: center !important;
         padding: 0 5px !important;
+        overflow: hidden !important;
         white-space: nowrap !important;
     }
 
     .store-title {
         font-size: 14px !important;
-        font-weight: bold !important;
-        color: #ffffff !important;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) !important;
+        font-weight: 800 !important;
+        color: #ffa500 !important; /* اورنج کلر */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 140, 0, 0.6) !important; /* تھری ڈی ابھرا ہوا ایفیکٹ */
         margin: 0 4px !important;
+        letter-spacing: 0.5px !important;
     }
 
-    /* دائیں طرف: دونوں تصویریں (پروفائل اور لوگو) */
+    .star-icon {
+        color: #ff8c00 !important;
+        font-size: 13px !important;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
+    }
+
+    /* دائیں طرف: دونوں تصویریں */
     .header-right {
         display: flex !important;
         align-items: center !important;
@@ -117,21 +125,24 @@ function googleTranslateElementInit() {
     }
 
     .header-right img {
-        width: 36px !important;
-        height: 36px !important;
+        width: 35px !important;
+        height: 35px !important;
         border-radius: 50% !important;
         object-fit: cover !important;
-        border: 2px solid #ffffff !important;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+        border: 2px solid #ffa500 !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5) !important;
     }
 
-    /* ڈیسک ٹاپ اور بڑی سکرین کے لیے سائز ایڈجسٹمنٹ (تاکہ موبائل جیسا ہی لگے) */
+    /* ڈیسک ٹاپ اور موبائل دونوں کے لیے یکساں سائز اور بہترین مطابقت */
     @media (min-width: 768px) {
         .header-container {
-            padding: 12px 25px !important;
+            padding: 12px 20px !important;
         }
         .store-title {
             font-size: 18px !important;
+        }
+        .star-icon {
+            font-size: 16px !important;
         }
         .header-right img {
             width: 42px !important;
@@ -144,14 +155,14 @@ function googleTranslateElementInit() {
 <div class="header-container">
     <!-- 1. بائیں طرف: گوگل ٹرانسلیٹ وجٹ -->
     <div class="header-left">
-        <div id="google_translate_element" style="transform: scale(0.75); transform-origin: left center;"></div>
+        <div id="google_translate_element" style="transform: scale(0.72); transform-origin: left center;"></div>
     </div>
 
-    <!-- 2. سینٹر میں: دکان کا نام اور ستارے -->
+    <!-- 2. سینٹر میں: دکان کا نام اور ستارے (ابھرے ہوئے اورنج کلر میں) -->
     <div class="header-center">
-        <span>⭐</span>
+        <span class="star-icon">⭐</span>
         <h1 class="store-title">R.A.W GROUP CHOUKIRH 79</h1>
-        <span>⭐</span>
+        <span class="star-icon">⭐</span>
     </div>
 
     <!-- 3. دائیں طرف: دونوں تصویریں -->
