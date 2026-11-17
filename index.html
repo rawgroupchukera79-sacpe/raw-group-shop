@@ -67,24 +67,50 @@ function googleTranslateElementInit() {
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
-<!-- حتمی اور بہترین دو لائنوں والا رسپانسو ہیڈر: اب کوئی چیز نہیں کٹے گی -->
-<div class="top-bar" style="display: flex !important; flex-direction: column !important; padding: 6px 8px !important; background: #194376 !important; border-bottom: 2px solid #d4af37 !important; width: 100% !important; color: #ffffff !important; box-sizing: border-box !important;">
+<style>
+    /* ڈیفالٹ (موبایل کے لیے): دو لائنوں والا ڈیزائن */
+    .desktop-single-line { display: none !important; }
+    .mobile-two-line { display: flex !important; flex-direction: column !important; }
+
+    /* جیسے ہی سکرین بڑی ہو گی (ٹیبلٹ یا ڈیسک ٹاپ پر)، یہ خود بخود ایک لائن میں ہو جائے گا */
+    @media (min-width: 768px) {
+        .desktop-single-line { display: flex !important; align-items: center !important; justify-content: space-between !important; width: 100% !important; }
+        .mobile-two-line { display: none !important; }
+    }
+</style>
+
+<div class="top-bar" style="padding: 6px 12px !important; background: #194376 !important; border-bottom: 2px solid #d4af37 !important; width: 100% !important; color: #ffffff !important; box-sizing: border-box !important;">
     
-    <!-- پہلی لائن: بائیں طرف گوگل ٹرانسلیٹ اور دائیں طرف دونوں تصویریں -->
-    <div style="display: flex !important; justify-content: space-between !important; align-items: center !important; width: 100% !important; margin-bottom: 4px !important;">
-        <div style="display: flex; align-items: center;">
-            <div id="google_translate_element" style="transform: scale(0.8); transform-origin: left center;"></div>
+    <!-- 1. ڈیسک ٹاپ کے لیے (ایک ہی لائن میں سب ਕੁਝ) -->
+    <div class="desktop-single-line">
+        <div style="display: flex; align-items: center; flex: 0 0 auto;">
+            <div id="google_translate_element"></div>
         </div>
-        <div class="owner-branding" style="display: flex; align-items: center; gap: 5px;">
-            <img src="ejar.jpg" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1.5px solid #FFD700;" title="Ejaz Ahmad">
-            <img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1.5px solid #FFD700;" title="R.A.W Logo">
+        <div style="text-align: center; flex: 1; padding: 0 10px;">
+            <span style="font-size: 13px; font-weight: 700; color: #FFD700; white-space: nowrap;">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span>
+        </div>
+        <div class="owner-branding" style="display: flex; align-items: center; gap: 6px; flex: 0 0 auto;">
+            <img src="ejar.jpg" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700;" title="Ejaz Ahmad">
+            <img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700;" title="R.A.W Logo">
         </div>
     </div>
 
-    <!-- دوسری لائن: شاپ کا نام بالکل درمیان میں اور واضح -->
-    <div style="text-align: center; width: 100% !important; padding: 2px 0 !important;">
-        <span style="font-size: 13px; font-weight: 700; color: #FFD700; display: inline-block; letter-spacing: 0.5px;">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span>
+    <!-- 2. موبائل کے لیے (دو لائنوں والا ڈیزائن جو ابھی آپ کو پسند آیا ہے) -->
+    <div class="mobile-two-line">
+        <div style="display: flex !important; justify-content: space-between !important; align-items: center !important; width: 100% !important; margin-bottom: 4px !important;">
+            <div style="display: flex; align-items: center;">
+                <div id="google_translate_element" style="transform: scale(0.8); transform-origin: left center;"></div>
+            </div>
+            <div class="owner-branding" style="display: flex; align-items: center; gap: 5px;">
+                <img src="ejar.jpg" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1.5px solid #FFD700;" title="Ejaz Ahmad">
+                <img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1.5px solid #FFD700;" title="R.A.W Logo">
+            </div>
+        </div>
+        <div style="text-align: center; width: 100% !important; padding: 2px 0 !important;">
+            <span style="font-size: 12px; font-weight: 700; color: #FFD700; display: inline-block; letter-spacing: 0.5px;">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span>
+        </div>
     </div>
+
 </div>
 
   <div class="search-bar-row">
