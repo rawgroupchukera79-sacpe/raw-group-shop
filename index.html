@@ -67,198 +67,71 @@ function googleTranslateElementInit() {
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body
-<style>
-    /* مین ہیڈر کنٹینر - شاندار گہرا نیلا بیک گ라운ڈ اور تھری ڈی شیڈو */
-    .header-container {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        background: linear-gradient(135deg, #0d1b2a 100%, #1b263b 50%, #415a77 0%) !important;
-        padding: 10px 15px !important;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 1px 3px rgba(255, 255, 255, 0.2) !important;
-        border-bottom: 2px solid #1b263b !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        flex-wrap: nowrap !important;
-    }
+   <style>
+   <style>
+.header-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background: linear-gradient(135deg, #0f0f2a 0%, #1b263b 50%, #293241 100%) !important;
+  padding: 10px 12px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  flex-wrap: nowrap !important;
+  overflow: hidden !important;
+}
 
-    /* بائیں طرف: ٹرانسلیٹ سیکشن */
-    .header-left {
-        display: flex !important;
-        align-items: center !important;
-        flex: 0 0 auto !important;
-    }
+.header-left {
+  display: flex !important;
+  align-items: center !important;
+  flex: 0 0 40px !important;
+  width: 40px !important;
+}
 
-    /* سینٹر میں: دکان کا نام اور ستارے */
-    .header-center {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        flex: 1 1 auto !important;
-        text-align: center !important;
-        padding: 0 5px !important;
-        overflow: hidden !important;
-        white-space: nowrap !important;
-    }
+.header-center {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 1 1 auto !important;
+  text-align: center !important;
+  min-width: 0 !important;
+  padding: 0 8px !important;
+}
 
-    .store-title {
-        font-size: 14px !important;
-        font-weight: 800 !important;
-        color: #ffa500 !important; /* اورنج کلر */
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 140, 0, 0.6) !important; /* تھری ڈی ابھرا ہوا ایفیکٹ */
-        margin: 0 4px !important;
-        letter-spacing: 0.5px !important;
-    }
+.store-title {
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  color: #ff5a00 !important;
+  text-align: center !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  white-space: normal !important;
+}
 
-    .star-icon {
-        color: #ff8c00 !important;
-        font-size: 13px !important;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
-    }
+.star-icon {
+  color: #ffc400 !important;
+  font-size: 13px !important;
+}
 
-    /* دائیں طرف: دونوں تصویریں */
-    .header-right {
-        display: flex !important;
-        align-items: center !important;
-        gap: 6px !important;
-        flex: 0 0 auto !important;
-    }
+.header-right {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 6px !important;
+  flex: 0 0 80px !important;
+  width: 80px !important;
+}
 
-    .header-right img {
-        width: 35px !important;
-        height: 35px !important;
-        border-radius: 50% !important;
-        object-fit: cover !important;
-        border: 2px solid #ffa500 !important;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5) !important;
-    }
-
-    /* ڈیسک ٹاپ اور موبائل دونوں کے لیے یکساں سائز اور بہترین مطابقت */
-    @media (min-width: 768px) {
-        .header-container {
-            padding: 12px 20px !important;
-        }
-        .store-title {
-            font-size: 18px !important;
-        }
-        .star-icon {
-            font-size: 16px !important;
-        }
-        .header-right img {
-            width: 42px !important;
-            height: 42px !important;
-        }
-    }
+.header-right img {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 2px solid #ff5a00 !important;
+  flex-shrink: 0 !important;
+}
 </style>
-<style>
-    /* مین ہیڈر کنٹینر - موبائل اور ڈیسک ٹاپ دونوں پر ایک جیسا اور فکسڈ */
-    .header-container {
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 50%, #293241 100%) !important;
-        padding: 8px 12px !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 3px rgba(255, 255, 255, 0.2) !important;
-        border-bottom: 2px solid #1b263b !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-        flex-wrap: nowrap !important;
-        overflow: hidden !important;
-        position: relative !important;
-        z-index: 1000 !important;
-    }
-
-    /* بائیں طرف: ٹرانسلیٹ سیکشن */
-    .header-left {
-        display: flex !important;
-        align-items: center !important;
-        flex: 0 0 auto !important;
-    }
-
-    /* سینٹر میں: دکان کا نام اور ستارے */
-    .header-center {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        flex: 1 1 auto !important;
-        text-align: center !important;
-        padding: 0 4px !important;
-        overflow: hidden !important;
-        white-space: nowrap !important;
-    }
-
-    .store-title {
-        font-size: 13px !important;
-        font-weight: 800 !important;
-        color: #ffa500 !important; /* اورنج کلر */
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9), 0 0 8px rgba(255, 140, 0, 0.7) !important; /* تھری ڈی ابھرا ہوا ایفیکٹ */
-        margin: 0 3px !important;
-        letter-spacing: 0.3px !important;
-    }
-
-    .star-icon {
-        color: #ff8c00 !important;
-        font-size: 11px !important;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9) !important;
-    }
-
-    /* دائیں طرف: دونوں تصویریں */
-    .header-right {
-        display: flex !important;
-        align-items: center !important;
-        gap: 5px !important;
-        flex: 0 0 auto !important;
-    }
-
-    .header-right img {
-        width: 32px !important;
-        height: 32px !important;
-        border-radius: 50% !important;
-        object-fit: cover !important;
-        border: 2px solid #ffa500 !important;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5) !important;
-    }
-
-    /* ڈیسک ٹاپ کے لیے سائز اور پیڈنگ (موبایل کے ساتھ ہم آہنگ) */
-    @media (min-width: 768px) {
-        .header-container {
-            padding: 10px 20px !important;
-        }
-        .store-title {
-            font-size: 16px !important;
-        }
-        .star-icon {
-            font-size: 14px !important;
-        }
-        .header-right img {
-            width: 38px !important;
-            height: 38px !important;
-        }
-    }
-</style>
-
-<!-- ہیڈر کا ایچ ٹی ایم ایل ڈھانچہ -->
-<div class="header-container">
-    <!-- 1. بائیں طرف: گوگل ٹرانسلیٹ وجٹ -->
-    <div class="header-left">
-        <div id="google_translate_element" style="transform: scale(0.68); transform-origin: left center;"></div>
-    </div>
-
-    <!-- 2. سینٹر میں: دکان کا نام اور ستارے (ابھرے ہوئے اورنج کلر میں) -->
-    <div class="header-center">
-        <span class="star-icon">⭐</span>
-        <h1 class="store-title">R.A.W GROUP CHOUKIRH 79</h1>
-        <span class="star-icon">⭐</span>
-    </div>
-
-    <!-- 3. دائیں طرف: دونوں تصویریں -->
-    <div class="header-right">
-        <img src="ejaz.jpg" onerror="this.src='https://i.imgur.com/8Kn9tLL.png'" alt="Owner">
-        <img src="logo.png" onerror="this.src='https://i.imgur.com/8Kn9tLL.png'" alt="Logo">
-    </div>
-</div>
-
   <div class="search-bar-row">
     <div class="search-container">
       <input id="search" onkeyup="filterShop()" placeholder="🔍 پروڈکٹ کا نام یا شہر تلاش کریں...">
