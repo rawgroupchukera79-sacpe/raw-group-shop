@@ -12,28 +12,39 @@
 <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background-color: #ffffff !important; color: #222222 !important; font-family: 'Poppins', sans-serif; padding-bottom: 70px; top: 0px !important; }
-    .top-bar, header, .navbar-top { display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 8px 12px !important; background: #ffffff !important; border-bottom: 1px solid #f0f0f0 !important; width: 100% !important; }
+    
+    /* ہیڈر اور ٹاپ بار کو بلو کلر اور پرفیکٹ سیٹ کیا گیا ہے */
+    .top-bar, header, .navbar-top { display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 8px 12px !important; background: #194376 !important; border-bottom: 2px solid #d4af37 !important; width: 100% !important; color: #ffffff !important; }
+    
     .owner-branding { display: flex !important; align-items: center !important; gap: 8px !important; color: #d4af37 !important; font-weight: 700 !important; }
-    .owner-branding img { width: 42px !important; height: 42px !important; border-radius: 50% !important; object-fit: cover !important; border: 2px solid #FFD700 !important; box-shadow: 0 2px 6px rgba(212, 175, 55, 0.3) !important; }
-    #google_translate_element, .goog-te-combo { background: #ffffff !important; padding: 5px 8px !important; border-radius: 10px !important; border: 1px solid #dcdcdc !important; font-size: 11px !important; outline: none !important; }
+    .owner-branding img { width: 38px !important; height: 38px !important; border-radius: 50% !important; object-fit: cover !important; border: 2px solid #FFD700 !important; box-shadow: 0 2px 6px rgba(212, 175, 55, 0.4) !important; background: #fff; }
+    
+    #google_translate_element, .goog-te-combo { background: #ffffff !important; padding: 4px 6px !important; border-radius: 8px !important; border: 1px solid #dcdcdc !important; font-size: 10px !important; outline: none !important; }
     .goog-te-banner-frame.skiptranslate { display: none !important; }
+    
     .cat-item, .cat-icon-circle { border-radius: 14px !important; background: #ffffff !important; border: 1px solid #f0f0f0 !important; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important; }
+    
     .raw-service-banner { background: linear-gradient(135deg, #194376 0%, #295f9c 100%) !important; color: #ffffff !important; border-radius: 16px !important; padding: 18px 20px !important; margin: 15px auto !important; max-width: 96% !important; box-shadow: 0 6px 18px rgba(25, 67, 118, 0.15) !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; text-align: center !important; }
     .raw-service-banner h3 { font-size: 16px !important; font-weight: 700 !important; color: #FFD700 !important; margin-bottom: 6px !important; }
     .raw-service-banner p { font-size: 12px !important; opacity: 0.95 !important; line-height: 1.5 !important; }
+
     .card, .product-card, .shop-card { background: #ffffff !important; border: 1px solid #eaeaea !important; border-radius: 14px !important; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03) !important; overflow: hidden !important; transition: all 0.25s ease-in-out !important; }
     .card:hover, .product-card:hover { box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08) !important; transform: translateY(-2px); }
+    
     input, select, textarea { background: #fafafa !important; border: 1px solid #dcdcdc !important; border-radius: 12px !important; padding: 8px 12px !important; }
     input:focus, select:focus, textarea:focus { background: #ffffff !important; border-color: #194376 !important; outline: none !important; }
+
     .search-bar-row { display: flex; align-items: center; background: #194376; padding: 6px 15px 10px; }
     .search-container { flex: 1; position: relative; display: flex; align-items: center; background: #fff; border-radius: 20px; overflow: hidden; padding-right: 8px; margin: 0 10px; }
     .search-container input { flex: 1; padding: 9px 14px; border: none; outline: none; font-size: 13px; font-family: inherit; background: transparent; }
     .camera-search-btn { background: none; border: none; font-size: 18px; cursor: pointer; padding: 4px 8px; color: #194376; display: flex; align-items: center; justify-content: center; }
+
     .cat-scroll-row { display: flex; gap: 12px; overflow-x: auto; padding: 12px 15px; background: #fff; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
     .cat-scroll-row::-webkit-scrollbar { display: none; }
     .cat-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; min-width: 70px; text-align: center; }
     .cat-icon-circle { width: 50px; height: 50px; border-radius: 50%; background: #fff3ec; border: 2px solid #f57224; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 4px; box-shadow: 0 2px 6px rgba(245,114,36,0.2); }
     .cat-item span { font-size: 11px; font-weight: 600; color: #333; }
+
     .banner { position: relative; max-width: 1100px; width: 100%; margin: 10px auto; padding: 0 15px; }
     .banner-track { height: 140px; border-radius: 12px; color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 0 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, #194376, #f57224); position: relative; overflow: hidden; }
     .banner-slide { display: none; flex-direction: column; justify-content: center; height: 100%; }
@@ -43,8 +54,10 @@
     .banner-dots { display: flex; justify-content: center; gap: 5px; margin-top: 6px; }
     .banner-dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; }
     .banner-dot.active { background: #f57224; width: 18px; border-radius: 4px; }
+
     .products { max-width: 1100px; margin: 10px auto 0; padding: 0 15px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; }
     @media (min-width: 700px) { .products { grid-template-columns: repeat(4, 1fr); } }
+
     .card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.06); border: 1px solid #e5e5e5; display: flex; flex-direction: column; cursor: pointer; position: relative; }
     .product-img-container { width: 100%; height: 140px; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 6px; border-bottom: 1px solid #f1f1f1; cursor: pointer; }
     .product-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
@@ -52,18 +65,22 @@
     .product-title { font-size: 12px; font-weight: 600; color: #212121; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
     .city-label { font-size: 10px; color: #757575; margin: 2px 0; }
     .price { color: #f57224; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
+
     .btn-row { display: flex; gap: 4px; }
     .whatsapp-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #25d366; color: #fff; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; }
     .order-btn { flex: 1; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #f57224; color: #fff; text-align: center; }
     .affiliate-btn { width: 100%; border: none; padding: 6px; border-radius: 4px; font-weight: 700; font-size: 10px; cursor: pointer; background: #ff9900; color: #fff; text-align: center; text-decoration: none; display: block; margin-top: 4px; }
+
     .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 1px solid #e0e0e0; display: flex !important; flex-direction: row !important; justify-content: space-around; align-items: center; height: 58px; z-index: 2000; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
     .nav-item { color: #555555; font-size: 11px; font-weight: 500; text-align: center; display: flex !important; flex-direction: column !important; align-items: center; justify-content: center; cursor: pointer; flex: 1; height: 100%; }
     .nav-item.active { color: #f57224; }
     .sell-fab-container { position: relative; flex: 1; display: flex; justify-content: center; }
     .sell-fab { position: absolute; top: -20px; width: 44px; height: 44px; background: #194376; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 22px; border: 3px solid #ffffff; box-shadow: 0 2px 6px rgba(0,0,0,0.2); cursor: pointer; z-index: 2010; }
+
     #plus-action-menu { display: none; position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: #ffffff; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: 1px solid #e0e0e0; z-index: 3000; width: 240px; padding: 8px; flex-direction: column; gap: 6px; }
     .menu-action-btn { background: #ffffff; color: #333333; border: 1px solid #dcdcdc; padding: 10px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; text-align: center; width: 100%; }
     .menu-action-btn:hover { background: #f5f5f5; color: #f57224; border-color: #f57224; }
+
     .custom-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3500; align-items: center; justify-content: center; padding: 15px; }
     .modal-content { background: #fff; border-radius: 12px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; padding: 18px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
     .form-group { margin-bottom: 10px; }
@@ -85,16 +102,16 @@ function googleTranslateElementInit() {
 </head>
 <body>
 
+<!-- ہیڈر: بلو کلر، اونر تصویر اور گوگل ٹرانسلیٹ کے ساتھ -->
 <div class="top-bar">
     <div style="display: flex; justify-content: flex-start;">
         <div id="google_translate_element"></div>
     </div>
     <div style="text-align: center;">
-        <span style="font-size: 13px; font-weight: 700; color: #d4af37; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.1);">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span>
+        <span style="font-size: 13px; font-weight: 700; color: #FFD700; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span>
     </div>
     <div class="owner-branding" style="display: flex; justify-content: flex-end; align-items: center; gap: 6px;">
-        <img src="./ejar.jpg" onerror="this.onerror=null;this.src='ejar.jpg';" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid #d4af37;" title="Ejaz Ahmad">
-        <img src="./logo.png" onerror="this.style.display='none';" style="height: 26px;" title="R.A.W Group">
+        <img src="ejar.jpg" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700;" title="Ejaz Ahmad">
     </div>
 </div>
 
@@ -163,7 +180,7 @@ function googleTranslateElementInit() {
     <p>© R.A.W GROUP CHOUKIRHA 79. Registered & Compliant Platform. All Rights Reserved.</p>
   </div>
 
-<!-- Plus Action Menu (صرف سیلرز اور ایڈمن کے لیے لاگ ان اور ڈیش بورڈ) -->
+<!-- Plus Action Menu -->
 <div id="plus-action-menu">
   <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('post')">📢 نیا ایڈ لگائیں (Post Ad)</button>
   <button class="menu-action-btn" onclick="closePlusMenu(); promptSellerLogin('seller_dashboard')">🛒 سیلر ڈیش بورڈ (Seller Dashboard)</button>
@@ -202,7 +219,6 @@ function googleTranslateElementInit() {
     <div style="font-size: 11.5px; color: #333; line-height: 1.6; max-height: 320px; overflow-y: auto; background: #fafafa; padding: 12px; border-radius: 6px; border: 1px solid #eee; margin-bottom: 15px; text-align: left;">
       <p><b>1. Introduction:</b> R.A.W GROUP CHOUKIRHA 79 provides a clean, secure marketplace for customers to browse and buy products with universal payment options.</p>
       <p style="margin-top: 8px;"><b>2. Customer Data & Privacy:</b> Customer phone numbers, names, and delivery addresses are kept fully secure and confidential, used solely for direct order fulfillment and shipping coordination.</p>
-      <p style="margin-top: 8px;"><b>3. Secure Transactions:</b> All purchases, inquiries, and local/international payments (Meezan Bank, Mobile Wallets, and Global Gateways) are processed with transparent guidelines.</p>
     </div>
     <button onclick="closePrivacyModal()" style="width: 100%; padding: 10px; background: #194376; color: #ffffff; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">Close Policy</button>
   </div>
@@ -223,7 +239,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Customer Account Modal (بہتر کیا ہوا کسٹمر اکاؤنٹ، لاگ ان سٹیٹس اور نام کے ساتھ) -->
+<!-- Customer Account Modal -->
 <div id="customer-account-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; margin-bottom: 15px;">
@@ -231,7 +247,6 @@ function googleTranslateElementInit() {
       <span onclick="closeCustomerAccountModal()" style="cursor: pointer; font-size: 18px; color: #555555; font-weight: bold;">✕</span>
     </div>
     
-    <!-- کسٹمر ویلکم اور لاگ ان سٹیٹس بینر -->
     <div id="customerStatusBanner" style="background: #eef2f7; padding: 10px; border-radius: 6px; margin-bottom: 12px; font-size: 12px; color: #194376; text-align: center; font-weight: 600;">
       خوش آمدید! براہ کرم اپنا نام اور پتہ محفوظ کریں۔
     </div>
@@ -300,7 +315,7 @@ function googleTranslateElementInit() {
   </div>
 </div>
 
-<!-- Seller Dashboard (صرف سیلر کے لیے اندرونی پالیسی اور ڈویز) -->
+<!-- Seller Dashboard -->
 <div id="seller-dashboard-modal" class="custom-modal">
   <div class="modal-content">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e0e0e0; padding-bottom:10px; margin-bottom:15px;">
@@ -405,7 +420,6 @@ window.closePrivacyModal = () => document.getElementById('privacy-policy-modal')
 window.openMessagesModal = () => document.getElementById('messages-modal').style.display = 'flex';
 window.closeMessagesModal = () => document.getElementById('messages-modal').style.display = 'none';
 
-// کسٹمر اکاؤنٹ موڈل کو اوپن کرتے وقت محفوظ شدہ ڈیٹا لوڈ کرنا
 window.openCustomerAccountModal = () => {
   let savedCust = JSON.parse(localStorage.getItem('raw_customer_profile') || '{}');
   if(savedCust.name) {
@@ -548,7 +562,7 @@ function renderProducts(products) {
   }
 
   filtered.forEach((item) => {
-    let imagesList = item.images || (item.img ? [item.img] : ['ejaz.png']);
+    let imagesList = item.images || (item.img ? [item.img] : ['ejar.jpg']);
     let mainImg = imagesList[0];
     let currencySymbol = item.currency || 'Rs.';
     let priceVal = item.pricePKR || item.price;
@@ -572,7 +586,7 @@ function renderProducts(products) {
 
     shopList.innerHTML += `
       <div class="card">
-        <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='ejaz.png'"></div>
+        <div class="product-img-container" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'><img src="${mainImg}" onerror="this.src='ejar.jpg'"></div>
         <div class="card-body">
           <h3 class="product-title" onclick='openProductDetail(${JSON.stringify(item).replace(/'/g, "&#39;")})'>${item.name || item.title}</h3>
           <div class="city-label">📍 ${item.brand || item.city || 'Chukera 79 SB'}</div>
@@ -601,14 +615,14 @@ window.openProductDetail = function(item) {
   let priceDisplay = (priceVal !== undefined && priceVal !== "" && !isNaN(priceVal)) ? `${currencySymbol} ${priceVal}` : "انکوائری بیسڈ سروس";
   
   document.getElementById('detPrice').innerText = `قیمت: ${priceDisplay}`;
-  document.getElementById('detCity').innerText = 'লোকেশন: ' + (item.brand || item.city || 'Chukera 79 SB');
+  document.getElementById('detCity').innerText = 'لوکیشن: ' + (item.brand || item.city || 'Chukera 79 SB');
   document.getElementById('detDescription').innerText = item.description || item.desc || 'تفصیل موجود نہیں۔';
 
   const imgContainer = document.getElementById('detImagesContainer');
   imgContainer.innerHTML = "";
-  let imagesList = item.images || (item.img ? [item.img] : ['ejaz.png']);
+  let imagesList = item.images || (item.img ? [item.img] : ['ejar.jpg']);
   imagesList.forEach(imgSrc => {
-    imgContainer.innerHTML += `<img src="${imgSrc}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px; border:1px solid #ddd;" onerror="this.src='ejaz.png'">`;
+    imgContainer.innerHTML += `<img src="${imgSrc}" style="max-width:100%; max-height:220px; object-fit:contain; border-radius:4px; border:1px solid #ddd;" onerror="this.src='ejar.jpg'">`;
   });
 
   const actionDiv = document.getElementById('detActionBtn');
@@ -638,26 +652,35 @@ function renderCartItems() {
   });
 }
 
+// واٹس ایپ آرڈر میسج کو اب ایموجیز، لوکیشن اور مکمل تفصیل کے ساتھ خوبصورت بنا دیا گیا ہے
 window.triggerAutomaticOrder = async function(item) {
   let savedCust = JSON.parse(localStorage.getItem('raw_customer_profile') || '{}');
   const custName = savedCust.name || document.getElementById('custName').value.trim() || "Customer";
   const custPhone = savedCust.phone || document.getElementById('custPhone').value.trim() || "03334664227";
   const custAddress = savedCust.address || document.getElementById('custAddress').value.trim() || "Chukera 79 SB";
 
+  let priceVal = item.pricePKR || item.price || "Contact for Price";
+
   try {
     await addDoc(collection(db, "orders"), {
       productName: item.name || item.title,
-      price: item.pricePKR || item.price || "N/A",
+      price: priceVal,
       customerName: custName,
       customerPhone: custPhone,
       customerAddress: custAddress,
       createdAt: new Date().toISOString()
     });
 
-    let orderMsg = `🛍️ *New Order - R.A.W GROUP*%0A📦 ${item.name || item.title}%0A👤 ${custName}%0A📞 ${custPhone}%0A📍 ${custAddress}`;
+    let orderMsg = `🛍️ *New Order - R.A.W GROUP*%0A` +
+                   `📦 *Product:* ${item.name || item.title}%0A` +
+                   `💰 *Price:* Rs. ${priceVal}%0A` +
+                   `👤 *Customer:* ${custName}%0A` +
+                   `📞 *Phone:* ${custPhone}%0A` +
+                   `📍 *Location:* ${custAddress}`;
+
     window.open(`https://wa.me/923334664227?text=${orderMsg}`, '_blank');
 
-    alert("✅ آپ کا آرڈر کامیابی سے محفوظ ہو گیا ہے!");
+    alert("✅ آپ کا آرڈر کامیابی سے محفوظ ہو گیا ہے اور واٹس ایپ پر بھیج دیا گیا ہے!");
     closeProductDetailModal();
     closeCartModal();
   } catch(err) {
