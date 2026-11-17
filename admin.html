@@ -19,17 +19,18 @@ input,select,textarea{width:100%; padding:10px; margin:5px 0; border:2px solid v
 .price-row select{width:110px;}
 .price-row input{flex:1; margin:0;}
 .btn-add{width:100%; padding:12px; background:var(--orange); color:white; border:none; border-radius:8px; font-weight:bold; font-size:16px; cursor:pointer;}
+.btn-live{background:#194376; color:white; border:none; padding:8px 12px; border-radius:6px; font-weight:bold; font-size:12px; cursor:pointer; width:100%; margin-bottom:6px;}
 .btn-logout{position:absolute; top:10px; left:10px; background:#ff1a1a; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-weight:bold; font-size:12px;}
 #status{text-align:center; color:green; border:1px dashed var(--orange); padding:6px; border-radius:6px; font-weight:bold; margin:6px 0; font-size:13px;}
 #preview-container{display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; justify-content:center;}
 #preview-container img{width:60px; height:60px; object-fit:cover; border-radius:6px; border:2px solid var(--orange);}
-.product-item{display:flex; gap:8px; align-items:center; border:2px solid var(--orange); border-radius:10px; padding:8px; margin-bottom:8px; background:#fffaf3; width:100%;}
+.seller-group-card{border:2px solid #2e7d32; background:#e8f5e9; border-radius:12px; padding:12px; margin-bottom:15px;}
+.product-item{display:flex; gap:8px; align-items:center; border:2px solid var(--orange); border-radius:10px; padding:8px; margin-bottom:8px; background:#fff; width:100%;}
 .product-item img{width:50px; height:50px; object-fit:cover; border-radius:6px; flex-shrink:0;}
 .p-info{flex:1; text-align:right; font-size:12px; overflow:hidden;}
 .btn-edit{background:var(--orange); color:white; border:none; padding:5px 8px; border-radius:4px; margin:2px; cursor:pointer; font-size:11px;}
 .btn-del{background:#ff1a1a; color:white; border:none; padding:5px 8px; border-radius:4px; margin:2px; cursor:pointer; font-size:11px;}
 .order-card{border:2px solid #194376; background:#eef2f7; border-radius:10px; padding:10px; margin-bottom:10px; font-size:12px;}
-.seller-card{border:2px solid #2e7d32; background:#e8f5e9; border-radius:10px; padding:8px; margin-bottom:8px; font-size:12px;}
 .profit-badge{background:#28a745; color:white; padding:2px 6px; border-radius:4px; font-weight:bold; font-size:11px;}
 .btn-release{background:#28a745; color:white; border:none; padding:6px; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:4px; width:48%; font-size:11px;}
 .btn-hold{background:#d9534f; color:white; border:none; padding:6px; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:4px; width:48%; font-size:11px;}
@@ -77,7 +78,7 @@ input,select,textarea{width:100%; padding:10px; margin:5px 0; border:2px solid v
   <input id="name" placeholder="پروڈکٹ کا نام *">
   <input id="brand" placeholder="برانڈ یا شہر (e.g. Sargodha / London / Dubai)">
   
-  <!-- کرنسی اور لائیو + مینول ریٹ سسٹم -->
+  <!-- کرنسی اور لائیو ریٹ کا بٹن سسٹم -->
   <div class="price-row">
     <select id="adCurrency" onchange="updateRateInputs(); convertLiveCurrency();">
       <option value="Rs.">PKR (Rs.)</option>
@@ -89,7 +90,8 @@ input,select,textarea{width:100%; padding:10px; margin:5px 0; border:2px solid v
     <input id="priceDirectPKR" type="number" placeholder="قیمت لکھیں *" oninput="convertLiveCurrency()">
   </div>
 
-  <!-- یہاں ایڈمن اپنی مرضی سے ریٹ تبدیل کر سکتا ہے (لائیو یا مینول) -->
+  <button class="btn-live" type="button" onclick="fetchLiveExchangeRates(true)">🔄 لائیو ریٹ حاصل کریں (Live Rate)</button>
+
   <div id="manualRateBox" style="display:none; margin:5px 0; background:#fffaf3; padding:8px; border:1px dashed var(--orange); border-radius:6px;">
     <label style="font-size:11px; font-weight:bold; color:#194376;" id="rateLabel">ریٹ درج کریں (1 unit = ? PKR):</label>
     <input id="customRateInput" type="number" placeholder="مثلاً 280 لکھیں" oninput="convertLiveCurrency()" style="margin-top:3px; padding:6px; font-size:13px;">
@@ -108,14 +110,6 @@ input,select,textarea{width:100%; padding:10px; margin:5px 0; border:2px solid v
   <button id="cancelEditBtn" type="button" style="display:none; background:#666; color:white; width:100%; padding:8px; border-radius:8px; margin-top:4px; border:none; font-size:14px;">کینسل کریں</button>
   
   <hr style="margin:12px 0; border:1px dashed #FF8C00;">
-  
-  <!-- Registered Sellers Manager -->
-  <div style="background:#e8f5e9; border:2px dashed #2e7d32; padding:8px; border-radius:8px; margin-bottom:12px;">
-    <h3 style="color:#1b5e20; font-size:13px; text-align:center; margin-bottom:6px;">👥 Registered Sellers Manager</h3>
-    <div id="sellersList" style="text-align:right;">لوڈ ہو رہا ہے...</div>
-  </div>
-
-  <hr style="margin:12px 0; border:1px dashed #FF8C00;">
 
   <!-- Escrow Orders Manager -->
   <div style="background:#fff3ec; border:2px dashed #f57224; padding:8px; border-radius:8px; margin-bottom:12px;">
@@ -124,8 +118,8 @@ input,select,textarea{width:100%; padding:10px; margin:5px 0; border:2px solid v
   </div>
 
   <hr style="margin:12px 0; border:1px dashed #FF8C00;">
-  <h3 style="color:#194376; font-size:14px;">تمام پروڈکٹس مینیجر:</h3>
-  <div id="productList">لوڈ ہو رہا ہے...</div>
+  <h3 style="color:#194376; font-size:14px; text-align:center;">📦 سیلر وائز پروڈکٹس مینیجر (Seller-wise Products):</h3>
+  <div id="sellerWiseProductList">لوڈ ہو رہا ہے...</div>
 </div>
 
 <script>
@@ -139,7 +133,6 @@ function doLogin(){
     adminPanel.style.display='block';
     if(window.loadProductsFromFirebase) window.loadProductsFromFirebase();
     if(window.loadOrdersFromFirebase) window.loadOrdersFromFirebase();
-    if(window.loadSellersFromFirebase) window.loadSellersFromFirebase();
   } else {
     document.getElementById('loginError').innerText='غلط پاس ورڈ! 1234 لکھیں';
   } 
@@ -153,30 +146,28 @@ document.getElementById('logoutBtn').addEventListener('click',()=>{
 });
 if(sessionStorage.getItem('raw_logged_in')==='true'){loginBox.style.display='none'; adminPanel.style.display='block';}
 
-// کرنسی ریٹس (لائیو اور مینول دونوں کا نظام)
-let liveRates = { USD: 280, AED: 76, GBP: 350, EUR: 300 };
+let currencyRates = { USD: 280, AED: 76, GBP: 350, EUR: 300 };
 
-async function fetchLiveExchangeRates() {
+async function fetchLiveExchangeRates(showAlert = false) {
   try {
     let res = await fetch('https://open.er-api.com/v6/latest/USD');
     let data = await res.json();
     if(data && data.rates && data.rates.PKR) {
       let usdToPkr = data.rates.PKR;
-      liveRates.USD = usdToPkr;
-      liveRates.AED = usdToPkr / 3.67;
-      if(data.rates.GBP) liveRates.GBP = usdToPkr / data.rates.GBP;
-      if(data.rates.EUR) liveRates.EUR = usdToPkr / data.rates.EUR;
-      
-      // اگر لائیو ریٹ آ گئے تو مینول باکس میں خودکار طور پر آ جائیں گے
+      currencyRates.USD = usdToPkr;
+      currencyRates.AED = usdToPkr / 3.67;
+      if(data.rates.GBP) currencyRates.GBP = usdToPkr / data.rates.GBP;
+      if(data.rates.EUR) currencyRates.EUR = usdToPkr / data.rates.EUR;
       updateRateInputs();
       convertLiveCurrency();
+      if(showAlert) alert("لائیو ریٹس کامیابی سے اپ ڈیٹ ہو گئے ہیں! ✅ (1 USD = " + Math.round(usdToPkr) + " PKR)");
     }
   } catch(err) {
-    console.log("Using standard market backup rates.");
+    if(showAlert) alert("لائیو ریٹ حاصل کرنے میں مسئلہ ہوا۔ آپ خود مینول ریٹ درج کر سکتے ہیں۔");
     updateRateInputs();
   }
 }
-fetchLiveExchangeRates();
+fetchLiveExchangeRates(false);
 
 window.updateRateInputs = function() {
   let curr = document.getElementById('adCurrency').value;
@@ -188,10 +179,9 @@ window.updateRateInputs = function() {
     manualBox.style.display = 'none';
   } else {
     manualBox.style.display = 'block';
-    label.innerText = `1 ${curr} کا ریٹ (PKR میں خود سیٹ کریں):`;
-    // اگر کسٹم ریٹ پہلے سے خالی ہے تو لائیو ریٹ یہاں لکھ دیں
-    if(!rateInput.value) {
-      rateInput.value = Math.round(liveRates[curr] || 280);
+    label.innerText = `1 ${curr} کا ریٹ (لائیو یا اپنی مرضی سے سیٹ کریں):`;
+    if(!rateInput.value || rateInput.value == "280") {
+      rateInput.value = Math.round(currencyRates[curr] || 280);
     }
   }
 };
@@ -200,13 +190,13 @@ window.convertLiveCurrency = function() {
   let curr = document.getElementById('adCurrency').value;
   let val = Number(document.getElementById('priceDirectPKR').value) || 0;
   let noteDiv = document.getElementById('liveRateNote');
-  let customRate = Number(document.getElementById('customRateInput').value) || liveRates[curr] || 280;
+  let customRate = Number(document.getElementById('customRateInput').value) || currencyRates[curr] || 280;
   
   if(curr === 'Rs.') {
     noteDiv.innerText = `🇵🇰 قیمت پاکستانی روپے (PKR) میں درج ہے۔`;
   } else {
     let convertedPKR = Math.round(val * customRate);
-    noteDiv.innerText = `💱 قیمت کی کیلکولیشن: Rs. ${convertedPKR.toLocaleString()} (Rate: 1 ${curr} = ${customRate} PKR)`;
+    noteDiv.innerText = `💱 قیمت کی کیلکولیشن: Rs. ${convertedPKR.toLocaleString()} (لائیو/مقررہ ریٹ: 1 ${curr} = ${customRate} PKR)`;
   }
 };
 </script>
@@ -251,7 +241,7 @@ async function compressAndResize(f) {
   return canvas.toDataURL('image/jpeg', 0.6);
 }
 
-const status = document.getElementById('status'), listDiv = document.getElementById('productList'), previewContainer = document.getElementById('preview-container'), addBtn = document.getElementById('addBtn'), cancelEditBtn = document.getElementById('cancelEditBtn');
+const status = document.getElementById('status'), sellerWiseListDiv = document.getElementById('sellerWiseProductList'), previewContainer = document.getElementById('preview-container'), addBtn = document.getElementById('addBtn'), cancelEditBtn = document.getElementById('cancelEditBtn');
 
 document.getElementById('imageFile').onchange = e => {
   selectedFiles = Array.from(e.target.files).slice(0, 5);
@@ -289,7 +279,7 @@ addBtn.onclick = async () => {
     let numericPrice = Number(price);
     let finalPKR = numericPrice;
     if(currency !== 'Rs.') {
-      let customRate = Number(document.getElementById('customRateInput').value) || liveRates[currency] || 280;
+      let customRate = Number(document.getElementById('customRateInput').value) || currencyRates[currency] || 280;
       finalPKR = Math.round(numericPrice * customRate);
     }
 
@@ -348,145 +338,134 @@ function resetForm(){
 cancelEditBtn.onclick = resetForm;
 
 async function loadProducts(){ 
-  listDiv.innerHTML = 'لوڈ ہو رہا ہے...'; 
+  sellerWiseListDiv.innerHTML = 'لوڈ ہو رہا ہے...'; 
   try{ 
     const snap = await getDocs(collection(db, 'products'));
     allProductsCache = [];
     snap.forEach(d => { allProductsCache.push({ id: d.id, ...d.data() }); });
 
-    if(allProductsCache.length === 0){ listDiv.innerHTML = 'کوئی پروڈکٹ نہیں ملی'; return; } 
-    listDiv.innerHTML = ''; 
+    if(allProductsCache.length === 0){ sellerWiseListDiv.innerHTML = 'کوئی پروڈکٹ نہیں ملی'; return; } 
 
-    allProductsCache.forEach(p => { 
-      let img = (p.images && p.images[0]) || 'logo.png'; 
-      let curr = p.currency || 'Rs.';
-      let dispPrice = p.price !== undefined ? p.price : (p.pricePKR || 0);
-      let dispPKR = p.pricePKR !== undefined ? p.pricePKR : dispPrice;
+    let sellersGroup = {};
+    allProductsCache.forEach(p => {
+      let sMobile = String(p.mobile || '03334664227').trim();
+      let sName = (p.sellerName || 'Admin').trim();
+      let groupKey = sMobile + "_" + sName;
 
-      let isAdminProduct = (String(p.mobile || '').trim() === "03334664227" || String(p.sellerName || '').includes("Admin"));
-
-      let adminActionButtons = !isAdminProduct ? `
-        <div style="margin-top: 4px; display:flex; gap:4px;">
-          <button class="btn-block-prod" style="background:#e65100; color:white; border:none; padding:3px 6px; border-radius:4px; font-size:10px; cursor:pointer;">Block Product</button>
-          <button class="btn-block-seller" style="background:#d32f2f; color:white; border:none; padding:3px 6px; border-radius:4px; font-size:10px; cursor:pointer;">Block Seller</button>
-        </div>
-      ` : `<div style="color:#2e7d32; font-size:10px; font-weight:bold; margin-top:2px;">[Your Official Product]</div>`;
-
-      const div = document.createElement('div'); 
-      div.className = 'product-item'; 
-      div.innerHTML = `
-        <img src="${img}">
-        <div class="p-info">
-          <b>${p.name}</b><br>
-          <span>${curr} ${dispPrice} (PKR: ${dispPKR}) | ${p.category}</span><br>
-          <span style="color:#0a8a00; font-size:11px;">👤 Seller: ${p.sellerName || 'Admin'} (${p.mobile || 'N/A'})</span>
-          ${adminActionButtons}
-        </div>
-        <div>
-          <button class="btn-edit">ایڈٹ</button>
-          <button class="btn-del">ڈیلیٹ</button>
-        </div>
-      `; 
-
-      if(!isAdminProduct) {
-        div.querySelector('.btn-block-prod').onclick = async () => {
-          if(!confirm("Kya aap is product ko block karna chahte hain?")) return;
-          try {
-            await updateDoc(doc(db, 'products', p.id), { isBlocked: true });
-            alert("Product block ho gayi hai!");
-            loadProducts();
-          } catch(err) { alert("Masla hua: " + err.message); }
-        };
-
-        div.querySelector('.btn-block-seller').onclick = async () => {
-          let reason = prompt(`Seller (${p.mobile}) ko block karne ki wajah likhein:`);
-          if(!reason) return;
-          try {
-            await addDoc(collection(db, "blockedSellers"), { mobile: p.mobile, reason: reason, blockedAt: new Date() });
-            alert("Seller block kar diya gaya hai!");
-          } catch(err) { alert("Masla hua: " + err.message); }
+      if(!sellersGroup[groupKey]) {
+        sellersGroup[groupKey] = {
+          name: sName,
+          mobile: sMobile,
+          products: []
         };
       }
-      
-      div.querySelector('.btn-edit').onclick = () => { 
-        editingId = p.id; 
-        document.getElementById('name').value = p.name || ''; 
-        document.getElementById('brand').value = p.brand || ''; 
-        document.getElementById('affiliateLink').value = p.affiliateLink || ''; 
-        document.getElementById('desc').value = p.desc || ''; 
-        document.getElementById('category').value = p.category || ''; 
-        document.getElementById('priceDirectPKR').value = p.price !== undefined ? p.price : (p.pricePKR || '');
-        document.getElementById('adCurrency').value = p.currency || 'Rs.';
-        updateRateInputs();
-        convertLiveCurrency();
-        
-        existingImagesForEdit = p.images || []; 
-        previewContainer.innerHTML = ''; 
-        if(p.images){
-          p.images.forEach(s => {
-            const im = document.createElement('img');
-            im.src = s;
-            previewContainer.appendChild(im);
-          });
-        } 
-        addBtn.innerText = 'اپ ڈیٹ کریں'; 
-        cancelEditBtn.style.display = 'block'; 
-        window.scrollTo({top:0, behavior:'smooth'});
-      }; 
-
-      div.querySelector('.btn-del').onclick = async () => { 
-        if(!confirm('ڈیلیٹ کرنا چاہتے ہیں؟')) return; 
-        await deleteDoc(doc(db, 'products', p.id)); 
-        div.remove(); 
-      }; 
-
-      listDiv.appendChild(div); 
-    }); 
-  }catch(e){ 
-    listDiv.innerHTML = 'Error: ' + e.message; 
-  } 
-}
-
-window.loadSellersFromFirebase = async function() {
-  const container = document.getElementById('sellersList');
-  container.innerHTML = "لوڈ ہو رہا ہے...";
-  try {
-    const snap = await getDocs(collection(db, "products"));
-    if(snap.empty) {
-      container.innerHTML = "<p style='text-align:center; color:#666;'>Abhi tak koi seller mojood nahi hai.</p>";
-      return;
-    }
-    
-    let sellersMap = {};
-    snap.forEach((docSnap) => {
-      let p = docSnap.data();
-      let sMobile = String(p.mobile || '03334664227').replace(/\D/g, ''); 
-      if(sMobile.length > 4) sMobile = sMobile.slice(-10);
-      let sName = p.sellerName || 'Verified Seller';
-
-      if(!sellersMap[sMobile]) {
-        sellersMap[sMobile] = { name: sName, mobile: p.mobile || sMobile, adsCount: 0 };
-      }
-      sellersMap[sMobile].adsCount++;
+      sellersGroup[groupKey].products.push(p);
     });
 
-    container.innerHTML = "";
-    for(let mob in sellersMap) {
-      let seller = sellersMap[mob];
-      let cleanMob = seller.mobile.replace(/^0/, '');
-      let waLink = `https://wa.me/92${cleanMob}?text=Assalam-o-Alaikum%20${encodeURIComponent(seller.name)},%20R.A.W%20Group%20Admin%20ki%20طرف%20سے%20رابطہ%20ہے۔`;
+    sellerWiseListDiv.innerHTML = ''; 
 
-      container.innerHTML += `
-        <div class="seller-card">
-          <h4>👤 Seller: ${seller.name}</h4>
-          <p>📞 Mobile: <b>${seller.mobile}</b> | Active Ads: <b>${seller.adsCount}</b></p>
-          <a href="${waLink}" target="_blank" class="whatsapp-contact-btn">💬 Payout / WhatsApp Raabta</a>
+    for(let key in sellersGroup) {
+      let group = sellersGroup[key];
+      let isAdminGroup = (group.mobile === "03334664227" || group.name.toLowerCase().includes("admin"));
+
+      let headerTitle = isAdminGroup ? `👑 Main Admin (Ejaz Ahmad)` : `👤 Seller: ${group.name} (${group.mobile})`;
+      let headerSub = isAdminGroup ? `[Official Admin - No Restrictions]` : `[Registered Seller Account]`;
+
+      let productsHtml = '';
+      group.products.forEach(p => {
+        let img = (p.images && p.images[0]) || 'logo.png'; 
+        let curr = p.currency || 'Rs.';
+        let dispPrice = p.price !== undefined ? p.price : (p.pricePKR || 0);
+        let dispPKR = p.pricePKR !== undefined ? p.pricePKR : dispPrice;
+
+        let blockButtons = !isAdminGroup ? `
+          <div style="margin-top: 4px; display:flex; gap:4px;">
+            <button class="btn-block-prod" onclick="blockProduct('${p.id}')" style="background:#e65100; color:white; border:none; padding:3px 6px; border-radius:4px; font-size:10px; cursor:pointer;">Block Product</button>
+            <button class="btn-block-seller" onclick="blockSeller('${group.mobile}')" style="background:#d32f2f; color:white; border:none; padding:3px 6px; border-radius:4px; font-size:10px; cursor:pointer;">Block Seller</button>
+          </div>
+        ` : `<div style="color:#2e7d32; font-size:10px; font-weight:bold; margin-top:2px;">[Your Official Product]</div>`;
+
+        productsHtml += `
+          <div class="product-item">
+            <img src="${img}">
+            <div class="p-info">
+              <b>${p.name}</b><br>
+              <span>${curr} ${dispPrice} (PKR: ${dispPKR}) | ${p.category}</span><br>
+              ${blockButtons}
+            </div>
+            <div>
+              <button class="btn-edit" onclick="editProduct('${p.id}')">ایڈٹ</button>
+              <button class="btn-del" onclick="deleteProduct('${p.id}')">ڈیلیٹ</button>
+            </div>
+          </div>
+        `;
+      });
+
+      sellerWiseListDiv.innerHTML += `
+        <div class="seller-group-card">
+          <h3 style="color:#1b5e20; font-size:14px; margin:0 0 4px 0;">${headerTitle}</h3>
+          <p style="font-size:11px; color:#555; margin:0 0 8px 0;">${headerSub} | کل پروڈکٹس: <b>${group.products.length}</b></p>
+          <hr style="border:0; border-top:1px dashed #2e7d32; margin:6px 0;">
+          ${productsHtml}
         </div>
       `;
     }
-  } catch(e) {
-    container.innerHTML = "Sellers load karne mein masla hua.";
-  }
+
+  }catch(e){ 
+    sellerWiseListDiv.innerHTML = 'Error: ' + e.message; 
+  } 
+}
+
+window.blockProduct = async function(id) {
+  if(!confirm("Kya aap is product ko block karna chahte hain?")) return;
+  try {
+    await updateDoc(doc(db, 'products', id), { isBlocked: true });
+    alert("Product block ho gayi hai!");
+    loadProducts();
+  } catch(err) { alert("Masla hua: " + err.message); }
+};
+
+window.blockSeller = async function(mobile) {
+  let reason = prompt(`Seller (${mobile}) ko block karne ki wajah likhein:`);
+  if(!reason) return;
+  try {
+    await addDoc(collection(db, "blockedSellers"), { mobile: mobile, reason: reason, blockedAt: new Date() });
+    alert("Seller block kar diya gaya hai!");
+  } catch(err) { alert("Masla hua: " + err.message); }
+};
+
+window.editProduct = function(id) {
+  let p = allProductsCache.find(x => x.id === id);
+  if(!p) return;
+  editingId = p.id; 
+  document.getElementById('name').value = p.name || ''; 
+  document.getElementById('brand').value = p.brand || ''; 
+  document.getElementById('affiliateLink').value = p.affiliateLink || ''; 
+  document.getElementById('desc').value = p.desc || ''; 
+  document.getElementById('category').value = p.category || ''; 
+  document.getElementById('priceDirectPKR').value = p.price !== undefined ? p.price : (p.pricePKR || '');
+  document.getElementById('adCurrency').value = p.currency || 'Rs.';
+  updateRateInputs();
+  convertLiveCurrency();
+  
+  existingImagesForEdit = p.images || []; 
+  previewContainer.innerHTML = ''; 
+  if(p.images){
+    p.images.forEach(s => {
+      let im = document.createElement('img');
+      im.src = s;
+      previewContainer.appendChild(im);
+    });
+  } 
+  addBtn.innerText = 'اپ ڈیٹ کریں'; 
+  cancelEditBtn.style.display = 'block'; 
+  window.scrollTo({top:0, behavior:'smooth'});
+};
+
+window.deleteProduct = async function(id) {
+  if(!confirm('ڈیلیٹ کرنا چاہتے ہیں؟')) return; 
+  await deleteDoc(doc(db, 'products', id)); 
+  loadProducts();
 };
 
 window.loadOrdersFromFirebase = async function() {
@@ -552,7 +531,7 @@ window.loadOrdersFromFirebase = async function() {
           
           ${o.payoutStatus !== 'Payout Released' ? `
             <div style="display:flex; justify-content:space-between; margin-top:4px;">
-              <button class="btn-release" onclick="releaseSellerPayout('${orderId}', '${o.sellerMobile || '03334664227'}', '${sellerPay}')">✅ Deliver & Release</button>
+              <button class="btn-release" onclick="releaseSellerPayout('${orderId}', '${sellerPay}')">✅ Deliver & Release</button>
               <button class="btn-hold" onclick="holdSellerPayout('${orderId}')">❌ Hold / Damaged</button>
             </div>
           ` : `<span style="color:#28a745; font-weight:bold; display:block; margin-top:4px; text-align:center;">✓ Payout Transferred Successfully</span>`}
@@ -565,7 +544,7 @@ window.loadOrdersFromFirebase = async function() {
   }
 };
 
-window.releaseSellerPayout = async function(orderId, sellerMobile, payoutAmount) {
+window.releaseSellerPayout = async function(orderId, payoutAmount) {
   if(!confirm(`Kya order deliver ho gaya hai aur aap seller ko ${payoutAmount} رقم جاری करना चाहते हैं?`)) return;
   try {
     await updateDoc(doc(db, "orders", orderId), {
@@ -599,7 +578,6 @@ window.loadProductsFromFirebase = loadProducts;
 
 loadProducts();
 loadOrdersFromFirebase();
-loadSellersFromFirebase();
 </script>
 </body>
 </html>
