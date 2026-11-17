@@ -77,9 +77,9 @@ input,select,textarea{width:100%; padding:10px; margin:5px 0; border:2px solid v
   <input id="name" placeholder="پروڈکٹ کا نام *">
   <input id="brand" placeholder="برانڈ یا شہر (e.g. Sargodha / London / Dubai)">
   
-  <!-- لائیو کرنسی ریٹ سسٹم -->
+  <!-- کرنسی اور لائیو + مینول ریٹ سسٹم -->
   <div class="price-row">
-    <select id="adCurrency" onchange="convertLiveCurrency()">
+    <select id="adCurrency" onchange="updateRateInputs(); convertLiveCurrency();">
       <option value="Rs.">PKR (Rs.)</option>
       <option value="$">USD ($)</option>
       <option value="AED">AED (درہم)</option>
@@ -88,6 +88,13 @@ input,select,textarea{width:100%; padding:10px; margin:5px 0; border:2px solid v
     </select>
     <input id="priceDirectPKR" type="number" placeholder="قیمت لکھیں *" oninput="convertLiveCurrency()">
   </div>
+
+  <!-- یہاں ایڈمن اپنی مرضی سے ریٹ تبدیل کر سکتا ہے (لائیو یا مینول) -->
+  <div id="manualRateBox" style="display:none; margin:5px 0; background:#fffaf3; padding:8px; border:1px dashed var(--orange); border-radius:6px;">
+    <label style="font-size:11px; font-weight:bold; color:#194376;" id="rateLabel">ریٹ درج کریں (1 unit = ? PKR):</label>
+    <input id="customRateInput" type="number" placeholder="مثلاً 280 لکھیں" oninput="convertLiveCurrency()" style="margin-top:3px; padding:6px; font-size:13px;">
+  </div>
+
   <div id="liveRateNote" style="font-size:11px; color:#194376; font-weight:bold; margin-bottom:5px; text-align:right;"></div>
 
   <input id="affiliateLink" placeholder="WhatsApp / Contact Link (Optional)">
@@ -110,7 +117,7 @@ input,select,textarea{width:100%; padding:10px; margin:5px 0; border:2px solid v
 
   <hr style="margin:12px 0; border:1px dashed #FF8C00;">
 
-  <!-- Escrow Orders Manager (Masked Display with Direct Admin Call/WhatsApp Buttons) -->
+  <!-- Escrow Orders Manager -->
   <div style="background:#fff3ec; border:2px dashed #f57224; padding:8px; border-radius:8px; margin-bottom:12px;">
     <h3 style="color:#194376; font-size:13px; text-align:center; margin-bottom:6px;">🛡️ Escrow Orders Manager (محفوظ آرڈرز لسٹ)</h3>
     <div id="ordersList" style="text-align:right;">لوڈ ہو رہا ہے...</div>
@@ -146,37 +153,60 @@ document.getElementById('logoutBtn').addEventListener('click',()=>{
 });
 if(sessionStorage.getItem('raw_logged_in')==='true'){loginBox.style.display='none'; adminPanel.style.display='block';}
 
-// لائیو کرنسی ریٹ سسٹم
-let currencyRates = { USD: 280, AED: 76, GBP: 350, EUR: 300 };
+// کرنسی ریٹس (لائیو اور مینول دونوں کا نظام)
+let liveRates = { USD: 280, AED: 76, GBP: 350, EUR: 300 };
 
-async function fetchExchangeRates() {
+async function fetchLiveExchangeRates() {
   try {
     let res = await fetch('https://open.er-api.com/v6/latest/USD');
     let data = await res.json();
     if(data && data.rates && data.rates.PKR) {
-      let usd = data.rates.PKR;
-      currencyRates.USD = usd;
-      currencyRates.AED = usd / 3.67;
-      currencyRates.GBP = usd / data.rates.GBP;
-      currencyRates.EUR = usd / data.rates.EUR;
+      let usdToPkr = data.rates.PKR;
+      liveRates.USD = usdToPkr;
+      liveRates.AED = usdToPkr / 3.67;
+      if(data.rates.GBP) liveRates.GBP = usdToPkr / data.rates.GBP;
+      if(data.rates.EUR) liveRates.EUR = usdToPkr / data.rates.EUR;
+      
+      // اگر لائیو ریٹ آ گئے تو مینول باکس میں خودکار طور پر آ جائیں گے
+      updateRateInputs();
+      convertLiveCurrency();
     }
-  } catch(e) {
-    console.log("Using standard rates.");
+  } catch(err) {
+    console.log("Using standard market backup rates.");
+    updateRateInputs();
   }
 }
-fetchExchangeRates();
+fetchLiveExchangeRates();
+
+window.updateRateInputs = function() {
+  let curr = document.getElementById('adCurrency').value;
+  let manualBox = document.getElementById('manualRateBox');
+  let rateInput = document.getElementById('customRateInput');
+  let label = document.getElementById('rateLabel');
+
+  if(curr === 'Rs.') {
+    manualBox.style.display = 'none';
+  } else {
+    manualBox.style.display = 'block';
+    label.innerText = `1 ${curr} کا ریٹ (PKR میں خود سیٹ کریں):`;
+    // اگر کسٹم ریٹ پہلے سے خالی ہے تو لائیو ریٹ یہاں لکھ دیں
+    if(!rateInput.value) {
+      rateInput.value = Math.round(liveRates[curr] || 280);
+    }
+  }
+};
 
 window.convertLiveCurrency = function() {
   let curr = document.getElementById('adCurrency').value;
   let val = Number(document.getElementById('priceDirectPKR').value) || 0;
   let noteDiv = document.getElementById('liveRateNote');
+  let customRate = Number(document.getElementById('customRateInput').value) || liveRates[curr] || 280;
   
   if(curr === 'Rs.') {
     noteDiv.innerText = `🇵🇰 قیمت پاکستانی روپے (PKR) میں درج ہے۔`;
   } else {
-    let rate = currencyRates[curr] || 280;
-    let convertedPKR = Math.round(val * rate);
-    noteDiv.innerText = `💱 اندازاً پاکستانی قیمت: Rs. ${convertedPKR.toLocaleString()} (Rate: ~${Math.round(rate)})`;
+    let convertedPKR = Math.round(val * customRate);
+    noteDiv.innerText = `💱 قیمت کی کیلکولیشن: Rs. ${convertedPKR.toLocaleString()} (Rate: 1 ${curr} = ${customRate} PKR)`;
   }
 };
 </script>
@@ -259,8 +289,8 @@ addBtn.onclick = async () => {
     let numericPrice = Number(price);
     let finalPKR = numericPrice;
     if(currency !== 'Rs.') {
-      let r = currencyRates[currency] || 280;
-      finalPKR = Math.round(numericPrice * r);
+      let customRate = Number(document.getElementById('customRateInput').value) || liveRates[currency] || 280;
+      finalPKR = Math.round(numericPrice * customRate);
     }
 
     let data = { 
@@ -309,6 +339,7 @@ function resetForm(){
   document.getElementById('category').value = '';
   document.getElementById('adCurrency').value = 'Rs.';
   document.getElementById('liveRateNote').innerText = '';
+  document.getElementById('manualRateBox').style.display = 'none';
   previewContainer.innerHTML = ''; 
   addBtn.innerText = 'سیو کریں'; 
   cancelEditBtn.style.display = 'none'; 
@@ -386,6 +417,7 @@ async function loadProducts(){
         document.getElementById('category').value = p.category || ''; 
         document.getElementById('priceDirectPKR').value = p.price !== undefined ? p.price : (p.pricePKR || '');
         document.getElementById('adCurrency').value = p.currency || 'Rs.';
+        updateRateInputs();
         convertLiveCurrency();
         
         existingImagesForEdit = p.images || []; 
@@ -457,7 +489,6 @@ window.loadSellersFromFirebase = async function() {
   }
 };
 
-// آرڈرز کی لسٹ (نمبر سکیور لیکن ایڈمن کے لیے کال اور واٹس ایپ کا بٹن موجود)
 window.loadOrdersFromFirebase = async function() {
   const container = document.getElementById('ordersList');
   container.innerHTML = "لوڈ ہو رہا ہے...";
@@ -480,7 +511,6 @@ window.loadOrdersFromFirebase = async function() {
       let adminComm = Math.round(totalPrice * 0.05);
       let sellerPay = totalPrice - adminComm;
 
-      // کسٹمر کا فون نمبر (دکھانے کے لیے ماسکڈ، لیکن لنک میں پورا اصل نمبر رہے گا)
       let fullPhone = String(o.phone || o.customerMobile || '923334664227').replace(/\D/g, '');
       let maskedPhone = fullPhone.length > 4 ? "******" + fullPhone.slice(-4) : "******" + fullPhone;
       let cleanWaNum = fullPhone.startsWith('92') ? fullPhone : '92' + fullPhone.replace(/^0/, '');
@@ -536,7 +566,7 @@ window.loadOrdersFromFirebase = async function() {
 };
 
 window.releaseSellerPayout = async function(orderId, sellerMobile, payoutAmount) {
-  if(!confirm(`Kya order deliver ho gaya hai aur aap seller ko ${payoutAmount} رقم جاری کرنا चाहते हैं?`)) return;
+  if(!confirm(`Kya order deliver ho gaya hai aur aap seller ko ${payoutAmount} رقم جاری करना चाहते हैं?`)) return;
   try {
     await updateDoc(doc(db, "orders", orderId), {
       escrowStatus: "Completed & Released",
