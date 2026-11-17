@@ -67,16 +67,23 @@ function googleTranslateElementInit() {
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
-    <div class="top-bar" style="display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 4px 8px !important; background: #194376 !important; border-bottom: 2px solid #d4af37 !important; width: 100% !important; color: #ffffff !important; overflow: hidden !important;">
-    <div style="display: flex; align-items: center; flex: 0 0 auto;">
-        <div id="google_translate_element" style="transform: scale(0.85); transform-origin: left center;"></div>
+    <!-- پرفیکٹ رسپانسو ہیڈر: جو موبائل اور ڈیسک ٹاپ دونوں پر ایک ساتھ چھوٹا بڑا ہوگا -->
+<div class="top-bar" style="display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 6px 8px !important; background: #194376 !important; border-bottom: 2px solid #d4af37 !important; width: 100% !important; color: #ffffff !important; box-sizing: border-box !important; overflow: hidden !important;">
+    
+    <!-- بائیں طرف: گوگل ٹرانسلیٹ (موبائل پر خود بخود سکڑے گا) -->
+    <div style="display: flex; align-items: center; flex: 0 1 auto; min-width: 0; overflow: hidden;">
+        <div id="google_translate_element" style="transform: scale(0.8); transform-origin: left center;"></div>
     </div>
-    <div style="text-align: center; flex: 1; white-space: nowrap; overflow: hidden; padding: 0 4px;">
-        <span style="font-size: 11px; font-weight: 700; color: #FFD700; display: inline-block;">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span>
+    
+    <!-- درمیان میں: شاپ کا نام (فلیکسیبل اور سینٹرڈ) -->
+    <div style="text-align: center; flex: 1 1 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 4px; min-width: 0;">
+        <span style="font-size: clamp(8.5px, 2.2vw, 13px); font-weight: 700; color: #FFD700; display: inline-block;">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span>
     </div>
-    <div class="owner-branding" style="display: flex; align-items: center; gap: 4px; flex: 0 0 auto;">
-        <img src="ejar.jpg" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700;" title="Ejaz Ahmad">
-        <img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700;" title="R.A.W Logo">
+    
+    <!-- دائیں طرف: اونر اور لوگو کی تصویریں (جو اب نام کے سائز کے حساب سے بالکل فٹ ہوں گی) -->
+    <div class="owner-branding" style="display: flex; align-items: center; gap: 3px; flex: 0 0 auto;">
+        <img src="ejar.jpg" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700; flex-shrink: 0;" title="Ejaz Ahmad">
+        <img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700; flex-shrink: 0;" title="R.A.W Logo">
     </div>
 </div>
 
