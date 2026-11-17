@@ -122,43 +122,25 @@ function googleTranslateElementInit() {
         }
     }
 </style>
-
-<div class="top-bar top-bar-container">
-    <div class="top-row">
-        <div style="display: flex; align-items: center; background: #ffffff; border-radius: 4px; padding: 1px 4px;">
-            <div id="google_translate_element" style="transform: scale(0.75); transform-origin: left center;"></div>
-        </div>
-        <div class="owner-branding" style="display: flex; align-items: center; gap: 4px;" id="mobile-images-box">
-            <img src="ejar.jpg" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 1.5px solid #FFD700;" title="Ejaz Ahmad">
-            <img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 1.5px solid #FFD700;" title="R.A.W Logo">
-        </div>
+<div class="top-bar" style="display: flex !important; flex-wrap: wrap !important; justify-content: space-between !important; align-items: center !important; padding: 6px 10px !important; background: #194376 !important; border-bottom: 2px solid #d4af37 !important; width: 100% !important; color: #ffffff !important; box-sizing: border-box !important;">
+    
+    <!-- بائیں طرف: گوگل ٹرانسلیٹ -->
+    <div style="display: flex; align-items: center; background: #ffffff; border-radius: 4px; padding: 1px 4px; flex: 0 0 auto; margin-bottom: 2px;">
+        <div id="google_translate_element" style="transform: scale(0.75); transform-origin: left center;"></div>
     </div>
 
-    <div class="bottom-row">
-        <span class="shop-title">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span>
+    <!-- دائیں طرف: اونر اور لوگو کی تصویریں -->
+    <div class="owner-branding" style="display: flex; align-items: center; gap: 4px; flex: 0 0 auto; margin-bottom: 2px;">
+        <img src="ejar.jpg" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 1.5px solid #FFD700;" title="Ejaz Ahmad">
+        <img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 1.5px solid #FFD700;" title="R.A.W Logo">
     </div>
 
-    <div class="desktop-images-box owner-branding" style="display: none; align-items: center; gap: 6px; flex: 0 0 auto;">
-        <img src="ejar.jpg" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700;" title="Ejaz Ahmad">
-        <img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700;" title="R.A.W Logo">
+    <!-- نیچے والی لائن: نام پوری چوڑائی پر اوپر والی لائن کے بالکل برابر -->
+    <div style="text-align: center; width: 100% !important; padding: 3px 0 1px 0 !important; border-top: 1px solid rgba(212, 175, 55, 0.4); margin-top: 2px;">
+        <span style="font-size: 11.5px; font-weight: 700; color: #FFD700; display: block; width: 100%; letter-spacing: 1px;">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span>
     </div>
 </div>
 
-<script>
-    function adjustHeaderLayout() {
-        const desktopImages = document.querySelector('.desktop-images-box');
-        const mobileImages = document.getElementById('mobile-images-box');
-        if (window.innerWidth >= 768) {
-            if (desktopImages) desktopImages.style.display = 'flex';
-            if (mobileImages) mobileImages.style.display = 'none';
-        } else {
-            if (desktopImages) desktopImages.style.display = 'none';
-            if (mobileImages) mobileImages.style.display = 'flex';
-        }
-    }
-    window.addEventListener('resize', adjustHeaderLayout);
-    window.addEventListener('DOMContentLoaded', adjustHeaderLayout);
-    adjustHeaderLayout();
 </script>
 
   <div class="search-bar-row">
