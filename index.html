@@ -67,12 +67,19 @@ function googleTranslateElementInit() {
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
-    <div class="top-bar" style="display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; background: #194376; border-bottom: 2px solid #d4af37;">
-    <div style="display: flex; align-items: center;"><div id="google_translate_element"></div></div>
-    <div style="text-align: center; white-space: nowrap; overflow: hidden; padding: 0 5px;"><span style="font-size: 11px; font-weight: 700; color: #FFD700;">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span></div>
-    <div style="display: flex; align-items: center; gap: 4px;"><img src="ejar.jpg" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700;"><img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700;"></div>
+   <div class="top-bar" style="display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 6px 10px !important; background: #194376 !important; border-bottom: 2px solid #d4af37 !important; width: 100% !important; color: #ffffff !important;">
+    <div style="display: flex; align-items: center; flex: 0 0 auto;">
+        <div id="google_translate_element"></div>
+    </div>
+    <div style="text-align: center; flex: 1; white-space: nowrap; overflow: hidden; padding: 0 4px;">
+        <span style="font-size: 11px; font-weight: 700; color: #FFD700; display: inline-block;">⭐ R.A.W GROUP CHOUKIRHA 79 ⭐</span>
+    </div>
+    <div class="owner-branding" style="display: flex; align-items: center; gap: 4px; flex: 0 0 auto;">
+        <img src="ejar.jpg" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700;" title="Ejaz Ahmad">
+        <img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #FFD700;" title="R.A.W Logo">
+    </div>
 </div>
-
+ 
   <div class="search-bar-row">
     <div class="search-container">
       <input id="search" onkeyup="filterShop()" placeholder="🔍 پروڈکٹ کا نام یا شہر تلاش کریں...">
