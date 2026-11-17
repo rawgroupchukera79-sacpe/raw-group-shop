@@ -2,7 +2,7 @@
 <html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>R.A.W GROUP CHOUKIRHA 79 - Global Marketplace</title>
+<title>Seller & Admin Portal - R.A.W GROUP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
@@ -10,194 +10,205 @@
 *{box-sizing:border-box;}
 :root{ --orange:#FF8C00; --navy:#194376; }
 body{background:#f5f5f5; font-family:'Poppins', 'Noto Nastaliq Urdu', sans-serif; margin:0; padding:10px;}
-.shop-container{max-width:600px; margin:0 auto; background:white; border:3px solid var(--orange); border-radius:18px; padding:15px;}
-.header{text-align:center; border-bottom:2px solid var(--orange); padding-bottom:10px; margin-bottom:15px;}
-.header img{width:80px; height:80px; border-radius:50%; border:2px solid var(--orange); object-fit:cover;}
-h1{color:var(--orange); font-size:18px; margin:5px 0;}
-input,select,textarea{width:100%; padding:10px; margin:6px 0; border:2px solid var(--orange); border-radius:8px; font-size:14px; display:block; font-family:inherit;}
-.btn{width:100%; padding:12px; background:var(--orange); color:white; border:none; border-radius:8px; font-weight:bold; font-size:16px; cursor:pointer; margin-top:5px;}
-.product-card{display:flex; gap:10px; border:2px solid var(--orange); border-radius:10px; padding:10px; margin-bottom:10px; background:#fffaf3; align-items:center;}
-.product-card img{width:70px; height:70px; object-fit:cover; border-radius:8px; flex-shrink:0;}
-.p-details{flex:1; font-size:13px; text-align:right;}
-.btn-order{background:var(--navy); color:white; border:none; padding:6px 12px; border-radius:6px; font-weight:bold; cursor:pointer; font-size:12px; margin-top:5px;}
-/* موڈل اسٹائل */
-.modal{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:1000; padding:15px;}
-.modal-content{background:white; padding:20px; border-radius:15px; width:100%; max-width:450px; border:3px solid var(--orange); max-height:90vh; overflow-y:auto;}
+.admin-container{max-width:650px; margin:0 auto; background:white; border:3px solid var(--navy); border-radius:18px; padding:15px;}
+.header{text-align:center; border-bottom:2px solid var(--navy); padding-bottom:10px; margin-bottom:15px;}
+h1{color:var(--navy); font-size:18px; margin:5px 0;}
+input,select,textarea{width:100%; padding:10px; margin:6px 0; border:2px solid var(--navy); border-radius:8px; font-size:14px; display:block; font-family:inherit;}
+.btn{width:100%; padding:12px; background:var(--navy); color:white; border:none; border-radius:8px; font-weight:bold; font-size:16px; cursor:pointer; margin-top:5px;}
+.section-box{background:#f0f4f8; border:2px solid #b0c4de; border-radius:10px; padding:12px; margin-bottom:15px;}
+.policy-box{background:#fffaf3; border:2px solid var(--orange); border-radius:10px; padding:12px; margin-bottom:15px; font-size:12px; line-height:1.5;}
+.item-card{background:white; border:1px solid #ccc; border-radius:8px; padding:10px; margin-bottom:8px; font-size:13px;}
 </style>
 </head>
 <body>
 
-<div class="shop-container">
+<div class="admin-container">
   <div class="header">
-    <img src="logo.png" onerror="this.src='https://i.imgur.com/8Km9tLL.png'">
-    <h1>R.A.W GROUP CHOUKIRHA 79</h1>
-    <p style="font-size:12px; color:#555; margin:2px 0;">آپ کی اپنی آن لائن مارکیٹ پلیس اور گلوبل سٹور</p>
-    <a href="admin.html" target="_blank" style="display:inline-block; background:var(--navy); color:white; padding:5px 10px; border-radius:5px; font-size:11px; text-decoration:none; margin-top:5px; font-weight:bold;">🔐 Admin / Seller Portal Login</a>
+    <h1>🔐 R.A.W GROUP - Seller & Admin Portal</h1>
+    <p style="font-size:12px; color:#555; margin:2px 0;">محفوظ کاروباری ڈیش بورڈ اور مالیاتی حساب کتاب</p>
+    <a href="index.html" style="display:inline-block; background:var(--orange); color:white; padding:5px 10px; border-radius:5px; font-size:11px; text-decoration:none; margin-top:5px; font-weight:bold;">🛍️ مین شاپ پر واپس جائیں</a>
   </div>
 
-  <h3 style="color:var(--navy); font-size:15px; text-align:center;">🛍️ تمام دستیاب پروڈکٹس:</h3>
-  <div id="shopProductList">پروڈکٹس لوڈ ہو رہی ہیں...</div>
-</div>
+  <!-- سیلر لاگ ان سیکشن -->
+  <div id="loginBox" class="section-box" style="background:#fff3e0; border-color:var(--orange);">
+    <h3 style="color:var(--orange); margin-top:0; font-size:15px;">🔑 سیلر یا ایڈمن لاگ ان</h3>
+    <input id="loginStoreName" placeholder="اپنا رجسٹرڈ سٹور کا نام درج کریں (مثلاً Shahid Store) *">
+    <input id="loginMobile" placeholder="اپنا واٹس ایپ نمبر درج کریں * (مثلاً 03334664227)">
+    <button class="btn" style="background:var(--orange);" onclick="sellerLogin()">لاگ ان کریں (Login)</button>
+  </div>
 
-<!-- آرڈر چیک آؤٹ موڈل -->
-<div id="orderModal" class="modal">
-  <div class="modal-content">
-    <h3 style="color:var(--navy); text-align:center; margin-top:0;">📦 پروڈکٹ آرڈر فارم</h3>
-    <p id="modalProductName" style="font-weight:bold; color:var(--orange); text-align:center; font-size:14px;"></p>
-    <p id="modalStoreName" style="font-size:12px; color:#555; text-align:center; margin:0 0 10px 0;"></p>
+  <!-- مین ڈیش بورڈ (لاگ ان کے بعد ظاہر ہوگا) -->
+  <div id="dashboardBox" style="display:none;">
     
-    <input id="custName" placeholder="آپ کا نام *">
-    <input id="custPhone" placeholder="فون نمبر / واٹس ایپ نمبر * (مثلاً 03334664227)">
-    <textarea id="custAddress" rows="2" placeholder="مکمل پتہ (چک نمبر، تحصیل، ضلع، ملک) *"></textarea>
-    
-    <label style="font-size:12px; font-weight:bold; color:var(--navy); display:block; margin-top:6px;">پیمنٹ کا طریقہ منتخب کریں (Payment Method):</label>
-    <select id="paymentMethod" onchange="toggleBankDetails()">
-      <option value="Meezan Bank Account">Meezan Bank Account (پاکستان)</option>
-      <option value="JazzCash / Easypaisa">JazzCash / Easypaisa (موبائل والٹ)</option>
-      <option value="Other Local Bank in Pakistan">Pakistan ka Koi Bhi Doosra Bank</option>
-      <option value="International Bank / Visa Card">International Bank / Visa / Master Card (باہر ملک سے)</option>
-      <option value="Cash on Delivery (COD)">Cash on Delivery (ڈلیوری پر نقد)</option>
-    </select>
-
-    <div id="bankInfoBox" style="background:#eef2f7; padding:8px; border-radius:6px; font-size:11px; color:#194376; margin-top:5px; border:1px solid #b0c4de;">
-      <b>بزنس اکاؤنٹ کی تفصیلات:</b><br>
-      میسزان بینک: R.A.W Group Choukira<br>
-      اکاؤنٹ نمبر / IBAN: PK33MEZN0000000000000000<br>
-      JazzCash / Easypaisa: 0333-4664227
+    <!-- سیلر کی اندرونی پالیسی اور ڈویز باکس -->
+    <div class="policy-box">
+      <h3 style="color:var(--orange); margin-top:0; font-size:14px;">📜 سیلرز کے لیے اندرونی شرائط و ضوابط (Seller Dues & Policies):</h3>
+      <ul>
+        <li><b>3% پلیٹ فارم کمیشن:</b> تمام کیش آن ڈلیوری (COD) یا براہ راست فروخت پر کمپنی کا 3% کمیشن لاگو ہوتا ہے۔</li>
+        <li><b>Pending Dues (پینڈنگ واجبات):</b> جو کیش آپ اپنے پاس وصول کرتے ہیں، اس کا کمپنی حصہ آپ کے اکاؤنٹ میں پینڈنگ شو ہوتا ہے۔</li>
+        <li><b>کریڈٹ لمٹ اور وارننگ:</b> اگر پینڈنگ رقم مخصوص حد سے بڑھ جائے اور بروقت جمع نہ کروائی گئی تو اکاؤنٹ بلاک یا قانونی کاروائی کی جا سکتی ہے۔</li>
+      </ul>
+      <div style="background:#ffebee; color:#c62828; padding:8px; border-radius:6px; font-weight:bold; margin-top:8px; text-align:center;">
+        خوش آمدید <span id="activeStoreDisplay" style="color:var(--navy);"></span> | آپ کی طرف کل Pending Dues: <span id="sellerPendingAmount">Rs. 0</span>
+      </div>
     </div>
 
-    <button class="btn" onclick="submitOrder()">🛒 آرڈر کنفرم کریں اور WhatsApp پر بھیجیں</button>
-    <button onclick="closeModal()" style="background:#666; color:white; border:none; width:100%; padding:10px; border-radius:8px; margin-top:6px; cursor:pointer; font-weight:bold;">بند کریں (Cancel)</button>
+    <!-- نئی پروڈکٹ یا سروس شامل کرنے کا فارم -->
+    <div class="section-box">
+      <h3 style="color:var(--navy); margin-top:0; font-size:15px;">➕ نئی پروڈکٹ یا سروس درج کریں</h3>
+      <input id="pName" placeholder="آئٹم کا نام (مثلاً رینٹ اے کار یا پروڈکٹ نام) *">
+      <input id="pPrice" type="number" placeholder="قیمت (PKR میں - سروس کے لیے خالی چھوڑیں)">
+      
+      <select id="pCategory" onchange="checkCategoryType()">
+        <option value="General Products">عام پروڈکٹ (General Products)</option>
+        <option value="Real Estate">رئیل اسٹیٹ (Real Estate - سروس)</option>
+        <option value="Car & Motorcycle">رینٹ اے کار / موٹرسائیکل (Car & Rental - سروس)</option>
+        <option value="Services & offers">دیگر سروسز (Services & Offers)</option>
+      </select>
+
+      <input id="pImage" placeholder="تصویر کا لنک (Image URL) *">
+      <button class="btn" onclick="addNewItem()">🚀 پروڈکٹ / سروس لسٹ کریں</button>
+    </div>
+
+    <!-- سیلر کی اپنی لسٹ کردہ اشیاء -->
+    <div class="section-box">
+      <h3 style="color:var(--navy); margin-top:0; font-size:15px;">📦 آپ کی لسٹ کردہ پروڈکٹس اور سروسز</h3>
+      <div id="sellerItemsList">آئٹمز لوڈ ہو رہی ہیں...</div>
+    </div>
+
+    <button onclick="sellerLogout()" style="background:#666; color:white; border:none; width:100%; padding:10px; border-radius:8px; margin-top:10px; cursor:pointer; font-weight:bold;">لاگ آؤٹ (Logout)</button>
   </div>
+
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = { apiKey: "AIzaSyCV4SuTz7SOhWMkTHEefzCAnQ1DhyMn7wE", authDomain: "raw-group-shop.firebaseapp.com", projectId: "raw-group-shop", storageBucket: "raw-group-shop.firebasestorage.app", messagingSenderId: "488689802066", appId: "1:488689802066:web:1437531e15df63e958388b" };
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let selectedProduct = null;
-const listDiv = document.getElementById('shopProductList');
+let currentSeller = null;
 
-async function loadShopProducts() {
-  listDiv.innerHTML = "پروڈکٹس لوڈ ہو رہی ہیں...";
+window.sellerLogin = function() {
+  let storeName = document.getElementById('loginStoreName').value.trim();
+  let mobile = document.getElementById('loginMobile').value.trim();
+
+  if(!storeName || !mobile) {
+    alert("براہ کرم اپنا سٹور کا نام اور موبائل نمبر درج کریں!");
+    return;
+  }
+
+  currentSeller = { storeName, mobile };
+  localStorage.setItem('raw_seller', JSON.stringify(currentSeller));
+  
+  document.getElementById('loginBox').style.display = 'none';
+  document.getElementById('dashboardBox').style.display = 'block';
+  document.getElementById('activeStoreDisplay').innerText = `(${storeName})`;
+  
+  loadSellerData();
+};
+
+window.sellerLogout = function() {
+  localStorage.removeItem('raw_seller');
+  currentSeller = null;
+  document.getElementById('loginBox').style.display = 'block';
+  document.getElementById('dashboardBox').style.display = 'none';
+};
+
+// چیک کریں کہ آیا پہلے سے لاگ ان ہے
+window.onload = function() {
+  let saved = localStorage.getItem('raw_seller');
+  if(saved) {
+    currentSeller = JSON.parse(saved);
+    document.getElementById('loginBox').style.display = 'none';
+    document.getElementById('dashboardBox').style.display = 'block';
+    document.getElementById('activeStoreDisplay').innerText = `(${currentSeller.storeName})`;
+    loadSellerData();
+  }
+};
+
+window.checkCategoryType = function() {
+  let cat = document.getElementById('pCategory').value;
+  let priceInput = document.getElementById('pPrice');
+  if(cat.includes('Real Estate') || cat.includes('Car') || cat.includes('Services')) {
+    priceInput.placeholder = "سروس کے لیے قیمت کی ضرورت نہیں (انکوائری بیسڈ)";
+  } else {
+    priceInput.placeholder = "قیمت (PKR میں) *";
+  }
+};
+
+async function loadSellerData() {
+  let itemsListDiv = document.getElementById('sellerItemsList');
+  itemsListDiv.innerHTML = "آپ کا ڈیٹا لوڈ ہو رہا ہے...";
+  
+  document.getElementById('sellerPendingAmount').innerText = "Rs. 0 (سب کلیئر ہے)";
+
   try {
-    const snap = await getDocs(collection(db, "products"));
+    const q = query(collection(db, "products"), where("storeName", "==", currentSeller.storeName));
+    const snap = await getDocs(q);
+    
     if(snap.empty) {
-      listDiv.innerHTML = "<p style='text-align:center; color:#666;'>فی الحال کوئی پروڈکٹ دستیاب نہیں ہے۔</p>";
+      itemsListDiv.innerHTML = "<p style='color:#666;'>آپ کی طرف سے فی الحال کوئی آئٹم لسٹ نہیں کی گئی۔</p>";
       return;
     }
-    
-    listDiv.innerHTML = "";
+
+    itemsListDiv.innerHTML = "";
     snap.forEach(d => {
-      let p = { id: d.id, ...d.data() };
-      if(p.isBlocked) return; // بلاک پروڈکٹس شاپ پر شو نہیں ہوں گی
-
-      let img = (p.images && p.images[0]) || 'logo.png';
-      let curr = p.currency || 'Rs.';
-      let dispPrice = p.price !== undefined ? p.price : (p.pricePKR || 0);
-      let storeDisplay = p.storeName || p.sellerName || 'R.A.W Official Store';
-
-      listDiv.innerHTML += `
-        <div class="product-card">
-          <img src="${img}">
-          <div class="p-details">
-            <b style="font-size:14px; color:var(--navy);">${p.name}</b><br>
-            <span style="color:#2e7d32; font-weight:bold;">${curr} ${dispPrice} (PKR: ${p.pricePKR || dispPrice})</span><br>
-            <span style="font-size:11px; color:#555;">🏪 سٹور: <b>${storeDisplay}</b></span><br>
-            <span style="font-size:11px; color:#666;">کیٹیگری: ${p.category}</span><br>
-            <button class="btn-order" onclick='openOrderModal(${JSON.stringify(p)})'>🛒 آرڈر کریں</button>
-          </div>
+      let p = d.data();
+      itemsListDiv.innerHTML += `
+        <div class="item-card">
+          <b>${p.name}</b> (${p.category})<br>
+          <span style="color:#2e7d32; font-weight:bold;">قیمت/تفصیل: ${p.pricePKR ? 'PKR ' + p.pricePKR : 'انکوائری بیسڈ سروس'}</span><br>
+          <span style="color:#555; font-size:11px;">سٹور: ${p.storeName}</span>
         </div>
       `;
     });
   } catch(e) {
-    listDiv.innerHTML = "پروڈکٹس لوڈ کرنے میں خرابی پیش آئی۔";
+    itemsListDiv.innerHTML = "ڈیٹا لوڈ کرنے میں خرابی ہوئی۔ (فائر بیس انڈیکس کی ضرورت ہو سکتی ہے)";
   }
 }
 
-window.openOrderModal = function(p) {
-  selectedProduct = p;
-  document.getElementById('modalProductName').innerText = p.name + ` (${p.currency || 'Rs.'} ${p.price !== undefined ? p.price : p.pricePKR})`;
-  document.getElementById('modalStoreName').innerText = "فراہم کردہ از سٹور: " + (p.storeName || p.sellerName || 'R.A.W Official Store');
-  document.getElementById('orderModal').style.display = 'flex';
-};
+window.addNewItem = async function() {
+  let name = document.getElementById('pName').value.trim();
+  let price = document.getElementById('pPrice').value.trim();
+  let category = document.getElementById('pCategory').value;
+  let image = document.getElementById('pImage').value.trim();
 
-window.closeModal = function() {
-  document.getElementById('orderModal').style.display = 'none';
-  selectedProduct = null;
-};
-
-window.toggleBankDetails = function() {
-  let method = document.getElementById('paymentMethod').value;
-  let box = document.getElementById('bankInfoBox');
-  if(method.includes('Meezan')) {
-    box.innerHTML = `<b>میسزان بینک اکاؤنٹ:</b> R.A.W Group Choukira<br>IBAN: PK33MEZN0000000000000000`;
-  } else if(method.includes('JazzCash')) {
-    box.innerHTML = `<b>موبائل والٹ (JazzCash / Easypaisa):</b> 0333-4664227 (Ejaz Ahmad)`;
-  } else if(method.includes('International')) {
-    box.innerHTML = `<b>انٹرنیشنل کارڈ / گلوبل بینک:</b> پے منٹ لنک آرڈر کنفرم ہونے پر واٹس ایپ پر فراہم کیا جائے گا۔`;
-  } else {
-    box.json = "";
-    box.innerHTML = `<b>Cash on Delivery (COD):</b> پروڈکٹ ملنے پر نقد ادائیگی کریں۔ (نوٹ: اس پر 3% پلیٹ فارم کمیشن لاگو ہوگا)۔`;
+  if(!name || !image) {
+    alert("براہ کرم آئٹم کا نام اور تصویر کا لنک لازمی درج کریں!");
+    return;
   }
-};
 
-window.submitOrder = async function() {
-  let name = document.getElementById('custName').value.trim();
-  let phone = document.getElementById('custPhone').value.trim();
-  let address = document.getElementById('custAddress').value.trim();
-  let paymentMethod = document.getElementById('paymentMethod').value;
+  let isService = category.includes('Real Estate') || category.includes('Car') || category.includes('Services');
 
-  if(!name || !phone || !address) {
-    alert("براہ کرم اپنا نام، فون نمبر اور پتہ مکمل درج کریں!");
+  if(!isService && !price) {
+    alert("براہ کرم پروڈکٹ کی قیمت درج کریں!");
     return;
   }
 
   try {
-    let orderData = {
-      productName: selectedProduct.name,
-      productPrice: selectedProduct.pricePKR || selectedProduct.price || 0,
-      currency: selectedProduct.currency || 'Rs.',
-      storeName: selectedProduct.storeName || selectedProduct.sellerName || 'R.A.W Store',
-      customerName: name,
-      phone: phone,
-      address: address,
-      paymentMethod: paymentMethod,
-      sellerMobile: selectedProduct.mobile || '03334664227',
-      escrowStatus: "Held in Escrow (رقم محفوظ ہے)",
-      payoutStatus: "Pending",
+    await addDoc(collection(db, "products"), {
+      name: name,
+      storeName: currentSeller.storeName,
+      mobile: currentSeller.mobile,
+      pricePKR: price ? Number(price) : 0,
+      currency: "Rs.",
+      category: category,
+      images: [image],
       createdAt: serverTimestamp()
-    };
+    });
 
-    await addDoc(collection(db, "orders"), orderData);
-
-    let msg = `🛍️ *New Global Escrow Order - R.A.W GROUP* 🛍️\n\n` +
-              `📦 *Product:* ${selectedProduct.name}\n` +
-              `🏪 *Store:* ${selectedProduct.storeName || selectedProduct.sellerName || 'R.A.W Store'}\n` +
-              `💰 *Price:* ${selectedProduct.currency || 'Rs.'} ${selectedProduct.price !== undefined ? selectedProduct.price : selectedProduct.pricePKR}\n` +
-              `💳 *Payment Method:* ${paymentMethod}\n` +
-              `👤 *Customer:* ${name}\n` +
-              `📞 *Phone:* ${phone}\n` +
-              `📍 *Address:* ${address}\n` +
-              `🛡️ *Platform Protection:* 3% Escrow Protected Delivery`;
-
-    let adminWa = "923334664227";
-    let waUrl = `https://wa.me/${adminWa}?text=` + encodeURIComponent(msg);
-
-    alert("آپ کا آرڈر کامیابی سے سبمٹ ہو گیا ہے! اب آپ واٹس ایپ پر منتقل ہو رہے ہیں۔");
-    window.open(waUrl, '_blank');
-    closeModal();
-
+    alert("آپ کی پروڈکٹ/سروس کامیابی سے لسٹ کر دی گئی ہے!");
+    document.getElementById('pName').value = '';
+    document.getElementById('pPrice').value = '';
+    document.getElementById('pImage').value = '';
+    loadSellerData();
   } catch(e) {
-    alert("آرڈر سبمٹ کرنے میں مسئلہ ہوا: " + e.message);
+    alert("خرابی پیش آئی: " + e.message);
   }
 };
-
-loadShopProducts();
 </script>
 </body>
 </html>
