@@ -67,28 +67,36 @@ function googleTranslateElementInit() {
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body
-   <style>
-   <style>
+    <style>
 .header-container {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
   background: linear-gradient(135deg, #0f0f2a 0%, #1b263b 50%, #293241 100%) !important;
-  padding: 10px 12px !important;
+  padding: 10px 10px !important;
   width: 100% !important;
   max-width: 100% !important;
   box-sizing: border-box !important;
   flex-wrap: nowrap !important;
   overflow: hidden !important;
 }
-
 .header-left {
   display: flex !important;
   align-items: center !important;
-  flex: 0 0 40px !important;
-  width: 40px !important;
+  flex: 0 0 70px !important;
+  width: 70px !important;
 }
-
+.translate-btn {
+  background: #FFD700 !important;
+  color: #000 !important;
+  border: none !important;
+  border-radius: 20px !important;
+  padding: 6px 8px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+}
 .header-center {
   display: flex !important;
   align-items: center !important;
@@ -96,45 +104,43 @@ function googleTranslateElementInit() {
   flex: 1 1 auto !important;
   text-align: center !important;
   min-width: 0 !important;
-  padding: 0 8px !important;
+  padding: 0 6px !important;
 }
-
 .store-title {
   font-size: 15px !important;
   font-weight: 800 !important;
-  color: #ff5a00 !important;
+  color: #FFD700 !important;
   text-align: center !important;
   margin: 0 !important;
   line-height: 1.2 !important;
-  white-space: normal !important;
 }
-
 .star-icon {
-  color: #ffc400 !important;
+  color: #FFD700 !important;
   font-size: 13px !important;
-   <style>
 }
-
 .header-right {
   display: flex !important;
   align-items: center !important;
   justify-content: flex-end !important;
   gap: 6px !important;
-  flex: 0 0 80px !important;
-  width: 80px !important;
+  flex: 0 0 98px !important;
+  width: 98px !important;
 }
-
 .header-right img {
-  width: 36px !important;
-  height: 36px !important;
+  width: 44px !important;
+  height: 44px !important;
   border-radius: 50% !important;
   object-fit: cover !important;
-  border: 2px solid #ff5a00 !important;
+  background: #fff !important;
+  border: 2px solid #FFD700 !important;
   flex-shrink: 0 !important;
 }
 </style>
+
 <div class="header-container">
-  <div class="header-left"></div>
+  <div class="header-left">
+    <button class="translate-btn" onclick="toggleTranslate()">اردو / EN</button>
+  </div>
   <div class="header-center">
     <h1 class="store-title"><span class="star-icon">★</span> R.A.W GROUP CHOUKIRHA 79 MARKETPLACE <span class="star-icon">★</span></h1>
   </div>
