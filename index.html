@@ -136,7 +136,7 @@ function googleTranslateElementInit() {
 <body>
 <div class="top-bar" style="background:#0a0a1a; display:flex; align-items:center; justify-content:space-between; padding:8px 12px; max-width:1100px; margin:0 auto; width:100%;">
     <div style="display:flex; align-items:center; gap:8px;">
-      <img src="./ejaz.jpg" onerror="this.src='./logo.png';" style="width:42px; height:42px; border-radius:50%; border:2px solid #FFD700; object-fit:cover; background:#fff;">
+      <img src="./ejaz.jpg" onerror="this.src='./logo.png';" style="width:50px; height:50px; border-radius:50%; object-fit:cover; object-position:center; border:2px solid #FFD700;">
       <div style="line-height:1.2;">
         <div style="color:#FFD700; font-size:15px; font-weight:800;">R.A.W GROUP</div>
         <div style="color:#FFD700; font-size:15px; font-weight:800;">CHOUKIRHA 79 SHOP</div>
@@ -181,7 +181,7 @@ function googleTranslateElementInit() {
   <div class="banner">
     <div class="banner-track" id="bannerTrack">
       <div class="banner-slide active">
-        <h3>R.A.W GROUP CHOUKIRH 79</h3>
+        <h3>R.A.W GROUP CHOUKIRHA 79</h3>
         <p>Aapki Apni Online Marketplace & Official Store</p>
       </div>
       <div class="banner-slide">
@@ -205,7 +205,7 @@ function googleTranslateElementInit() {
   </div>
 
   <div style="text-align:center; padding: 25px 10px 15px; font-size:11px; color:#555; background:#fff; margin-top:20px; border-top:1px solid #ddd;">
-    <p>© R.A.W GROUP CHOUKIRH 79. All Rights Reserved.</p>
+    <p>© R.A.W GROUP CHOUKIRHA 79. All Rights Reserved.</p>
   </div>
 </div>
 
@@ -247,7 +247,7 @@ function googleTranslateElementInit() {
       <span style="cursor:pointer; font-size: 18px; color: #555555; font-weight: bold;" onclick="closePrivacyModal()">✕</span>
     </div>
     <div style="font-size: 12px; color: #333; line-height: 1.6; max-height: 280px; overflow-y: auto; background: #fafafa; padding: 10px; border-radius: 6px; border: 1px solid #eee; margin-bottom: 15px;">
-      <p><b>1. Data Security:</b> R.A.W GROUP CHOUKIRH 79 aapki privacy aur data security ka mukammal khayal rakhti hai.</p>
+      <p><b>1. Data Security:</b> R.A.W GROUP CHOUKIRHA 79 aapki privacy aur data security ka mukammal khayal rakhti hai.</p>
       <p style="margin-top: 8px;"><b>2. Secure Payments:</b> Meezan Bank, Payoneer aur secure transactions ke tamam usool yahan laagu hote hain.</p>
       <p style="margin-top: 8px;"><b>3. Safe Delivery:</b> Sargodha aur tamam ilaqon mein safe aur mehfooz delivery faraham ki jati hai.</p>
     </div>
@@ -701,7 +701,7 @@ window.triggerAutomaticOrder = async function(item) {
   const custName = document.getElementById('custName').value.trim() || "Customer";
   const custPhone = document.getElementById('custPhone').value.trim() || "Not Provided";
   const custAddress = document.getElementById('custAddress').value.trim() || "Sargodha";
-
+const paymentMethod = document.getElementById('paymentMethod') ? document.getElementById('paymentMethod').value : 'Cash on Delivery (COD)';
   if(custPhone === "Not Provided") {
     alert_msg = prompt("Apna WhatsApp / Mobile Number likhein taake order confirm ho sake:");
     if(!alert_msg) return;
@@ -717,6 +717,7 @@ window.triggerAutomaticOrder = async function(item) {
       customerName: custName,
       customerPhone: custPhone,
       customerAddress: custAddress,
+      const paymentMethod = document.getElementById('paymentMethod') ? document.getElementById('paymentMethod').value : 'Cash on Delivery (COD)';
       status: "Pending Dispatch",
       createdAt: new Date().toISOString()
     };
@@ -735,6 +736,7 @@ window.triggerAutomaticOrder = async function(item) {
                    `👤 *Customer:* ${custName}%0A` +
                    `📞 *Phone:* ${custPhone}%0A` +
                    `📍 *Address:* ${custAddress}%0A%0A` +
+                    `💵 *Payment Method:* ${document.getElementById('paymentMethod') ? document.getElementById('paymentMethod').value : 'Cash on Delivery (COD)'}%0A` +
                    `_Barah-e-raast yeh order deliver kar dein._`;
 
     // 3. Open WhatsApp automatically directed to Seller/Admin
