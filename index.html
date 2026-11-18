@@ -134,16 +134,20 @@ function googleTranslateElementInit() {
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
-
-<div id="main-shop-view">
-  <div class="top-bar">
-    <div id="google_translate_element"></div>
-    <div class="owner-branding">
-      <img src="./ejaz.jpg" onerror="this.onerror=function(){this.src='./logo.png';}; this.src='./logo.png';" title="Ejaz Ahmad">
-      <img src="./logo.png" onerror="this.style.display='none';" title="R.A.W Group">
+<div class="top-bar" style="background:#0a0a1a; display:flex; align-items:center; justify-content:space-between; padding:8px 12px; max-width:1100px; margin:0 auto; width:100%;">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <img src="./ejaz.jpg" onerror="this.src='./logo.png';" style="width:42px; height:42px; border-radius:50%; border:2px solid #FFD700; object-fit:cover; background:#fff;">
+      <div style="line-height:1.2;">
+        <div style="color:#FFD700; font-size:15px; font-weight:800;">R.A.W GROUP</div>
+        <div style="color:#FFD700; font-size:11px; font-weight:600;">CHOUKIRH 79 SHOP</div>
+        <div style="color:#fff; font-size:10px;">Ijaz - Raw Group Shop</div>
+      </div>
     </div>
-  </div>
-
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div id="google_translate_element"></div>
+      <img src="./logo.png" onerror="this.style.display='none';" style="width:42px; height:42px; border-radius:50%; border:2px solid #FFD700; object-fit:cover; background:#fff;">
+    </div>
+</div>
   <div class="search-bar-row">
     <div class="search-container">
       <input id="search" onkeyup="filterShop()" placeholder="🔍 پروڈکٹ کا نام یا شہر تلاش کریں...">
