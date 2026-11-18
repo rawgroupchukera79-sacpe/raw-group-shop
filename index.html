@@ -68,18 +68,11 @@ function googleTranslateElementInit() {
 </head>
 <body
     <div style="display:flex;align-items:center;justify-content:space-between;background:#0f0f2a;padding:10px;width:100%;box-sizing:border-box;">
-  <div>
-    <button onclick="toggleTranslate()" style="background:#FFD700;color:#000;border:none;border-radius:20px;padding:6px 8px;font-size:11px;font-weight:800;">اردو / EN</button>
-  </div>
-  <div style="flex:1;text-align:center;padding:0 6px;">
-    <h1 id="storeTitle" style="font-size:15px;font-weight:800;color:#FFD700;margin:0;line-height:1.2;">★ R.A.W GROUP CHOUKIRHA 79 MARKETPLACE ★</h1>
-  </div>
-  <div style="display:flex;gap:6px;">
-    <img src="logo.png" alt="Logo" style="width:44px;height:44px;border-radius:50%;object-fit:cover;background:#fff;border:2px solid #FFD700;">
-    <img src="Ejaz.jpg" alt="Ejaz" style="width:44px;height:44px;border-radius:50%;object-fit:cover;background:#fff;border:2px solid #FFD700;">
-  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;background:#0f0f2a;padding:10px;width:100%;box-sizing:border-box;">
+  <div><button onclick="toggleTranslate()" style="background:#FFD700;color:#000;border:none;border-radius:20px;padding:6px 8px;font-size:11px;font-weight:800;">اردو / EN</button></div>
+  <div style="flex:1;text-align:center;padding:0 6px;"><h1 id="storeTitle" style="font-size:15px;font-weight:800;color:#FFD700;margin:0;line-height:1.2;">★ R.A.W GROUP CHOUKIRHA 79 MARKETPLACE ★</h1></div>
+  <div style="display:flex;gap:6px;"><img src="logo.png" style="width:44px;height:44px;border-radius:50%;object-fit:cover;background:#fff;border:2px solid #FFD700;"><img src="Ejaz.jpg" style="width:44px;height:44px;border-radius:50%;object-fit:cover;background:#fff;border:2px solid #FFD700;"></div>
 </div>
-  <div class="search-bar-row">
     <div class="search-container">
       <input id="search" onkeyup="filterShop()" placeholder="🔍 پروڈکٹ کا نام یا شہر تلاش کریں...">
       <button class="camera-search-btn" onclick="triggerVisualSearch()">📷<input type="file" id="visualSearchInput" accept="image/*" style="display: none;" onchange="handleVisualSearch(event)"></button>
