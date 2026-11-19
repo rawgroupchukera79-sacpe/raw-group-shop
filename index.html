@@ -706,7 +706,6 @@ window.triggerAutomaticOrder = async function(item) {
   const custName = document.getElementById('custName').value.trim() || "Customer";
   const custPhone = document.getElementById('custPhone').value.trim() || "Not Provided";
   const custAddress = document.getElementById('custAddress').value.trim() || "Sargodha";
-const paymentMethod = document.getElementById('paymentMethod') ? document.getElementById('paymentMethod').value : 'Cash on Delivery (COD)';
   if(custPhone === "Not Provided") {
     alert_msg = prompt("Apna WhatsApp / Mobile Number likhein taake order confirm ho sake:");
     if(!alert_msg) return;
