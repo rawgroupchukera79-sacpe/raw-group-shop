@@ -712,40 +712,48 @@ window.triggerAutomaticOrder = async function(item) {
   }
 
   try {
-    // 1. Save Order to Firebase Database (Tracker System)
-    const orderData = {
-      productName: item.name || item.title,
-      price: item.pricePKR || item.price || "N/A",
-      sellerMobile: item.mobile || ADMIN_MOBILE,
-      sellerName: item.sellerName || "R.A.W Group",
-      customerName: custName,
-      customerPhone: custPhone,
-      customerAddress: custAddress,
-       paymentMethod: document.getElementById('paymentMethod') ? document.getElementById('paymentMethod').value : 'Cash on Delivery (COD)',
+    try {
+      // 1. Save Order to Firebase Database (Tracker System)
+      const generatedOrderId = "RAW-" + Date.now().toString().slice(-6);
+      const custPaymentMethod = document.getElementById('paymentMethod')
+        ? document.getElementById('paymentMethod').value
+        : "Cash on Delivery (COD)";
 
-      status: "Pending Dispatch",
-      createdAt: new Date().toISOString()
-    };
+      const orderData = {
+        orderId: generatedOrderId,
+        productName: item.name || item.title,
+        price: item.pricePKR || item.price || "N/A",
+        sellerMobile: item.mobile || ADMIN_MOBILE,
+        sellerName: item.sellerName || "R.A.W Group",
+        customerName: custName,
+        customerPhone: custPhone,
+        customerAddress: custAddress,
+        paymentMethod: custPaymentMethod,
+        status: "Pending Dispatch",
+        createdAt: new Date().toISOString()
+      };
 
-    await addDoc(collection(db, "orders"), orderData);
+      await addDoc(collection(db, "orders"), orderData);
 
-    // 2. Prepare Automatic WhatsApp Message for Admin & Seller
-    let sellerWhatsApp = item.mobile || ADMIN_MOBILE;
-    // Clean phone number format for WhatsApp link
-    sellerWhatsApp = sellerWhatsApp.replace(/[^0-9]/g, '');
-    if(sellerWhatsApp.startsWith('0')) sellerWhatsApp = '92' + sellerWhatsApp.substring(1);
+      // 2. Prepare Automatic WhatsApp Message for Main Admin (with Seller WhatsApp Number)
+      let adminWhatsApp = String(ADMIN_MOBILE || '').replace(/\D/g, '');
+      if (adminWhatsApp.startsWith('0')) adminWhatsApp = '92' + adminWhatsApp.substring(1);
 
-    let orderMsg = `📢 *New Order Received - R.A.W Group*%0A%0A` +
-                   `📦 *Product:* ${item.name || item.title}%0A` +
-                   `💰 *Price:* Rs. ${item.pricePKR || item.price || 0}%0A` +
-                   `👤 *Customer:* ${custName}%0A` +
-                   `📞 *Phone:* ${custPhone}%0A` +
-                   `📍 *Address:* ${custAddress}%0A%0A` +
-                    `💵 *Payment Method:* ${document.getElementById('paymentMethod') ? document.getElementById('paymentMethod').value : 'Cash on Delivery (COD)'}%0A` +
-                   `_Barah-e-raast yeh order deliver kar dein._`;
+      let sellerWhatsAppNo = String(item.mobile || item.sellerPhone || item.whatsapp || 'N/A').replace(/\D/g, '');
+      if (sellerWhatsAppNo.startsWith('0')) sellerWhatsAppNo = '92' + sellerWhatsAppNo.substring(1);
 
-    // 3. Open WhatsApp automatically directed to Seller/Admin
-    window.open(`https://wa.me/${sellerWhatsApp}?text=${orderMsg}`, '_blank');
+      let orderMsg = `🛍️ *New Order (Admin Verification) - R.A.W GROUP* 🛍️%0A` +
+        `🆔 *Order ID:* ${generatedOrderId}%0A` +
+        `📲 *Seller WhatsApp:* +${sellerWhatsAppNo}%0A` +
+        `📦 *Product:* ${item.name || item.title}%0A` +
+        `💰 *Price:* Rs. ${item.pricePKR || item.price || 0}%0A` +
+        `👤 *Customer:* ${custName}%0A` +
+        `📞 *Phone:* ${custPhone}%0A` +
+        `📍 *Live Google Location / Address:* ${custAddress}%0A` +
+        `💳 *Payment Method:* ${custPaymentMethod}`;
+
+      // 3. Open WhatsApp automatically directed to Main Admin first
+      window.open(`https://wa.me/${adminWhatsApp}?text=${orderMsg}`, '_blank');
 
     alert("✅ آپ کا آرڈر کامیابی سے فائر بیس میں محفوظ ہو گیا ہے اور متعلقہ سیلر کو خودکار واٹس ایپ پیغام بھیج دیا گیا ہے!");
     closeProductDetailModal();
