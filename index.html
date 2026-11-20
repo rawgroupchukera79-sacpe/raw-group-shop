@@ -703,64 +703,77 @@ function renderCartItems() {
 
 // AUTOMATIC ORDER SYSTEM (Firebase Save + Admin WhatsApp + Seller Auto-Forward)
 window.triggerAutomaticOrder = async function(item) {
-  const custName = document.getElementById('custName').value.trim() || "Customer";
-  const custPhone = document.getElementById('custPhone').value.trim() || "Not Provided";
-  const custAddress = document.getElementById('custAddress').value.trim() || "Sargodha";
-  if(custPhone === "Not Provided") {
-    let alert_msg = prompt("Apna WhatsApp / Mobile Number likhein taake order confirm ho sake:");
-    if(!alert_msg) return;
+  const safeItem = item || {};
+  const custName = document.getElementById('custName')?.value.trim() || "Customer";
+  let custPhone = document.getElementById('custPhone')?.value.trim() || "Not Provided";
+  const custAddress = document.getElementById('custAddress')?.value.trim() || "Sargodha";
+  const mapLocationVal = (
+    document.getElementById('mapLocation')?.value ||
+    document.getElementById('googleMapLocation')?.value ||
+    document.getElementById('liveLocation')?.value ||
+    ""
+  ).trim();
+
+  if (custPhone === "Not Provided") {
+    const enteredPhone = prompt("Apna WhatsApp / Mobile Number likhein taake order confirm ho sake:");
+    if (!enteredPhone || !enteredPhone.trim()) return;
+    custPhone = enteredPhone.trim();
   }
 
-  if (!alert_msg) return;
-
   try {
-    // 1. Save Order to Firebase Database (Tracker System)
-    const generatedOrderId = "RAW-" + Date.now().toString().slice(-6);
-    const custPaymentMethod = document.getElementById('paymentMethod')
+    const orderId = "RAW-" + Date.now().toString().slice(-6);
+    const paymentVal = document.getElementById('paymentMethod')
       ? document.getElementById('paymentMethod').value
       : "Cash on Delivery (COD)";
+    const finalMapInfo = mapLocationVal || custAddress;
+
+    let adminWhatsApp = String(ADMIN_MOBILE || '').replace(/\D/g, '');
+    if (adminWhatsApp.startsWith('0')) adminWhatsApp = '92' + adminWhatsApp.substring(1);
+
+    let sellerWhatsAppNo = String(safeItem.mobile || safeItem.sellerPhone || safeItem.whatsapp || 'N/A').replace(/\D/g, '');
+    if (sellerWhatsAppNo.startsWith('0')) sellerWhatsAppNo = '92' + sellerWhatsAppNo.substring(1);
 
     const orderData = {
-      orderId: generatedOrderId,
-      productName: item.name || item.title,
-      price: item.pricePKR || item.price || "N/A",
-      sellerMobile: item.mobile || ADMIN_MOBILE,
-      sellerName: item.sellerName || "R.A.W Group",
+      orderId: orderId,
+      productName: safeItem.name || safeItem.title || "Product",
+      price: safeItem.pricePKR || safeItem.price || 0,
+      sellerMobile: sellerWhatsAppNo,
+      sellerName: safeItem.sellerName || "R.A.W Group",
       customerName: custName,
       customerPhone: custPhone,
       customerAddress: custAddress,
-      paymentMethod: custPaymentMethod,
+      googleMapLocation: finalMapInfo,
+      paymentMethod: paymentVal,
       status: "Pending Dispatch",
       createdAt: new Date().toISOString()
     };
 
-    await addDoc(collection(db, "orders"), orderData);
+    if (typeof addDoc === "function" && typeof collection === "function" && typeof db !== "undefined") {
+      await addDoc(collection(db, "orders"), orderData);
+    }
 
-    // 2. Prepare Automatic WhatsApp Message for Main Admin (with Seller WhatsApp Number)
-    let adminWhatsApp = String(ADMIN_MOBILE || '').replace(/\D/g, '');
-    if (adminWhatsApp.startsWith('0')) adminWhatsApp = '92' + adminWhatsApp.substring(1);
-
-    let sellerWhatsAppNo = String(item.mobile || item.sellerPhone || item.whatsapp || 'N/A').replace(/\D/g, '');
-    if (sellerWhatsAppNo.startsWith('0')) sellerWhatsAppNo = '92' + sellerWhatsAppNo.substring(1);
-
-    let orderMsg = `🛍️ *New Order (Admin Verification) - R.A.W GROUP* 🛍️%0A` +
-      `🆔 *Order ID:* ${generatedOrderId}%0A` +
+    const orderMsg =
+      `🛍️ *New Order - R.A.W GROUP* 🛍️%0A` +
+      `🆔 *Order ID:* ${orderId}%0A` +
       `📲 *Seller WhatsApp:* +${sellerWhatsAppNo}%0A` +
-      `📦 *Product:* ${item.name || item.title}%0A` +
-      `💰 *Price:* Rs. ${item.pricePKR || item.price || 0}%0A` +
+      `📦 *Product:* ${safeItem.name || safeItem.title || "Product"}%0A` +
+      `💰 *Price:* Rs. ${safeItem.pricePKR || safeItem.price || 0}%0A` +
       `👤 *Customer:* ${custName}%0A` +
       `📞 *Phone:* ${custPhone}%0A` +
-      `📍 *Live Google Location / Address:* ${custAddress}%0A` +
-      `💳 *Payment Method:* ${custPaymentMethod}`;
+      `🗺️ *Google Map / Address:* ${finalMapInfo}%0A` +
+      `💳 *Payment:* ${paymentVal}`;
 
-    // 3. Open WhatsApp automatically directed to Main Admin first
-    window.open(`https://wa.me/${adminWhatsApp}?text=${orderMsg}`, '_blank');
+    const waUrl = `https://wa.me/${adminWhatsApp}?text=${orderMsg}`;
+    const win = window.open(waUrl, '_blank');
+    if (!win) {
+      window.location.href = waUrl;
+    }
 
-    alert("✅ آپ کا آرڈر کامیابی سے فائر بیس میں محفوظ ہو گیا ہے اور متعلقہ سیلر کو خودکار واٹس ایپ پیغام بھیج دیا گیا ہے۔");
+    alert("✅ آپ کا آرڈر محفوظ ہو گیا ہے اور مین ایڈمن واٹس ایپ پر پیغام کھول دیا گیا ہے۔");
     if (typeof closeProductDetailModal === 'function') closeProductDetailModal();
     if (typeof closeCartModal === 'function') closeCartModal();
   } catch (err) {
-    alert("❌ آرڈر پلیس کرنے میں تکنیکی مسئلہ پیش آیا، براہِ کرم دوبارہ کوشش کریں۔");
+    alert("❌ آرڈر پلیس کرنے میں مسئلہ پیش آیا، براہِ کرم دوبارہ کوشش کریں۔");
   }
 };
 
