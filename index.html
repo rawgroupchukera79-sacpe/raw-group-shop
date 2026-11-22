@@ -844,6 +844,71 @@ window.openAdModalFromDashboard = function() {
   document.getElementById('ad-submission-modal').style.display = 'flex';
 };
 window.closeAdModal = () => document.getElementById('ad-submission-modal').style.display = 'none';
+function renderHeaderCustomerName(name) {
+  const cleanName = (name || "").trim();
+  const badge = document.getElementById("headerCustomerNameBadge");
+  if (!badge) return;
+
+  if (cleanName) {
+    badge.textContent = "👤 " + cleanName;
+    badge.style.display = "inline-flex";
+  } else {
+    badge.textContent = "";
+    badge.style.display = "none";
+  }
+}
+
+window.saveCustomerProfile = async function() {
+  const fullName = document.getElementById("custName")?.value.trim() || "";
+  const phone = document.getElementById("custPhone")?.value.trim() || "";
+  const address = document.getElementById("custAddress")?.value.trim() || "";
+
+  if (!fullName || !phone || !address) {
+    alert("براہِ کرم نام، موبائل/واٹس ایپ نمبر اور ڈیلیوری ایڈریس مکمل لکھیں۔");
+    return;
+  }
+
+  const profileData = {
+    fullName: fullName,
+    phone: phone,
+    address: address,
+    updatedAt: new Date().toISOString()
+  };
+
+  try {
+    localStorage.setItem("raw_customer_profile", JSON.stringify(profileData));
+    localStorage.removeItem("raw_customer_photo");
+
+    if (typeof addDoc === "function" && typeof collection === "function" && typeof db !== "undefined") {
+      await addDoc(collection(db, "customerProfiles"), profileData);
+    }
+
+    renderHeaderCustomerName(fullName);
+    if (typeof closeCustomerAccountModal === "function") {
+      closeCustomerAccountModal();
+    }
+    alert("✅ آپ کا اکاؤنٹ محفوظ ہو گیا ہے۔");
+  } catch (err) {
+    alert("❌ اکاؤنٹ محفوظ کرنے میں مسئلہ پیش آیا، دوبارہ کوشش کریں۔");
+  }
+};
+
+(function loadSavedCustomerProfile() {
+  try {
+    const savedRaw = localStorage.getItem("raw_customer_profile");
+    if (!savedRaw) return;
+    const savedProfile = JSON.parse(savedRaw);
+    if (savedProfile?.fullName) {
+      renderHeaderCustomerName(savedProfile.fullName);
+      const nameEl = document.getElementById("custName");
+      const phoneEl = document.getElementById("custPhone");
+      const addrEl = document.getElementById("custAddress");
+      if (nameEl && !nameEl.value) nameEl.value = savedProfile.fullName;
+      if (phoneEl && !phoneEl.value) phoneEl.value = savedProfile.phone || "";
+      if (addrEl && !addrEl.value) addrEl.value = savedProfile.address || "";
+    }
+  } catch (e) {}
+})();
 
 window.onload = () => loadApprovedProducts();
 </script>
