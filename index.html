@@ -682,10 +682,26 @@ window.closeProductDetailModal = () => document.getElementById('product-detail-m
 
 function renderCartItems() {
   const container = document.getElementById('cartItemsContainer');
-  if(cartItems.length === 0) {
+  const checkoutBtn = document.getElementById('cartCheckoutBtn');
+
+  if (cartItems.length === 0) {
     container.innerHTML = `<p style="text-align: center; color: #777; font-size: 13px; margin-top: 30px;">آپ کی کارٹ فی الحال خالی ہے۔</p>`;
+    if (checkoutBtn) {
+      checkoutBtn.disabled = true;
+      checkoutBtn.style.background = '#9e9e9e';
+      checkoutBtn.style.cursor = 'not-allowed';
+      checkoutBtn.style.opacity = '0.75';
+    }
     return;
   }
+
+  if (checkoutBtn) {
+    checkoutBtn.disabled = false;
+    checkoutBtn.style.background = '#28a745';
+    checkoutBtn.style.cursor = 'pointer';
+    checkoutBtn.style.opacity = '1';
+  }
+
   container.innerHTML = "";
   cartItems.forEach((ci, idx) => {
     container.innerHTML += `
@@ -695,6 +711,7 @@ function renderCartItems() {
       </div>`;
   });
 }
+
 
 // AUTOMATIC ORDER SYSTEM (Firebase Save + Admin WhatsApp + Seller Auto-Forward)
 window.triggerAutomaticOrder = async function(item) {
